@@ -1,0 +1,30 @@
+{
+  "hit_rate": 0.4,
+  "false_initiation_rate_per_hour": 24.466019417475728,
+  "median_time_to_notice_s": 200.0,
+  "total_notifications": 9,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "deadline",
+      "notification_sim_time": 600.0,
+      "time_to_notice_s": 200.0
+    },
+    {
+      "event_id": "dentist_cancel",
+      "notification_sim_time": 900.0,
+      "time_to_notice_s": 200.0
+    }
+  ],
+  "misses": [
+    "fire_alarm",
+    "flight_delay",
+    "meeting_moved"
+  ],
+  "agent_name": "cron_keyword_300s",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1030.0,
+  "trace_name": "dev_v2"
+}

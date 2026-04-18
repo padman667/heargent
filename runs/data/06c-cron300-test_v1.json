@@ -1,0 +1,30 @@
+{
+  "hit_rate": 0.4,
+  "false_initiation_rate_per_hour": 25.714285714285715,
+  "median_time_to_notice_s": 250.0,
+  "total_notifications": 9,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "rent_due",
+      "notification_sim_time": 600.0,
+      "time_to_notice_s": 250.0
+    },
+    {
+      "event_id": "kid_school_pickup",
+      "notification_sim_time": 600.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "package_arrival",
+    "doctor_callback",
+    "server_outage"
+  ],
+  "agent_name": "cron_keyword_300s",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 980.0,
+  "trace_name": "test_v1"
+}

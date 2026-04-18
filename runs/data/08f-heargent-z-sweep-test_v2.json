@@ -1,0 +1,284 @@
+[
+  {
+    "mode": "inverted",
+    "z_thr": 0.0,
+    "hit": 0.4,
+    "false_h": 7.5,
+    "ttn": 0.0,
+    "notifs": 4,
+    "hits": [
+      "board_meeting",
+      "water_burst"
+    ],
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1902,
+      "completion_tokens": 112,
+      "total_duration_s": 4.243750708
+    }
+  },
+  {
+    "mode": "inverted",
+    "z_thr": 0.25,
+    "hit": 0.4,
+    "false_h": 7.5,
+    "ttn": 0.0,
+    "notifs": 4,
+    "hits": [
+      "board_meeting",
+      "water_burst"
+    ],
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1902,
+      "completion_tokens": 112,
+      "total_duration_s": 4.107379541
+    }
+  },
+  {
+    "mode": "inverted",
+    "z_thr": 0.5,
+    "hit": 0.4,
+    "false_h": 7.5,
+    "ttn": 0.0,
+    "notifs": 4,
+    "hits": [
+      "board_meeting",
+      "water_burst"
+    ],
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1902,
+      "completion_tokens": 112,
+      "total_duration_s": 4.106899917
+    }
+  },
+  {
+    "mode": "inverted",
+    "z_thr": 0.75,
+    "hit": 0.4,
+    "false_h": 7.5,
+    "ttn": 0.0,
+    "notifs": 4,
+    "hits": [
+      "board_meeting",
+      "water_burst"
+    ],
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1902,
+      "completion_tokens": 112,
+      "total_duration_s": 4.142287665
+    }
+  },
+  {
+    "mode": "inverted",
+    "z_thr": 1.0,
+    "hit": 0.4,
+    "false_h": 7.5,
+    "ttn": 0.0,
+    "notifs": 4,
+    "hits": [
+      "board_meeting",
+      "water_burst"
+    ],
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1902,
+      "completion_tokens": 112,
+      "total_duration_s": 4.08996154
+    }
+  },
+  {
+    "mode": "forward",
+    "z_thr": 0.0,
+    "hit": 0.6,
+    "false_h": 15.0,
+    "ttn": 0.0,
+    "notifs": 7,
+    "hits": [
+      "fire_kitchen",
+      "er_call",
+      "security_breach"
+    ],
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1902,
+      "completion_tokens": 112,
+      "total_duration_s": 4.134758292
+    }
+  },
+  {
+    "mode": "forward",
+    "z_thr": 0.25,
+    "hit": 0.6,
+    "false_h": 15.0,
+    "ttn": 0.0,
+    "notifs": 7,
+    "hits": [
+      "fire_kitchen",
+      "er_call",
+      "security_breach"
+    ],
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1902,
+      "completion_tokens": 112,
+      "total_duration_s": 4.088827833
+    }
+  },
+  {
+    "mode": "forward",
+    "z_thr": 0.5,
+    "hit": 0.4,
+    "false_h": 15.0,
+    "ttn": 0.0,
+    "notifs": 6,
+    "hits": [
+      "fire_kitchen",
+      "er_call"
+    ],
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1902,
+      "completion_tokens": 112,
+      "total_duration_s": 4.097178584
+    }
+  },
+  {
+    "mode": "forward",
+    "z_thr": 0.75,
+    "hit": 0.4,
+    "false_h": 15.0,
+    "ttn": 0.0,
+    "notifs": 6,
+    "hits": [
+      "fire_kitchen",
+      "er_call"
+    ],
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1902,
+      "completion_tokens": 112,
+      "total_duration_s": 4.112330958
+    }
+  },
+  {
+    "mode": "forward",
+    "z_thr": 1.0,
+    "hit": 0.2,
+    "false_h": 7.5,
+    "ttn": 0.0,
+    "notifs": 3,
+    "hits": [
+      "er_call"
+    ],
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1902,
+      "completion_tokens": 112,
+      "total_duration_s": 4.143841332
+    }
+  },
+  {
+    "mode": "abs",
+    "z_thr": 0.0,
+    "hit": 1.0,
+    "false_h": 15.0,
+    "ttn": 0.0,
+    "notifs": 9,
+    "hits": [
+      "fire_kitchen",
+      "board_meeting",
+      "water_burst",
+      "er_call",
+      "security_breach"
+    ],
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1902,
+      "completion_tokens": 112,
+      "total_duration_s": 4.113249417
+    }
+  },
+  {
+    "mode": "abs",
+    "z_thr": 0.25,
+    "hit": 1.0,
+    "false_h": 15.0,
+    "ttn": 0.0,
+    "notifs": 9,
+    "hits": [
+      "fire_kitchen",
+      "board_meeting",
+      "water_burst",
+      "er_call",
+      "security_breach"
+    ],
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1902,
+      "completion_tokens": 112,
+      "total_duration_s": 4.119715876
+    }
+  },
+  {
+    "mode": "abs",
+    "z_thr": 0.5,
+    "hit": 0.8,
+    "false_h": 15.0,
+    "ttn": 0.0,
+    "notifs": 8,
+    "hits": [
+      "fire_kitchen",
+      "board_meeting",
+      "water_burst",
+      "er_call"
+    ],
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1902,
+      "completion_tokens": 112,
+      "total_duration_s": 4.152086542
+    }
+  },
+  {
+    "mode": "abs",
+    "z_thr": 0.75,
+    "hit": 0.8,
+    "false_h": 15.0,
+    "ttn": 0.0,
+    "notifs": 8,
+    "hits": [
+      "fire_kitchen",
+      "board_meeting",
+      "water_burst",
+      "er_call"
+    ],
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1902,
+      "completion_tokens": 112,
+      "total_duration_s": 4.13342921
+    }
+  },
+  {
+    "mode": "abs",
+    "z_thr": 1.0,
+    "hit": 0.6,
+    "false_h": 7.5,
+    "ttn": 0.0,
+    "notifs": 5,
+    "hits": [
+      "board_meeting",
+      "water_burst",
+      "er_call"
+    ],
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1902,
+      "completion_tokens": 112,
+      "total_duration_s": 4.149345959
+    }
+  }
+]

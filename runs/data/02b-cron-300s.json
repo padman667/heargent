@@ -1,0 +1,39 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 180.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "hits": [
+    {
+      "event_id": "flight_delay",
+      "notification_sim_time": 300.0,
+      "time_to_notice_s": 290.0
+    },
+    {
+      "event_id": "meeting_moved",
+      "notification_sim_time": 300.0,
+      "time_to_notice_s": 240.0
+    },
+    {
+      "event_id": "weather_alert",
+      "notification_sim_time": 300.0,
+      "time_to_notice_s": 180.0
+    },
+    {
+      "event_id": "deadline",
+      "notification_sim_time": 300.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "dentist_cancel",
+      "notification_sim_time": 600.0,
+      "time_to_notice_s": 120.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "cron_keyword_300s",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 930.0
+}

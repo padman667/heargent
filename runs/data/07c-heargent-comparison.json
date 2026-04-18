@@ -1,0 +1,172 @@
+{
+  "heargent_z_dev_v2": {
+    "hit_rate": 1.0,
+    "false_initiation_rate_per_hour": 0.0,
+    "median_time_to_notice_s": 0.0,
+    "total_notifications": 5,
+    "total_events": 5,
+    "total_distractors": 4,
+    "hits": [
+      {
+        "event_id": "fire_alarm",
+        "notification_sim_time": 5.0,
+        "time_to_notice_s": 0.0
+      },
+      {
+        "event_id": "flight_delay",
+        "notification_sim_time": 35.0,
+        "time_to_notice_s": 0.0
+      },
+      {
+        "event_id": "meeting_moved",
+        "notification_sim_time": 100.0,
+        "time_to_notice_s": 0.0
+      },
+      {
+        "event_id": "deadline",
+        "notification_sim_time": 400.0,
+        "time_to_notice_s": 0.0
+      },
+      {
+        "event_id": "dentist_cancel",
+        "notification_sim_time": 700.0,
+        "time_to_notice_s": 0.0
+      }
+    ],
+    "misses": [],
+    "agent_name": "heargent_z_thr0.00_w16",
+    "cost_usd": 0.0,
+    "tick_dt_s": 5.0,
+    "trace_duration_s": 1030.0,
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 2065,
+      "completion_tokens": 155,
+      "total_duration_s": 12.87182775
+    }
+  },
+  "heargent_abs_dev_v2": {
+    "hit_rate": 1.0,
+    "false_initiation_rate_per_hour": 0.0,
+    "median_time_to_notice_s": 0.0,
+    "total_notifications": 5,
+    "total_events": 5,
+    "total_distractors": 4,
+    "hits": [
+      {
+        "event_id": "fire_alarm",
+        "notification_sim_time": 5.0,
+        "time_to_notice_s": 0.0
+      },
+      {
+        "event_id": "flight_delay",
+        "notification_sim_time": 35.0,
+        "time_to_notice_s": 0.0
+      },
+      {
+        "event_id": "meeting_moved",
+        "notification_sim_time": 100.0,
+        "time_to_notice_s": 0.0
+      },
+      {
+        "event_id": "deadline",
+        "notification_sim_time": 400.0,
+        "time_to_notice_s": 0.0
+      },
+      {
+        "event_id": "dentist_cancel",
+        "notification_sim_time": 700.0,
+        "time_to_notice_s": 0.0
+      }
+    ],
+    "misses": [],
+    "agent_name": "heargent_v1_inv_theta0.43",
+    "cost_usd": 0.0,
+    "tick_dt_s": 5.0,
+    "trace_duration_s": 1030.0,
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 2065,
+      "completion_tokens": 155,
+      "total_duration_s": 13.122412791
+    }
+  },
+  "heargent_z_test_v1": {
+    "hit_rate": 0.8,
+    "false_initiation_rate_per_hour": 7.346938775510205,
+    "median_time_to_notice_s": 0.0,
+    "total_notifications": 6,
+    "total_events": 5,
+    "total_distractors": 4,
+    "hits": [
+      {
+        "event_id": "package_arrival",
+        "notification_sim_time": 15.0,
+        "time_to_notice_s": 0.0
+      },
+      {
+        "event_id": "doctor_callback",
+        "notification_sim_time": 80.0,
+        "time_to_notice_s": 0.0
+      },
+      {
+        "event_id": "server_outage",
+        "notification_sim_time": 95.0,
+        "time_to_notice_s": 0.0
+      },
+      {
+        "event_id": "kid_school_pickup",
+        "notification_sim_time": 600.0,
+        "time_to_notice_s": 0.0
+      }
+    ],
+    "misses": [
+      "rent_due"
+    ],
+    "agent_name": "heargent_z_thr0.00_w16",
+    "cost_usd": 0.0,
+    "tick_dt_s": 5.0,
+    "trace_duration_s": 980.0,
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1952,
+      "completion_tokens": 128,
+      "total_duration_s": 12.338753334
+    }
+  },
+  "heargent_abs_test_v1": {
+    "hit_rate": 0.4,
+    "false_initiation_rate_per_hour": 3.6734693877551026,
+    "median_time_to_notice_s": 0.0,
+    "total_notifications": 3,
+    "total_events": 5,
+    "total_distractors": 4,
+    "hits": [
+      {
+        "event_id": "doctor_callback",
+        "notification_sim_time": 80.0,
+        "time_to_notice_s": 0.0
+      },
+      {
+        "event_id": "server_outage",
+        "notification_sim_time": 95.0,
+        "time_to_notice_s": 0.0
+      }
+    ],
+    "misses": [
+      "package_arrival",
+      "rent_due",
+      "kid_school_pickup"
+    ],
+    "agent_name": "heargent_v1_inv_theta0.43",
+    "cost_usd": 0.0,
+    "tick_dt_s": 5.0,
+    "trace_duration_s": 980.0,
+    "llm_stats": {
+      "calls": 9,
+      "prompt_tokens": 1952,
+      "completion_tokens": 128,
+      "total_duration_s": 12.407375669
+    }
+  }
+}

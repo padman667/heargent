@@ -1,0 +1,34 @@
+{
+  "hit_rate": 0.6,
+  "false_initiation_rate_per_hour": 22.5,
+  "median_time_to_notice_s": 50.0,
+  "total_notifications": 9,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "board_meeting",
+      "notification_sim_time": 300.0,
+      "time_to_notice_s": 50.0
+    },
+    {
+      "event_id": "er_call",
+      "notification_sim_time": 600.0,
+      "time_to_notice_s": 50.0
+    },
+    {
+      "event_id": "security_breach",
+      "notification_sim_time": 900.0,
+      "time_to_notice_s": 150.0
+    }
+  ],
+  "misses": [
+    "fire_kitchen",
+    "water_burst"
+  ],
+  "agent_name": "cron_keyword_300s",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 960.0,
+  "trace_name": "test_v2"
+}

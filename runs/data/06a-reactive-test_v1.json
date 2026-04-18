@@ -1,0 +1,21 @@
+{
+  "hit_rate": 0.0,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": null,
+  "total_notifications": 0,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [],
+  "misses": [
+    "package_arrival",
+    "doctor_callback",
+    "server_outage",
+    "rent_due",
+    "kid_school_pickup"
+  ],
+  "agent_name": "reactive",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 980.0,
+  "trace_name": "test_v1"
+}

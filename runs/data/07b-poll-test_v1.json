@@ -1,0 +1,47 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "package_arrival",
+      "notification_sim_time": 15.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "doctor_callback",
+      "notification_sim_time": 80.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "server_outage",
+      "notification_sim_time": 95.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "rent_due",
+      "notification_sim_time": 350.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "kid_school_pickup",
+      "notification_sim_time": 600.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "react_poll_local",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 980.0,
+  "llm_stats": {
+    "calls": 196,
+    "prompt_tokens": 37476,
+    "completion_tokens": 398,
+    "total_duration_s": 139.222228835
+  },
+  "trace_name": "test_v1"
+}

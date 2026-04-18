@@ -1,0 +1,65 @@
+[
+  {
+    "t": 10.0,
+    "id": "daily_briefing",
+    "is_gt": false,
+    "surprise": 0.3762,
+    "pred": "No notable events expected in the next minute."
+  },
+  {
+    "t": 60.0,
+    "id": "status_ok",
+    "is_gt": false,
+    "surprise": 0.4778,
+    "pred": "No notable events expected in the next minute."
+  },
+  {
+    "t": 85.0,
+    "id": "uptime_ping",
+    "is_gt": false,
+    "surprise": 0.4668,
+    "pred": "No notable events expected in the next minute."
+  },
+  {
+    "t": 95.0,
+    "id": "fire_kitchen",
+    "is_gt": true,
+    "surprise": 0.4822,
+    "pred": "No notable events expected in the next minute."
+  },
+  {
+    "t": 250.0,
+    "id": "board_meeting",
+    "is_gt": true,
+    "surprise": 0.3955,
+    "pred": "FIRE continues to escalate with potential for rapid spread and injury."
+  },
+  {
+    "t": 350.0,
+    "id": "newsletter",
+    "is_gt": false,
+    "surprise": 0.4749,
+    "pred": "FIRE detected in kitchen; evacuation ongoing."
+  },
+  {
+    "t": 400.0,
+    "id": "water_burst",
+    "is_gt": true,
+    "surprise": 0.3552,
+    "pred": "FIRE detected in kitchen; evacuate immediately."
+  },
+  {
+    "t": 550.0,
+    "id": "er_call",
+    "is_gt": true,
+    "surprise": 0.4909,
+    "pred": "Emergency response team dispatched for main water line burst in apartment 3B."
+  },
+  {
+    "t": 750.0,
+    "id": "security_breach",
+    "is_gt": true,
+    "surprise": 0.4645,
+    "pred": "Emergency response team dispatched due to main water line burst in apartment 3B,"
+  }
+]

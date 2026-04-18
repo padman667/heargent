@@ -1,0 +1,47 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "fire_kitchen",
+      "notification_sim_time": 95.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "board_meeting",
+      "notification_sim_time": 250.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "water_burst",
+      "notification_sim_time": 400.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "er_call",
+      "notification_sim_time": 550.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "security_breach",
+      "notification_sim_time": 750.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "react_poll_local",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 960.0,
+  "llm_stats": {
+    "calls": 192,
+    "prompt_tokens": 37753,
+    "completion_tokens": 393,
+    "total_duration_s": 69.637214082
+  },
+  "trace_name": "test_v2"
+}

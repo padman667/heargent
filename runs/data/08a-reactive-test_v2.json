@@ -1,0 +1,21 @@
+{
+  "hit_rate": 0.0,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": null,
+  "total_notifications": 0,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [],
+  "misses": [
+    "fire_kitchen",
+    "board_meeting",
+    "water_burst",
+    "er_call",
+    "security_breach"
+  ],
+  "agent_name": "reactive",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 960.0,
+  "trace_name": "test_v2"
+}

@@ -1,0 +1,809 @@
+{
+  "trace": "test_v1",
+  "total_observations": 9,
+  "ground_truth_count": 5,
+  "distractor_count": 4,
+  "heargent_thetas": [
+    {
+      "hit_rate": 1.0,
+      "false_initiation_rate_per_hour": 14.69387755102041,
+      "median_time_to_notice_s": 0.0,
+      "total_notifications": 9,
+      "total_events": 5,
+      "total_distractors": 4,
+      "hits": [
+        {
+          "event_id": "package_arrival",
+          "notification_sim_time": 15.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "doctor_callback",
+          "notification_sim_time": 80.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "server_outage",
+          "notification_sim_time": 95.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "rent_due",
+          "notification_sim_time": 350.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "kid_school_pickup",
+          "notification_sim_time": 600.0,
+          "time_to_notice_s": 0.0
+        }
+      ],
+      "misses": [],
+      "agent_name": "heargent_v1_fwd_theta0.30",
+      "cost_usd": 0.0,
+      "tick_dt_s": 5.0,
+      "trace_duration_s": 980.0,
+      "theta": 0.3,
+      "surprise_log": [
+        {
+          "sim_time": 15.0,
+          "event_id": "package_arrival",
+          "prediction": "No notable events expected in the next minute.",
+          "observation": "Amazon package delivered to your front door.",
+          "surprise": 0.49520760498113825,
+          "surfaced": true
+        },
+        {
+          "sim_time": 40.0,
+          "event_id": "slack_invite",
+          "prediction": "Amazon delivery person leaving customer's driveway after drop-off.",
+          "observation": "You have been invited to the #general channel on Slack.",
+          "surprise": 0.6044474409265823,
+          "surfaced": true
+        },
+        {
+          "sim_time": 80.0,
+          "event_id": "doctor_callback",
+          "prediction": "You received an email invitation to a new Slack meeting.",
+          "observation": "Doctor Hayes called regarding your test results; please call back today.",
+          "surprise": 0.4094615179878308,
+          "surfaced": true
+        },
+        {
+          "sim_time": 95.0,
+          "event_id": "server_outage",
+          "prediction": "Doctor Hayes calls again with updated test results.",
+          "observation": "Production alert: api.example.com returning 500 errors; on-call engineer paged.",
+          "surprise": 0.4250250265901312,
+          "surfaced": true
+        },
+        {
+          "sim_time": 200.0,
+          "event_id": "calendar_advert",
+          "prediction": "On-call engineer responding to production alert at api.example.com.",
+          "observation": "New feature available in Calendar: dark mode is now supported.",
+          "surprise": 0.5515859616705859,
+          "surfaced": true
+        },
+        {
+          "sim_time": 350.0,
+          "event_id": "rent_due",
+          "prediction": "On-call engineer addressing api.example.com production alert.",
+          "observation": "Reminder: your monthly rent payment is due in 2 days.",
+          "surprise": 0.5754698139352314,
+          "surfaced": true
+        },
+        {
+          "sim_time": 400.0,
+          "event_id": "promo_email",
+          "prediction": "On-call engineer responding to api.example.com production alert.",
+          "observation": "Promotional offer: 20% off on premium subscription this week only.",
+          "surprise": 0.5603179984033009,
+          "surfaced": true
+        },
+        {
+          "sim_time": 500.0,
+          "event_id": "system_status",
+          "prediction": "Production alert continues as api.example.com still returns 500 errors; on-call engineer monitoring.",
+          "observation": "Cloud platform status: all services operating normally.",
+          "surprise": 0.4212293053127931,
+          "surfaced": true
+        },
+        {
+          "sim_time": 600.0,
+          "event_id": "kid_school_pickup",
+          "prediction": "Production alert continues as api.example.com still returns 500 errors.",
+          "observation": "Lincoln Elementary called: please pick up your son from school early; he is unwell.",
+          "surprise": 0.4815997056763687,
+          "surfaced": true
+        }
+      ]
+    },
+    {
+      "hit_rate": 1.0,
+      "false_initiation_rate_per_hour": 14.69387755102041,
+      "median_time_to_notice_s": 0.0,
+      "total_notifications": 9,
+      "total_events": 5,
+      "total_distractors": 4,
+      "hits": [
+        {
+          "event_id": "package_arrival",
+          "notification_sim_time": 15.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "doctor_callback",
+          "notification_sim_time": 80.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "server_outage",
+          "notification_sim_time": 95.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "rent_due",
+          "notification_sim_time": 350.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "kid_school_pickup",
+          "notification_sim_time": 600.0,
+          "time_to_notice_s": 0.0
+        }
+      ],
+      "misses": [],
+      "agent_name": "heargent_v1_fwd_theta0.35",
+      "cost_usd": 0.0,
+      "tick_dt_s": 5.0,
+      "trace_duration_s": 980.0,
+      "theta": 0.35,
+      "surprise_log": [
+        {
+          "sim_time": 15.0,
+          "event_id": "package_arrival",
+          "prediction": "No notable events expected in the next minute.",
+          "observation": "Amazon package delivered to your front door.",
+          "surprise": 0.49520760498113825,
+          "surfaced": true
+        },
+        {
+          "sim_time": 40.0,
+          "event_id": "slack_invite",
+          "prediction": "Amazon delivery person leaving customer's driveway after drop-off.",
+          "observation": "You have been invited to the #general channel on Slack.",
+          "surprise": 0.6044474409265823,
+          "surfaced": true
+        },
+        {
+          "sim_time": 80.0,
+          "event_id": "doctor_callback",
+          "prediction": "You received an email invitation to a new Slack meeting.",
+          "observation": "Doctor Hayes called regarding your test results; please call back today.",
+          "surprise": 0.4094615179878308,
+          "surfaced": true
+        },
+        {
+          "sim_time": 95.0,
+          "event_id": "server_outage",
+          "prediction": "Doctor Hayes calls again with updated test results.",
+          "observation": "Production alert: api.example.com returning 500 errors; on-call engineer paged.",
+          "surprise": 0.4250250265901312,
+          "surfaced": true
+        },
+        {
+          "sim_time": 200.0,
+          "event_id": "calendar_advert",
+          "prediction": "On-call engineer responding to production alert at api.example.com.",
+          "observation": "New feature available in Calendar: dark mode is now supported.",
+          "surprise": 0.5515859616705859,
+          "surfaced": true
+        },
+        {
+          "sim_time": 350.0,
+          "event_id": "rent_due",
+          "prediction": "On-call engineer addressing api.example.com production alert.",
+          "observation": "Reminder: your monthly rent payment is due in 2 days.",
+          "surprise": 0.5754698139352314,
+          "surfaced": true
+        },
+        {
+          "sim_time": 400.0,
+          "event_id": "promo_email",
+          "prediction": "On-call engineer responding to api.example.com production alert.",
+          "observation": "Promotional offer: 20% off on premium subscription this week only.",
+          "surprise": 0.5603179984033009,
+          "surfaced": true
+        },
+        {
+          "sim_time": 500.0,
+          "event_id": "system_status",
+          "prediction": "Production alert continues as api.example.com still returns 500 errors; on-call engineer monitoring.",
+          "observation": "Cloud platform status: all services operating normally.",
+          "surprise": 0.4212293053127931,
+          "surfaced": true
+        },
+        {
+          "sim_time": 600.0,
+          "event_id": "kid_school_pickup",
+          "prediction": "Production alert continues as api.example.com still returns 500 errors.",
+          "observation": "Lincoln Elementary called: please pick up your son from school early; he is unwell.",
+          "surprise": 0.4815997056763687,
+          "surfaced": true
+        }
+      ]
+    },
+    {
+      "hit_rate": 1.0,
+      "false_initiation_rate_per_hour": 14.69387755102041,
+      "median_time_to_notice_s": 0.0,
+      "total_notifications": 9,
+      "total_events": 5,
+      "total_distractors": 4,
+      "hits": [
+        {
+          "event_id": "package_arrival",
+          "notification_sim_time": 15.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "doctor_callback",
+          "notification_sim_time": 80.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "server_outage",
+          "notification_sim_time": 95.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "rent_due",
+          "notification_sim_time": 350.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "kid_school_pickup",
+          "notification_sim_time": 600.0,
+          "time_to_notice_s": 0.0
+        }
+      ],
+      "misses": [],
+      "agent_name": "heargent_v1_fwd_theta0.40",
+      "cost_usd": 0.0,
+      "tick_dt_s": 5.0,
+      "trace_duration_s": 980.0,
+      "theta": 0.4,
+      "surprise_log": [
+        {
+          "sim_time": 15.0,
+          "event_id": "package_arrival",
+          "prediction": "No notable events expected in the next minute.",
+          "observation": "Amazon package delivered to your front door.",
+          "surprise": 0.49520760498113825,
+          "surfaced": true
+        },
+        {
+          "sim_time": 40.0,
+          "event_id": "slack_invite",
+          "prediction": "Amazon delivery person leaving customer's driveway after drop-off.",
+          "observation": "You have been invited to the #general channel on Slack.",
+          "surprise": 0.6044474409265823,
+          "surfaced": true
+        },
+        {
+          "sim_time": 80.0,
+          "event_id": "doctor_callback",
+          "prediction": "You received an email invitation to a new Slack meeting.",
+          "observation": "Doctor Hayes called regarding your test results; please call back today.",
+          "surprise": 0.4094615179878308,
+          "surfaced": true
+        },
+        {
+          "sim_time": 95.0,
+          "event_id": "server_outage",
+          "prediction": "Doctor Hayes calls again with updated test results.",
+          "observation": "Production alert: api.example.com returning 500 errors; on-call engineer paged.",
+          "surprise": 0.4250250265901312,
+          "surfaced": true
+        },
+        {
+          "sim_time": 200.0,
+          "event_id": "calendar_advert",
+          "prediction": "On-call engineer responding to production alert at api.example.com.",
+          "observation": "New feature available in Calendar: dark mode is now supported.",
+          "surprise": 0.5515859616705859,
+          "surfaced": true
+        },
+        {
+          "sim_time": 350.0,
+          "event_id": "rent_due",
+          "prediction": "On-call engineer addressing api.example.com production alert.",
+          "observation": "Reminder: your monthly rent payment is due in 2 days.",
+          "surprise": 0.5754698139352314,
+          "surfaced": true
+        },
+        {
+          "sim_time": 400.0,
+          "event_id": "promo_email",
+          "prediction": "On-call engineer responding to api.example.com production alert.",
+          "observation": "Promotional offer: 20% off on premium subscription this week only.",
+          "surprise": 0.5603179984033009,
+          "surfaced": true
+        },
+        {
+          "sim_time": 500.0,
+          "event_id": "system_status",
+          "prediction": "Production alert continues as api.example.com still returns 500 errors; on-call engineer monitoring.",
+          "observation": "Cloud platform status: all services operating normally.",
+          "surprise": 0.4212293053127931,
+          "surfaced": true
+        },
+        {
+          "sim_time": 600.0,
+          "event_id": "kid_school_pickup",
+          "prediction": "Production alert continues as api.example.com still returns 500 errors.",
+          "observation": "Lincoln Elementary called: please pick up your son from school early; he is unwell.",
+          "surprise": 0.4815997056763687,
+          "surfaced": true
+        }
+      ]
+    },
+    {
+      "hit_rate": 0.6,
+      "false_initiation_rate_per_hour": 11.020408163265307,
+      "median_time_to_notice_s": 0.0,
+      "total_notifications": 6,
+      "total_events": 5,
+      "total_distractors": 4,
+      "hits": [
+        {
+          "event_id": "package_arrival",
+          "notification_sim_time": 15.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "rent_due",
+          "notification_sim_time": 350.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "kid_school_pickup",
+          "notification_sim_time": 600.0,
+          "time_to_notice_s": 0.0
+        }
+      ],
+      "misses": [
+        "doctor_callback",
+        "server_outage"
+      ],
+      "agent_name": "heargent_v1_fwd_theta0.43",
+      "cost_usd": 0.0,
+      "tick_dt_s": 5.0,
+      "trace_duration_s": 980.0,
+      "theta": 0.43,
+      "surprise_log": [
+        {
+          "sim_time": 15.0,
+          "event_id": "package_arrival",
+          "prediction": "No notable events expected in the next minute.",
+          "observation": "Amazon package delivered to your front door.",
+          "surprise": 0.49520760498113825,
+          "surfaced": true
+        },
+        {
+          "sim_time": 40.0,
+          "event_id": "slack_invite",
+          "prediction": "Amazon delivery person leaving customer's driveway after drop-off.",
+          "observation": "You have been invited to the #general channel on Slack.",
+          "surprise": 0.6044474409265823,
+          "surfaced": true
+        },
+        {
+          "sim_time": 80.0,
+          "event_id": "doctor_callback",
+          "prediction": "You received an email invitation to a new Slack meeting.",
+          "observation": "Doctor Hayes called regarding your test results; please call back today.",
+          "surprise": 0.4094615179878308,
+          "surfaced": false
+        },
+        {
+          "sim_time": 95.0,
+          "event_id": "server_outage",
+          "prediction": "Doctor Hayes calls again with updated test results.",
+          "observation": "Production alert: api.example.com returning 500 errors; on-call engineer paged.",
+          "surprise": 0.4250250265901312,
+          "surfaced": false
+        },
+        {
+          "sim_time": 200.0,
+          "event_id": "calendar_advert",
+          "prediction": "On-call engineer responding to production alert at api.example.com.",
+          "observation": "New feature available in Calendar: dark mode is now supported.",
+          "surprise": 0.5515859616705859,
+          "surfaced": true
+        },
+        {
+          "sim_time": 350.0,
+          "event_id": "rent_due",
+          "prediction": "On-call engineer addressing api.example.com production alert.",
+          "observation": "Reminder: your monthly rent payment is due in 2 days.",
+          "surprise": 0.5754698139352314,
+          "surfaced": true
+        },
+        {
+          "sim_time": 400.0,
+          "event_id": "promo_email",
+          "prediction": "On-call engineer responding to api.example.com production alert.",
+          "observation": "Promotional offer: 20% off on premium subscription this week only.",
+          "surprise": 0.5603179984033009,
+          "surfaced": true
+        },
+        {
+          "sim_time": 500.0,
+          "event_id": "system_status",
+          "prediction": "Production alert continues as api.example.com still returns 500 errors; on-call engineer monitoring.",
+          "observation": "Cloud platform status: all services operating normally.",
+          "surprise": 0.4212293053127931,
+          "surfaced": false
+        },
+        {
+          "sim_time": 600.0,
+          "event_id": "kid_school_pickup",
+          "prediction": "Production alert continues as api.example.com still returns 500 errors.",
+          "observation": "Lincoln Elementary called: please pick up your son from school early; he is unwell.",
+          "surprise": 0.4815997056763687,
+          "surfaced": true
+        }
+      ]
+    },
+    {
+      "hit_rate": 0.6,
+      "false_initiation_rate_per_hour": 11.020408163265307,
+      "median_time_to_notice_s": 0.0,
+      "total_notifications": 6,
+      "total_events": 5,
+      "total_distractors": 4,
+      "hits": [
+        {
+          "event_id": "package_arrival",
+          "notification_sim_time": 15.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "rent_due",
+          "notification_sim_time": 350.0,
+          "time_to_notice_s": 0.0
+        },
+        {
+          "event_id": "kid_school_pickup",
+          "notification_sim_time": 600.0,
+          "time_to_notice_s": 0.0
+        }
+      ],
+      "misses": [
+        "doctor_callback",
+        "server_outage"
+      ],
+      "agent_name": "heargent_v1_fwd_theta0.45",
+      "cost_usd": 0.0,
+      "tick_dt_s": 5.0,
+      "trace_duration_s": 980.0,
+      "theta": 0.45,
+      "surprise_log": [
+        {
+          "sim_time": 15.0,
+          "event_id": "package_arrival",
+          "prediction": "No notable events expected in the next minute.",
+          "observation": "Amazon package delivered to your front door.",
+          "surprise": 0.49520760498113825,
+          "surfaced": true
+        },
+        {
+          "sim_time": 40.0,
+          "event_id": "slack_invite",
+          "prediction": "Amazon delivery person leaving customer's driveway after drop-off.",
+          "observation": "You have been invited to the #general channel on Slack.",
+          "surprise": 0.6044474409265823,
+          "surfaced": true
+        },
+        {
+          "sim_time": 80.0,
+          "event_id": "doctor_callback",
+          "prediction": "You received an email invitation to a new Slack meeting.",
+          "observation": "Doctor Hayes called regarding your test results; please call back today.",
+          "surprise": 0.4094615179878308,
+          "surfaced": false
+        },
+        {
+          "sim_time": 95.0,
+          "event_id": "server_outage",
+          "prediction": "Doctor Hayes calls again with updated test results.",
+          "observation": "Production alert: api.example.com returning 500 errors; on-call engineer paged.",
+          "surprise": 0.4250250265901312,
+          "surfaced": false
+        },
+        {
+          "sim_time": 200.0,
+          "event_id": "calendar_advert",
+          "prediction": "On-call engineer responding to production alert at api.example.com.",
+          "observation": "New feature available in Calendar: dark mode is now supported.",
+          "surprise": 0.5515859616705859,
+          "surfaced": true
+        },
+        {
+          "sim_time": 350.0,
+          "event_id": "rent_due",
+          "prediction": "On-call engineer addressing api.example.com production alert.",
+          "observation": "Reminder: your monthly rent payment is due in 2 days.",
+          "surprise": 0.5754698139352314,
+          "surfaced": true
+        },
+        {
+          "sim_time": 400.0,
+          "event_id": "promo_email",
+          "prediction": "On-call engineer responding to api.example.com production alert.",
+          "observation": "Promotional offer: 20% off on premium subscription this week only.",
+          "surprise": 0.5603179984033009,
+          "surfaced": true
+        },
+        {
+          "sim_time": 500.0,
+          "event_id": "system_status",
+          "prediction": "Production alert continues as api.example.com still returns 500 errors; on-call engineer monitoring.",
+          "observation": "Cloud platform status: all services operating normally.",
+          "surprise": 0.4212293053127931,
+          "surfaced": false
+        },
+        {
+          "sim_time": 600.0,
+          "event_id": "kid_school_pickup",
+          "prediction": "Production alert continues as api.example.com still returns 500 errors.",
+          "observation": "Lincoln Elementary called: please pick up your son from school early; he is unwell.",
+          "surprise": 0.4815997056763687,
+          "surfaced": true
+        }
+      ]
+    },
+    {
+      "hit_rate": 0.2,
+      "false_initiation_rate_per_hour": 11.020408163265307,
+      "median_time_to_notice_s": 0.0,
+      "total_notifications": 4,
+      "total_events": 5,
+      "total_distractors": 4,
+      "hits": [
+        {
+          "event_id": "rent_due",
+          "notification_sim_time": 350.0,
+          "time_to_notice_s": 0.0
+        }
+      ],
+      "misses": [
+        "package_arrival",
+        "doctor_callback",
+        "server_outage",
+        "kid_school_pickup"
+      ],
+      "agent_name": "heargent_v1_fwd_theta0.50",
+      "cost_usd": 0.0,
+      "tick_dt_s": 5.0,
+      "trace_duration_s": 980.0,
+      "theta": 0.5,
+      "surprise_log": [
+        {
+          "sim_time": 15.0,
+          "event_id": "package_arrival",
+          "prediction": "No notable events expected in the next minute.",
+          "observation": "Amazon package delivered to your front door.",
+          "surprise": 0.49520760498113825,
+          "surfaced": false
+        },
+        {
+          "sim_time": 40.0,
+          "event_id": "slack_invite",
+          "prediction": "Amazon delivery person leaving customer's driveway after drop-off.",
+          "observation": "You have been invited to the #general channel on Slack.",
+          "surprise": 0.6044474409265823,
+          "surfaced": true
+        },
+        {
+          "sim_time": 80.0,
+          "event_id": "doctor_callback",
+          "prediction": "You received an email invitation to a new Slack meeting.",
+          "observation": "Doctor Hayes called regarding your test results; please call back today.",
+          "surprise": 0.4094615179878308,
+          "surfaced": false
+        },
+        {
+          "sim_time": 95.0,
+          "event_id": "server_outage",
+          "prediction": "Doctor Hayes calls again with updated test results.",
+          "observation": "Production alert: api.example.com returning 500 errors; on-call engineer paged.",
+          "surprise": 0.4250250265901312,
+          "surfaced": false
+        },
+        {
+          "sim_time": 200.0,
+          "event_id": "calendar_advert",
+          "prediction": "On-call engineer responding to production alert at api.example.com.",
+          "observation": "New feature available in Calendar: dark mode is now supported.",
+          "surprise": 0.5515859616705859,
+          "surfaced": true
+        },
+        {
+          "sim_time": 350.0,
+          "event_id": "rent_due",
+          "prediction": "On-call engineer addressing api.example.com production alert.",
+          "observation": "Reminder: your monthly rent payment is due in 2 days.",
+          "surprise": 0.5754698139352314,
+          "surfaced": true
+        },
+        {
+          "sim_time": 400.0,
+          "event_id": "promo_email",
+          "prediction": "On-call engineer responding to api.example.com production alert.",
+          "observation": "Promotional offer: 20% off on premium subscription this week only.",
+          "surprise": 0.5603179984033009,
+          "surfaced": true
+        },
+        {
+          "sim_time": 500.0,
+          "event_id": "system_status",
+          "prediction": "Production alert continues as api.example.com still returns 500 errors; on-call engineer monitoring.",
+          "observation": "Cloud platform status: all services operating normally.",
+          "surprise": 0.4212293053127931,
+          "surfaced": false
+        },
+        {
+          "sim_time": 600.0,
+          "event_id": "kid_school_pickup",
+          "prediction": "Production alert continues as api.example.com still returns 500 errors.",
+          "observation": "Lincoln Elementary called: please pick up your son from school early; he is unwell.",
+          "surprise": 0.4815997056763687,
+          "surfaced": false
+        }
+      ]
+    }
+  ],
+  "random_gate": [
+    {
+      "p": 1.0,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "hit_rate_mean": 1.0,
+      "hit_rate_stdev": 0.0,
+      "false_rate_mean": 14.69387755102041,
+      "false_rate_stdev": 0.0,
+      "per_seed": [
+        {
+          "seed": 0,
+          "hit_rate": 1.0,
+          "false_initiation_rate_per_hour": 14.69387755102041,
+          "notifications": 9
+        },
+        {
+          "seed": 1,
+          "hit_rate": 1.0,
+          "false_initiation_rate_per_hour": 14.69387755102041,
+          "notifications": 9
+        },
+        {
+          "seed": 2,
+          "hit_rate": 1.0,
+          "false_initiation_rate_per_hour": 14.69387755102041,
+          "notifications": 9
+        },
+        {
+          "seed": 3,
+          "hit_rate": 1.0,
+          "false_initiation_rate_per_hour": 14.69387755102041,
+          "notifications": 9
+        },
+        {
+          "seed": 4,
+          "hit_rate": 1.0,
+          "false_initiation_rate_per_hour": 14.69387755102041,
+          "notifications": 9
+        }
+      ]
+    },
+    {
+      "p": 0.667,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "hit_rate_mean": 0.8,
+      "hit_rate_stdev": 0.1414213562373095,
+      "false_rate_mean": 7.346938775510205,
+      "false_rate_stdev": 2.597535114562828,
+      "per_seed": [
+        {
+          "seed": 0,
+          "hit_rate": 0.8,
+          "false_initiation_rate_per_hour": 7.346938775510205,
+          "notifications": 6
+        },
+        {
+          "seed": 1,
+          "hit_rate": 0.8,
+          "false_initiation_rate_per_hour": 7.346938775510205,
+          "notifications": 6
+        },
+        {
+          "seed": 2,
+          "hit_rate": 0.6,
+          "false_initiation_rate_per_hour": 3.6734693877551026,
+          "notifications": 4
+        },
+        {
+          "seed": 3,
+          "hit_rate": 1.0,
+          "false_initiation_rate_per_hour": 11.020408163265307,
+          "notifications": 8
+        },
+        {
+          "seed": 4,
+          "hit_rate": 0.8,
+          "false_initiation_rate_per_hour": 7.346938775510205,
+          "notifications": 6
+        }
+      ]
+    },
+    {
+      "p": 0.444,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "hit_rate_mean": 0.64,
+      "hit_rate_stdev": 0.16733200530681513,
+      "false_rate_mean": 3.6734693877551026,
+      "false_rate_stdev": 2.597535114562828,
+      "per_seed": [
+        {
+          "seed": 0,
+          "hit_rate": 0.6,
+          "false_initiation_rate_per_hour": 3.6734693877551026,
+          "notifications": 4
+        },
+        {
+          "seed": 1,
+          "hit_rate": 0.6,
+          "false_initiation_rate_per_hour": 0.0,
+          "notifications": 3
+        },
+        {
+          "seed": 2,
+          "hit_rate": 0.4,
+          "false_initiation_rate_per_hour": 3.6734693877551026,
+          "notifications": 3
+        },
+        {
+          "seed": 3,
+          "hit_rate": 0.8,
+          "false_initiation_rate_per_hour": 3.6734693877551026,
+          "notifications": 5
+        },
+        {
+          "seed": 4,
+          "hit_rate": 0.8,
+          "false_initiation_rate_per_hour": 7.346938775510205,
+          "notifications": 6
+        }
+      ]
+    }
+  ]
+}
