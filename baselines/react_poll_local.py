@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 
 from agent.llm import OllamaClient
+from sandbox.event_trace import Trace
 from sandbox.world import Event, World
 
 POLL_SYSTEM = (
@@ -23,21 +24,41 @@ class ReactPollLocal:
     with the full pending-event queue as context. This is the reviewer's
     obvious counter-argument ('heargent is just polling with extra steps')
     and the cost ceiling heargent must beat on tokens-per-correct-proaction.
+
+    If `briefing` is set, its text is prepended to the system prompt so the
+    poller sees the same user-context that an intent-conditioned heargent
+    agent gets in the M3 briefing cell (fairness — avoids "heargent wins
+    only because it had access to the briefing").
     """
 
     def __init__(
         self,
         client: OllamaClient | None = None,
         model: str = "qwen2.5:3b-instruct",
+        briefing: str | None = None,
     ) -> None:
         self.client = client or OllamaClient()
         self.model = model
+        self.briefing = briefing
         self._pending: list[Event] = []
         self._reported_ids: set[str] = set()
 
+    @classmethod
+    def from_trace(
+        cls,
+        trace: Trace,
+        with_briefing: bool = False,
+        client: OllamaClient | None = None,
+        **kwargs,
+    ) -> "ReactPollLocal":
+        briefing = trace.briefing if with_briefing else None
+        if with_briefing and briefing is None:
+            raise ValueError(f"trace {trace.name!r} has no briefing set")
+        return cls(client=client, briefing=briefing, **kwargs)
+
     @property
     def name(self) -> str:
-        return "react_poll_local"
+        return "react_poll_local" + ("_briefing" if self.briefing else "")
 
     def tick(self, observations: list[Event], world: World, sim_time: float) -> None:
         for ev in observations:
@@ -59,8 +80,11 @@ class ReactPollLocal:
                 "Reply with comma-separated numbers to surface, or NONE."
             )
 
+        system = POLL_SYSTEM
+        if self.briefing:
+            system = f"User briefing at start of day:\n{self.briefing}\n\n" + POLL_SYSTEM
         response = self.client.chat(
-            system=POLL_SYSTEM,
+            system=system,
             user=user_msg,
             model=self.model,
             max_tokens=20,

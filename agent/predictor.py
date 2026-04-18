@@ -16,6 +16,22 @@ SYSTEM_PROMPT = (
     "No preamble, no reasoning, no lists, no quotes. Output only the sentence."
 )
 
+INTENT_SYSTEM_PROMPT_TEMPLATE = (
+    "You are a prediction module for a proactive assistant.\n\n"
+    "The user's active concerns today are:\n"
+    "{intents}\n\n"
+    "Given recent observations, output EXACTLY ONE SHORT SENTENCE (under 20 words) "
+    "describing the next notable event you expect that would be relevant to any of "
+    "those concerns. If nothing notable is expected, reply exactly: "
+    '"No notable events expected in the next minute." '
+    "No preamble, no reasoning, no lists, no quotes. Output only the sentence."
+)
+
+
+def _render_intent_system_prompt(intents: tuple[str, ...]) -> str:
+    bullets = "\n".join(f"- {i}" for i in intents)
+    return INTENT_SYSTEM_PROMPT_TEMPLATE.format(intents=bullets)
+
 
 def _format_history(history: list[Event], max_items: int = 8) -> str:
     if not history:
@@ -45,15 +61,21 @@ class Predictor:
         self.temperature = temperature
         self.seed = seed
 
-    def predict(self, history: list[Event], sim_time: float) -> Prediction:
+    def predict(
+        self,
+        history: list[Event],
+        sim_time: float,
+        intents: tuple[str, ...] = (),
+    ) -> Prediction:
         user_msg = (
             "Recent observations:\n"
             + _format_history(history)
             + f"\n\nCurrent sim_time: {sim_time:.0f}s."
             + "\n\nOne-sentence prediction of the next notable event:"
         )
+        system = _render_intent_system_prompt(intents) if intents else SYSTEM_PROMPT
         text = self.client.chat(
-            system=SYSTEM_PROMPT,
+            system=system,
             user=user_msg,
             model=self.model,
             max_tokens=50,

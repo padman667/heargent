@@ -17,6 +17,8 @@ class Trace:
     name: str
     events: list[Event]
     ground_truth: list[GroundTruthEvent]
+    briefing: str | None = None
+    intents: tuple[str, ...] = ()
 
     @property
     def duration_s(self) -> float:
@@ -110,7 +112,27 @@ def dev_trace_v2() -> Trace:
               content="System heartbeat: all services nominal."),
     ]
     all_events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
-    return Trace(name="dev_v2", events=all_events, ground_truth=gts)
+    briefing = (
+        "Normal workday at the office. I've got a trip to Berlin later this "
+        "week for some design review prep, the quarterly report is hanging "
+        "over me, and I've got a couple of personal medical appointments "
+        "squeezed into the calendar. Flag anything that actually needs my "
+        "attention."
+    )
+    oracle_intents = (
+        "physical safety while at the office",
+        "upcoming international travel plans",
+        "work meetings and design reviews",
+        "quarterly work deliverables and deadlines",
+        "personal medical appointments",
+    )
+    return Trace(
+        name="dev_v2",
+        events=all_events,
+        ground_truth=gts,
+        briefing=briefing,
+        intents=oracle_intents,
+    )
 
 
 def test_trace_v1() -> Trace:
@@ -162,7 +184,26 @@ def test_trace_v1() -> Trace:
               content="Cloud platform status: all services operating normally."),
     ]
     all_events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
-    return Trace(name="test_v1", events=all_events, ground_truth=gts)
+    briefing = (
+        "On-call for the production rotation today. Waiting on some health "
+        "follow-ups, got home-logistics stuff in progress, my son is at "
+        "school for the usual day, and the monthly household bills are "
+        "coming due soon."
+    )
+    oracle_intents = (
+        "production on-call responsibilities",
+        "personal health follow-ups",
+        "household deliveries and logistics",
+        "child's school day",
+        "monthly household bills",
+    )
+    return Trace(
+        name="test_v1",
+        events=all_events,
+        ground_truth=gts,
+        briefing=briefing,
+        intents=oracle_intents,
+    )
 
 
 def test_trace_v2() -> Trace:
@@ -219,7 +260,26 @@ def test_trace_v2() -> Trace:
               content="Weekly industry newsletter: trends and updates delivered."),
     ]
     all_events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
-    return Trace(name="test_v2", events=all_events, ground_truth=gts)
+    briefing = (
+        "Working from home today. There's a quarterly board session on the "
+        "calendar, my mother has some ongoing medical stuff I'm keeping tabs "
+        "on, and there's been some flaky login behavior on my accounts. "
+        "Flag urgent."
+    )
+    oracle_intents = (
+        "physical safety at home",
+        "scheduled work meetings and board sessions",
+        "family member health",
+        "account and login security",
+        "urgent household incidents",
+    )
+    return Trace(
+        name="test_v2",
+        events=all_events,
+        ground_truth=gts,
+        briefing=briefing,
+        intents=oracle_intents,
+    )
 
 
 def get_trace(name: str) -> Trace:

@@ -91,27 +91,63 @@ def run(agent: Agent, trace: Trace, tick_dt_s: float = 5.0) -> dict:
     return metrics
 
 
-def _load_agent(spec: str) -> Agent:
+def _load_agent(
+    spec: str,
+    trace: Trace | None = None,
+    *,
+    intent_mode: str | None = None,
+    with_briefing: bool = False,
+) -> Agent:
     module_name, _, cls_name = spec.rpartition(":")
     if not module_name:
         raise ValueError(f"Expected spec like 'baselines.react_reactive:ReactiveAgent', got {spec!r}")
     module = importlib.import_module(module_name)
     cls = getattr(module, cls_name)
+    if intent_mode is not None:
+        if not hasattr(cls, "from_trace"):
+            raise ValueError(f"{spec} does not support --intent-mode (no from_trace classmethod)")
+        return cls.from_trace(trace, mode=intent_mode)
+    if with_briefing:
+        if not hasattr(cls, "from_trace"):
+            raise ValueError(f"{spec} does not support --with-briefing (no from_trace classmethod)")
+        return cls.from_trace(trace, with_briefing=True)
     return cls()
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--agent", required=True, help="Module:Class of the agent to run")
-    parser.add_argument("--trace", default="dev_v1", help="Trace name (dev_v1, dev_v2)")
+    parser.add_argument("--trace", default="dev_v1", help="Trace name (dev_v1, dev_v2, test_v1, test_v2)")
     parser.add_argument("--tick-dt", type=float, default=5.0)
     parser.add_argument("--out", default=None, help="Write metrics JSON here; default stdout")
+    parser.add_argument(
+        "--intent-mode",
+        choices=["oracle", "briefing", "placebo"],
+        default=None,
+        help="Intent source for HeargentZIntent (calls agent.from_trace)",
+    )
+    parser.add_argument(
+        "--with-briefing",
+        action="store_true",
+        help="Pass trace.briefing to the agent (calls agent.from_trace(trace, with_briefing=True))",
+    )
     args = parser.parse_args()
 
-    agent = _load_agent(args.agent)
     trace = get_trace(args.trace)
+    agent = _load_agent(
+        args.agent,
+        trace,
+        intent_mode=args.intent_mode,
+        with_briefing=args.with_briefing,
+    )
     metrics = run(agent, trace, tick_dt_s=args.tick_dt)
     metrics["trace_name"] = trace.name
+    metrics["intent_mode"] = args.intent_mode
+    metrics["with_briefing"] = args.with_briefing
+    if hasattr(agent, "intents"):
+        metrics["intents"] = list(agent.intents)
+    if hasattr(agent, "surprise_log"):
+        metrics["surprise_log"] = agent.surprise_log
     payload = json.dumps(metrics, indent=2)
     if args.out:
         with open(args.out, "w") as f:
