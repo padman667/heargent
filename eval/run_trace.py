@@ -97,6 +97,8 @@ def _load_agent(
     *,
     intent_mode: str | None = None,
     with_briefing: bool = False,
+    arbiter_mode: str | None = None,
+    arbiter_random_p: float | None = None,
 ) -> Agent:
     module_name, _, cls_name = spec.rpartition(":")
     if not module_name:
@@ -111,6 +113,10 @@ def _load_agent(
         if not hasattr(cls, "from_trace"):
             raise ValueError(f"{spec} does not support --with-briefing (no from_trace classmethod)")
         return cls.from_trace(trace, with_briefing=True)
+    if arbiter_mode is not None:
+        if not hasattr(cls, "from_trace"):
+            raise ValueError(f"{spec} does not support --arbiter-mode (no from_trace classmethod)")
+        return cls.from_trace(trace, mode=arbiter_mode, random_p=arbiter_random_p)
     return cls()
 
 
@@ -131,6 +137,18 @@ def main() -> int:
         action="store_true",
         help="Pass trace.briefing to the agent (calls agent.from_trace(trace, with_briefing=True))",
     )
+    parser.add_argument(
+        "--arbiter-mode",
+        choices=["content", "random"],
+        default=None,
+        help="Arbiter source for HeargentZA (calls agent.from_trace(trace, mode=..))",
+    )
+    parser.add_argument(
+        "--arbiter-random-p",
+        type=float,
+        default=None,
+        help="Bernoulli p for --arbiter-mode=random (pre-committed YES-rate from content run on dev_v2)",
+    )
     args = parser.parse_args()
 
     trace = get_trace(args.trace)
@@ -139,11 +157,15 @@ def main() -> int:
         trace,
         intent_mode=args.intent_mode,
         with_briefing=args.with_briefing,
+        arbiter_mode=args.arbiter_mode,
+        arbiter_random_p=args.arbiter_random_p,
     )
     metrics = run(agent, trace, tick_dt_s=args.tick_dt)
     metrics["trace_name"] = trace.name
     metrics["intent_mode"] = args.intent_mode
     metrics["with_briefing"] = args.with_briefing
+    metrics["arbiter_mode"] = args.arbiter_mode
+    metrics["arbiter_random_p"] = args.arbiter_random_p
     if hasattr(agent, "intents"):
         metrics["intents"] = list(agent.intents)
     if hasattr(agent, "surprise_log"):
