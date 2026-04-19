@@ -461,3 +461,37 @@ class HeargentZA:
             "arbiter_calls": self.arbiter.yes_count + self.arbiter.no_count,
             "arbiter_yes_rate": self.arbiter.yes_rate,
         }
+
+
+class HeargentZAWide(HeargentZA):
+    """HeargentZA with widened skip threshold z_skip=+1.5 (M6a).
+
+    Single-constant override of HeargentZA's band. Rescues band-edge GTs
+    `rent_due` (z=+1.06) and `er_call` (z=+1.15) that M5 auto-skipped at
+    z_skip=+1.0; the V2 arbiter classifies both YES in the isolation probe
+    but is never consulted under the narrower band. Everything else (V2
+    prompt, window, min_window, predictor, surprise scorer, bootstrap
+    policy, from_trace wiring) is inherited verbatim from HeargentZA.
+    """
+
+    def __init__(
+        self,
+        arbiter: "Arbiter",
+        client: OllamaClient | None = None,
+        z_surf_threshold: float = -0.5,
+        z_skip_threshold: float = 1.5,
+        window: int = 16,
+        min_window: int = 4,
+        predictor_model: str = "qwen2.5:3b-instruct",
+        surprise_model: str = "nomic-embed-text",
+    ) -> None:
+        super().__init__(
+            arbiter=arbiter,
+            client=client,
+            z_surf_threshold=z_surf_threshold,
+            z_skip_threshold=z_skip_threshold,
+            window=window,
+            min_window=min_window,
+            predictor_model=predictor_model,
+            surprise_model=surprise_model,
+        )
