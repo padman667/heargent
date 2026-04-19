@@ -25,6 +25,36 @@ ARBITER_SYSTEM_PROMPT = (
 )
 
 
+ARBITER_SYSTEM_PROMPT_V2 = (
+    "You are a triage filter for a proactive assistant. Decide whether a\n"
+    "single observed event warrants surfacing to the user right now.\n"
+    "\n"
+    "Surface (YES) if the event describes any of:\n"
+    " - an urgent safety or security issue (fire, break-in, medical\n"
+    "   emergency, security breach, unauthorized access)\n"
+    " - a schedule change affecting the user personally (meeting moved,\n"
+    "   meeting cancelled, flight delayed, appointment rescheduled,\n"
+    "   appointment cancelled)\n"
+    " - a financial or deadline obligation the user must act on within\n"
+    "   the next few days (bill due, rent due, report deadline,\n"
+    "   payment reminder)\n"
+    " - a message or delivery directed personally to the user (package\n"
+    "   delivered, callback requested, voicemail or phone message,\n"
+    "   hospital calling about a family member)\n"
+    " - a weather alert or external condition that would plausibly\n"
+    "   change the user's planned day\n"
+    " - a production/on-call alert or outage for a system the user owns\n"
+    "\n"
+    "Do NOT surface (NO) if the event is:\n"
+    " - routine status, uptime, heartbeat, or \"all systems normal\" pings\n"
+    " - marketing, promotional, or newsletter content\n"
+    " - generic daily briefings that explicitly state no urgent items\n"
+    " - feature announcements, app updates, or social/channel invites\n"
+    "\n"
+    "Output exactly YES or NO, uppercase, on a single line. No explanation."
+)
+
+
 _DECISION = re.compile(r"\b(YES|NO)\b")
 
 
@@ -44,11 +74,13 @@ class ContentArbiter:
         *,
         temperature: float = 0.0,
         seed: int = 42,
+        system_prompt: str = ARBITER_SYSTEM_PROMPT_V2,
     ) -> None:
         self.client = client
         self.model = model
         self.temperature = temperature
         self.seed = seed
+        self.system_prompt = system_prompt
         self.yes_count = 0
         self.no_count = 0
 
@@ -59,7 +91,7 @@ class ContentArbiter:
 
     def classify(self, text: str) -> bool:
         raw = self.client.chat(
-            system=ARBITER_SYSTEM_PROMPT,
+            system=self.system_prompt,
             user=text,
             model=self.model,
             max_tokens=5,
