@@ -1,0 +1,135 @@
+{
+  "hit_rate": 0.8,
+  "false_initiation_rate_per_hour": 3.6734693877551026,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "package_arrival",
+      "notification_sim_time": 15.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "doctor_callback",
+      "notification_sim_time": 80.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "server_outage",
+      "notification_sim_time": 95.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "kid_school_pickup",
+      "notification_sim_time": 600.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "rent_due"
+  ],
+  "agent_name": "heargent_z_intent_briefing_thr0.00_w16",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 980.0,
+  "llm_stats": {
+    "calls": 10,
+    "prompt_tokens": 2418,
+    "completion_tokens": 125,
+    "total_duration_s": 4.979602124
+  },
+  "trace_name": "test_v1",
+  "intent_mode": "briefing",
+  "with_briefing": false,
+  "intents": [
+    "Health follow-ups",
+    "Home logistics",
+    "Son's schooling",
+    "Household bills"
+  ],
+  "surprise_log": [
+    {
+      "sim_time": 15.0,
+      "event_id": "package_arrival",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Amazon package delivered to your front door.",
+      "surprise": 0.49520760498113825,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 40.0,
+      "event_id": "slack_invite",
+      "prediction": "Amazon delivery expected; package already at doorstep.",
+      "observation": "You have been invited to the #general channel on Slack.",
+      "surprise": 0.4769460124533259,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 80.0,
+      "event_id": "doctor_callback",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Doctor Hayes called regarding your test results; please call back today.",
+      "surprise": 0.4770632871906839,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 95.0,
+      "event_id": "server_outage",
+      "prediction": "Doctor Hayes will likely call again with further instructions.",
+      "observation": "Production alert: api.example.com returning 500 errors; on-call engineer paged.",
+      "surprise": 0.47890184298164384,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 200.0,
+      "event_id": "calendar_advert",
+      "prediction": "Doctor Hayes calling with your test results update; please call back.",
+      "observation": "New feature available in Calendar: dark mode is now supported.",
+      "surprise": 0.48844526284179535,
+      "z": 0.8388886188462653,
+      "surfaced": false
+    },
+    {
+      "sim_time": 350.0,
+      "event_id": "rent_due",
+      "prediction": "Doctor Hayes calling with test results follow-up today.",
+      "observation": "Reminder: your monthly rent payment is due in 2 days.",
+      "surprise": 0.48393198754953004,
+      "z": 0.08475196461717154,
+      "surfaced": false
+    },
+    {
+      "sim_time": 400.0,
+      "event_id": "promo_email",
+      "prediction": "Doctor Hayes will call again with test results follow-up.",
+      "observation": "Promotional offer: 20% off on premium subscription this week only.",
+      "surprise": 0.56151382485754,
+      "z": 11.703042600276397,
+      "surfaced": false
+    },
+    {
+      "sim_time": 500.0,
+      "event_id": "system_status",
+      "prediction": "Doctor Hayes will call again with test results follow-up.",
+      "observation": "Cloud platform status: all services operating normally.",
+      "surprise": 0.5020436991445865,
+      "z": 0.26664321996983914,
+      "surfaced": false
+    },
+    {
+      "sim_time": 600.0,
+      "event_id": "kid_school_pickup",
+      "prediction": "Doctor Hayes calling with test results update; please call back.",
+      "observation": "Lincoln Elementary called: please pick up your son from school early; he is unwell.",
+      "surprise": 0.3366862801286622,
+      "z": -6.033099332689527,
+      "surfaced": true
+    }
+  ]
+}

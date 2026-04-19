@@ -7,11 +7,11 @@ Central place to review outcomes. Every work session produces a numbered markdow
 
 ---
 
-## Current status (as of 2026-04-18)
+## Current status (as of 2026-04-19)
 
-**Milestone:** M5 — three-trace evaluation complete; v1 thesis confirmed in one regime, falsified in another.
-**Next:** intent-conditioned predictor (now load-bearing, not optional), larger predictor comparison on test_v2, surprise + lightweight-content arbiter to recover the test_v2 failure mode.
-**Tooling:** ollama 0.21 + `qwen2.5:3b-instruct` (predictor + poll, temp=0/seed=42, deterministic) + `nomic-embed-text` (surprise).
+**Milestone:** M3 — intent-conditioned predictor pre-registered, executed, **falsified** on the primary test_v2 hypothesis. Pre-reg success criteria 1 (primary), 4 (A-vs-B ceiling), and 5 (placebo-null) all fail; the pre-registered option-4 exit fires.
+**Next:** surprise + lightweight-content arbiter on test_v2 (M4). Intent-conditioning via system-prompt anchor is off the table — placebo intents (gardening / Premier League) beat briefing-extracted intents on test_v2, so intent content is not load-bearing; the 3B predictor latches on recent observations regardless of what the intent list says.
+**Tooling:** ollama 0.21 + `qwen2.5:3b-instruct` (predictor + poll + intent extractor, temp=0/seed=42, deterministic) + `nomic-embed-text` (surprise).
 
 ### Headline Pareto (frozen hyperparameters, no per-trace tuning)
 
@@ -41,6 +41,7 @@ Central place to review outcomes. Every work session produces a numbered markdow
 | [06](06-test_v1-generalization.md) | 2026-04-18 | New held-out `test_v1` trace; full battery rerun. Server_outage event constructed to be unwinnable for cron 30s. | **Polarity sign generalizes** (GT mean surprise < distractor mean on both traces). **Magnitude does not** (test_v1 has interleaved distributions, no perfect classifier). Inverted heargent θ=0.58 strictly Pareto-dominates cron 30s on hit/false/TTN. Inverted θ=0.50 dominates matched random-gate on both axes — surprise signal is load-bearing. dev-best θ does not transfer; need a θ-selection rule. |
 | [07](07-frozen-transfer-and-poll.md) | 2026-04-18 | HeargentZ (rolling-window z-score gate) for transfer; `react_poll_local` strong baseline; first cost-per-correct-proaction numbers. | **Pre-registered frozen z_thr=0.0 transfers to test_v1 at hit=0.80** (abs-θ collapsed to 0.40). **Poll is quality ceiling (1.00/0.00 on both traces) but at 17–29× more tokens per hit than frozen HeargentZ.** Paper-shaped v1 story: selective initiation at near-ceiling quality, ≈20× cheaper. |
 | [08](08-test_v2-adversarial.md) | 2026-04-18 | Adversarial `test_v2`: distractors = calm routine, GT = abrupt interruptions. Polarity-flip stress test. | **Polarity-flip falsified.** Frozen inverted z_thr=0.0 collapses to hit=0.40. Forward gate gets 0.60 (catches different GT subset). Polarity-agnostic \|z\| hits 1.00 but matches random p=1.0 — no signal. Mechanism: predictor latches on dominant surface narrative, per-event polarity becomes unstable. Poll is the only agent that wins this trace (1.00/0.00/0 at 7629 tok/hit). v1 thesis confirmed in regime-aligned traces, falsified on adversarial split — intent-conditioned prediction is now the next required step. |
+| [09](09-intent-conditioned-prediction.md) | 2026-04-19 | Pre-registered M3 intent-conditioned predictor (oracle A, briefing-extracted B, placebo) × 3 traces + poll+briefing × 3. 12 new cells, frozen config. | **M3 falsified.** Intent-B on test_v2 hit=0.40 (unchanged from run-08 baseline); primary criterion fails. **Placebo hit=0.60 > briefing hit=0.40** on test_v2 — criterion 5 placebo-null fails hard, intent content is not load-bearing. Per-event logs show all three intent cells latch on "FIRE…" after fire_kitchen regardless of intent list (oracle / briefing / gardening). Pre-registered option-4 exit fires: pivot to surprise + lightweight-content arbiter for M4. Post-hoc: poll+briefing degrades plain poll on dev_v2 / test_v1 (hit 1.00→0.80, false/h 0.00→17.48 on dev_v2). |
 
 ---
 

@@ -1,0 +1,137 @@
+{
+  "hit_rate": 0.8,
+  "false_initiation_rate_per_hour": 3.4951456310679614,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "fire_alarm",
+      "notification_sim_time": 5.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "flight_delay",
+      "notification_sim_time": 35.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "meeting_moved",
+      "notification_sim_time": 100.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "deadline",
+      "notification_sim_time": 400.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "dentist_cancel"
+  ],
+  "agent_name": "heargent_z_intent_placebo_thr0.00_w16",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1030.0,
+  "llm_stats": {
+    "calls": 10,
+    "prompt_tokens": 2644,
+    "completion_tokens": 127,
+    "total_duration_s": 5.067594167
+  },
+  "trace_name": "dev_v2",
+  "intent_mode": "placebo",
+  "with_briefing": false,
+  "intents": [
+    "Garden maintenance progress",
+    "Vegetable growth stages",
+    "Weather conditions impact",
+    "Local climate changes",
+    "Cooking techniques learned",
+    "Regional cuisine recipes explored"
+  ],
+  "surprise_log": [
+    {
+      "sim_time": 5.0,
+      "event_id": "fire_alarm",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Fire alarm in building A triggered; evacuation in progress.",
+      "surprise": 0.4032661449251719,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 35.0,
+      "event_id": "flight_delay",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Flight UA123 to Berlin tomorrow has been delayed by 3 hours. New departure: 14:30.",
+      "surprise": 0.34723934771903253,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 50.0,
+      "event_id": "news_digest",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Daily news digest updated.",
+      "surprise": 0.3854522098126373,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 100.0,
+      "event_id": "meeting_moved",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Meeting 'Design Review' tomorrow moved from 10:00 to 14:00.",
+      "surprise": 0.3360541443531938,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 200.0,
+      "event_id": "weather_nominal",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Today's weather: sunny and mild, high 22\u00b0C.",
+      "surprise": 0.46950187730801296,
+      "z": 3.7063257473712845,
+      "surfaced": false
+    },
+    {
+      "sim_time": 350.0,
+      "event_id": "marketing_newsletter",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Newsletter from the marketing team: latest trends in agentic AI.",
+      "surprise": 0.4231753409754272,
+      "z": 0.7354585090530593,
+      "surfaced": false
+    },
+    {
+      "sim_time": 400.0,
+      "event_id": "deadline",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Reminder: Quarterly Report deadline is in 24 hours.",
+      "surprise": 0.37336855298529825,
+      "z": -0.4590520016280437,
+      "surfaced": true
+    },
+    {
+      "sim_time": 550.0,
+      "event_id": "system_heartbeat",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "System heartbeat: all services nominal.",
+      "surprise": 0.5107021662479683,
+      "z": 2.815190239488539,
+      "surfaced": false
+    },
+    {
+      "sim_time": 700.0,
+      "event_id": "dentist_cancel",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Your dentist appointment today at 16:00 has been cancelled.",
+      "surprise": 0.48446044184361425,
+      "z": 1.3982222118765095,
+      "surfaced": false
+    }
+  ]
+}

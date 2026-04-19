@@ -1,0 +1,46 @@
+{
+  "hit_rate": 0.8,
+  "false_initiation_rate_per_hour": 17.475728155339805,
+  "median_time_to_notice_s": 5.0,
+  "total_notifications": 9,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "fire_alarm",
+      "notification_sim_time": 10.0,
+      "time_to_notice_s": 5.0
+    },
+    {
+      "event_id": "flight_delay",
+      "notification_sim_time": 40.0,
+      "time_to_notice_s": 5.0
+    },
+    {
+      "event_id": "deadline",
+      "notification_sim_time": 400.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "dentist_cancel",
+      "notification_sim_time": 865.0,
+      "time_to_notice_s": 165.0
+    }
+  ],
+  "misses": [
+    "meeting_moved"
+  ],
+  "agent_name": "react_poll_local_briefing",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1030.0,
+  "llm_stats": {
+    "calls": 206,
+    "prompt_tokens": 47884,
+    "completion_tokens": 450,
+    "total_duration_s": 54.048622337
+  },
+  "trace_name": "dev_v2",
+  "intent_mode": null,
+  "with_briefing": true
+}

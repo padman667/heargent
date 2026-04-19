@@ -1,0 +1,132 @@
+{
+  "hit_rate": 0.6,
+  "false_initiation_rate_per_hour": 7.346938775510205,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "package_arrival",
+      "notification_sim_time": 15.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "doctor_callback",
+      "notification_sim_time": 80.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "server_outage",
+      "notification_sim_time": 95.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "rent_due",
+    "kid_school_pickup"
+  ],
+  "agent_name": "heargent_z_intent_oracle_thr0.00_w16",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 980.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 2366,
+    "completion_tokens": 121,
+    "total_duration_s": 4.534080917
+  },
+  "trace_name": "test_v1",
+  "intent_mode": "oracle",
+  "with_briefing": false,
+  "intents": [
+    "production on-call responsibilities",
+    "personal health follow-ups",
+    "household deliveries and logistics",
+    "child's school day",
+    "monthly household bills"
+  ],
+  "surprise_log": [
+    {
+      "sim_time": 15.0,
+      "event_id": "package_arrival",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Amazon package delivered to your front door.",
+      "surprise": 0.49520760498113825,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 40.0,
+      "event_id": "slack_invite",
+      "prediction": "Amazon delivery expected; package already at doorstep.",
+      "observation": "You have been invited to the #general channel on Slack.",
+      "surprise": 0.4769460124533259,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 80.0,
+      "event_id": "doctor_callback",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Doctor Hayes called regarding your test results; please call back today.",
+      "surprise": 0.4770632871906839,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 95.0,
+      "event_id": "server_outage",
+      "prediction": "Doctor Hayes' call reminder still active, awaiting your response.",
+      "observation": "Production alert: api.example.com returning 500 errors; on-call engineer paged.",
+      "surprise": 0.4974252348742232,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 200.0,
+      "event_id": "calendar_advert",
+      "prediction": "Production alert unresolved, on-call engineer continuing troubleshooting.",
+      "observation": "New feature available in Calendar: dark mode is now supported.",
+      "surprise": 0.5678910079401522,
+      "z": 8.38486155531037,
+      "surfaced": false
+    },
+    {
+      "sim_time": 350.0,
+      "event_id": "rent_due",
+      "prediction": "Production alert: api.example.com issues persisting, requiring immediate attention.",
+      "observation": "Reminder: your monthly rent payment is due in 2 days.",
+      "surprise": 0.5159353836000649,
+      "z": 0.3874407521613017,
+      "surfaced": false
+    },
+    {
+      "sim_time": 400.0,
+      "event_id": "promo_email",
+      "prediction": "Production alert: api.example.com errors persisting; on-call engineer reviewing.",
+      "observation": "Promotional offer: 20% off on premium subscription this week only.",
+      "surprise": 0.549194241712311,
+      "z": 1.419465502054411,
+      "surfaced": false
+    },
+    {
+      "sim_time": 500.0,
+      "event_id": "system_status",
+      "prediction": "Production alert: api.example.com errors persisting; on-call engineer reviewing.",
+      "observation": "Cloud platform status: all services operating normally.",
+      "surprise": 0.4245175630880008,
+      "z": -2.6601344019013844,
+      "surfaced": true
+    },
+    {
+      "sim_time": 600.0,
+      "event_id": "kid_school_pickup",
+      "prediction": "Production alert: api.example.com errors persisting, affecting service stability.",
+      "observation": "Lincoln Elementary called: please pick up your son from school early; he is unwell.",
+      "surprise": 0.51177527752534,
+      "z": 0.2683620294273399,
+      "surfaced": false
+    }
+  ]
+}

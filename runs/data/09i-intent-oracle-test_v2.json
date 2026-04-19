@@ -1,0 +1,132 @@
+{
+  "hit_rate": 0.6,
+  "false_initiation_rate_per_hour": 11.25,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 6,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "fire_kitchen",
+      "notification_sim_time": 95.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "board_meeting",
+      "notification_sim_time": 250.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "water_burst",
+      "notification_sim_time": 400.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "er_call",
+    "security_breach"
+  ],
+  "agent_name": "heargent_z_intent_oracle_thr0.00_w16",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 960.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 2325,
+    "completion_tokens": 112,
+    "total_duration_s": 4.362208834
+  },
+  "trace_name": "test_v2",
+  "intent_mode": "oracle",
+  "with_briefing": false,
+  "intents": [
+    "physical safety at home",
+    "scheduled work meetings and board sessions",
+    "family member health",
+    "account and login security",
+    "urgent household incidents"
+  ],
+  "surprise_log": [
+    {
+      "sim_time": 10.0,
+      "event_id": "daily_briefing",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Daily briefing: no urgent items for today.",
+      "surprise": 0.3761748639218022,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 60.0,
+      "event_id": "status_ok",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "System status: all services operating nominally.",
+      "surprise": 0.47778607568283815,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 85.0,
+      "event_id": "uptime_ping",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Weekly uptime report: 99.99% availability maintained.",
+      "surprise": 0.4667545368221321,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 95.0,
+      "event_id": "fire_kitchen",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "FIRE detected in your kitchen; evacuate immediately.",
+      "surprise": 0.4821816389678081,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 250.0,
+      "event_id": "board_meeting",
+      "prediction": "FIRE detected in kitchen; occupants should evacuate now.",
+      "observation": "URGENT: Board meeting moved to start NOW in conference room A.",
+      "surprise": 0.38524628594588506,
+      "z": -1.5084842072935205,
+      "surfaced": true
+    },
+    {
+      "sim_time": 350.0,
+      "event_id": "newsletter",
+      "prediction": "FIRE detected in kitchen; evacuation order remains in effect.",
+      "observation": "Weekly industry newsletter: trends and updates delivered.",
+      "surprise": 0.49513544910632323,
+      "z": 1.2279260912812417,
+      "surfaced": false
+    },
+    {
+      "sim_time": 400.0,
+      "event_id": "water_burst",
+      "prediction": "FIRE detected in kitchen; evacuate immediately.",
+      "observation": "Emergency: main water line burst in apartment 3B, flooding the hallway.",
+      "surprise": 0.3551994578432338,
+      "z": -1.9240462555178146,
+      "surfaced": true
+    },
+    {
+      "sim_time": 550.0,
+      "event_id": "er_call",
+      "prediction": "Emergency: Main water line burst continues to flood apartment hallway.",
+      "observation": "Hospital called: your mother has been admitted to the ER; please call urgently.",
+      "surprise": 0.5011003234185034,
+      "z": 1.224436032049004,
+      "surfaced": false
+    },
+    {
+      "sim_time": 750.0,
+      "event_id": "security_breach",
+      "prediction": "Emergency: main water line burst in apartment 3B, flooding the hallway.",
+      "observation": "Security alert: unauthorized access detected on your account from an unknown device.",
+      "surprise": 0.4595653328659066,
+      "z": 0.3067633985726494,
+      "surfaced": false
+    }
+  ]
+}

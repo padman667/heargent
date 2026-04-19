@@ -1,0 +1,137 @@
+{
+  "hit_rate": 0.8,
+  "false_initiation_rate_per_hour": 3.4951456310679614,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "fire_alarm",
+      "notification_sim_time": 5.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "flight_delay",
+      "notification_sim_time": 35.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "meeting_moved",
+      "notification_sim_time": 100.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "deadline",
+      "notification_sim_time": 400.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "dentist_cancel"
+  ],
+  "agent_name": "heargent_z_intent_briefing_thr0.00_w16",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1030.0,
+  "llm_stats": {
+    "calls": 10,
+    "prompt_tokens": 2605,
+    "completion_tokens": 205,
+    "total_duration_s": 6.653367502
+  },
+  "trace_name": "dev_v2",
+  "intent_mode": "briefing",
+  "with_briefing": false,
+  "intents": [
+    "Work deadlines",
+    "Medical appointments",
+    "Quarterly reports",
+    "Travel commitments",
+    "Personal health management",
+    "Professional preparation"
+  ],
+  "surprise_log": [
+    {
+      "sim_time": 5.0,
+      "event_id": "fire_alarm",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Fire alarm in building A triggered; evacuation in progress.",
+      "surprise": 0.4032661449251719,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 35.0,
+      "event_id": "flight_delay",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Flight UA123 to Berlin tomorrow has been delayed by 3 hours. New departure: 14:30.",
+      "surprise": 0.34723934771903253,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 50.0,
+      "event_id": "news_digest",
+      "prediction": "Flight delay for UA123 to Berlin confirmed, new departure time 14:30.",
+      "observation": "Daily news digest updated.",
+      "surprise": 0.40623491855205807,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 100.0,
+      "event_id": "meeting_moved",
+      "prediction": "Flight UA123 to Berlin delay extended to 6:30 PM.",
+      "observation": "Meeting 'Design Review' tomorrow moved from 10:00 to 14:00.",
+      "surprise": 0.2872343266313131,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 200.0,
+      "event_id": "weather_nominal",
+      "prediction": "Flight UA123 to Berlin departure time changed to 14:30.",
+      "observation": "Today's weather: sunny and mild, high 22\u00b0C.",
+      "surprise": 0.4871151895015565,
+      "z": 2.5929645442269065,
+      "surfaced": false
+    },
+    {
+      "sim_time": 350.0,
+      "event_id": "marketing_newsletter",
+      "prediction": "Flight UA123 to Berlin departure time changed to 14:30.",
+      "observation": "Newsletter from the marketing team: latest trends in agentic AI.",
+      "surprise": 0.503467597377151,
+      "z": 1.7600737193071616,
+      "surfaced": false
+    },
+    {
+      "sim_time": 400.0,
+      "event_id": "deadline",
+      "prediction": "Flight UA123 to Berlin delayed further, new departure time at 14:30.",
+      "observation": "Reminder: Quarterly Report deadline is in 24 hours.",
+      "surprise": 0.292057358884224,
+      "z": -1.5183960202278837,
+      "surfaced": true
+    },
+    {
+      "sim_time": 550.0,
+      "event_id": "system_heartbeat",
+      "prediction": "Flight UA123 to Berlin delayed further, new departure time at 14:30.",
+      "observation": "System heartbeat: all services nominal.",
+      "surprise": 0.5303507571418004,
+      "z": 1.761881108910833,
+      "surfaced": false
+    },
+    {
+      "sim_time": 700.0,
+      "event_id": "dentist_cancel",
+      "prediction": "Flight UA123 to Berlin delayed further, new departure time at 14:30.",
+      "observation": "Your dentist appointment today at 16:00 has been cancelled.",
+      "surprise": 0.40921751929713934,
+      "z": 0.023802622557129994,
+      "surfaced": false
+    }
+  ]
+}

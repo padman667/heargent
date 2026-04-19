@@ -1,0 +1,139 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 3.4951456310679614,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 6,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "fire_alarm",
+      "notification_sim_time": 5.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "flight_delay",
+      "notification_sim_time": 35.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "meeting_moved",
+      "notification_sim_time": 100.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "deadline",
+      "notification_sim_time": 400.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "dentist_cancel",
+      "notification_sim_time": 700.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "heargent_z_intent_oracle_thr0.00_w16",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1030.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 2524,
+    "completion_tokens": 125,
+    "total_duration_s": 29.951495417
+  },
+  "trace_name": "dev_v2",
+  "intent_mode": "oracle",
+  "with_briefing": false,
+  "intents": [
+    "physical safety while at the office",
+    "upcoming international travel plans",
+    "work meetings and design reviews",
+    "quarterly work deliverables and deadlines",
+    "personal medical appointments"
+  ],
+  "surprise_log": [
+    {
+      "sim_time": 5.0,
+      "event_id": "fire_alarm",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Fire alarm in building A triggered; evacuation in progress.",
+      "surprise": 0.4032661449251719,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 35.0,
+      "event_id": "flight_delay",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Flight UA123 to Berlin tomorrow has been delayed by 3 hours. New departure: 14:30.",
+      "surprise": 0.34723934771903253,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 50.0,
+      "event_id": "news_digest",
+      "prediction": "Fire alarm continues as building A evacuates; flight delay affects travel plans.",
+      "observation": "Daily news digest updated.",
+      "surprise": 0.4326745513782857,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 100.0,
+      "event_id": "meeting_moved",
+      "prediction": "Fire evacuation continues in building A due to alarm trigger.",
+      "observation": "Meeting 'Design Review' tomorrow moved from 10:00 to 14:00.",
+      "surprise": 0.4781036961672358,
+      "z": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 200.0,
+      "event_id": "weather_nominal",
+      "prediction": "Meeting 'Design Review' postponed until 14:00, impacting travel plans.",
+      "observation": "Today's weather: sunny and mild, high 22\u00b0C.",
+      "surprise": 0.4793010509181249,
+      "z": 1.3470808958532026,
+      "surfaced": false
+    },
+    {
+      "sim_time": 350.0,
+      "event_id": "marketing_newsletter",
+      "prediction": "Meeting 'Design Review' tomorrow rescheduled to afternoon.",
+      "observation": "Newsletter from the marketing team: latest trends in agentic AI.",
+      "surprise": 0.5455602325123288,
+      "z": 2.3680767361096384,
+      "surfaced": false
+    },
+    {
+      "sim_time": 400.0,
+      "event_id": "deadline",
+      "prediction": "Meeting 'Design Review' tomorrow rescheduled to afternoon.",
+      "observation": "Reminder: Quarterly Report deadline is in 24 hours.",
+      "surprise": 0.3422663255543922,
+      "z": -1.6741745813138282,
+      "surfaced": true
+    },
+    {
+      "sim_time": 550.0,
+      "event_id": "system_heartbeat",
+      "prediction": "Meeting 'Design Review' tomorrow rescheduled to afternoon.",
+      "observation": "System heartbeat: all services nominal.",
+      "surprise": 0.5844873729390514,
+      "z": 2.2011035786485573,
+      "surfaced": false
+    },
+    {
+      "sim_time": 700.0,
+      "event_id": "dentist_cancel",
+      "prediction": "Meeting 'Design Review' tomorrow moved to later afternoon.",
+      "observation": "Your dentist appointment today at 16:00 has been cancelled.",
+      "surprise": 0.41458904111302286,
+      "z": -0.45274805734463663,
+      "surfaced": true
+    }
+  ]
+}
