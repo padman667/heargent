@@ -9,23 +9,23 @@ Central place to review outcomes. Every work session produces a numbered markdow
 
 ## Current status (as of 2026-04-19)
 
-**Milestone:** M3 — intent-conditioned predictor pre-registered, executed, **falsified** on the primary test_v2 hypothesis. Pre-reg success criteria 1 (primary), 4 (A-vs-B ceiling), and 5 (placebo-null) all fail; the pre-registered option-4 exit fires.
-**Next:** surprise + lightweight-content arbiter on test_v2 (M4). Intent-conditioning via system-prompt anchor is off the table — placebo intents (gardening / Premier League) beat briefing-extracted intents on test_v2, so intent content is not load-bearing; the 3B predictor latches on recent observations regardless of what the intent list says.
-**Tooling:** ollama 0.21 + `qwen2.5:3b-instruct` (predictor + poll + intent extractor, temp=0/seed=42, deterministic) + `nomic-embed-text` (surprise).
+**Milestone:** M4 — surprise + lightweight-content arbiter pre-registered, executed, **partially validated**. Criterion 1 (primary test_v2 recovery) passes strongly and criterion 3 (random-arbiter ablation) confirms the content signal is load-bearing; criterion 2 (no-regression on regime-aligned traces) fails cleanly.
+**Next:** M5 — regime-robust arbiter prompt. The pre-registered prompt's reading of "imminent action required" is too strict on within-24-hour scheduling phrasings, regressing dev_v2 / test_v1 while winning test_v2 outright. M5 re-pre-registers a broader prompt and re-runs the three-trace matrix with a fresh random ablation.
+**Tooling:** ollama 0.21 + `qwen2.5:3b-instruct` (predictor + arbiter, temp=0/seed=42, deterministic) + `nomic-embed-text` (surprise).
 
 ### Headline Pareto (frozen hyperparameters, no per-trace tuning)
 
 | Agent | dev_v2 (hit / false-h / TTN / tok/hit) | test_v1 (hit / false-h / TTN / tok/hit) | test_v2 (hit / false-h / TTN / tok/hit) |
 |---|---|---|---|
 | cron 30 s | 0.80 / 17.48 / 0 / 0 | 0.80 / 18.37 / 10 / 0 | 0.80 / 18.75 / 0 / 0 |
-| **HeargentZ z_thr=0.0 inverted (frozen on dev_v2)** | **1.00 / 0.00 / 0 / 444** | **0.80 / 7.35 / 0 / 260** | **0.40 / 7.50 / 0 / 1039** |
+| HeargentZ z_thr=0.0 inverted (frozen on dev_v2) | 1.00 / 0.00 / 0 / 444 | 0.80 / 7.35 / 0 / 260 | 0.40 / 7.50 / 0 / 1039 |
+| **HeargentZA (content arbiter, M4)** | 0.60 / 0.00 / 0 / 984 | 0.40 / 3.67 / 0 / 1674 | **0.80 / 0.00 / 0 / 770** |
 | react_poll_local (strong baseline) | 1.00 / 0.00 / 0 / 7711 | 1.00 / 0.00 / 0 / 7575 | 1.00 / 0.00 / 0 / 7629 |
 
-- **Two traces (dev_v2, test_v1)** — both with "human-relevant GT vs system-noise distractors" structure: HeargentZ matches poll quality at 17–29× lower cost. Clean v1 story.
-- **One trace (test_v2)** — adversarial: distractors are mundane routine, GT events are abrupt interruptions of varying semantic distance to the rolling prediction. **Frozen inverted gate collapses to hit=0.40.** Forward gate hits 0.60. Polarity-agnostic |z| gate hits 1.00 but matches random p=1.0 (no signal). Cron 30 s outperforms heargent on hit rate.
-- **Polarity flip is regime-dependent**, not universal: it holds where GT and distractors occupy structurally distinct semantic spaces; it falsifies when they overlap. Predictor latching (the predictor anchors on whatever surface narrative dominates the last few observations) is the underlying failure mechanism.
-- **Poll remains the only quality-ceiling agent across all three traces.** v1 surprise gate is dominated by poll on test_v2; the cost-efficiency story only holds on the regime-aligned traces.
-- **Honest paper framing**: *HeargentZ is selective-initiation at ~20× lower cost than polling on traces with a structurally consistent GT/distractor split; on traces with mixed semantics, single-step embedding surprise is not a sufficient gate signal and intent-conditioned prediction is needed.*
+- **On test_v2 (adversarial trace), HeargentZA strictly Pareto-dominates plain HeargentZ**: hit 0.40 → 0.80 (cron-matching), false/h 7.50 → 0.00 (poll-matching), tok/hit 1039 → 770. Against poll on the same trace: 0.80 hit vs 1.00 at **10.0× lower token cost per correct proaction**. The random-arbiter null ablation with matched YES-rate p = 0.25 scores 0.60 / 3.75 on test_v2 — the content signal is load-bearing, not a firing-rate trick.
+- **On dev_v2 and test_v1 (regime-aligned traces), HeargentZA regresses** because the bootstrap-phase arbiter reads within-24-hour scheduling phrasings ("flight delayed tomorrow", "meeting moved to 14:00", "rent due in 2 days") as non-urgent and skips them. Isolation probe before eval confirmed 0/5 dev-trace GTs classified YES vs 5/5 test_v2 GTs; the matrix was still run unchanged, per frozen-config discipline.
+- **Regime-selective result.** The same arbiter prompt that delivers the cleanest test_v2 number to date regresses the two traces where plain HeargentZ was already working. No single-config frozen prompt under this design wins all three; the trade-off surface is the arbiter's YES-policy wording.
+- **Honest paper framing:** *Content-arbitered surprise gating recovers adversarial-regime performance (poll-matching quality at 10× lower cost) at a pre-registered cost to regime-aligned traces; the arbiter's decision boundary between "right-now urgency" and "24-hour scheduling" is a documented trade-off surface, and addressing it is an M5-pre-registered scope item.*
 
 ---
 
@@ -42,6 +42,7 @@ Central place to review outcomes. Every work session produces a numbered markdow
 | [07](07-frozen-transfer-and-poll.md) | 2026-04-18 | HeargentZ (rolling-window z-score gate) for transfer; `react_poll_local` strong baseline; first cost-per-correct-proaction numbers. | **Pre-registered frozen z_thr=0.0 transfers to test_v1 at hit=0.80** (abs-θ collapsed to 0.40). **Poll is quality ceiling (1.00/0.00 on both traces) but at 17–29× more tokens per hit than frozen HeargentZ.** Paper-shaped v1 story: selective initiation at near-ceiling quality, ≈20× cheaper. |
 | [08](08-test_v2-adversarial.md) | 2026-04-18 | Adversarial `test_v2`: distractors = calm routine, GT = abrupt interruptions. Polarity-flip stress test. | **Polarity-flip falsified.** Frozen inverted z_thr=0.0 collapses to hit=0.40. Forward gate gets 0.60 (catches different GT subset). Polarity-agnostic \|z\| hits 1.00 but matches random p=1.0 — no signal. Mechanism: predictor latches on dominant surface narrative, per-event polarity becomes unstable. Poll is the only agent that wins this trace (1.00/0.00/0 at 7629 tok/hit). v1 thesis confirmed in regime-aligned traces, falsified on adversarial split — intent-conditioned prediction is now the next required step. |
 | [09](09-intent-conditioned-prediction.md) | 2026-04-19 | Pre-registered M3 intent-conditioned predictor (oracle A, briefing-extracted B, placebo) × 3 traces + poll+briefing × 3. 12 new cells, frozen config. | **M3 falsified.** Intent-B on test_v2 hit=0.40 (unchanged from run-08 baseline); primary criterion fails. **Placebo hit=0.60 > briefing hit=0.40** on test_v2 — criterion 5 placebo-null fails hard, intent content is not load-bearing. Per-event logs show all three intent cells latch on "FIRE…" after fire_kitchen regardless of intent list (oracle / briefing / gardening). Pre-registered option-4 exit fires: pivot to surprise + lightweight-content arbiter for M4. Post-hoc: poll+briefing degrades plain poll on dev_v2 / test_v1 (hit 1.00→0.80, false/h 0.00→17.48 on dev_v2). |
+| [10](10-surprise-content-arbiter.md) | 2026-04-19 | Pre-registered M4 HeargentZ + content arbiter (three-way gate: `z < −0.5` auto-surf, `z > +1.0` auto-skip, otherwise + bootstrap → 3B YES/NO classifier on event content only). 3 content cells + 3 matched-firing-rate random-arbiter ablation cells, frozen config. | **M4 partially validated.** Primary (test_v2 hit ≥ 0.80 AND tok/hit < poll's 7629): **PASS** — HeargentZA test_v2 = 0.80 / 0.00 / 770, strictly Pareto-dominant over plain HeargentZ (0.40 / 7.50 / 1039) and 10× cheaper than poll at matching quality. Arbiter-content load-bearing vs random: **PASS** (Δhit = 0.20). **No-regression: FAIL** on both dev_v2 (1.00 → 0.60) and test_v1 (0.80 → 0.40) — the arbiter's narrow reading of "imminent action required" skips "tomorrow" and "in-24-hours" scheduling phrasings. Regime-selective win; next session re-pre-registers a broader-prompt variant. |
 
 ---
 
@@ -63,7 +64,9 @@ heargent/
 │   ├── llm.py                    ← OllamaClient (stdlib HTTP) + LLMStats
 │   ├── predictor.py              ← qwen2.5:3b-instruct one-sentence predictions
 │   ├── surprise.py               ← nomic-embed-text cosine-distance surprise
-│   └── loop.py                   ← HeargentAgent (v1 prediction-error gate)
+│   ├── intent_extractor.py       ← briefing → intent list (M3, qwen2.5:3b)
+│   ├── arbiter.py                ← ContentArbiter + RandomArbiter (M4)
+│   └── loop.py                   ← HeargentAgent / HeargentZ / HeargentZIntent / HeargentZA
 ├── runs/
 │   ├── README.md                 ← this file
 │   ├── 01-reactive-baseline-sanity.md
