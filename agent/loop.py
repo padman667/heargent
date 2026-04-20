@@ -366,6 +366,7 @@ class HeargentZA:
         mode: str = "content",
         client: OllamaClient | None = None,
         random_p: float | None = None,
+        random_seed: int = 42,
         **kwargs,
     ) -> "HeargentZA":
         del trace  # HeargentZA does not consume trace.briefing or trace.intents
@@ -378,7 +379,7 @@ class HeargentZA:
                     "arbiter-mode=random requires random_p "
                     "(the content arbiter's dev_v2 YES-rate)"
                 )
-            arbiter = RandomArbiter(random_p)
+            arbiter = RandomArbiter(random_p, seed=random_seed)
         else:
             raise ValueError(f"unknown arbiter mode {mode!r}; expected content|random")
         return cls(arbiter=arbiter, client=client, **kwargs)

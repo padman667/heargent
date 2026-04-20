@@ -99,6 +99,7 @@ def _load_agent(
     with_briefing: bool = False,
     arbiter_mode: str | None = None,
     arbiter_random_p: float | None = None,
+    arbiter_random_seed: int | None = None,
 ) -> Agent:
     module_name, _, cls_name = spec.rpartition(":")
     if not module_name:
@@ -116,7 +117,10 @@ def _load_agent(
     if arbiter_mode is not None:
         if not hasattr(cls, "from_trace"):
             raise ValueError(f"{spec} does not support --arbiter-mode (no from_trace classmethod)")
-        return cls.from_trace(trace, mode=arbiter_mode, random_p=arbiter_random_p)
+        kwargs: dict = {"mode": arbiter_mode, "random_p": arbiter_random_p}
+        if arbiter_random_seed is not None:
+            kwargs["random_seed"] = arbiter_random_seed
+        return cls.from_trace(trace, **kwargs)
     return cls()
 
 
@@ -149,6 +153,12 @@ def main() -> int:
         default=None,
         help="Bernoulli p for --arbiter-mode=random (pre-committed YES-rate from content run on dev_v2)",
     )
+    parser.add_argument(
+        "--arbiter-random-seed",
+        type=int,
+        default=None,
+        help="RandomArbiter RNG seed for --arbiter-mode=random (default 42 when omitted)",
+    )
     args = parser.parse_args()
 
     trace = get_trace(args.trace)
@@ -159,6 +169,7 @@ def main() -> int:
         with_briefing=args.with_briefing,
         arbiter_mode=args.arbiter_mode,
         arbiter_random_p=args.arbiter_random_p,
+        arbiter_random_seed=args.arbiter_random_seed,
     )
     metrics = run(agent, trace, tick_dt_s=args.tick_dt)
     metrics["trace_name"] = trace.name
@@ -166,6 +177,7 @@ def main() -> int:
     metrics["with_briefing"] = args.with_briefing
     metrics["arbiter_mode"] = args.arbiter_mode
     metrics["arbiter_random_p"] = args.arbiter_random_p
+    metrics["arbiter_random_seed"] = args.arbiter_random_seed
     if hasattr(agent, "intents"):
         metrics["intents"] = list(agent.intents)
     if hasattr(agent, "surprise_log"):
