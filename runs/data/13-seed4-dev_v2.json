@@ -1,0 +1,155 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 3.4951456310679614,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 6,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "fire_alarm",
+      "notification_sim_time": 5.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "flight_delay",
+      "notification_sim_time": 35.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "meeting_moved",
+      "notification_sim_time": 100.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "deadline",
+      "notification_sim_time": 400.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "dentist_cancel",
+      "notification_sim_time": 700.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "heargent_za_rand_surf-0.50_skip+1.50_w16",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1030.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 2065,
+    "completion_tokens": 155,
+    "total_duration_s": 4.853932375,
+    "arbiter_calls": 4,
+    "arbiter_yes_rate": 1.0
+  },
+  "trace_name": "dev_v2",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "random",
+  "arbiter_random_p": 0.75,
+  "arbiter_random_seed": 4,
+  "surprise_log": [
+    {
+      "sim_time": 5.0,
+      "event_id": "fire_alarm",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Fire alarm in building A triggered; evacuation in progress.",
+      "surprise": 0.4032661449251719,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 35.0,
+      "event_id": "flight_delay",
+      "prediction": "Building A evacuation continues as occupants are guided to safety corridors.",
+      "observation": "Flight UA123 to Berlin tomorrow has been delayed by 3 hours. New departure: 14:30.",
+      "surprise": 0.42060641146668976,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 50.0,
+      "event_id": "news_digest",
+      "prediction": "Flight UA123 delay announcement triggers further travel disruptions.",
+      "observation": "Daily news digest updated.",
+      "surprise": 0.4484950794658441,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 100.0,
+      "event_id": "meeting_moved",
+      "prediction": "Flight UA123 passengers informed about new departure time.",
+      "observation": "Meeting 'Design Review' tomorrow moved from 10:00 to 14:00.",
+      "surprise": 0.3385769261995284,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 200.0,
+      "event_id": "weather_nominal",
+      "prediction": "Flight UA123 departure time change to 14:30 expected.",
+      "observation": "Today's weather: sunny and mild, high 22\u00b0C.",
+      "surprise": 0.4656423493917674,
+      "z": 1.556932622866163,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 350.0,
+      "event_id": "marketing_newsletter",
+      "prediction": "Flight UA123 delay updated to departure at 14:30.",
+      "observation": "Newsletter from the marketing team: latest trends in agentic AI.",
+      "surprise": 0.5091993721877801,
+      "z": 2.131957156443205,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 400.0,
+      "event_id": "deadline",
+      "prediction": "Flight UA123 to Berlin departure time change to 14:30.",
+      "observation": "Reminder: Quarterly Report deadline is in 24 hours.",
+      "surprise": 0.34592276124522814,
+      "z": -1.5957530936125126,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 550.0,
+      "event_id": "system_heartbeat",
+      "prediction": "Flight UA123 to Berlin will depart at 14:30 after being delayed.",
+      "observation": "System heartbeat: all services nominal.",
+      "surprise": 0.5320088126305229,
+      "z": 1.9645207049419884,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 700.0,
+      "event_id": "dentist_cancel",
+      "prediction": "Flight UA123 to Berlin will depart at 14:30 after its delayed morning schedule.",
+      "observation": "Your dentist appointment today at 16:00 has been cancelled.",
+      "surprise": 0.39221453270327755,
+      "z": -0.6209784884617348,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    }
+  ]
+}
