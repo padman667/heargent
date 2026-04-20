@@ -282,12 +282,68 @@ def test_trace_v2() -> Trace:
     )
 
 
+def test_trace_v3() -> Trace:
+    gts = [
+        _gt(
+            Event(id="passport_expiry", kind="email", sim_time=45.0,
+                  content="Reminder from Travel Desk: your passport expires in 4 weeks, before your planned Tokyo trip next month. Renewal appointments are booking out 3+ weeks."),
+            window_s=600.0, keywords=("passport", "expiring"),
+        ),
+        _gt(
+            Event(id="prescription_urgent", kind="notification", sim_time=180.0,
+                  content="Pharmacy: your blood pressure medication refill is ready for pickup today only. Store closes at 18:00 and you are on your last dose."),
+            window_s=30.0, keywords=("prescription", "refill"),
+        ),
+        _gt(
+            Event(id="car_recall", kind="alert", sim_time=300.0,
+                  content="Manufacturer recall notice for your 2021 Subaru Forester: airbag inflator defect. Do not drive with front passenger until serviced. Free repair at any dealer."),
+            window_s=300.0, keywords=("recall", "airbag"),
+        ),
+        _gt(
+            Event(id="power_shutoff_planned", kind="world_event", sim_time=520.0,
+                  content="Building management notice: planned electrical shutoff tonight 22:00–02:00 for panel replacement. All outlets and wifi will be offline."),
+            window_s=400.0, keywords=("power", "shutoff"),
+        ),
+        _gt(
+            Event(id="plumber_reschedule", kind="phone_message", sim_time=700.0,
+                  content="Voicemail from Jorge at Ridgeline Plumbing: cannot make tomorrow's 09:00 dishwasher install; next available slot is in 9 days unless you confirm today."),
+            window_s=300.0, keywords=("plumber", "reschedule"),
+        ),
+    ]
+    distractors = [
+        Event(id="spotify_weekly", kind="notification", sim_time=20.0,
+              content="Your Discover Weekly playlist has refreshed with 30 new songs."),
+        Event(id="app_version_note", kind="notification", sim_time=250.0,
+              content="Messages app updated to version 14.2 — new sticker pack available."),
+        Event(id="distant_birthday", kind="calendar_update", sim_time=400.0,
+              content="Upcoming in 94 days: Aunt Linda's birthday (no action required)."),
+        Event(id="photo_likes", kind="notification", sim_time=850.0,
+              content="7 friends liked your photo from the weekend hike."),
+    ]
+    all_events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    briefing = (
+        "I'm working from home today while my partner is away on a work trip, so the household is on me. "
+        "I've got a Tokyo vacation coming up next month that still needs prep, and a dishwasher install booked for tomorrow. "
+        "I want to stay focused on deep work but not miss anything time-sensitive."
+    )
+    intents = (
+        "prepare for Tokyo trip on schedule",
+        "stay current on medication and health",
+        "keep the home improvement work moving",
+        "catch time-sensitive safety issues",
+        "ignore routine app and social noise",
+    )
+    return Trace(name="test_v3", events=all_events, ground_truth=gts,
+                 briefing=briefing, intents=intents)
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
         "dev_v2": dev_trace_v2,
         "test_v1": test_trace_v1,
         "test_v2": test_trace_v2,
+        "test_v3": test_trace_v3,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")
