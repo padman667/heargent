@@ -219,6 +219,7 @@ After Commit B has landed a compliant `test_v3`:
 uv run python -m eval.run_trace \
   --agent agent.loop:HeargentZAWide \
   --trace test_v3 \
+  --arbiter-mode content \
   --out runs/data/14a-content-test_v3.json
 
 # 14b — matched-firing-rate random arbiter (tertiary; single seed, report-only)
