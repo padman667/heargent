@@ -1,0 +1,37 @@
+{
+  "hit_rate": 0.2,
+  "false_initiation_rate_per_hour": 13.980582524271846,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "car_recall",
+      "notification_sim_time": 300.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "passport_expiry",
+    "prescription_urgent",
+    "power_shutoff_planned",
+    "plumber_reschedule"
+  ],
+  "agent_name": "react_poll_local",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1030.0,
+  "llm_stats": {
+    "calls": 206,
+    "prompt_tokens": 39316,
+    "completion_tokens": 414,
+    "total_duration_s": 63.331681672
+  },
+  "trace_name": "test_v3",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": null,
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null
+}

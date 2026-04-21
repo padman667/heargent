@@ -1,0 +1,140 @@
+{
+  "hit_rate": 0.2,
+  "false_initiation_rate_per_hour": 20.97087378640777,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 7,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "car_recall",
+      "notification_sim_time": 300.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "passport_expiry",
+    "prescription_urgent",
+    "power_shutoff_planned",
+    "plumber_reschedule"
+  ],
+  "agent_name": "heargent_za_rand_surf-0.50_skip+1.50_w16",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1030.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 2510,
+    "completion_tokens": 142,
+    "total_duration_s": 5.293008959,
+    "arbiter_calls": 6,
+    "arbiter_yes_rate": 1.0
+  },
+  "trace_name": "test_v3",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "random",
+  "arbiter_random_p": 0.75,
+  "arbiter_random_seed": 42,
+  "surprise_log": [
+    {
+      "sim_time": 20.0,
+      "event_id": "spotify_weekly",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Your Discover Weekly playlist has refreshed with 30 new songs.",
+      "surprise": 0.46752272883732127,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 45.0,
+      "event_id": "passport_expiry",
+      "prediction": "Your Discover Weekly playlist will likely continue to refresh with new songs.",
+      "observation": "Reminder from Travel Desk: your passport expires in 4 weeks, before your planned Tokyo trip next month. Renewal appointments are booking out 3+ weeks.",
+      "surprise": 0.4665204250139121,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 180.0,
+      "event_id": "prescription_urgent",
+      "prediction": "Reminder to book a passport renewal appointment before Tokyo trip next month.",
+      "observation": "Pharmacy: your blood pressure medication refill is ready for pickup today only. Store closes at 18:00 and you are on your last dose.",
+      "surprise": 0.41207584282382914,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 250.0,
+      "event_id": "app_version_note",
+      "prediction": "Pharmacy notification: Last chance to pick up remaining blood pressure medication before store closes.",
+      "observation": "Messages app updated to version 14.2 \u2014 new sticker pack available.",
+      "surprise": 0.4571634874757745,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 300.0,
+      "event_id": "car_recall",
+      "prediction": "Messages app update notification with new stickers arriving soon.",
+      "observation": "Manufacturer recall notice for your 2021 Subaru Forester: airbag inflator defect. Do not drive with front passenger until serviced. Free repair at any dealer.",
+      "surprise": 0.45356909165374837,
+      "z": 0.12091168982714097,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 400.0,
+      "event_id": "distant_birthday",
+      "prediction": "Manufacturer recall notice for 2021 Subaru Forester airbag defect expected to be widely shared on social media.",
+      "observation": "Upcoming in 94 days: Aunt Linda's birthday (no action required).",
+      "surprise": 0.46600380663103835,
+      "z": 0.7186975451423964,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 520.0,
+      "event_id": "power_shutoff_planned",
+      "prediction": "Manufacturer recall notice for your Subaru Forester airbag defect.",
+      "observation": "Building management notice: planned electrical shutoff tonight 22:00\u201302:00 for panel replacement. All outlets and wifi will be offline.",
+      "surprise": 0.4838723579334736,
+      "z": 1.5519957886710538,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 700.0,
+      "event_id": "plumber_reschedule",
+      "prediction": "Manufacturer recall notice for your Subaru Forester airbag defect requires immediate attention.",
+      "observation": "Voicemail from Jorge at Ridgeline Plumbing: cannot make tomorrow's 09:00 dishwasher install; next available slot is in 9 days unless you confirm today.",
+      "surprise": 0.4386718524256864,
+      "z": -0.9346180497115057,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 850.0,
+      "event_id": "photo_likes",
+      "prediction": "Manufacturer recall notice for your Subaru Forester airbag defect requires immediate attention.",
+      "observation": "7 friends liked your photo from the weekend hike.",
+      "surprise": 0.5941264351616368,
+      "z": 6.759351605826235,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    }
+  ]
+}

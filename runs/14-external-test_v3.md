@@ -272,6 +272,107 @@ This pass is strictly narrower than M7: zero code in `agent/`, one new trace, fo
 
 ## Results
 
-(Populated post-eval. Each cell's row: `hit_rate / false_initiation_rate_per_hour / time_to_notice_p50 / tok_per_hit / total_notifications / misses`. P1/P2/P3/P4 verdicts applied verbatim against the rules above.)
+### Pre-flight bit-identical smoke (before 14a–d fired)
 
-_Pending Commit B._
+Re-ran `uv run python -m eval.run_trace --agent agent.loop:HeargentZAWide --trace dev_v2 --arbiter-mode content --out /tmp/smoke-12a.json` under the M8 tree (commit `b89788d`) and diffed against `runs/data/12a-heargent-za-v2wide-dev_v2.json`. Bit-identical on `hit_rate`, `false_initiation_rate_per_hour`, `total_notifications`, `misses`. Registry addition of `"test_v3": test_trace_v3` did not perturb existing behavior.
+
+### Full 4-cell matrix
+
+| cell | agent | hit | false/h | n_notif | n_hits | tok_total | tok/hit | misses |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| 14a | HeargentZAWide content | 0.20 | 6.99 | 3 | 1 | 4 489 | 4 489 | passport_expiry, prescription_urgent, power_shutoff_planned, plumber_reschedule |
+| 14b | HeargentZAWide random p=0.75 seed=42 | 0.20 | 20.97 | 7 | 1 | 2 652 | 2 652 | passport_expiry, prescription_urgent, power_shutoff_planned, plumber_reschedule |
+| 14c | react_poll_local | 0.20 | 13.98 | 5 | 1 | 39 730 | 39 730 | passport_expiry, prescription_urgent, power_shutoff_planned, plumber_reschedule |
+| 14d | CronKeyword30s | 0.20 | 27.96 | 9 | 1 | 0 | 0 | passport_expiry, prescription_urgent, power_shutoff_planned, plumber_reschedule |
+
+**Every agent misses the same four GTs and hits the same one (`car_recall`).** This is the first signal that the result is not an agent comparison — four architecturally distinct agents (gated content arbiter, seed-matched random, LLM-judge poll, fixed-interval keyword cron) cannot all fail on the same four events for the same reason.
+
+### Critical finding: pre-registered spec gap (keyword / content alignment)
+
+The scoring harness is `eval/run_trace.py:21–23`:
+
+```python
+def _matches_keywords(text: str, keywords: tuple[str, ...]) -> bool:
+    lo = text.lower()
+    return all(kw.lower() in lo for kw in keywords)
+```
+
+A notification is credited as a hit only if **every** keyword in the GT's tuple is a case-insensitive substring of the notification content. This matters because `note.content` is the surfaced event's content verbatim — so a GT's `keywords` tuple must be a pair of substrings (or morphological variants that land as substrings) of its own `content` string for the scoring to ever succeed.
+
+| GT | keywords | content excerpt | keyword in content? |
+|---|---|---|---|
+| `passport_expiry` | `(passport, expiring)` | "your passport **expires** in 4 weeks…" | `passport` ✓, `expiring` **✗** (`expires` present, `expiring` not) |
+| `prescription_urgent` | `(prescription, refill)` | "your blood pressure **medication refill** is ready…" | `refill` ✓, `prescription` **✗** (`medication` present instead) |
+| `car_recall` | `(recall, airbag)` | "…recall notice … **airbag** inflator defect…" | `recall` ✓, `airbag` ✓ |
+| `power_shutoff_planned` | `(power, shutoff)` | "…planned **electrical shutoff** tonight 22:00–02:00…" | `shutoff` ✓, `power` **✗** (`electrical` present instead) |
+| `plumber_reschedule` | `(plumber, reschedule)` | "Voicemail from Jorge at Ridgeline **Plumbing**: cannot make tomorrow's 09:00 dishwasher install; next available slot is in 9 days…" | `plumber` **✗** (`Plumbing` present), `reschedule` **✗** (semantic only) |
+
+**4 of 5 GTs have at least one keyword that does not appear as a substring of its content.** Only `car_recall` is scoreable under `_matches_keywords`. All four existing traces (`dev_v1`, `dev_v2`, `test_v1`, `test_v2`) have every GT's keywords as substrings of its content — verified by a sweep over `get_trace` entries. This was an implicit convention, never written into the spec.
+
+Per the M8 pre-reg (§ Frozen trace spec, runs/14 at commit `2a933fb`), the 10 hard constraints list covered ids, count, sim_time, kinds, windows, briefing, intents, distractor plausibility, and GT interpretability. It did **not** require `keywords ⊆ content`. The fresh Claude session was spec-compliant on all 10 constraints and all 3 banned lists; the gap is on the pre-registration side, not the generation side.
+
+### Mechanistic per-GT agent behavior (14a content, from `surprise_log`)
+
+| GT | t | z | surfaced | arbiter | notes |
+|---|---:|---:|:---:|:---:|---|
+| passport_expiry | 45.0 | `None` | ✗ | ✗ | Bootstrap-window: below `min_window=4` for z-scoring. Agent did not fire. |
+| prescription_urgent | 180.0 | `None` | ✓ | **YES** | Still in bootstrap (z=None) but arbiter consulted per M4+ bootstrap policy; arbiter said YES → surfaced. Would have been a HIT under aligned keywords. |
+| car_recall | 300.0 | +0.12 | ✓ | **YES** | In-band, arbiter YES. **HIT**. |
+| power_shutoff_planned | 520.0 | **+1.55** | ✗ | — | **Band-edge miss**: z > +1.5 threshold by +0.05, auto-skipped. Independent of the keyword issue. |
+| plumber_reschedule | 700.0 | −0.93 | ✓ | — | z < −0.5 → auto-surface (arbiter bypassed). Would have been a HIT under aligned keywords. |
+
+Distractor rejections (all correct): `spotify_weekly` (bootstrap), `app_version_note` (z None), `distant_birthday` (z=0.72 in-band, arbiter NO), `photo_likes` (z=6.76 auto-skip). **Zero distractors surfaced.**
+
+Under an aligned-keyword counterfactual, the content cell would have scored 3 hits (prescription, car_recall, plumber_reschedule) = `hit_rate = 0.60`, with one compound miss (power_shutoff_planned at z=+1.55: scoring AND band-edge) and one bootstrap miss (passport_expiry at t=45: scoring AND too-early-for-z). **This counterfactual is not pre-registered and is not claimable as a result.** It is recorded here only to separate scoring-side from agent-side causes in the mechanistic tagging the P1 decision rule requires.
+
+### Pre-registered criteria — literal evaluation
+
+Evaluated verbatim against rules frozen in commit `2a933fb`. No post-hoc redefinition.
+
+- **P1 — Primary: headline preservation. Bar: hit_rate(14a) ≥ 0.80.**
+  **FAIL.** hit_rate(14a) = 0.20, in the "< 0.60" branch. Per-miss mechanistic tags: 3 scoring-only misses (prescription_urgent, plumber_reschedule, passport_expiry — the last compounded by bootstrap), 1 compound scoring + band-edge miss (power_shutoff_planned, z=+1.55), 1 hit (car_recall).
+
+- **P2 — Secondary: Pareto preservation. Bar: tok/hit(14a) ≤ tok/hit(14c)/3.**
+  **PASS literally** (4 489 ≤ 13 243). With a one-hit denominator on both sides the ratio is 8.85× (within M6a's 6.8–11.3× band), but the comparison is effectively between two agents both scoring only `car_recall`. Not interpretable as a Pareto claim about the overall agent.
+
+- **P3 — Tertiary (report-only): C3 single-seed. Criterion: Δhit ≥ 0.20 OR Δfalse/h ≤ −5.0.**
+  **PASS literally** (Δhit = 0.00, Δfalse/h = 6.99 − 20.97 = **−13.98 ≤ −5.0**). Content beats random on false/h because both are scoring-blocked on 4 of 5 GTs but the content arbiter surfaces fewer distractor-adjacent events (3 notifications vs 7) in the remaining scoreable window. This is an artefact of equal scoring-block, not an independent C3 signal on the external trace.
+
+- **P4 — Sanity gate: trace fairness. Bar: hit_rate(14c) ≥ 0.80.**
+  **FAIL.** hit_rate(14c) = 0.20. Poll's behavior is to surface every event it's prompted about; it issued 5 notifications and was credited for 1 hit (car_recall). The remaining 4 notifications were blocked by the same keyword-alignment gap as the other three agents.
+
+### Governing interpretation
+
+Per the P4 decision rule frozen in the pre-reg: *"Report all numbers; note the trace is unfair to all agents on Pareto and that the Primary evaluation should be read through that lens, but do not discard the trace."* That rule governs here. All four agents are blocked by the same scoring-harness gap; the P1 literal FAIL cannot be read as an agent falsification because **no agent in the eval matrix — including the LLM-judge poll, which has no gating at all — can score above 0.20 on this trace**. P2 and P3 pass literally but depend on a denominator of 1 hit on each side.
+
+The M6a headline ("hit ≥ 0.80 on every trace at 6.8–11.3× lower tok/hit than poll") is **not falsified** by this pass. It is also **not extended** to four traces, because the scoreable test_v3 reduces to a single GT. The external-trace credibility argument the M8 design was meant to provide is not delivered by this eval and remains outstanding.
+
+### What this means for the paper and what comes next
+
+1. **M8 closes as "pre-reg spec gap; result uninterpretable."** The three commits land as-is: `2a933fb` pre-reg, `b50ec1c` externally-authored trace, `b89788d` CLI-invocation doc fix. `test_v3` stays in the repo uncorrected as the artifact that surfaced the gap. No edits to keywords or content.
+
+2. **No config change on the agent.** Per the decision rules, test_v3 is not a trace to retune against even if the gap were closed. Any fix lives in a new trace under a tightened spec.
+
+3. **M8b (proposed): tighten the spec, re-generate as `test_v4` in a fresh session.** The spec gets one new hard constraint:
+
+   > **Keyword/content alignment.** For every `GroundTruthEvent`, each element of `keywords` must appear as a case-insensitive substring of `event.content`. Concretely, `all(kw.lower() in event.content.lower() for kw in keywords)` must be `True` per GT. Violation auto-rejects the generation.
+
+   Pre-reg mechanics otherwise unchanged: fresh session, committed prompt, separate commit before any eval, same 4-cell matrix, same P1–P4 bars, same decision rules. M8b would be the actual "design-your-own-eval" attack-closer the paper needs.
+
+4. **Secondary observation recorded (not actioned on test_v3).** `power_shutoff_planned` at z = +1.55 is a genuine band-edge miss: 0.05 above the +1.5 threshold. A single such miss on one externally-authored trace is not grounds for widening the band — but if M8b surfaces another band-edge miss in the same direction, the band may need another pre-registered widening pass (M6c), analogous to M6a. Not claiming this; flagging it for the record.
+
+5. **Paper framing unchanged from M7.** The current headline ("Surprise-gated selective initiation with a regime-robust content arbiter delivers hit ≥ 0.80 on every trace at 6.8–11.3× lower token cost per correct proaction than an unconditional poll baseline, under a single frozen configuration across three structurally distinct traces. Mechanism attribution confirmed via matched-firing-rate random ablation, seed-variance hardened on test_v2 across N=20 random-arbiter seeds.") stands. The "externally authored trace" claim is deferred to M8b.
+
+### Rejections log
+
+(Single-paste terminal-wrapping incident: the fresh session's first transmission via `pbpaste` mangled multi-line `content=` strings into unterminated string literals — Python `SyntaxError: unterminated string literal (detected at line 289)`. Not a spec violation; a transmission artefact. Resolved by having the fresh session `Write` its output to `/tmp/test_v3.py` and transferring by file read. Bit-identical retry succeeded. Not counted as a rejection; no alternative generation involved.)
+
+_No spec-violation rejections._
+
+## Artifacts
+
+- `runs/data/14a-content-test_v3.json` / `14b-random-test_v3.json` / `14c-poll-test_v3.json` / `14d-cron30-test_v3.json` — 4 cells, one JSON per cell.
+- `sandbox/event_trace.py` (end of file, commit `b50ec1c`) — `test_trace_v3()` as authored by the fresh session, unmodified.
+- `runs/14-external-test_v3.md` — this doc. Pre-reg (§ Goal through § Non-goals) committed at `2a933fb`; CLI-invocation typo fix at `b89788d`; results at this commit.
+- Aggregation: `uv run python` one-liner against the 4 JSONs; no hidden state.
+- Code: none changed. `agent/`, `baselines/`, `eval/`, `sandbox/world.py` all byte-identical to M7 SHA `ca34e1d`.
