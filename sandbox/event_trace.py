@@ -336,6 +336,58 @@ def test_trace_v3() -> Trace:
     return Trace(name="test_v3", events=all_events, ground_truth=gts,
                  briefing=briefing, intents=intents)
 
+def test_trace_v4() -> Trace:
+    gts = [
+        _gt(
+            Event(id="parking_meter_oak", kind="alert", sim_time=180.0,
+                  content="Parking meter at Oak Street lot expires in 30 minutes. Enforcement active in zone."),
+            window_s=20.0, keywords=("parking", "meter", "expires"),
+        ),
+        _gt(
+            Event(id="cover_standup_request", kind="email", sim_time=240.0,
+                  content="Heading out on vacation tomorrow - can you cover the 9am standup and post the sprint tracker update in my place?"),
+            window_s=420.0, keywords=("standup", "vacation"),
+        ),
+        _gt(
+            Event(id="gym_class_cancelled", kind="notification", sim_time=380.0,
+                  content="Pine Street Gym is closing at 5pm tonight for equipment maintenance. Your 6pm spin class is cancelled."),
+            window_s=90.0, keywords=("gym", "maintenance"),
+        ),
+        _gt(
+            Event(id="library_hold_expiring", kind="email", sim_time=520.0,
+                  content="Your library hold on 'The Signal and the Noise' expires at midnight tonight if not picked up today."),
+            window_s=180.0, keywords=("library", "hold", "expires"),
+        ),
+        _gt(
+            Event(id="protest_commute_route", kind="world_event", sim_time=700.0,
+                  content="Protest march planned 5-7pm along Market Street - significant detours expected on your usual commute home."),
+            window_s=280.0, keywords=("protest", "market street"),
+        ),
+    ]
+    distractors = [
+        Event(id="linkedin_connections", kind="notification", sim_time=50.0,
+              content="You have 3 new LinkedIn connection requests pending this week."),
+        Event(id="github_repo_star", kind="notification", sim_time=310.0,
+              content="alice-dev starred your repository 'toolkit-scripts'."),
+        Event(id="designgrid_renewal", kind="email", sim_time=440.0,
+              content="Your DesignGrid Pro subscription renewed for $12/month. Next charge April 2027."),
+        Event(id="calendar_feature_tip", kind="notification", sim_time=820.0,
+              content="Tip: enable working hours to auto-decline meetings scheduled outside 9am-6pm."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    briefing = (
+        "I'm working from home today, juggling a few errands between meetings. "
+        "My partner is out of town, so I'm handling pickups and logistics on my own. "
+        "I've got a busy afternoon with a library stop, a workout, and an evening commute to plan around."
+    )
+    intents = (
+        "stay on top of time-sensitive errands",
+        "keep my workday on track",
+        "avoid unnecessary interruptions",
+        "plan my evening commute carefully",
+        "protect my focus time",
+    )
+    return Trace(name="test_v4", events=events, ground_truth=gts, briefing=briefing, intents=intents)
 
 def get_trace(name: str) -> Trace:
     traces = {
@@ -344,6 +396,7 @@ def get_trace(name: str) -> Trace:
         "test_v1": test_trace_v1,
         "test_v2": test_trace_v2,
         "test_v3": test_trace_v3,
+        "test_v4": test_trace_v4,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")
