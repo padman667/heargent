@@ -1,0 +1,52 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 3.5643564356435644,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 6,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "parking_meter_oak",
+      "notification_sim_time": 180.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "cover_standup_request",
+      "notification_sim_time": 310.0,
+      "time_to_notice_s": 70.0
+    },
+    {
+      "event_id": "gym_class_cancelled",
+      "notification_sim_time": 380.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "library_hold_expiring",
+      "notification_sim_time": 520.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "protest_commute_route",
+      "notification_sim_time": 700.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "react_poll_local",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1010.0,
+  "llm_stats": {
+    "calls": 202,
+    "prompt_tokens": 35230,
+    "completion_tokens": 410,
+    "total_duration_s": 53.112662999
+  },
+  "trace_name": "test_v4",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": null,
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null
+}

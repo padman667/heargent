@@ -273,4 +273,97 @@ This pass is strictly narrower than M7: zero code in `agent/`, one new trace, fo
 
 ## Results
 
-_Pending Commit B (externally-authored `test_v4`) and Commit C+ (eval runs)._
+### Pre-flight bit-identical smoke (before 15a–d fired)
+
+Re-ran `uv run python -m eval.run_trace --agent agent.loop:HeargentZAWide --trace dev_v2 --arbiter-mode content --out /tmp/smoke-12a.json` under the M8b tree (post-Commit-B, `cdf689e`) and diffed against `runs/data/12a-heargent-za-v2wide-dev_v2.json`. Bit-identical on `hit_rate` (1.0), `false_initiation_rate_per_hour` (0.0), `total_notifications` (5), `misses` ([]). Registry addition of `"test_v4": test_trace_v4` did not perturb existing behavior.
+
+### Full 4-cell matrix
+
+| cell | agent | hit | n_hits | false/h | n_notif | tok_total | tok/hit | misses |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| 15a | HeargentZAWide content | 0.40 | 2 | 7.13 | 4 | 3 859 | 1 930 | parking_meter_oak, cover_standup_request, protest_commute_route |
+| 15b | HeargentZAWide random p=0.75 seed=42 | 1.00 | 5 | 14.26 | 9 | 2 361 | 472 | — |
+| 15c | react_poll_local | 1.00 | 5 | 3.56 | 6 | 35 640 | 7 128 | — |
+| 15d | CronKeyword30s | 1.00 | 5 | 14.26 | 9 | 0 | 0 | — |
+
+Poll, random, and cron all reach hit = 1.00. The content arbiter alone misses 3 of 5. This rules out the M8-style "unfair trace" interpretation — `test_v4` is scoreable by every other agent in the matrix, and `_matches_keywords` passes for all 5 GTs (the new alignment constraint worked).
+
+### Mechanistic per-event behavior (15a content cell, from `surprise_log`)
+
+| event | role | t | z | arbiter_call | arbiter_decision | surfaced | tag |
+|---|---|---:|---:|:---:|:---:|:---:|---|
+| linkedin_connections | distractor | 50.0 | `None` (bootstrap) | yes | NO | ✗ | correct NO |
+| **parking_meter_oak** | **GT** | **180.0** | **`None` (bootstrap)** | **yes** | **NO** | **✗** | **miss — V2-prompt gap** |
+| **cover_standup_request** | **GT** | **240.0** | **`None` (bootstrap)** | **yes** | **NO** | **✗** | **miss — V2-prompt gap** |
+| github_repo_star | distractor | 310.0 | `None` (bootstrap) | yes | NO | ✗ | correct NO |
+| gym_class_cancelled | GT | 380.0 | −1.69 | no (auto-surf) | — | ✓ | HIT |
+| designgrid_renewal | distractor | 440.0 | −0.64 | no (auto-surf) | — | ✓ | false init — auto-surface on routine-templated distractor |
+| library_hold_expiring | GT | 520.0 | −1.66 | no (auto-surf) | — | ✓ | HIT |
+| **protest_commute_route** | **GT** | **700.0** | **−0.06 (in-band)** | **yes** | **NO** | **✗** | **miss — V2-prompt gap** |
+| calendar_feature_tip | distractor | 820.0 | −1.31 | no (auto-surf) | — | ✓ | false init — auto-surface on routine-templated distractor |
+
+`llm_stats.arbiter_calls = 5`, `arbiter_yes_rate = 0.0`. **The arbiter said NO to every event it was consulted on.** Two of those NOs are correct (distractors); three are wrong (GTs). Separately, the z < −0.5 auto-surface branch fires twice on routine-templated distractors (`designgrid_renewal`, `calendar_feature_tip`) whose content is linguistically predictable enough to land well inside the auto-surface region — the arbiter is bypassed by design, so these never get a NO.
+
+### Per-miss mechanistic tags (as required by the P1 `< 0.60` decision rule)
+
+- **`parking_meter_oak`** (t=180, z=`None`, window=20 s): V2-prompt gap. Content: *"Parking meter at Oak Street lot expires in 30 minutes. Enforcement active in zone."* Urban personal time-sensitive warnings (parking, ticketing, etc.) are not among the V2 prompt's YES categories (scheduling, personal deliveries, weather alerts, …). Compounded by bootstrap — the rolling window had accumulated only one prior event, so arbiter was consulted under the M4+ bootstrap policy. Not a band-edge miss (no z to check); not a predictor-latch.
+- **`cover_standup_request`** (t=240, z=`None`, window=420 s): V2-prompt gap. Content: colleague asking the user to cover tomorrow's standup and post a sprint tracker update while the colleague is on vacation. Social asks from colleagues with a concrete deadline do not map onto any V2 YES category. Bootstrap-phase consultation again (two priors at time of call).
+- **`protest_commute_route`** (t=700, z=−0.06, window=280 s): V2-prompt gap. Content: protest march 5–7pm along Market Street, expected commute detours. Civil-disruption alerts affecting planned activities are not a V2 YES category (V2 covers weather alerts but not civil/street disruption). In-band (z well inside [−0.5, +1.5]), arbiter consulted, NO. Not a band-edge miss.
+
+All three misses are the same failure mode: **the V2 prompt's YES enumeration is narrower than the test_v4 GT distribution.** None are band-edge misses, none are predictor-latches, none are "something new" — they are the M4 → M5 failure pattern ("regime-selective gaps on phrasings outside the prompt's examples") recurring on an externally-authored trace.
+
+### Pre-registered criteria — literal evaluation
+
+Evaluated verbatim against rules frozen in commit `33926fc`. No post-hoc redefinition.
+
+- **P1 — Primary: headline preservation. Bar: hit_rate(15a) ≥ 0.80.**
+  **FAIL**, in the `< 0.60` branch (hit = 0.40). Per the decision rule: headline falsified on external trace; report mechanistically. Mechanistic tags above: 3 × V2-prompt gap, 0 × band-edge, 0 × predictor-latch, 0 × novel. No config change on `test_v4`.
+
+- **P2 — Secondary: Pareto preservation. Bar: tok/hit(15a) ≤ tok/hit(15c) / 3.**
+  **PASS** literally (1 930 ≤ 2 376). Ratio 3.69× (below M6a's 6.8–11.3× band and just above the 3× floor). With a 2-hit denominator on 15a vs 5-hit on 15c, the number is meaningful but narrow — the content arbiter is cheaper per correct hit than poll on this trace, but only because it's surfacing less of everything, not because it's selecting well.
+
+- **P3 — Tertiary (report-only): C3 single-seed. Criterion: Δhit ≥ 0.20 OR Δfalse/h ≤ −5.0.**
+  **PASS** literally (Δfalse/h = −7.13 ≤ −5.0). However, Δhit = **−0.60** — content **loses three hits** relative to random on this trace. This is a pyrrhic literal pass: the random arbiter (which YES's 75 % of in-band + bootstrap events) catches all 5 GTs by accepting more events, while content's NO-bias rejects three GTs along with the two distractors. The letter of P3 holds; the spirit does not. Report-only per the pre-reg.
+
+- **P4 — Sanity gate: trace fairness. Bar: hit_rate(15c) ≥ 0.80.**
+  **PASS** (hit = 1.00). Poll, random, and cron all reach 1.00; cron's keyword list even happens to match all 5 GTs' lexicon. `test_v4` is fair to every agent in the matrix except the content arbiter. Unlike M8, there is no trace-unfairness escape hatch.
+
+### Governing interpretation
+
+P1 fails cleanly in the `< 0.60` branch on a trace that passes P4, was authored by a fresh session under a spec-compliant protocol, and is scored correctly by every other baseline in the matrix. Per the pre-reg decision rule, the M6a headline **is falsified on an externally-authored, spec-compliant trace**. No "trace unfairness" defense is available here; the M8 sanity-gate loophole does not apply.
+
+What is preserved:
+1. **M6a's three-trace claim stands as a three-trace claim.** Hit ≥ 0.80 on `dev_v2`, `test_v1`, `test_v2` at 6.8–11.3× lower tok/hit than poll remains bit-identical to M6a. The 12a smoke test earlier in this doc confirms no drift.
+2. **M7's C3 seed-variance result on test_v2 stands** unchanged (18/20 seeds on the `Δhit ≥ 0.20 OR Δfalse/h ≤ −5.0` bar; trace-specific).
+3. **The external-authoring protocol itself is validated.** M8b's three-commit protocol (pre-reg → fresh session generates → eval) with the tightened keyword/content-alignment constraint produced a trace that is scoreable, fair, and genuinely discriminative. The M8 scoring-gap regression did not recur. This is the outcome the protocol was designed to produce when the agent has a real weakness — surface the weakness honestly without letting curation hide it.
+
+What is falsified:
+- The broad "hit ≥ 0.80 on every trace under a single frozen configuration" extension to externally-authored trace(s). The V2 prompt's YES enumeration does not generalize to urban warnings, colleague social asks, or civil-disruption commute alerts.
+
+### What this means for the paper and what comes next
+
+1. **M8b closes as "P1 falsified in the < 0.60 branch; V2-prompt gap (not band-edge, not predictor-latch); no config change on this trace."** The three commits land as: `33926fc` pre-reg, `cdf689e` externally-authored trace, this commit results. `test_v4` stays in the repo uncorrected as the artifact that falsified the V2 prompt's coverage claim.
+
+2. **No config change on the agent in response to `test_v4`.** Per the decision rules, `test_v4` is not a trace to retune against. Any prompt-coverage fix lives in a new experiment under a new externally-authored trace (`test_v5`) with correspondingly extended bans (test_v4's 5 GT + 4 distractor ids and their themes/pairs).
+
+3. **M9 candidate (next pass, NOT landed here): re-architect the V2 prompt from a closed list of YES categories to a broader criterion, validate on `test_v5` under the M8b protocol.** The V2 prompt as frozen at M5/M6a works for the three traces it was co-developed against (scheduling / personal deliveries / weather / a few more) but not for the broader distribution surfaced by an external author (urban warnings, colleague asks, civil disruption). A re-architected V3 prompt would move from "list of YES regimes" to a principled criterion (e.g. "warrants user attention within the next N hours AND requires a decision or action the user would regret missing"), tested single-shot on `test_v5`.
+
+4. **Paper framing update.** The previous headline — *"single-config regime-robust content arbiter delivers hit ≥ 0.80 on every trace at 6.8–11.3× lower token cost per correct proaction than poll, under a single frozen configuration across three structurally distinct traces"* — remains accurate as a three-trace claim. The external-trace extension is **withdrawn** (previously deferred to M8b; now falsified on M8b). The honest framing for this version of the paper:
+
+   > *Surprise-gated selective initiation with a content arbiter (V2 prompt, co-developed on three curated traces) delivers hit ≥ 0.80 on every co-developed trace at 6.8–11.3× lower tok/hit than poll. Mechanism attribution confirmed via matched-firing-rate random ablation, seed-variance hardened on test_v2 across N = 20 random-arbiter seeds. **Under the M8b external-authoring protocol (fresh Claude Code session authors a spec-compliant trace with no agent context), the V2 prompt's coverage fails on urban warnings / colleague asks / civil-disruption alerts: hit drops to 0.40 on an externally-authored trace where poll, random, and cron all reach 1.00. All three misses tag as V2-prompt-coverage gaps, not band-edge or predictor-latch. The external-authoring protocol is presented as the methodological contribution that surfaced this.***
+
+   This is a better paper than the unfalsifiable-sounding "every trace" claim. The external-authoring protocol is now demonstrated to be load-bearing: it surfaced a weakness that curated-trace validation could not. That is the review-attack closer M8 was meant to provide, just in the honest direction (prompt-coverage brittleness confirmed rather than denied).
+
+5. **Secondary observation recorded (not actioned on test_v4).** 2 false initiations came through the `z < −0.5` auto-surface branch on routine-templated distractors (`designgrid_renewal`, `calendar_feature_tip`) whose content is predictable enough to land deep in the auto-surface region without arbiter consultation. The inverted-polarity auto-surface rule (the M6a band's lower edge) has a precision cost on routine-templated distractors. A single externally-authored trace is not grounds for revisiting the lower band edge, but this is flagged for the record; it would be the companion lever to the V2 prompt re-work if M9/M10 widens scope.
+
+### Rejections log
+
+_No rejections. The fresh session's first output passed the 11 hard structural constraints (including the new keyword/content alignment constraint) and 3 banned lists on first audit._
+
+## Artifacts
+
+- `runs/data/15a-content-test_v4.json` / `15b-random-test_v4.json` / `15c-poll-test_v4.json` / `15d-cron30-test_v4.json` — 4 cells, one JSON per cell.
+- `sandbox/event_trace.py` (end of file, commit `cdf689e`) — `test_trace_v4()` as authored by the fresh session, unmodified.
+- `runs/15-external-test_v4.md` — this doc. Pre-reg (§ Goal through § Non-goals) committed at `33926fc`; results at this commit.
+- Aggregation: `uv run python` one-liner against the 4 JSONs; no hidden state.
+- Code: none changed. `agent/`, `baselines/`, `eval/`, `sandbox/world.py`, `sandbox/event_trace.py`'s existing `test_trace_v1/v2/v3` all byte-identical to pre-M8b state.
