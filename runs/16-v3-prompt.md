@@ -406,16 +406,125 @@ This pass is strictly narrower than M7 (no new CLI flag, no random-arbiter wirin
 
 ## Results — Commit B regression gate
 
-_Appended after Commit B lands. Will record: V3 wire-up choice (a or b per §"Implementation note for Commit B"), Commit B SHA, the three JSONs' hit_rate / false_initiation_rate_per_hour / tok_per_hit / total_notifications / misses, gate verdict per the frozen bars above, and any pre-Commit-D smoke result._
+### Pre-flight bit-identical smoke (before V3 swap)
+
+Re-ran `uv run python -m eval.run_trace --agent agent.loop:HeargentZAWide --trace dev_v2 --arbiter-mode content --out /tmp/smoke-pre-B.json` under the unchanged tree (post-`e66afc1`, pre-V3-swap) and diffed against `runs/data/12a-heargent-za-v2wide-dev_v2.json`. **Bit-identical** on `hit_rate` (1.00), `false_initiation_rate_per_hour` (0.00), `total_notifications` (5), `misses` ([]), hits list (`fire_alarm, flight_delay, meeting_moved, deadline, dentist_cancel`), `llm_stats.arbiter_calls` (4), `llm_stats.arbiter_yes_rate` (0.75). Environment matches M6a / M7 / M8b state; any V3 regression is the V3 prompt's effect, not environmental drift.
+
+### V3 implementation: code state
+
+Wire-up choice **(a)** used per §"Implementation note for Commit B." `ARBITER_SYSTEM_PROMPT_V3` added as a new module-level constant in `agent/arbiter.py`; the system-prompt body is byte-identical to Commit A's frozen V3 text up through "Output exactly one token: YES or NO." (verified at runtime via Python equality against the pre-reg text — 751 chars). The trailing `Content: {content}\n\nYES or NO:` block from the pre-reg text is dropped; content reaches the model via the chat-template user turn exactly as it does under V2 (`client.chat(system=..., user=text)`), preserving V2's chat-template segmentation byte-for-byte. `ContentArbiter.__init__` default flipped from `ARBITER_SYSTEM_PROMPT_V2` to `ARBITER_SYSTEM_PROMPT_V3` for the regression cells. No other code change.
+
+### Three regression cells — V3 vs M6a V2 baseline
+
+| trace | V2 hit | V3 hit | V2 false/h | V3 false/h | V2 tok/hit | V3 tok/hit | V2 arb_calls | V3 arb_calls | V2 arb_yes | V3 arb_yes | V3 misses |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| `dev_v2`  | 1.00 | **0.40** | 0.00 | 0.00 | 682  | 1 472 | 4 | 4 | 0.75 | **0.00** | fire_alarm, flight_delay, meeting_moved |
+| `test_v1` | 0.80 | **0.20** | 3.67 | 3.67 | 1 112 | 3 512 | 8 | 8 | 0.50 | **0.12** | package_arrival, doctor_callback, server_outage, kid_school_pickup |
+| `test_v2` | 1.00 | **0.60** | 0.00 | 0.00 | 814  | 1 083 | 7 | 7 | 0.43 | **0.14** | fire_kitchen, er_call |
+
+`arbiter_calls` is invariant V2 → V3 (the bootstrap policy and band routing didn't change); only the per-call YES/NO decision shifts under V3.
+
+### Gate verdict per pre-reg
+
+| trace | hit bar | hit | hit pass | false/h bar | false/h | false/h pass | overall |
+|---|---|---:|:---:|---|---:|:---:|:---:|
+| `dev_v2`  | ≥ 1.00 | 0.40 | **FAIL** | ≤ 5.00 | 0.00 | PASS | **FAIL** |
+| `test_v1` | ≥ 0.80 | 0.20 | **FAIL** | ≤ 8.67 | 3.67 | PASS | **FAIL** |
+| `test_v2` | ≥ 1.00 | 0.60 | **FAIL** | ≤ 5.00 | 0.00 | PASS | **FAIL** |
+
+Hit-bar FAIL on all three traces. False/h-bar PASS on all three because V3 is too NO-biased to leak distractors through the arbiter — false-init structure on `dev_v2` and `test_v2` is unchanged (0.00; the only false-init paths are auto-surface, both unchanged from V2), and `test_v1`'s 3.67/h matches V2 exactly (the leaked distractor is `system_status` via `z < −0.5` auto-surface, not via arbiter YES). Per-trace overall FAIL; gate FAIL.
+
+### Hit-source breakdown
+
+The few V3 hits across the three traces decompose as:
+
+| trace | V3 n_hits | via arbiter YES | via z<−0.5 auto-surface | events |
+|---|---:|---:|---:|---|
+| `dev_v2`  | 2 | 0 | 2 | auto-surf: deadline, dentist_cancel |
+| `test_v1` | 1 | 1 | 0 | arb-YES: rent_due |
+| `test_v2` | 3 | 1 | 2 | arb-YES: security_breach; auto-surf: board_meeting, water_burst |
+
+**Total arbiter-YES hits across all three traces: 2** (rent_due, security_breach). Both events whose content includes a word that appears verbatim in V3's regret-list examples ("money" / "safety"). Every other arbiter consultation under V3 resolved NO. Arbiter contribution to overall V3 hits is essentially nil; the cells' hit numbers come almost entirely from the unchanged `z < −0.5` auto-surface branch (which bypasses the arbiter by design).
+
+### Off-harness diagnostic probe (wire-up sanity check)
+
+Direct V3-vs-V2 probe on 8 representative events through the same `OllamaClient` instance, single Python session, no harness:
+
+| event | V3 | V2 |
+|---|:---:|:---:|
+| `fire_alarm` ("Fire alarm in building A triggered; evacuation in progress.") | NO | YES |
+| `flight_delay` ("Flight UA123 to Berlin tomorrow has been delayed by 3 hours…") | NO | YES |
+| `meeting_moved` ("Meeting 'Design Review' tomorrow moved from 10:00 to 14:00.") | NO | YES |
+| `news_digest` ("Daily news digest updated.") | NO | NO |
+| `rent_due` ("Reminder: rent payment of $1450 is due tomorrow.") | YES | YES |
+| `package_arrival` ("Your package has been delivered to your door.") | NO | NO |
+| `parking_meter_oak` (test_v4 GT, urban warning) | NO | NO |
+| `cover_standup_request` (test_v4 GT, colleague ask) | NO | NO |
+
+V2 cleanly fires YES on `fire_alarm` / `flight_delay` / `meeting_moved` on the same client where V3 says NO. **Wire-up is sound; V3's NO-bias is the prompt itself.** V3 also does not rescue `parking_meter_oak` or `cover_standup_request` (the test_v4 V2-coverage misses V3 was specifically designed to address), so on the off-harness probe V3 is empirically *worse* than V2 on the in-distribution traces and *no better* than V2 on the test_v4 misses that motivated the redesign.
+
+### Mechanistic interpretation
+
+The 3B (qwen2.5:3b-instruct) over-strict-reads V3's abstract AND-gate. Three failure modes observed, all consistent with pattern-matching rather than abstract-conjunct resolution:
+
+1. **Safety content read as informational, not actionable.** `fire_alarm` ("Fire alarm in building A triggered; evacuation in progress.") → NO. The 3B does not recognize "evacuation in progress" as user-actionable in V3's abstract framing. Under V2's enumerated "urgent safety or security issue" category, the same content cleanly fires YES — the 3B locks onto the named pattern.
+
+2. **Strict-reading of "next few hours" excludes tomorrow-shaped scheduling.** `flight_delay` and `meeting_moved` (both "tomorrow") → NO. This is the exact failure mode flagged in chat at Commit A review and waved off on the plan author's design rationale ("'next few hours' avoids 'imminent minute (too tight — misses packages, colleague asks)'"). Empirical 3B behavior at this phrasing strict-reads the time anchor as "literally within the next few clock hours," not as "the relevant decision window before action becomes too late."
+
+3. **NO-bias absent enumeration patterns; pattern-matching on regret-list examples.** When content does not match a regret-list example word, the 3B defaults to NO. The two arbiter-YESs across all three traces both match a regret-list example word verbatim: `rent_due` matches "money," `security_breach` matches "safety." The 3B treats the regret-list more like a closed enumeration of YES-trigger words than as a criterion guide.
+
+The principled-criterion form, at this phrasing, fails to give the 3B usable patterns for resolving content the V2 enumeration handles cleanly. V3's NO-bias is structural across safety, scheduling, urban warnings, and colleague asks — and notably does not rescue test_v4's V2-coverage misses (off-harness probe confirms `parking_meter_oak` and `cover_standup_request` both → NO under V3).
+
+### Decision per pre-reg: scientifically-conservative path-C close
+
+The pre-reg permitted up to 2 within-form redesign rounds in response to Commit B failure (defended via the form-vs-within-form distinction in `e66afc1`). **We choose not to spend that budget.** Rationale recorded for the paper:
+
+- **Single-shot falsification produces the cleaner scientific story.** Spending the redesign budget would produce either (a) a longer success story (round 1 closes regression, test_v5 P1 ≥ 0.80 — joint best-case estimated at ~15–20%) requiring the form-preservation argument to win with reviewers, or (b) an iterated null result spread across multiple in-distribution refinements that is harder to defend on form-preservation grounds than a single-shot fail. Under uncertainty, the pre-reg's "Fail (after 2 redesigns)" branch outcome is reachable from round 0 by holding the budget in reserve, with a strictly more conservative iteration record than the pre-reg permitted.
+- **The 3B's NO-bias is structural, not phrasing-specific.** The arbiter said NO to safety, scheduling, urban-warning, and colleague-ask content under V3 — the same regimes it cleanly handles under V2's enumeration. Closing this gap within the principled-criterion form without recovering enumeration-style patterns appears unlikely given the pattern-matching behavior observed; the available within-form refinements (softening the time anchor, adding a "default to YES on uncertainty" instruction) target specific failure modes but do not address the structural pattern-matching limitation.
+- **M10 (Claude-API arbiter) is the principled next architectural lever.** Stronger model scale should resolve abstract conjuncts more reliably; this cleanly isolates "is the gap prompt-form or model-scale?" The V3 Commit B result reframes M9 from *"is the principled criterion right?"* to *"can a 3B local arbiter resolve a principled criterion at all?"* — answered NO; M10 is the natural test of the orthogonal question.
+
+### What stands
+
+| Pre-M9 result | Status post-M9 |
+|---|---|
+| M6a V2 three-trace hit ≥ 0.80 (`dev_v2` / `test_v1` / `test_v2`) at 6.8–11.3× lower tok/hit than poll | **Unchanged.** `ContentArbiter.__init__` default reverted to `ARBITER_SYSTEM_PROMPT_V2`; production reproduces M6a / M7 / M8b bit-identically. Pre-flight smoke verified. |
+| M7 N=20 RandomArbiter seed-variance on `test_v2` (18/20 seeds C3 PASS) | **Unchanged.** No code path that affects M7 was modified. |
+| M8b V2 four-trace extension falsified on `test_v4` | **Unchanged.** `test_v4` stays in repo uncorrected. |
+
+### What is added to the record
+
+| New M9 result | Implication |
+|---|---|
+| V3 (principled AND-gate, frozen at Commit A SHA `3653880`) fails Commit B regression on round 0 across all three co-developed traces. | The principled-criterion form does not preserve V2's three-trace recall at the 3B model scale on first attempt under a reasonable single-shot phrasing motivated by M8b's V2-coverage gap analysis. |
+| Arbiter contribution to V3 hits = 2 events out of 13 GTs across three traces; both match V3 regret-list example words verbatim. | The 3B treats abstract criterion examples as a closed pattern set. Pattern-matching, not abstract-conjunct resolution, is the mode in which a 3B local arbiter operates at this phrasing. |
+| Off-harness diagnostic confirms wire-up is sound (V2 cleanly YES on the same client where V3 says NO). | V3 failure attributes to the prompt itself, not to a wiring regression introduced at Commit B. |
+| Pre-reg's 2-round within-form redesign budget held in reserve. | Iteration record for M9 is round 0 only — strictly more conservative than the pre-reg permitted. |
+
+### Paper line for this outcome (locked at pre-reg, modified for round-0 close)
+
+Maps to the pre-reg's per-outcome table cell *"Fail (after 2 redesigns)"* (§"Pre-registered paper framing per outcome") — modified to *"fail on round 0, no within-form redesigns spent"*, which is strictly more conservative than what the pre-reg's iteration budget permitted.
+
+> *The principled-criterion form (V3 prompt: actionable AND time-bounded with regret + explicit NO bucket) fails to preserve V2's three-trace recall at the 3B (qwen2.5:3b-instruct) model scale on first attempt under a single-shot phrasing motivated by M8b's V2-coverage gap analysis. arbiter_yes_rate collapsed to 0.00 on `dev_v2`, 0.12 on `test_v1`, 0.14 on `test_v2`; the 3B over-strict-reads abstract conjuncts (NO on `fire_alarm` despite clear safety + bounded time; NO on `flight_delay` / `meeting_moved` for tomorrow-shaped scheduling) and pattern-matches on regret-list example words rather than resolving the abstract criterion (the 2 arbiter-YESs observed across three traces both match a regret-list example word verbatim). The pre-reg permitted up to 2 within-form redesign rounds; we chose not to spend that budget, taking the falsification at face value. M6a's V2 closed-enumeration prompt is reported as itself load-bearing for the three-trace claim at the 3B scale — the principled-criterion form does not substitute for it without recall loss. M10 (Claude-API arbiter) is the next architectural lever: increasing model scale to test whether abstract-conjunct resolution recovers under a stronger arbiter is the orthogonal experiment that V3's 3B failure motivates. M6a's three-trace claim and M8b's external-trace falsification of the four-trace extension both stand unchanged.*
+
+### Code state at close
+
+- `agent/arbiter.py`: `ARBITER_SYSTEM_PROMPT_V3` retained as named constant for paper reference and reproduction; `ContentArbiter.__init__` default reverted to `ARBITER_SYSTEM_PROMPT_V2`. Reproduce M9's falsification by passing `system_prompt=ARBITER_SYSTEM_PROMPT_V3` explicitly to `ContentArbiter`.
+- `runs/data/16b-content-{dev_v2,test_v1,test_v2}.json`: retained as the falsification evidence.
+- `runs/data/16d-*-test_v5.json`: not produced. M9 closes at Commit B; Commit C / D do not run.
+- `sandbox/event_trace.py`: not touched. `test_v5` not authored.
+
+### Rejections log (N/A)
+
+Not reached. The Commit C fresh-session authoring step does not run on path-C close.
 
 ## Results — Commit D `test_v5` eval
 
-_Appended after Commit D lands. Will record: Commit C SHA (test_v5 generation) and Commit D SHA (results), Rejections log entries (if any), bit-identical smoke result, the 4-cell matrix, mechanistic per-event behavior on the 16d-a content cell, per-miss tags (band-edge / predictor-latch / V3-prompt gap / wire-up sensitivity / novel), literal P1–P4 evaluation against the frozen criteria, governing interpretation, and impact on the paper framing._
+**Not executed.** Commit B's regression gate FAIL on round 0 closed M9 before Commit C could open. No `test_v5` was authored, no eval cells fired. The Commit-A-frozen `test_v5` authoring prompt and banned-list extensions remain in §"Pre-registered artifacts for `test_v5`" as an unused pre-reg artifact — available for re-use under any future M9-like attempt at this architectural lever (e.g., M10 Claude-API arbiter validation under a similar external-authoring protocol). The pre-reg discipline of generating the held-out trace only after the in-distribution gate passes is preserved: no externally-authored trace is committed under an unvalidated arbiter configuration.
 
-## Artifacts (planned)
+## Artifacts (final)
 
-- `runs/data/16b-content-{dev_v2,test_v1,test_v2}.json` — three regression-gate cells (Commit B).
-- `runs/data/16d-{content,random,poll,cron30}-test_v5.json` — four `test_v5` eval cells (Commit D).
-- `agent/arbiter.py` (Commit B) — `ARBITER_SYSTEM_PROMPT_V3` constant + default flipped on `ContentArbiter`. V2 retained as a named constant for reproducibility.
-- `sandbox/event_trace.py` (Commit C) — `test_trace_v5()` as authored by the fresh session, unmodified, plus registry entry.
-- `runs/16-v3-prompt.md` — this doc. Pre-reg (this commit, §"Goal" through §"Non-goals"); results sections appended at Commit B and Commit D.
+- `runs/data/16b-content-{dev_v2,test_v1,test_v2}.json` — three regression-gate cells (Commit B). Falsification evidence; retained.
+- `runs/data/16d-*-test_v5.json` — **not produced**. Commit D did not run; M9 closed at Commit B per path-C decision.
+- `agent/arbiter.py` (this commit) — `ARBITER_SYSTEM_PROMPT_V3` constant added (byte-identical to the Commit-A-frozen V3 system-prompt body, wire-up choice (a)); `ContentArbiter.__init__` default reverted to `ARBITER_SYSTEM_PROMPT_V2` after the regression gate failed. V2 remains the production prompt; V3 is reproducible via explicit `system_prompt=` argument.
+- `sandbox/event_trace.py` — **not touched**. `test_trace_v5()` not authored; no registry entry added. The Commit-A-frozen `test_v5` authoring prompt is held as an unused pre-reg artifact.
+- `runs/16-v3-prompt.md` — this doc. Pre-reg at Commit A SHA `3653880`; defenses hardened at `e66afc1`; Commit B results + path-C close at this commit. Pre-reg sections (§"Goal" through §"Non-goals") byte-identical to Commit A; this commit only appends results and updates the Commit D / Artifacts placeholders to reflect non-execution.

@@ -55,6 +55,40 @@ ARBITER_SYSTEM_PROMPT_V2 = (
 )
 
 
+# M9 / Commit B: principled AND-gate criterion attempted as a replacement
+# for V2's closed YES enumeration. Frozen verbatim by runs/16-v3-prompt.md
+# (Commit A SHA 3653880, defense hardening at e66afc1). Wire-up choice
+# (a): the trailing `Content: {content}\n\nYES or NO:` block from the
+# pre-reg text is dropped; content reaches the model via the chat
+# template's user turn exactly as it does under V2
+# (`client.chat(system=..., user=text)`), preserving V2's chat-template
+# segmentation byte-for-byte. The system prompt body below is
+# byte-identical to the pre-registered V3 text up through the
+# token-contract sentence "Output exactly one token: YES or NO."
+#
+# OUTCOME (runs/16 §"Results — Commit B regression gate"): regression
+# gate FAIL on round 0 across all three co-developed traces. Per
+# scientifically-conservative path-C close, the pre-reg's redesign budget
+# (up to 2 within-form rounds) was held in reserve; V3 reported as the
+# 3B prompt-architecture ceiling under principled-criterion phrasing.
+# ContentArbiter default reverted to V2 to preserve production behavior
+# aligned with the M6a/M7/M8b published claims. V3 retained here as a
+# named constant for paper reference and reproduction of M9's
+# falsification result; pass `system_prompt=ARBITER_SYSTEM_PROMPT_V3`
+# explicitly to reproduce.
+ARBITER_SYSTEM_PROMPT_V3 = (
+    "You judge whether a single notification warrants proactive surfacing to a user.\n"
+    "\n"
+    "Surface (YES) if the content meets BOTH of these conditions:\n"
+    "1. Actionable — the content implies a decision, response, or adjustment the user could make.\n"
+    "2. Time-bounded with regret — ignoring it for the next few hours could cost the user something they would notice (money, missed obligation, missed opportunity, safety).\n"
+    "\n"
+    "Do NOT surface (NO) if the content is routine status (service heartbeats, all-clear pings, uptime reports), social / ambient (app promotions, reaction notifications, friend activity, newsletters, subscription billing notices), or purely informational with nothing the user must decide or act on within hours.\n"
+    "\n"
+    "Output exactly one token: YES or NO."
+)
+
+
 _DECISION = re.compile(r"\b(YES|NO)\b")
 
 
