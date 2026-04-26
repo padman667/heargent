@@ -1,0 +1,53 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "fire_alarm",
+      "notification_sim_time": 5.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "flight_delay",
+      "notification_sim_time": 35.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "meeting_moved",
+      "notification_sim_time": 100.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "deadline",
+      "notification_sim_time": 400.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "dentist_cancel",
+      "notification_sim_time": 700.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "react_poll_claude",
+  "cost_usd": 0.93615,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1030.0,
+  "llm_stats": {
+    "calls": 206,
+    "input_tokens": 55225,
+    "output_tokens": 1437,
+    "dispatched_model": "claude-opus-4-7"
+  },
+  "trace_name": "dev_v2",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": null,
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v2"
+}

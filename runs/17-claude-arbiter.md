@@ -491,9 +491,94 @@ The 3B's three V3 failure modes are absent at Opus scale: safety content correct
 
 **Overall pre-flight verdict: PROCEED to Commit B harness cells.** All three sanity bars met; determinism empirically confirmed via doubled probe; mechanism observations logged.
 
-_8-cell harness results, regression-gate verdict, and test_v4 attribution verdict appended below post-eval._
+### Commit B environment (recorded post-first-Claude-call, per §"Model ID lock for reproducibility" amendment)
 
-_Cells not yet executed._
+- **Anthropic SDK version:** `anthropic==0.97.0` (resolved by `uv` from constraint `>=0.50,<1.0`; locked in `uv.lock`).
+- **Dispatched model alias:** `claude-opus-4-7` (echoed by `response.model` on every Commit B Claude call; no date suffix).
+- **Service tier / inference geo:** `service_tier='standard'`, `inference_geo='global'` (consistent across all calls).
+- **Local pipeline (predictor + surprise scorer + V2-3B baseline cell):** identical to runs/16 environment block — ollama 0.21.0, qwen2.5:3b-instruct digest `357c53fb659c5076`, nomic-embed-text:latest digest `0a109f422b47e3a3`. V2-3B regression smoke is bit-identical to `runs/data/12a-heargent-za-v2wide-dev_v2.json` (see "Pre-flight smokes" above).
+
+### 8-cell results table (cells 1-8, all complete)
+
+| # | cell | trace | hit | false/h | tok/hit (predictor+surprise) | cost ($) | usd/hit | arb_calls | arb_yes | arb_in/out tokens |
+|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1 | V2-Opus content | `dev_v2` | **1.00** | 0.00 | 1 472 | 0.0284 | 0.0057 | 4 | 0.75 | 1854/8 |
+| 2 | V2-Opus content | `test_v1` | **1.00** | 3.67 | 3 512 | 0.0564 | 0.0113 | 8 | 0.62 | 3677/16 |
+| 3 | V2-Opus content | `test_v2` | **1.00** | 0.00 | 1 083 | 0.0492 | 0.0098 | 7 | 0.43 | 3208/14 |
+| 4 | V2-Opus content (test_v4 attr) | `test_v4` | **0.80** | 7.13 | (3B path local) | 0.0359 | 0.0090 | 5 | 0.40 | 2341/10 |
+| 5 | V3-Opus content (test_v4 attr) | `test_v4` | **0.80** | 7.13 | (3B path local) | 0.0218 | 0.0055 | 5 | 0.40 | 1401/10 |
+| 6 | poll-Opus | `dev_v2` | 1.00 | 0.00 | n/a | 0.9362 | 0.1872 | 206 | n/a | 55225/1437 |
+| 7 | poll-Opus | `test_v1` | 1.00 | 0.00 | n/a | 0.9045 | 0.1809 | 196 | n/a | 53463/1367 |
+| 8 | poll-Opus | `test_v2` | 1.00 | 0.00 | n/a | 0.9203 | 0.1841 | 192 | n/a | 54659/1339 |
+
+(`tok/hit` for cells 1-3 reproduces the local-pipeline tok/hit reported by `agent.llm.LLMStats` on the predictor + surprise path — identical to M6a since predictor and surprise scorer are unchanged. Cells 4-5 omit it for table compactness; same-trace `test_v4` 3B path is in `runs/data/15*` and unchanged.)
+
+### Gate verdict per pre-reg
+
+#### In-distribution regression gate (cells 1-3)
+
+| trace | hit bar | hit | hit pass | false/h bar | false/h | false/h pass | overall |
+|---|---|---:|:---:|---|---:|:---:|:---:|
+| `dev_v2` | ≥ 1.00 | 1.00 | **PASS** | ≤ 5.0 | 0.00 | PASS | **PASS** |
+| `test_v1` | ≥ 0.80 | 1.00 | **PASS (+0.20 over bar)** | ≤ 8.67 | 3.67 | PASS | **PASS** |
+| `test_v2` | ≥ 1.00 | 1.00 | **PASS** | ≤ 5.0 | 0.00 | PASS | **PASS** |
+
+**Regression gate: ALL THREE PASS.** V2-Opus is a clean drop-in for V2-3B in-distribution. test_v1 actually improves +0.20 hit over M6a's V2-3B baseline because Opus V2 recovers M6a's `package_arrival` residual (off-harness probe predicted this; harness confirms). YES-bias check (false/h ≤ +5/h tolerance) holds on all three traces — Opus is not pathologically permissive on V2's enumeration relative to the 3B.
+
+#### `test_v4` attribution (cells 4-5)
+
+V2-Opus hit=0.80; V3-Opus hit=0.80. Per §"`test_v4` attribution rules" 4-row table → **row 1: H2 confirmed + V3 also viable at scale.** Both prompt forms reach the ≥0.80 attribution bar; identical hits and misses on test_v4 (4/5 GTs: `parking_meter_oak`, `gym_class_cancelled`, `library_hold_expiring`, `protest_commute_route` hit; `cover_standup_request` miss). M8b's V2-3B coverage gap (hit=0.40) closes by model scale alone under V2's closed enumeration; M9's V3 falsification at 3B was a model-capability falsification, not a prompt-form falsification — V3 at Opus reaches the same 0.80 on test_v4 as V2 at Opus.
+
+**Probe-vs-harness divergence on `cover_standup_request` (mechanism note for paper transparency).** The doubled V2-vs-V3 probe predicted YES from both V2-Opus and V3-Opus on `cover_standup_request`. The harness shows NO on both. The divergence is content-driven: the probe used a paraphrased content (`"Hey, can you cover my 9am standup tomorrow? I'm taking a half-day for a doctor visit."` — imperative ask + same-day urgency framing), while the actual test_v4 content reads `"Heading out on vacation tomorrow - can you cover the 9am standup and post the sprint tracker update in my place?"` (planned-vacation framing, "tomorrow" timeline). On the *actual* test_v4 content, both V2-Opus and V3-Opus deterministically return NO under the same `ClaudeArbiter` instances and prompts. The harness behavior is what counts for the attribution claim; the probe was authored from the M8b banned-themes list ("colleague standup or vacation back-up cover ask"), not from the actual `test_v4` text, and exercises a different point in the colleague-ask phrasing space. Documented here as a transparency note: the probe is a sanity check on parser + general-regime YES recovery, not a per-event prediction of harness cell results. **The attribution verdict (row 1: both ≥ 0.80) is unchanged.**
+
+The remaining miss (`cover_standup_request`) is therefore **not** an "Opus failed to close M8b's gap" finding; it's a "test_v4 contains a planned-vacation phrasing that V2 and V3 prompts both classify as routine when temporally framed as next-day rather than imminent." Not a blocker for M10's primary claim. If reviewers ask, the transparent path forward is: this is a known V2/V3 residual on planned-vacation-shaped colleague asks at Opus scale, distinct from the urgent same-day variant which both prompts catch. Cost of running test_v4 again under a different prompt is M10b/M11 territory.
+
+### Pareto: V2-Opus content vs V2-3B (M6a) — cost of the model-scale upgrade in-distribution
+
+| trace | V2-3B hit | V2-Opus hit | Δhit | V2-3B usd/hit | V2-Opus usd/hit | usd/hit added |
+|---|---:|---:|---:|---:|---:|---:|
+| `dev_v2` | 1.00 | 1.00 | 0 | $0 | $0.0057 | $0.0057 |
+| `test_v1` | 0.80 | 1.00 | **+0.20** | $0 | $0.0113 | $0.0113 |
+| `test_v2` | 1.00 | 1.00 | 0 | $0 | $0.0098 | $0.0098 |
+
+V2-3B's $0/hit is unbeatable in absolute terms (local model). The Opus upgrade buys +0.20 hit on test_v1 (M6a residual `package_arrival` recovered) at $0.011/hit on that trace and adds <$0.01/hit on the two unchanged traces. The total in-distribution V2-Opus surprise-gated spend across three traces is **$0.14** vs the local-only $0.
+
+### Pareto: V2-Opus content vs poll-Opus (apples-to-apples cost denominator, P2 evaluation precursor)
+
+| trace | V2-Opus hit | poll-Opus hit | V2-Opus usd/hit | poll-Opus usd/hit | ratio (poll/V2) |
+|---|---:|---:|---:|---:|---:|
+| `dev_v2` | 1.00 | 1.00 | $0.0057 | $0.1872 | **33×** |
+| `test_v1` | 1.00 | 1.00 | $0.0113 | $0.1809 | **16×** |
+| `test_v2` | 1.00 | 1.00 | $0.0098 | $0.1841 | **19×** |
+
+**At matched arbiter capability (Opus 4.7 on both sides), surprise-gating delivers hit ≥ 0.80 (in fact = 1.00 on all three) at 16-33× lower $/hit than unconditional polling.** The pre-registered P2 floor for Commit D is 3×; in-distribution Pareto on the same axis already exceeds it by 5-11×. The model-scale upgrade does not erode the surprise-gating Pareto — Opus is more expensive per call than 3B, but poll-Opus is *also* more expensive than poll-local, and the ratio stays large. Compared to M6a's V2-3B vs poll-local (6.8-11.3× on local-tok axis), the V2-Opus vs poll-Opus ratio (16-33× on $/hit axis) is **wider** because surprise-gating filters 96-98% of arbiter calls away (4-8 calls per cell vs poll's 192-206) — the savings compound at higher arbiter cost.
+
+### Aggregate Commit B spend
+
+- Surprise-gated cells (1-5): $0.0284 + $0.0564 + $0.0492 + $0.0359 + $0.0218 = **$0.192**
+- poll-Opus cells (6-8): $0.9362 + $0.9045 + $0.9203 = **$2.761**
+- Pre-flight smokes (V2-vs-V3 probe doubled + connectivity smoke): **~$0.18**
+- **Commit B total: ~$3.13** of the $3-5 pre-reg ballpark. Test_v5 cells (Commit D, 6 cells of which 4 use Opus) will add ~$1-2 to bring M10 total to ~$4-5. Within budget.
+
+### Path-C decision: PROCEED to Commit C (test_v5 external authoring)
+
+**Conditional gate per pre-reg §"Four-commit protocol":** (Commit B regression gate PASS) ∧ (≥ 1 test_v4 attribution cell ≥ 0.80) → **PASS, both conditions met**. Cells 9-14 (Commit D) proceed once `test_v5` is externally authored at Commit C. No path-C close.
+
+### Identified paper-line row(s) for M10 close (pending test_v5 P1)
+
+Per §"Pre-registered paper framing per outcome", the joint outcome rows currently consistent with the Commit B data:
+
+| In-dist regression | `test_v4` attribution | `test_v5` P1 | Paper-line |
+|---|---|---|---|
+| **Pass** ✅ | **V2≥0.80, V3≥0.80** ✅ | ≥ 0.80 (TBD at Commit D) | **Row 1** — H2 confirmed + V3 also viable at Opus scale + 4-trace headline |
+| **Pass** ✅ | **V2≥0.80, V3≥0.80** ✅ | 0.60 ≤ hit < 0.80 (TBD) | **Row 5** — Partial external recovery at Opus scale |
+| **Pass** ✅ | **V2≥0.80, V3≥0.80** ✅ | hit < 0.60 (TBD) | **Row 6** — External coverage not closed under M10 |
+
+The first three (Fail-row, two test_v4 attribution failures) are pre-emptively excluded by Commit B's data. Row 1 is the live "best-case" branch; rows 5/6 are the live "partial/no closure" branches. Test_v5 P1 (cell 9 hit_rate against the 0.80 / 0.60 thresholds) will resolve which row fires.
+
+The pre-reg also notes that if V2-Opus's test_v5 P1 falls below 0.80, cell 10 (V3-Opus on test_v5) is cross-referenced. With the test_v4 attribution showing V2 and V3 perfectly aligned at Opus on this trace's events, the V2/V3 distinction may not matter on test_v5 either; mechanism reading at Commit D will tell.
+
+_Cells 9-14 (Commit D) pending Commit C `test_v5` external authoring (mandatory fresh-session boundary)._
 
 ## Results — Commit D `test_v5` eval
 
