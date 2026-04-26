@@ -100,6 +100,7 @@ def _load_agent(
     arbiter_mode: str | None = None,
     arbiter_random_p: float | None = None,
     arbiter_random_seed: int | None = None,
+    arbiter_system_prompt: str = "v2",
 ) -> Agent:
     module_name, _, cls_name = spec.rpartition(":")
     if not module_name:
@@ -114,6 +115,22 @@ def _load_agent(
         if not hasattr(cls, "from_trace"):
             raise ValueError(f"{spec} does not support --with-briefing (no from_trace classmethod)")
         return cls.from_trace(trace, with_briefing=True)
+    if arbiter_mode == "claude":
+        # M10 (runs/17 SHA 68d42e3) — Claude-API arbiter dispatched here
+        # rather than via HeargentZA.from_trace so agent/loop.py stays
+        # untouched per the pre-reg's "Critical files" list.
+        from agent.arbiter import (
+            ARBITER_SYSTEM_PROMPT_V2,
+            ARBITER_SYSTEM_PROMPT_V3,
+            ClaudeArbiter,
+        )
+        prompt = (
+            ARBITER_SYSTEM_PROMPT_V3
+            if arbiter_system_prompt == "v3"
+            else ARBITER_SYSTEM_PROMPT_V2
+        )
+        arbiter = ClaudeArbiter(system_prompt=prompt)
+        return cls(arbiter=arbiter)
     if arbiter_mode is not None:
         if not hasattr(cls, "from_trace"):
             raise ValueError(f"{spec} does not support --arbiter-mode (no from_trace classmethod)")
@@ -143,9 +160,9 @@ def main() -> int:
     )
     parser.add_argument(
         "--arbiter-mode",
-        choices=["content", "random"],
+        choices=["content", "random", "claude"],
         default=None,
-        help="Arbiter source for HeargentZA (calls agent.from_trace(trace, mode=..))",
+        help="Arbiter source for HeargentZA. content/random call agent.from_trace; claude (M10) constructs ClaudeArbiter directly.",
     )
     parser.add_argument(
         "--arbiter-random-p",
@@ -159,6 +176,12 @@ def main() -> int:
         default=None,
         help="RandomArbiter RNG seed for --arbiter-mode=random (default 42 when omitted)",
     )
+    parser.add_argument(
+        "--arbiter-system-prompt",
+        choices=["v2", "v3"],
+        default="v2",
+        help="System prompt for --arbiter-mode=claude (V2 closed enumeration or V3 principled criterion). Ignored for content/random.",
+    )
     args = parser.parse_args()
 
     trace = get_trace(args.trace)
@@ -170,6 +193,7 @@ def main() -> int:
         arbiter_mode=args.arbiter_mode,
         arbiter_random_p=args.arbiter_random_p,
         arbiter_random_seed=args.arbiter_random_seed,
+        arbiter_system_prompt=args.arbiter_system_prompt,
     )
     metrics = run(agent, trace, tick_dt_s=args.tick_dt)
     metrics["trace_name"] = trace.name
@@ -178,6 +202,17 @@ def main() -> int:
     metrics["arbiter_mode"] = args.arbiter_mode
     metrics["arbiter_random_p"] = args.arbiter_random_p
     metrics["arbiter_random_seed"] = args.arbiter_random_seed
+    metrics["arbiter_system_prompt"] = args.arbiter_system_prompt
+    if args.arbiter_mode == "claude":
+        # Augment llm_stats with Claude arbiter token counts and override
+        # cost_usd (HeargentZA.cost_usd returns 0.0 by default since the
+        # 3B path is local). M10 (runs/17 SHA 68d42e3).
+        arb = agent.arbiter
+        metrics.setdefault("llm_stats", {})
+        metrics["llm_stats"]["arbiter_input_tokens"] = arb.input_tokens
+        metrics["llm_stats"]["arbiter_output_tokens"] = arb.output_tokens
+        metrics["llm_stats"]["arbiter_dispatched_model"] = arb.dispatched_model
+        metrics["cost_usd"] = arb.cost_usd
     if hasattr(agent, "intents"):
         metrics["intents"] = list(agent.intents)
     if hasattr(agent, "surprise_log"):

@@ -79,7 +79,7 @@ Captured pre-harness, before any cell with discriminative content fires. Forces 
 - `stop_reason='max_tokens'` despite `output_tokens=2 < max_tokens=5`. Anthropic API quirk; the visible content is clean and matches the parser's regex (`\b(YES|NO)\b` against `first_line.upper()`). `usage` has no `thinking_tokens` field — no hidden reasoning is consuming budget. No remediation needed.
 - The V0 prompt `"Output exactly YES or NO."` is non-discriminative — `'YES'` on `"Test."` and `'NO'` on `fire_alarm` content reflect default model behavior with no surfacing criterion, not arbiter behavior. The V2-vs-V3 8-event probe (next pre-flight) provides the discriminative read on the actual M10 prompts.
 
-**Determinism on actual M10 prompts (V2 + V3) — hardened at the doubled probe.** The V2-vs-V3 8-event off-harness probe (mandatory pre-flight per §"Reproduce" → "Pre-Commit-B sanity (3)") is run twice, back-to-back, through the same `ClaudeArbiter` instances. Every (event, prompt) decision is compared byte-for-byte between runs (16 paired equalities). If all 16 hold, determinism on V2 and V3 is empirically confirmed on the prompts the M10 cells actually use. The probe-doubling is added at this hardening commit as the strongest available substitute for the (now-impossible) `temperature=0` lock. **Probe outputs (both runs) are appended to this section after the probe completes** (next commit, alongside the Commit B code).
+**Determinism on actual M10 prompts (V2 + V3) — hardened at the doubled probe.** The V2-vs-V3 8-event off-harness probe (mandatory pre-flight per §"Reproduce" → "Pre-Commit-B sanity (3)") is run twice, back-to-back, through the same `ClaudeArbiter` instances. Every (event, prompt) decision is compared byte-for-byte between runs (16 paired equalities). The probe-doubling is the strongest available substitute for the (now-impossible) `temperature=0` lock; it confirms determinism on the prompts the M10 cells actually use. **Probe + V2-3B bit-identical smoke results are recorded under §"Results — Commit B regression gate" → "Pre-flight smokes" below** (landed alongside the Commit B code).
 
 ## Four-commit protocol
 
@@ -416,9 +416,84 @@ This pass is comparable in code-delta scope to M8b / M9 (one new arbiter class, 
 
 ## Results — Commit B regression gate + test_v4 attribution + in-dist cost denominator
 
-_Populated after Commit B's 8 cells run + pre-flight smokes complete. Captures: pre-flight V2-3B bit-identical smoke result, Opus connectivity smoke output (incl. dispatched model ID), V2-vs-V3 8-event probe outputs, 8-cell results table, regression-gate verdict, test_v4 attribution verdict, path-C close decision (if applicable)._
+### Pre-flight smokes (Commit B, before any harness cell fires)
 
-_Not yet executed._
+#### V2-3B bit-identical smoke (validates ollama path post run_trace.py edits)
+
+`uv run python -m eval.run_trace --agent agent.loop:HeargentZAWide --trace dev_v2 --arbiter-mode content --out /tmp/smoke-pre-M10.json`. Diffed against `runs/data/12a-heargent-za-v2wide-dev_v2.json`:
+
+| key | smoke | M6a reference | match |
+|---|---|---|:---:|
+| `hit_rate` | 1.0 | 1.0 | ✅ |
+| `false_initiation_rate_per_hour` | 0.0 | 0.0 | ✅ |
+| `total_notifications` | 5 | 5 | ✅ |
+| `misses` | `[]` | `[]` | ✅ |
+| `llm_stats.arbiter_calls` | 4 | 4 | ✅ |
+| `llm_stats.arbiter_yes_rate` | 0.75 | 0.75 | ✅ |
+| `hits` (event_ids) | `fire_alarm, flight_delay, meeting_moved, deadline, dentist_cancel` | same | ✅ |
+
+Bit-identical to M6a / M9-close state. Environment for the local pipeline (predictor + surprise scorer) is unchanged; the `eval/run_trace.py` CLI edits + new `--arbiter-mode claude` dispatch path do not regress the existing `--arbiter-mode content` path. Any V2-Opus regression observed in the harness cells attributes to the model lever, not to environmental drift or harness-side regression.
+
+#### V2-vs-V3 Opus probe (16 calls × 2 runs = 32 calls; doubled for determinism verification)
+
+`uv run python -m eval.probes.probe_v2_v3_opus`, run twice back-to-back. Every (event, prompt) decision compared byte-for-byte between Run 1 and Run 2:
+
+| event | content (truncated for table; full text in `eval/probes/probe_v2_v3_opus.py:PROBE_EVENTS`) | V2 | V3 |
+|---|---|:---:|:---:|
+| `fire_alarm` | Fire alarm in building A triggered; evacuation in progress. | YES | YES |
+| `flight_delay` | Flight UA123 to Berlin tomorrow has been delayed by 3 hou... | YES | YES |
+| `meeting_moved` | Meeting 'Design Review' tomorrow moved from 10:00 to 14:00. | YES | YES |
+| `news_digest` | Daily news digest updated. | NO | NO |
+| `rent_due` | Reminder: rent payment of $1450 is due tomorrow. | YES | YES |
+| `package_arrival` | Your package has been delivered to your door. | YES | NO |
+| `parking_meter_oak` | Parking meter at 1247 Oak Street expires in 12 minutes; t... | YES | YES |
+| `cover_standup_request` | Hey, can you cover my 9am standup tomorrow? I'm taking a ... | YES | YES |
+
+**Determinism — PASS.** All 16 (event, prompt) decisions matched byte-for-byte across both runs. Per-prompt token totals also matched: V2 = 3716 input / 16 output / $0.056940; V3 = 2212 input / 16 output / $0.034380 (each run). No floating-point or batching nondeterminism observed; Opus 4.7 is empirically deterministic on V2 and V3 prompts at the M10 phrasings, hardening the §"API parameters" amendment's determinism claim.
+
+**Per pre-Commit-B sanity criteria (§"Reproduce" → "Pre-Commit-B sanity (3)"):**
+
+(a) **Parser handles Opus output shape — PASS.** All 32 outputs cleanly matched the `_DECISION` regex (`\b(YES|NO)\b` against `first_line.upper()`). No multi-line, mixed-case, explanatory, or otherwise off-shape outputs. The parser inherited from `ContentArbiter` is robust to Opus's actual emission shape.
+
+(b) **Opus reads V2 closer to YES than 3B reads V2 on representative cases — PASS, strongly.** Direct comparison vs the runs/16 §"Off-harness diagnostic probe" 3B-V2 results:
+
+| event | 3B V2 (runs/16) | Opus V2 | Δ |
+|---|:---:|:---:|---|
+| `fire_alarm` | YES | YES | preserved |
+| `flight_delay` | YES | YES | preserved |
+| `meeting_moved` | YES | YES | preserved |
+| `news_digest` | NO | NO | preserved |
+| `rent_due` | YES | YES | preserved |
+| `package_arrival` | NO (M6a residual) | **YES** | recovered |
+| `parking_meter_oak` | NO (test_v4 V2-coverage gap) | **YES** | recovered |
+| `cover_standup_request` | NO (test_v4 V2-coverage gap) | **YES** | recovered |
+
+Three regime upgrades observed: M6a's `package_arrival` residual, plus both probed test_v4 V2-coverage misses. Strong predictor for H2 confirmation at Commit B cells 1-4.
+
+(c) **V3 at Opus does NOT exhibit the 3B's pattern-matching-on-regret-list-words mode — PASS, strongly.** Direct comparison vs runs/16 §"Off-harness diagnostic probe" 3B-V3 results (M9's failure mode 1: safety read as informational, mode 2: tomorrow strict-read out, mode 3: NO-bias absent enumeration patterns):
+
+| event | 3B V3 (runs/16) | Opus V3 | Δ |
+|---|:---:|:---:|---|
+| `fire_alarm` | NO (mode 1) | **YES** | recovered |
+| `flight_delay` | NO (mode 2) | **YES** | recovered |
+| `meeting_moved` | NO (mode 2) | **YES** | recovered |
+| `news_digest` | NO | NO | preserved |
+| `rent_due` | YES (matched "money") | YES | preserved (now criterion-resolved, not pattern-matched) |
+| `package_arrival` | NO | NO | preserved (V3 reads delivery as informational under both scales) |
+| `parking_meter_oak` | NO (V3-3B did not rescue) | **YES** | recovered |
+| `cover_standup_request` | NO (V3-3B did not rescue) | **YES** | recovered |
+
+The 3B's three V3 failure modes are absent at Opus scale: safety content correctly read as actionable, "tomorrow"-shaped scheduling correctly read as time-bounded with regret, and abstract-conjunct resolution working without regret-list-example-word pattern-matching. Strong predictor for H1 also being viable at Opus on test_v4.
+
+**One pre-flight observation worth flagging (mechanism only; does not block harness cells):** Opus V3 says NO on `package_arrival` ("Your package has been delivered to your door.") while Opus V2 says YES. This is V3 routing a one-shot delivery to its NO bucket ("purely informational with nothing the user must decide or act on within hours"); V2's enumeration explicitly lists "package delivered" as a YES regime. Predicts: V2-Opus and V3-Opus may differ on personal-delivery content in the harness cells. `package_arrival` is the M6a residual on test_v1 (not a test_v4 GT, so does not directly affect test_v4 attribution); a V2-Opus YES on test_v1's `package_arrival` would resolve M6a's three-trace residual at Opus scale and is a candidate observation for the test_v1 V2-Opus regression cell.
+
+**Total Commit B pre-flight spend: ~$0.18 (probe doubled).** Connectivity smoke (4 calls) is negligible. Well within the $3-5 M10 budget.
+
+**Overall pre-flight verdict: PROCEED to Commit B harness cells.** All three sanity bars met; determinism empirically confirmed via doubled probe; mechanism observations logged.
+
+_8-cell harness results, regression-gate verdict, and test_v4 attribution verdict appended below post-eval._
+
+_Cells not yet executed._
 
 ## Results — Commit D `test_v5` eval
 

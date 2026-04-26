@@ -2,8 +2,18 @@ from __future__ import annotations
 
 import random
 import re
+from typing import TYPE_CHECKING
 
 from agent.llm import OllamaClient
+
+if TYPE_CHECKING:
+    from anthropic import Anthropic
+
+
+# Anthropic Opus 4.7 rates locked at runs/17-claude-arbiter.md SHA 68d42e3
+# (M10 Commit A pre-reg). Used by ClaudeArbiter and baselines.react_poll_claude.
+OPUS_INPUT_USD_PER_M = 15.0
+OPUS_OUTPUT_USD_PER_M = 75.0
 
 ARBITER_SYSTEM_PROMPT = (
     "You are a triage filter for a proactive assistant. Decide whether a\n"
@@ -168,6 +178,83 @@ class RandomArbiter:
     def classify(self, text: str) -> bool:
         del text  # random arbiter ignores content by design
         decision = self._rng.random() < self.p
+        if decision:
+            self.yes_count += 1
+        else:
+            self.no_count += 1
+        return decision
+
+
+class ClaudeArbiter:
+    """Pure-content binary classifier using Claude API (Opus 4.7).
+
+    M10 model-scale lever (runs/17-claude-arbiter.md SHA 68d42e3). Same
+    public surface as ContentArbiter (`classify`, `yes_count`, `no_count`,
+    `yes_rate`) plus token + cost accounting for the dual-axis (tok/hit,
+    usd/hit) Pareto. Wire-up choice (a) per runs/16-v3-prompt.md:51-53:
+    `system = rules`, `user = event_content` — chat-template parity with
+    V2/V3 at the 3B scale, so any V2-3B → V2-Opus delta attributes cleanly
+    to the model lever rather than to a wire-up shape change.
+
+    Default `system_prompt = ARBITER_SYSTEM_PROMPT_V2`. Pass
+    `system_prompt=ARBITER_SYSTEM_PROMPT_V3` explicitly for V3-Opus
+    attribution cells. Anthropic SDK is imported lazily so this module
+    still imports cleanly when `anthropic` is not installed (e.g. during
+    `--arbiter-mode content/random` runs).
+    """
+
+    def __init__(
+        self,
+        client: Anthropic | None = None,
+        model: str = "claude-opus-4-7",
+        *,
+        max_tokens: int = 5,
+        system_prompt: str = ARBITER_SYSTEM_PROMPT_V2,
+    ) -> None:
+        if client is None:
+            from anthropic import Anthropic as _Anthropic
+            client = _Anthropic()
+        self.client = client
+        self.model = model
+        self.max_tokens = max_tokens
+        self.system_prompt = system_prompt
+        self.yes_count = 0
+        self.no_count = 0
+        self.input_tokens = 0
+        self.output_tokens = 0
+        self.dispatched_model: str | None = None
+
+    @property
+    def yes_rate(self) -> float:
+        total = self.yes_count + self.no_count
+        return self.yes_count / total if total else 0.0
+
+    @property
+    def cost_usd(self) -> float:
+        return (
+            self.input_tokens * OPUS_INPUT_USD_PER_M
+            + self.output_tokens * OPUS_OUTPUT_USD_PER_M
+        ) / 1_000_000
+
+    def classify(self, text: str) -> bool:
+        # `temperature` parameter intentionally omitted: Opus 4.7 deprecates
+        # it (anthropic.BadRequestError at request). Determinism verified
+        # empirically at the connectivity smoke + doubled V2-vs-V3 probe;
+        # see runs/17-claude-arbiter.md "Connectivity-smoke observations".
+        resp = self.client.messages.create(
+            model=self.model,
+            max_tokens=self.max_tokens,
+            system=self.system_prompt,
+            messages=[{"role": "user", "content": text}],
+        )
+        if self.dispatched_model is None:
+            self.dispatched_model = resp.model
+        self.input_tokens += resp.usage.input_tokens
+        self.output_tokens += resp.usage.output_tokens
+        raw = "".join(b.text for b in resp.content if hasattr(b, "text")).strip()
+        first_line = raw.splitlines()[0] if raw else ""
+        m = _DECISION.search(first_line.upper())
+        decision = bool(m and m.group(1) == "YES")
         if decision:
             self.yes_count += 1
         else:
