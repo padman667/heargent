@@ -1,0 +1,159 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "babysitter_sick",
+      "notification_sim_time": 50.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "rail_strike",
+      "notification_sim_time": 200.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "keynote_slot",
+      "notification_sim_time": 350.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "card_fraud",
+      "notification_sim_time": 500.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "tax_extension",
+      "notification_sim_time": 700.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.50_w16",
+  "cost_usd": 0.027225,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1030.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 2681,
+    "completion_tokens": 131,
+    "total_duration_s": 4.916235083,
+    "arbiter_calls": 6,
+    "arbiter_yes_rate": 0.5,
+    "arbiter_input_tokens": 1755,
+    "arbiter_output_tokens": 12,
+    "arbiter_dispatched_model": "claude-opus-4-7"
+  },
+  "trace_name": "test_v5",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v3",
+  "surprise_log": [
+    {
+      "sim_time": 50.0,
+      "event_id": "babysitter_sick",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Hey, it's Maya \u2014 I'm running a 102 fever and can't babysit Theo tonight at 6pm. So sorry to bail last minute!",
+      "surprise": 0.46681098481258143,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 120.0,
+      "event_id": "icloud_storage",
+      "prediction": "Maya will likely reschedule her babysitting shift for tonight at 6pm.",
+      "observation": "You've used 47% of your 200GB iCloud storage. No action needed.",
+      "surprise": 0.5660708072810101,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 200.0,
+      "event_id": "rail_strike",
+      "prediction": "You've been notified about iCloud storage usage.",
+      "observation": "Regional rail union announces a 24-hour strike starting tomorrow 04:00; all commuter lines suspended through Friday morning.",
+      "surprise": 0.4970061661505879,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 275.0,
+      "event_id": "ebook_receipt",
+      "prediction": "Phone message notification about babysitting cancellation.",
+      "observation": "Receipt for your $14.99 ebook 'The Pragmatic Programmer' from BookHub. Download link inside.",
+      "surprise": 0.5486113117910868,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 350.0,
+      "event_id": "keynote_slot",
+      "prediction": "Phone strike announcement expected at 6pm due to sick babysitter.",
+      "observation": "Your keynote slot at PyConf has been moved up from 15:00 to 11:00 \u2014 speakers requested to arrive by 10:00 for tech check.",
+      "surprise": 0.40979342558271425,
+      "z": -2.7678531770474057,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 420.0,
+      "event_id": "bank_survey",
+      "prediction": "24-hour rail strike set to suspend commuter lines through Friday morning.",
+      "observation": "How was your recent visit to MetroBank Oakridge branch? Take our 2-minute satisfaction survey.",
+      "surprise": 0.533285519603881,
+      "z": 0.6308140956861948,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 500.0,
+      "event_id": "card_fraud",
+      "prediction": "A 102 fever prevents Maya from babysitting tonight at 6pm.",
+      "observation": "Suspicious $2,418 charge on your Visa ending 4471 at an electronics retailer in Lagos. Reply STOP within 1 minute if this was not you.",
+      "surprise": 0.544410511952643,
+      "z": 0.766619178851613,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 700.0,
+      "event_id": "tax_extension",
+      "prediction": "A 24-hour rail strike starting tomorrow will affect commuters across the region.",
+      "observation": "Your accountant flagged: state income tax extension expires tomorrow at midnight \u2014 your signature is still missing on Form 8453.",
+      "surprise": 0.4726205927739967,
+      "z": -0.7172311858051807,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 850.0,
+      "event_id": "podcast_charge",
+      "prediction": "24-hour rail strike starting tomorrow morning affecting commuters.",
+      "observation": "Heads up: your monthly Overcast Premium subscription processed successfully \u2014 $4.99 charged to card ending 4471.",
+      "surprise": 0.6135417636024381,
+      "z": 2.195287866534956,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    }
+  ]
+}
