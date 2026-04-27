@@ -264,7 +264,7 @@ The carry-forward is intentional: `test_v5`'s authoring prompt was already pre-r
 
 (Populated during Commit C. Each rejection notes: fresh-session timestamp, first violated constraint, one-sentence description of the violation. A rejected generation is not merged; the generator code is not kept.)
 
-_None yet._
+**No rejections.** The first fresh-session generation passed audit on first attempt; details under §"Results — Commit C" below.
 
 ## Critical files
 
@@ -579,6 +579,83 @@ The first three (Fail-row, two test_v4 attribution failures) are pre-emptively e
 The pre-reg also notes that if V2-Opus's test_v5 P1 falls below 0.80, cell 10 (V3-Opus on test_v5) is cross-referenced. With the test_v4 attribution showing V2 and V3 perfectly aligned at Opus on this trace's events, the V2/V3 distinction may not matter on test_v5 either; mechanism reading at Commit D will tell.
 
 _Cells 9-14 (Commit D) pending Commit C `test_v5` external authoring (mandatory fresh-session boundary)._
+
+## Results — Commit C externally-authored `test_v5` + audit
+
+### Fresh-session attestation
+
+The `test_v5` trace was authored in a separate Claude Code session, isolated from M10 context per the runs/16 §"Authoring protocol" pre-reg:
+
+- **Claude Code instance:** Pro subscription (same OAuth account as the M10 working session). Model: `opus (claude-opus-4-7)` (per `/status` of the fresh session).
+- **Working directory:** `/Users/patrick.gergen/Pictures` (deliberately outside the heargent project tree). No project `CLAUDE.md`, no auto-memory for the heargent project, no file-tree visibility into agent code or arbiter prompts.
+- **Interaction:** the verbatim runs/16 §"Authoring prompt" (committed at SHA `3653880`, lines 143-231 of `runs/16-v3-prompt.md`) was pasted as the sole user message after `/clear`. No additional prompts, no follow-ups, no clarifying questions answered. The session emitted a single Python code block + the registry line and was closed.
+- **Output transmission:** the code block was pasted back into the M10 working session for audit. No edits to event content, IDs, kinds, sim_times, windows, keywords, briefing, or intents between the fresh-session emission and the audit. Permitted edits applied during integration into `sandbox/event_trace.py`: none required (no parsing-blocker typos, no import-ordering issues; only the registry-line addition stipulated by the protocol).
+
+The fresh session's auth/model lineage (Pro subscription, Opus 4.7) matches the user's working session — relevant transparency for the paper: the same model family that authors the M10 arbiter cells is also the model family that authored the externally-authored test trace. Reviewers can argue this either way: (a) "single-source generator/evaluator pairing introduces a model-family bias toward content the same family handles well" (mitigated by the fresh session having no agent-prompt visibility, so it cannot anticipate V2/V3's specific YES/NO regimes); (b) "matched generator/evaluator is the strongest possible defensibility because both are from a single, named, version-pinned model — no cross-model artifacts." We document the pairing and let the reviewer evaluate.
+
+### Audit verdict: PASS — first-attempt audit clears all 11 hard structural constraints + 3 banned lists
+
+**Programmatic schema + structural checks (via `uv run python` against the registered trace):**
+
+| constraint | requirement | actual | status |
+|---|---|---|:---:|
+| `name = "test_v5"` | exact | `'test_v5'` | ✅ |
+| 5 GTs + 4 distractors (= 9 events total) | exact | 5 + 4 = 9 | ✅ |
+| All `sim_time ∈ [0, 1000]` | range | min=50, max=850 | ✅ |
+| `gt.event.sim_time + gt.proaction_window_s ≤ 1000` (per GT) | per-GT | max = 1000 (tax_extension: 700+300) | ✅ |
+| ≥3 distinct GT `kind` values, drawn from allowed set | range | 5 distinct: phone_message, world_event, calendar_update, alert, notification | ✅ |
+| ≥1 GT with `proaction_window_s ≤ 30` | exists | card_fraud=15, babysitter_sick=20 | ✅ |
+| ≥1 GT with `proaction_window_s ≥ 300` | exists | rail_strike=600, tax_extension=300 | ✅ |
+| Briefing 2-4 first-person sentences | range | 3 sentences (first-person; "I'm working from home today...") | ✅ |
+| Intents tuple of exactly 5 short phrases | exact | 5: keep evening childcare covered / stay on top of conference logistics / catch financial fraud quickly / avoid missing tax deadlines / adapt to transit disruptions | ✅ |
+| Distractors plausible routine/system noise | qualitative | iCloud storage usage info / ebook receipt / bank survey / Overcast subscription receipt — all routine, no urgency, no action demand | ✅ |
+| GTs human-interpretable as "warrants proaction" on content alone | qualitative | All 5 read as actionable on content (childcare cancellation tonight / 24h rail strike / keynote slot moved 4hr earlier / "Reply STOP within 1 minute" fraud alert / tax deadline expires tomorrow midnight) | ✅ |
+
+**Keyword/content alignment audit (M8b constraint, retained):**
+
+All 10 keyword/content pairs satisfy `kw.lower() in gt.event.content.lower()` strictly:
+
+| GT | keyword 1 | keyword 2 | both in content |
+|---|---|---|:---:|
+| `babysitter_sick` | `'babysit'` (in `'can't babysit Theo tonight'`) | `'tonight'` | ✅ |
+| `rail_strike` | `'strike'` (in `'24-hour strike starting'`) | `'rail'` (in `'Regional rail union'`) | ✅ |
+| `keynote_slot` | `'keynote'` | `'moved'` (in `'has been moved up'`) | ✅ |
+| `card_fraud` | `'suspicious'` | `'charge'` | ✅ |
+| `tax_extension` | `'tax'` | `'expires'` | ✅ |
+
+**Banned-list audits:**
+
+- **Banned event IDs (46 from M8b + test_v4):** No collisions. Used IDs: `babysitter_sick, icloud_storage, rail_strike, ebook_receipt, keynote_slot, bank_survey, card_fraud, tax_extension, podcast_charge`. None match.
+- **Banned keyword tuples (26):** No collisions. Used tuples: `(babysit, tonight), (strike, rail), (keynote, moved), (suspicious, charge), (tax, expires)`. None match. Closest candidates: (a) `(keynote, moved)` is distinct from banned `(meeting, moved)` (different first element + different event regime: conference talk vs internal meeting); (b) `(tax, expires)` is distinct from banned `(library, hold, expires)` (different first elements + 2-tuple vs 3-tuple).
+- **Banned content themes (27, semantic):** No clear collisions. Two borderline cases reviewed below; both accepted with transparent audit notes.
+
+### Audit transparency notes (borderline themes accepted)
+
+The pre-reg's banned-themes list specifies semantic categories. Two GTs in `test_v5` are in adjacent semantic neighborhoods to banned themes; both were reviewed and accepted as distinct. Documented here so a reviewer can audit the reasoning rather than discovering it in cell results.
+
+**(1) `rail_strike` vs banned theme "protest or civil disruption affecting commute".** A union-organized labor strike is in the adjacent semantic category to the banned "protest or civil disruption affecting commute" (which was added in M9 specifically because of `protest_commute_route` in test_v4). The two regimes share the surface property "external event affecting commute" but differ on mechanism: rail strike = organized labor action (economic/contractual), protest = political demonstration (civic disruption). The banned theme's wording ("protest or civil disruption") points at the political/civic-unrest semantic field; "rail strike" is a labor-relations event. **Accepted as distinct.** If a reviewer disagrees, the fallback defense is that V2-Opus and V3-Opus both already close `protest_commute_route` on test_v4 (cells 4-5 hit it; recovery confirmed); whether `rail_strike` exercises "the same regime" or "an adjacent regime," its outcome under both prompts will be reported verbatim and is robust to either interpretation.
+
+**(2) `card_fraud` vs banned theme "security breach / unauthorized access".** A credit-card fraud alert (consumer financial fraud) is in the adjacent semantic category to "security breach / unauthorized access" (which was added at M5/M6a as a YES-regime example for V2 and is the test_v2 GT `security_breach`'s class). Both involve unauthorized access, but on different objects: `security_breach` is system/account intrusion (production/IT context); `card_fraud` is consumer financial fraud (transactional context). V2's prompt enumerates these as separate regimes implicitly (a "security breach" is one of V2's safety-issue examples; a credit-card fraud alert is closer to V2's "financial obligation"/"alert"-style content). **Accepted as distinct.** Same fallback: outcome reported verbatim regardless of regime interpretation.
+
+Both notes are recorded pre-eval; their existence does not depend on cell results. If a reviewer rejects either acceptance, the test_v5 result is reported with that GT excluded for sensitivity analysis (n=4 GTs, all from indisputably-novel regimes); the conclusion is unlikely to change at this margin.
+
+### Trace summary (`test_v5`, committed verbatim to `sandbox/event_trace.py` at this commit)
+
+| sim_time | event id | kind | window_s | role | content (first 60 chars) |
+|---:|---|---|---:|---|---|
+| 50.0 | `babysitter_sick` | phone_message | 20 | GT | `Hey, it's Maya — I'm running a 102 fever and can't babysi` |
+| 120.0 | `icloud_storage` | notification | — | distractor | `You've used 47% of your 200GB iCloud storage. No action n` |
+| 200.0 | `rail_strike` | world_event | 600 | GT | `Regional rail union announces a 24-hour strike starting t` |
+| 275.0 | `ebook_receipt` | email | — | distractor | `Receipt for your $14.99 ebook 'The Pragmatic Programmer'` |
+| 350.0 | `keynote_slot` | calendar_update | 180 | GT | `Your keynote slot at PyConf has been moved up from 15:00` |
+| 420.0 | `bank_survey` | email | — | distractor | `How was your recent visit to MetroBank Oakridge branch? T` |
+| 500.0 | `card_fraud` | alert | 15 | GT | `Suspicious $2,418 charge on your Visa ending 4471 at an e` |
+| 700.0 | `tax_extension` | notification | 300 | GT | `Your accountant flagged: state income tax extension expir` |
+| 850.0 | `podcast_charge` | notification | — | distractor | `Heads up: your monthly Overcast Premium subscription proc` |
+
+**Trace coherence note (informational, not part of audit):** The briefing + intents establish a single-day work-from-home scenario (kid logistics + admin debts + conference prep). All 5 GTs map cleanly onto V2's enumerated YES regimes (childcare interruption / external transit condition / personal schedule change / financial fraud alert / financial deadline) and onto V3's principled criterion (actionable + time-bounded with regret) at content-level reading. Both V2-Opus and V3-Opus would be expected to fire YES on all 5 if abstract-conjunct resolution and enumeration-pattern-matching both work as the M9/M10-Commit-B Opus probe behavior predicted. **No mechanism prediction is committed pre-eval; cell results are reported verbatim.**
+
+_Commit D 6-cell harness pending pre-Commit-D smokes (schema check ✅ above; bit-identical V2-Opus dev_v2 re-run pending below)._
 
 ## Results — Commit D `test_v5` eval
 

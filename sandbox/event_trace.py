@@ -389,6 +389,64 @@ def test_trace_v4() -> Trace:
     )
     return Trace(name="test_v4", events=events, ground_truth=gts, briefing=briefing, intents=intents)
 
+def test_trace_v5() -> Trace:
+    gts = [
+        _gt(
+            Event(id="babysitter_sick", kind="phone_message", sim_time=50.0,
+                  content="Hey, it's Maya — I'm running a 102 fever and can't babysit Theo tonight at 6pm. So sorry to bail last minute!"),
+            window_s=20.0, keywords=("babysit", "tonight"),
+        ),
+        _gt(
+            Event(id="rail_strike", kind="world_event", sim_time=200.0,
+                  content="Regional rail union announces a 24-hour strike starting tomorrow 04:00; all commuter lines suspended through Friday morning."),
+            window_s=600.0, keywords=("strike", "rail"),
+        ),
+        _gt(
+            Event(id="keynote_slot", kind="calendar_update", sim_time=350.0,
+                  content="Your keynote slot at PyConf has been moved up from 15:00 to 11:00 — speakers requested to arrive by 10:00 for tech check."),
+            window_s=180.0, keywords=("keynote", "moved"),
+        ),
+        _gt(
+            Event(id="card_fraud", kind="alert", sim_time=500.0,
+                  content="Suspicious $2,418 charge on your Visa ending 4471 at an electronics retailer in Lagos. Reply STOP within 1 minute if this was not you."),
+            window_s=15.0, keywords=("suspicious", "charge"),
+        ),
+        _gt(
+            Event(id="tax_extension", kind="notification", sim_time=700.0,
+                  content="Your accountant flagged: state income tax extension expires tomorrow at midnight — your signature is still missing on Form 8453."),
+            window_s=300.0, keywords=("tax", "expires"),
+        ),
+    ]
+    distractors = [
+        Event(id="icloud_storage", kind="notification", sim_time=120.0,
+              content="You've used 47% of your 200GB iCloud storage. No action needed."),
+        Event(id="ebook_receipt", kind="email", sim_time=275.0,
+              content="Receipt for your $14.99 ebook 'The Pragmatic Programmer' from BookHub. Download link inside."),
+        Event(id="bank_survey", kind="email", sim_time=420.0,
+              content="How was your recent visit to MetroBank Oakridge branch? Take our 2-minute satisfaction survey."),
+        Event(id="podcast_charge", kind="notification", sim_time=850.0,
+              content="Heads up: your monthly Overcast Premium subscription processed successfully — $4.99 charged to card ending 4471."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v5",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "I'm working from home today juggling kid logistics and a stack of admin debts I've been putting off. "
+            "My partner is out of town until Wednesday, so I'm solo on Theo this evening. "
+            "Tonight I'm also supposed to do a dry run of my conference talk before flying out next week."
+        ),
+        intents=(
+            "keep evening childcare covered",
+            "stay on top of conference logistics",
+            "catch financial fraud quickly",
+            "avoid missing tax deadlines",
+            "adapt to transit disruptions",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -397,6 +455,7 @@ def get_trace(name: str) -> Trace:
         "test_v2": test_trace_v2,
         "test_v3": test_trace_v3,
         "test_v4": test_trace_v4,
+        "test_v5": test_trace_v5,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")
