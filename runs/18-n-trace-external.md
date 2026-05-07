@@ -288,12 +288,36 @@ Mirroring M10's defense pattern.
 | trace | fresh-session timestamp | cwd | session model (user-confirmed) | /clear confirmation | audit attempt # | audit verdict |
 |---|---|---|---|---|---|---|
 | test_v6 | 2026-05-07 19:10 | `/Users/patrick.gergen/Pictures` | `claude-opus-4-7` (Opus 4.7, user-confirmed) | confirmed | 1 | PASS (with 2 transparent borderline-theme notes; see §"Mechanism notes") |
+| test_v7 | 2026-05-07 19:42 | `/Users/patrick.gergen/Pictures` | `claude-opus-4-7` (Opus 4.7, user-confirmed) | confirmed | 3 of 3 (attempts #1 + #2 rejected; see §"Rejections log") | PASS (with 2 transparent borderline-theme notes; see §"Mechanism notes") |
 
 ## Rejections log
 
 (Populated during Commits C1-C5 if any audit fails. Each rejection notes: fresh-session timestamp, first violated constraint, one-sentence description of the violation. A rejected generation is not merged; the generator code is not kept.)
 
-_None yet._
+### test_v7 — attempt #1 (2026-05-07 19:22)
+
+**Verdict:** Reject (spirit-of-protocol; strict-letter audit PASSED).
+**First flagged concern:** Cross-trace event-id collision — attempt #1's first GT used `id="wedding_rsvp"` with content "Final RSVP reminder: Maya and Tom's wedding next Saturday — the caterer needs a final headcount by tomorrow at noon," literally duplicating test_v6's `wedding_rsvp` GT (also a wedding-RSVP-deadline-with-meal-selection email).
+**Description:** The M10b banned-list freeze (locked at Commit A; not iteratively extended mid-protocol) means each fresh session sees the same banned IDs and cannot avoid IDs that earlier M10b sessions used. The collision is therefore not a strict-letter banned-list violation — but it weakens M10b's "5 independent externally-authored traces" framing because two of the 5 samples share a literal event ID + content category. The user elected Path B (retry) over Path A (accept and document) for stronger statistical independence; this rejection counts toward the 3-attempt retry cap.
+**Counter-attestation:** strict-letter banned-list audit (against the M10b-frozen 55/32/31 lists) passed; all 11 hard structural constraints passed; only the cross-trace overlap was flagged. The audit decision is documented as a "spirit-of-protocol" rejection rather than a strict-letter rejection, in keeping with full-transparency pre-data discipline.
+
+### test_v7 — attempt #2 (2026-05-07 19:33)
+
+**Verdict:** Reject (strict-letter; multiple structural violations).
+**First violated constraint (audit-checklist order):** Constraint #2 — "Exactly 5 GroundTruthEvents and exactly 4 distractor Events." Attempt #2 produced 3 GTs + 11 distractors = 14 events.
+**Additional violations** (recorded for full transparency, not load-bearing on the rejection itself):
+- Constraint #3: sim_time values up to 4200 (out of [0, 1000])
+- Constraint #4: uses `calendar`, `slack`, `app_notification`, `sms` — none in the allowed kinds list (`email`, `calendar_update`, `notification`, `alert`, `phone_message`, `world_event`)
+- Constraint #5: no GT with proaction_window_s ≤ 30 (min window 21,600 s)
+- Constraint #7: keyword/content alignment fails on `("abebooks", "first edition", "pynchon")` — "first edition" not substring of content (content has "first-edition" with hyphen); "pynchon" never appears in content
+- Constraint #8: briefing is third-person ("The user values…"), not first-person as required
+- Constraint #9: 3 intents, not 5
+
+**Description:** Fresh session substantially misread the prompt — used a seconds-within-a-day sim_time scale, free-form `kind` vocabulary, third-person briefing voice, 14-event format. Not a banned-list-pressure signal (defense #7); reads as inter-session variability in how Opus 4.7 parses the structural-constraints block under different fresh-session conditions. Counts toward the retry cap.
+
+### test_v7 — retry-cap status: 2 / 3 attempts used; 1 remaining
+
+Per Authoring protocol step 6, attempt #3 is permitted. If attempt #3 also fails audit, M10b halts and the protocol is documented as needing M11+ revision (likely candidates: iterative banned-list extension across M10b traces, or stricter prompt-restatement against structural-constraint drift).
 
 ## GT-regime classification
 
@@ -311,6 +335,18 @@ Independent classification of each GT's regime against V2's literal YES list (`a
 
 **Aggregate (test_v6):** 1 clean-in (wedding_rsvp), 2 partial-in (vet_emergency, auction_ending), 2 borderline-out (concert_swap, elevator_outage). Mixed trace — neither pure in-enum (test_v5-style, where V2-3B should hit 1.00) nor pure out-of-enum (test_v4-style, where V2-3B fell to 0.40). M10b-relevant prediction: V2-3B might land 0.40-0.80 (borderline-out GTs are the at-risk ones); V2-Opus expected 0.80-1.00. This is the variance-inducing spread M10b is designed to surface, not a "passes everywhere" trace.
 
+### test_v7 (5 GTs)
+
+| GT id | regime | V2 category match | classification |
+|---|---|---|---|
+| sister_pickup | family voicemail with airport pickup, 15-min window | clean: cat 4 (voicemail/phone message + family-emergency-adjacent) | **IN-V2-enum** |
+| mortgage_rate_lock | financial deadline 17:00 today (mortgage rate lock) | partial: cat 3 (deadline obligation, payment-reminder spirit); not literal example (V2 lists bill due / rent due / report deadline / payment reminder) | **PARTIALLY in-V2-enum** |
+| jury_duty | civic obligation; confirm/postpone by tomorrow noon | weak: cat 3 (deadline obligation) loose match; civic obligations not enumerated; cat 5 (external condition changing planned day) doesn't fit cleanly | **BORDERLINE / mostly out-of-V2-enum** |
+| airbnb_cancelled | travel reservation cancellation for next weekend | partial: cat 2 (Airbnb-reservation cancelled ↔ "appointment cancelled" structural analog); cat 5 (travel disruption changes planned day) | **PARTIALLY in-V2-enum** |
+| wedding_rehearsal | family event rescheduled Sat 12:00 → Fri 18:00 | clean: cat 2 (rescheduled / "meeting moved" mechanism; family domain rather than work meeting) | **IN-V2-enum** |
+
+**Aggregate (test_v7):** 2 clean-in (sister_pickup, wedding_rehearsal) + 2 partial-in (mortgage_rate_lock, airbnb_cancelled) + 1 borderline-out (jury_duty). Mixed trace, slightly more in-enum than test_v6 (test_v6 had 1 clean-in + 2 partial + 2 borderline-out). M10b-relevant prediction: V2-3B might land 0.60-0.80 (jury_duty likely the at-risk GT); V2-Opus expected 0.80-1.00.
+
 ## Mechanism notes
 
 ### test_v6 — borderline-theme notes (audit PASS with transparency, mirrors M10's test_v5 pattern)
@@ -322,6 +358,23 @@ The audit accepted test_v6 on first attempt with two transparent borderline-them
 2. **`elevator_outage` GT vs banned theme "planned building electrical / power shutoff."** Both are planned building-service disruptions, but mechanically distinct (elevator cable repair vs electrical/power shutoff). Distinct sub-category (mechanical vs electrical service). Documented as a borderline because reviewers may push that "planned building service disruption" is the underlying theme regardless of mechanism; the literal banned-theme text is electrical/power-specific.
 
 Neither borderline weakens the M10b protocol — the structural and keyword-alignment constraints are bit-level satisfied, and the banned ID + banned keyword tuple checks both PASS without any near-misses. The borderlines are recorded here so a paper reviewer with the full protocol in hand can apply their own threshold and recompute the verdict if desired.
+
+### test_v7 — borderline-theme notes (audit PASS at attempt #3 with transparency)
+
+The audit accepted test_v7's third attempt with two transparent borderline-theme notes. Attempts #1 and #2 were rejected for distinct reasons (see §"Rejections log"); attempt #3 passed strict-letter audit on first read. Documented borderlines:
+
+1. **Cross-trace theme overlap (mild): test_v6's `wedding_rsvp` ↔ test_v7's `wedding_rehearsal`.** Both traces feature a wedding-themed GT. Literal IDs distinct (`wedding_rsvp` vs `wedding_rehearsal`); sub-categories distinct (RSVP deadline vs rehearsal schedule change); people distinct (Sara/Mark in test_v6 vs Hana in test_v7). **Much weaker overlap than attempt #1's literal-ID-+-content collision** (which surfaced the same `wedding_rsvp` ID). Acceptable spread for M10b's "5 independent samples" framing — weddings are common life events and across N=5 traces a thematic recurrence at the broad domain level is expected; a stronger reviewer attack would require literal-ID + content-category overlap, which attempt #3 does not have.
+
+2. **`recipe_app_tip` distractor vs banned theme "marketing newsletter."** App tip-of-the-week ("try the new spring pasta collection we added on Monday") is promotional/feature-announcement-flavored content, but distinct from a periodic newsletter sub-category (single-shot tip vs multi-item newsletter). Mirrors test_v6's `steam_sale` borderline. Not a strict-letter violation.
+
+### test_v7 — protocol learning (recorded for M11+ scope)
+
+Test_v7 required 3 audit attempts to find an audit-passing generation — the M10b retry-cap was exhausted to ceiling. Two failure modes surfaced that are worth recording for M11+ protocol revision (this section is observation-only at this commit; not load-bearing on M10b's pre-registered analysis):
+
+- **Attempt #1 → frozen-banned-list collision risk.** With the M10b banned list locked at Commit A and not iteratively extended across the 5 sessions, fresh sessions can independently produce literal-same-ID GTs. The retry-cap absorbed this in test_v7, but at the cost of one of the three available attempts. **M11+ candidate**: iteratively extend the banned list with each accepted M10b trace's IDs/themes/tuples (mirroring M8b/M10's between-milestone extension model, applied within-milestone).
+- **Attempt #2 → structural-constraints parsing variability.** The fresh session substantially misread the structural-constraints block (wrong sim_time scale, wrong kind vocabulary, third-person briefing voice, 3-GT-not-5 count). Not a banned-list-pressure signal — looks like inter-session variability in how Opus 4.7 parses dense structural-constraints blocks under different fresh-session conditions. **M11+ candidate**: a self-restate gate — prompt the fresh session to enumerate the 11 hard structural constraints back before generating, as a pre-flight self-check that the prompt was parsed correctly.
+
+These observations don't change M10b's pre-registered analysis (which only counts strict-letter audit pass/fail per trace, not retry counts). They are paper-transparency footnotes and inform the M11a/M11b roadmap.
 
 (Aggregate GT-regime distribution comparison against dev_v2 / test_v1 / test_v2 / test_v4 / test_v5 baseline + systematic-drift signal: populated at Commit D after all 5 traces are audited.)
 

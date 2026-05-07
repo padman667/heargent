@@ -506,6 +506,64 @@ def test_trace_v6() -> Trace:
     )
 
 
+def test_trace_v7() -> Trace:
+    gts = [
+        _gt(
+            Event(id="sister_pickup", kind="phone_message", sim_time=50.0,
+                  content="Voicemail from Maya (sister): she landed early at SFO and needs airport pickup by 22:00 tonight, no rideshare option."),
+            window_s=15.0, keywords=("sister", "airport"),
+        ),
+        _gt(
+            Event(id="mortgage_rate_lock", kind="email", sim_time=100.0,
+                  content="From the broker: your mortgage rate lock expires today at 17:00; final signed disclosures must be returned before then or the rate resets."),
+            window_s=600.0, keywords=("mortgage", "expires"),
+        ),
+        _gt(
+            Event(id="jury_duty", kind="email", sim_time=200.0,
+                  content="Superior Court: a jury duty summons has been issued for next Thursday; confirm or request postponement online by tomorrow noon."),
+            window_s=720.0, keywords=("jury", "duty"),
+        ),
+        _gt(
+            Event(id="airbnb_cancelled", kind="notification", sim_time=250.0,
+                  content="Airbnb: your Lisbon host has cancelled your reservation for next weekend; refund issued and you'll need to rebook accommodations."),
+            window_s=300.0, keywords=("airbnb", "cancelled"),
+        ),
+        _gt(
+            Event(id="wedding_rehearsal", kind="calendar_update", sim_time=400.0,
+                  content="Hana's wedding rehearsal dinner has been rescheduled from Saturday 12:00 to Friday 18:00 at the same venue."),
+            window_s=120.0, keywords=("wedding", "rehearsal"),
+        ),
+    ]
+    distractors = [
+        Event(id="poll_civic_reminder", kind="notification", sim_time=20.0,
+              content="Reminder: the city council's annual transit survey is open through the end of the month if you'd like to weigh in."),
+        Event(id="recipe_app_tip", kind="notification", sim_time=180.0,
+              content="Tip of the week from your meal-planner app: try the new spring pasta collection we added on Monday."),
+        Event(id="loyalty_points_summary", kind="email", sim_time=350.0,
+              content="Your April loyalty account summary: 240 points earned, 1,820 total balance, no rewards changing status this period."),
+        Event(id="podcast_episode_drop", kind="notification", sim_time=600.0,
+              content="New episode of 'In Our Time' available now; this week's topic is the Antikythera mechanism."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v7",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "I'm working from home in San Francisco today while my sister Maya is in town visiting for the week. "
+            "I'm in the middle of refinancing the condo, so anything from the mortgage broker is time-sensitive. "
+            "I'm also helping coordinate logistics for my cousin Hana's wedding next month."
+        ),
+        intents=(
+            "close the mortgage refinance on time",
+            "be available for sister Maya during her visit",
+            "help coordinate cousin Hana's wedding",
+            "stay on top of legal and civic obligations",
+            "protect upcoming personal travel plans",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -516,6 +574,7 @@ def get_trace(name: str) -> Trace:
         "test_v4": test_trace_v4,
         "test_v5": test_trace_v5,
         "test_v6": test_trace_v6,
+        "test_v7": test_trace_v7,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")
