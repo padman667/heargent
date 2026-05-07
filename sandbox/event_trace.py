@@ -564,6 +564,64 @@ def test_trace_v7() -> Trace:
     )
 
 
+def test_trace_v8() -> Trace:
+    gts = [
+        _gt(
+            Event(id="vet_luna_tomorrow", kind="calendar_update", sim_time=50.0,
+                  content="Reminder: Your vet appointment for Luna is tomorrow at 9:30 AM. Please bring her vaccination records and a stool sample."),
+            window_s=600.0, keywords=("vet", "luna"),
+        ),
+        _gt(
+            Event(id="earthquake_local", kind="alert", sim_time=200.0,
+                  content="Earthquake detected: M4.2, epicenter 12 miles north. Light shaking expected in your area within the next minute. Drop, cover, hold on."),
+            window_s=20.0, keywords=("earthquake", "shaking"),
+        ),
+        _gt(
+            Event(id="mom_birthday_heads_up", kind="notification", sim_time=320.0,
+                  content="Heads up: tomorrow is your mother's birthday. No card has been ordered, no call is on your calendar, and last year you forgot until the evening."),
+            window_s=400.0, keywords=("mother", "birthday"),
+        ),
+        _gt(
+            Event(id="bridgers_presale_window", kind="email", sim_time=500.0,
+                  content="The presale window for Phoebe Bridgers tickets at the Greek Theatre opens in 10 minutes. Your saved access code: PBSALE2026. Two-ticket limit per account."),
+            window_s=30.0, keywords=("presale", "tickets"),
+        ),
+        _gt(
+            Event(id="photographer_voicemail_jen", kind="phone_message", sim_time=700.0,
+                  content="Voicemail from photographer Jen Cho: 'A client just dropped, so I have a Saturday morning slot open for your engagement shoot — I need to know by 6pm tonight or I'll offer it to someone else.'"),
+            window_s=250.0, keywords=("photographer", "engagement"),
+        ),
+    ]
+    distractors = [
+        Event(id="soundcloud_app_update", kind="notification", sim_time=80.0,
+              content="SoundCloud 2026.5.1 is available. Tap to update at your convenience."),
+        Event(id="stitches_loyalty_statement", kind="email", sim_time=250.0,
+              content="Your monthly Stitches Coffee loyalty statement: 2,340 points total (140 earned this month). No expiring rewards. No action needed."),
+        Event(id="strava_new_follower", kind="notification", sim_time=380.0,
+              content="Marcus T. started following you on Strava. View profile."),
+        Event(id="reading_streak_47", kind="notification", sim_time=850.0,
+              content="Nice — your reading streak just hit 47 days. Keep going to unlock the bookworm badge."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v8",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "It's a slow Saturday at home and I'm working through a backlog of personal admin between cups of coffee. "
+            "I've got my dog Luna, my parents on the East Coast, and a couple of half-made plans with my partner all circling in the back of my mind. "
+            "Mostly I just don't want to drop any of the small commitments I've already loosely made."
+        ),
+        intents=(
+            "remember key family dates",
+            "act on time-sensitive ticket and booking offers",
+            "respond promptly to personal voicemails",
+            "stay alert to local emergencies",
+            "keep pet care on track",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -575,6 +633,7 @@ def get_trace(name: str) -> Trace:
         "test_v5": test_trace_v5,
         "test_v6": test_trace_v6,
         "test_v7": test_trace_v7,
+        "test_v8": test_trace_v8,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")

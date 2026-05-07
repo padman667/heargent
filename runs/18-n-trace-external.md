@@ -289,6 +289,7 @@ Mirroring M10's defense pattern.
 |---|---|---|---|---|---|---|
 | test_v6 | 2026-05-07 19:10 | `/Users/patrick.gergen/Pictures` | `claude-opus-4-7` (Opus 4.7, user-confirmed) | confirmed | 1 | PASS (with 2 transparent borderline-theme notes; see §"Mechanism notes") |
 | test_v7 | 2026-05-07 19:42 | `/Users/patrick.gergen/Pictures` | `claude-opus-4-7` (Opus 4.7, user-confirmed) | confirmed | 3 of 3 (attempts #1 + #2 rejected; see §"Rejections log") | PASS (with 2 transparent borderline-theme notes; see §"Mechanism notes") |
+| test_v8 | 2026-05-07 19:52 | `/Users/patrick.gergen/Pictures` | `claude-opus-4-7` (Opus 4.7, user-confirmed) | confirmed | 1 | PASS (with 4 transparent borderline-theme notes; see §"Mechanism notes") |
 
 ## Rejections log
 
@@ -347,6 +348,18 @@ Independent classification of each GT's regime against V2's literal YES list (`a
 
 **Aggregate (test_v7):** 2 clean-in (sister_pickup, wedding_rehearsal) + 2 partial-in (mortgage_rate_lock, airbnb_cancelled) + 1 borderline-out (jury_duty). Mixed trace, slightly more in-enum than test_v6 (test_v6 had 1 clean-in + 2 partial + 2 borderline-out). M10b-relevant prediction: V2-3B might land 0.60-0.80 (jury_duty likely the at-risk GT); V2-Opus expected 0.80-1.00.
 
+### test_v8 (5 GTs)
+
+| GT id | regime | V2 category match | classification |
+|---|---|---|---|
+| photographer_voicemail_jen | personal voicemail with hard 6pm-tonight deadline | clean: cat 4 (voicemail/phone-message directed personally) | **IN-V2-enum** |
+| earthquake_local | M4.2 earthquake alert with imminent shaking instruction | partial: cat 1 (urgent safety) spirit match (fire is V2's literal example; earthquake is distinct natural-disaster sub-category); cat 5 (external condition) loose match | **PARTIALLY in-V2-enum** |
+| bridgers_presale_window | 10-min ticket presale window opening with access code | partial: cat 3 (deadline obligation) spirit match; not literal V2 example (V2 lists bill / rent / report / payment) | **PARTIALLY in-V2-enum** |
+| vet_luna_tomorrow | reminder for tomorrow's vet appointment + prep needed (records, stool sample) | weak: cat 2 (schedule change) doesn't fit (it's a reminder for an existing appointment, not a reschedule); cat 3 (deadline obligation) loose match (prep deadline implicit) | **BORDERLINE / mostly out-of-V2-enum** |
+| mom_birthday_heads_up | proactive heads-up for mother's birthday tomorrow + history of forgetting | weak: doesn't fit any V2 category cleanly; family-event reminder + behavioral-history trigger not enumerated | **BORDERLINE / out-of-V2-enum** |
+
+**Aggregate (test_v8):** 1 clean-in (photographer_voicemail_jen) + 2 partial-in (earthquake_local, bridgers_presale_window) + 2 borderline-out (vet_luna_tomorrow, mom_birthday_heads_up). Mixed trace, similar shape to test_v6 (1+2+2 vs test_v6's 1+2+2). M10b-relevant prediction: V2-3B might land 0.40-0.80 (vet_luna_tomorrow + mom_birthday_heads_up are the at-risk GTs); V2-Opus expected 0.80-1.00.
+
 ## Mechanism notes
 
 ### test_v6 — borderline-theme notes (audit PASS with transparency, mirrors M10's test_v5 pattern)
@@ -375,6 +388,29 @@ Test_v7 required 3 audit attempts to find an audit-passing generation — the M1
 - **Attempt #2 → structural-constraints parsing variability.** The fresh session substantially misread the structural-constraints block (wrong sim_time scale, wrong kind vocabulary, third-person briefing voice, 3-GT-not-5 count). Not a banned-list-pressure signal — looks like inter-session variability in how Opus 4.7 parses dense structural-constraints blocks under different fresh-session conditions. **M11+ candidate**: a self-restate gate — prompt the fresh session to enumerate the 11 hard structural constraints back before generating, as a pre-flight self-check that the prompt was parsed correctly.
 
 These observations don't change M10b's pre-registered analysis (which only counts strict-letter audit pass/fail per trace, not retry counts). They are paper-transparency footnotes and inform the M11a/M11b roadmap.
+
+### test_v8 — borderline-theme notes (audit PASS at attempt #1 with transparency)
+
+The audit accepted test_v8's first attempt, with **4** transparent borderline notes — more than test_v6 / test_v7 (2 each). Strict-letter still PASS; none rise to violation. The increased borderline count is consistent with cumulative cross-trace overlap pressure under M10b's frozen-banned-list design (per the M11+ candidate noted after test_v7).
+
+1. **Cross-trace theme overlap: test_v6 `vet_emergency` ↔ test_v8 `vet_luna_tomorrow`.** Both M10b traces feature a vet/pet-care GT. Distinct IDs, distinct sub-categories (emergency surgery callback vs reminder for upcoming appointment), distinct dogs (Rufus vs Luna). Mirrors the test_v6 wedding_rsvp ↔ test_v7 wedding_rehearsal precedent. Acceptable spread; pet-care is common.
+2. **Cross-trace theme overlap (distractor): test_v7 `loyalty_points_summary` ↔ test_v8 `stitches_loyalty_statement`.** Both traces have a monthly loyalty-account-summary distractor. Distinct apps (unspecified vs Stitches Coffee), but same content category (monthly point-balance email, "no action required"). Distractor-to-distractor overlap rather than GT-to-GT.
+3. **Adjacent-to-banned (distractor): `soundcloud_app_update` vs banned ID `app_version_note`.** Both are app-version-available notifications. Distinct IDs and apps (SoundCloud vs unspecified), but same sub-category (app-update notification). Adjacent in spirit to a strict banned ID by concept.
+4. **Adjacent-to-banned (GT): `earthquake_local` vs banned theme "weather alert".** Both are external-natural-condition alerts that change the planned day. Distinct sub-category (earthquake = seismic/natural-disaster vs weather = atmospheric); banned theme is specifically "weather alert," and earthquake is not enumerated. Borderline because both are "external natural conditions changing planned day," differing only on the natural-condition mechanism.
+
+### Cumulative cross-trace overlap pattern (3 overlaps surfaced at C1-C3)
+
+Recording for full transparency and to inform M11+ scope:
+
+| pair | category | overlap mechanism |
+|---|---|---|
+| test_v6 wedding_rsvp ↔ test_v7 attempt #1 wedding_rsvp | literal-ID + content (rejected at attempt #1) | RESOLVED via retry; resolved attempt is wedding_rehearsal (different sub-category, weaker overlap) |
+| test_v6 vet_emergency ↔ test_v8 vet_luna_tomorrow | broad-domain (vet/pet-care) | mild; distinct sub-categories + animals + scenarios |
+| test_v7 loyalty_points_summary ↔ test_v8 stitches_loyalty_statement | content-category (monthly loyalty statement) | mild; both are distractors (not GTs) |
+
+**Direction-of-evidence**: cross-trace theme overlap is non-zero and accumulating across the 5-trace M10b set. With banned lists frozen at Commit A and not iteratively extended, fresh sessions independently reach for related content categories. This is the predicted-by-defense-#7 systematic-drift surface — except the drift here is *toward* prior content categories rather than *away* from them. Documenting for paper transparency and for the M11+ banned-list-extension candidate.
+
+None of these cross-trace overlaps weakens the strict-letter audit verdicts (all 3 traces PASS). They are observations that bear on the "5 independent samples" framing strength, which the paper should report honestly: "5 fresh-session traces under a frozen banned list; 3 mild cross-trace theme overlaps surfaced; iterative within-protocol banned-list extension is M11+ scope."
 
 (Aggregate GT-regime distribution comparison against dev_v2 / test_v1 / test_v2 / test_v4 / test_v5 baseline + systematic-drift signal: populated at Commit D after all 5 traces are audited.)
 
