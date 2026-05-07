@@ -283,25 +283,47 @@ Mirroring M10's defense pattern.
 
 ## Authoring sessions
 
-(Populated during Commits C1-C5. One row per fresh session.)
+(Populated during Commits C1-C5. One row per fresh session. Per-session attestation per the Authoring protocol step 1.)
 
-| trace | fresh-session timestamp | cwd | one-shot-probe response.model | /clear confirmation | audit attempt # |
-|---|---|---|---|---|---|
+| trace | fresh-session timestamp | cwd | session model (user-confirmed) | /clear confirmation | audit attempt # | audit verdict |
+|---|---|---|---|---|---|---|
+| test_v6 | 2026-05-07 19:10 | `/Users/patrick.gergen/Pictures` | `claude-opus-4-7` (Opus 4.7, user-confirmed) | confirmed | 1 | PASS (with 2 transparent borderline-theme notes; see §"Mechanism notes") |
 
 ## Rejections log
 
 (Populated during Commits C1-C5 if any audit fails. Each rejection notes: fresh-session timestamp, first violated constraint, one-sentence description of the violation. A rejected generation is not merged; the generator code is not kept.)
 
+_None yet._
+
 ## GT-regime classification
 
-(Populated during Commits C1-C5 per the per-trace structural audit step 4. Independent classification of each GT's regime against V2's literal YES list, performed before any harness cell on that trace runs.)
+Independent classification of each GT's regime against V2's literal YES list (`agent/arbiter.py:38`, `ARBITER_SYSTEM_PROMPT_V2`), performed before any harness cell on that trace runs (per the per-trace structural audit step 4). V2's YES enumeration has 6 categories: (1) urgent safety/security; (2) personal schedule changes; (3) financial/deadline obligations within next few days; (4) personal messages/deliveries; (5) weather/external conditions changing planned day; (6) production/on-call alerts.
 
-| trace | GT id | content one-liner | classified regime | in V2's YES list? |
-|---|---|---|---|---|
+### test_v6 (5 GTs)
+
+| GT id | regime | V2 category match | classification |
+|---|---|---|---|
+| vet_emergency | pet medical emergency + callback request, 10-min auth window | partial: cat 4 (callback / phone-message directed personally) clean match; cat 1 (medical emergency) ambiguous on pet vs human at 3B model scale | **PARTIALLY in-V2-enum** |
+| concert_swap | friend social ticket-swap with hard 5pm deadline | weak: cat 3 (deadline obligation) loose semantic match; not a literal example in V2's enumeration | **BORDERLINE / mostly out-of-V2-enum** |
+| elevator_outage | building elevator emergency-cable-repair service disruption | weak: cat 5 ("external condition that would plausibly change user's planned day") loose match; not a weather alert | **BORDERLINE / mostly out-of-V2-enum** |
+| auction_ending | online auction ending in 10 min, top bidder, financial decision | partial: cat 3 (financial obligation imminent action) match in spirit; not a literal example (V2 lists bill due / rent due / report deadline / payment reminder) | **PARTIALLY in-V2-enum** |
+| wedding_rsvp | wedding RSVP deadline tonight at midnight + meal selection | clean: cat 3 (deadline obligation within next few days) matches both spirit and literal "deadline" framing | **IN-V2-enum** |
+
+**Aggregate (test_v6):** 1 clean-in (wedding_rsvp), 2 partial-in (vet_emergency, auction_ending), 2 borderline-out (concert_swap, elevator_outage). Mixed trace — neither pure in-enum (test_v5-style, where V2-3B should hit 1.00) nor pure out-of-enum (test_v4-style, where V2-3B fell to 0.40). M10b-relevant prediction: V2-3B might land 0.40-0.80 (borderline-out GTs are the at-risk ones); V2-Opus expected 0.80-1.00. This is the variance-inducing spread M10b is designed to surface, not a "passes everywhere" trace.
 
 ## Mechanism notes
 
-(Populated at Commit D. Per-failure mechanism tags + aggregate GT-regime distribution comparison against dev_v2 / test_v1 / test_v2 / test_v4 / test_v5 baseline + any systematic-drift signal.)
+### test_v6 — borderline-theme notes (audit PASS with transparency, mirrors M10's test_v5 pattern)
+
+The audit accepted test_v6 on first attempt with two transparent borderline-theme notes. Neither rises to a strict banned-theme violation; both are documented for paper-level transparency, mirroring M10's test_v5 audit precedent (where two analogous borderline notes were accepted).
+
+1. **`steam_sale` distractor vs banned theme "marketing newsletter."** The Steam Summer Sale email is marketing content, but the banned theme is specifically "marketing newsletter" — periodic content with multiple items. A single sale-event promotional email is adjacent in spirit but distinct in sub-category (sale promotion, not periodic newsletter). Documented as a borderline because reviewers may push that the spirit-match counts; the literal-text match does not.
+
+2. **`elevator_outage` GT vs banned theme "planned building electrical / power shutoff."** Both are planned building-service disruptions, but mechanically distinct (elevator cable repair vs electrical/power shutoff). Distinct sub-category (mechanical vs electrical service). Documented as a borderline because reviewers may push that "planned building service disruption" is the underlying theme regardless of mechanism; the literal banned-theme text is electrical/power-specific.
+
+Neither borderline weakens the M10b protocol — the structural and keyword-alignment constraints are bit-level satisfied, and the banned ID + banned keyword tuple checks both PASS without any near-misses. The borderlines are recorded here so a paper reviewer with the full protocol in hand can apply their own threshold and recompute the verdict if desired.
+
+(Aggregate GT-regime distribution comparison against dev_v2 / test_v1 / test_v2 / test_v4 / test_v5 baseline + systematic-drift signal: populated at Commit D after all 5 traces are audited.)
 
 ## Results
 

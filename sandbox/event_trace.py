@@ -447,6 +447,65 @@ def test_trace_v5() -> Trace:
     )
 
 
+def test_trace_v6() -> Trace:
+    gts = [
+        _gt(
+            Event(id="vet_emergency", kind="phone_message", sim_time=50.0,
+                  content="Dr. Patel from Bayside Vet called. Your dog Rufus needs emergency surgery and they need verbal authorization within 10 minutes before they can proceed — please call back."),
+            window_s=30.0, keywords=("vet", "surgery"),
+        ),
+        _gt(
+            Event(id="concert_swap", kind="email", sim_time=180.0,
+                  content="Hey — any chance we can swap our concert tickets for Saturday night? I have row C aisle, you have row M center. Need to know before 5pm so I can confirm with the resale buyer."),
+            window_s=300.0, keywords=("concert", "swap"),
+        ),
+        _gt(
+            Event(id="elevator_outage", kind="alert", sim_time=300.0,
+                  content="Building alert: the main elevator will be out of service for emergency cable repair starting at 16:00 today through tomorrow morning. Use the service elevator near the loading dock if you need to move anything heavy."),
+            window_s=600.0, keywords=("elevator", "out of service"),
+        ),
+        _gt(
+            Event(id="auction_ending", kind="notification", sim_time=420.0,
+                  content="The online auction for the vintage Leica camera you've been watching is ending in 10 minutes; you are currently the top bidder at $340 with two competing bidders active."),
+            window_s=30.0, keywords=("auction", "ending"),
+        ),
+        _gt(
+            Event(id="wedding_rsvp", kind="email", sim_time=600.0,
+                  content="Final reminder: RSVP for Sara and Mark's wedding next month closes at midnight tonight. Please confirm attendance and meal selection (chicken, salmon, or vegetarian) through the link."),
+            window_s=300.0, keywords=("wedding", "rsvp"),
+        ),
+    ]
+    distractors = [
+        Event(id="reddit_digest", kind="notification", sim_time=30.0,
+              content="Your weekly r/woodworking digest is ready: 12 new top posts from the past week."),
+        Event(id="steam_sale", kind="email", sim_time=240.0,
+              content="Steam Summer Sale starts Friday — wishlist items up to 80% off, plus free demos for select indie titles."),
+        Event(id="bank_statement", kind="notification", sim_time=480.0,
+              content="Your June checking statement (account ending 4567) is now available to view in the mobile app."),
+        Event(id="twitter_followers", kind="notification", sim_time=720.0,
+              content="You have 4 new followers this week on X. Tap to see who followed you."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v6",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "I'm working from my apartment today, mixing personal errands between a light meeting load. "
+            "My dog Rufus is at Bayside Vet for routine bloodwork this morning, "
+            "and I'm tracking an online auction I've been bidding on for a while. "
+            "A few weekend social plans also need to get locked in before the day gets away from me."
+        ),
+        intents=(
+            "respond promptly to urgent personal phone calls",
+            "lock in weekend social commitments before deadlines",
+            "monitor active online auctions I'm leading",
+            "stay aware of building service disruptions affecting my unit",
+            "coordinate ticket and event plans with close friends",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -456,6 +515,7 @@ def get_trace(name: str) -> Trace:
         "test_v3": test_trace_v3,
         "test_v4": test_trace_v4,
         "test_v5": test_trace_v5,
+        "test_v6": test_trace_v6,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")
