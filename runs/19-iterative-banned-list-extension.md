@@ -429,6 +429,14 @@ M11a-specific additions:
 
 (Populated during Commits C1-C5. One entry per fresh-session attempt — accepted AND rejected — per §"Drift-quantification log" full-transparency requirement; extends M10b's Rejections log discipline at runs/18 §"Rejections log" to also capture accepted-attempt drift content. Each entry notes: attempt number, fresh-session timestamp, verdict (PASS / REJECT), first violated audit step (if REJECT), per-overlap-severity counts (literal-ID / strong / mild) with specific trace+ID references, and a one-sentence description. A rejected generation is not merged; the generator code is not kept — carry-forward of M10b's discipline at runs/18 §"Rejections log" line 296.)
 
+## GT-regime classification
+
+Independent classification of each GT's regime against V2's literal YES list (`agent/arbiter.py`, `ARBITER_SYSTEM_PROMPT_V2`), performed before any harness cell on that trace runs (per per-trace structural audit step 5). V2's YES enumeration has 6 categories: (1) urgent safety/security; (2) personal schedule changes; (3) financial/deadline obligations within next few days; (4) personal messages/deliveries; (5) weather/external conditions changing planned day; (6) production/on-call alerts. Per-trace subsections appended at each accepted Commit C1-C5; the regime column is mechanically reused as the appended banned-theme entry under the iterative-extension rule (per §"Authoring protocol per trace" → "Banned content themes" extension rule).
+
+## Mechanism notes
+
+(Populated during Commits C1-C5 per accepted trace. One subsection per accepted M11a trace, documenting borderline-theme transparency notes — overlaps that do not rise to a strict banned-theme violation but are documented for paper-level transparency, mirroring M10b's §"Mechanism notes" pattern at runs/18 §"Mechanism notes" lines 391+. Borderline notes are judgment-only per §"Drift-monitoring criterion" rubric line 285 ("mild calls are reported but do not gate any pre-reg threshold") and do not gate audit; the strong-overlap rubric (a tuple-bytewise + b 8-word-verbatim) gates audit mechanically.)
+
 ## Walkthrough kickoff in fresh session (M11a session)
 
 When this plan is loaded into the M11a fresh session, the agent should:
