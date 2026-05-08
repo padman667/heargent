@@ -535,6 +535,118 @@ Default recommendation if user is silent: **D-on-N=3** (data is informative; cos
 
 The M11a re-run is the natural successor to M10b under the systematic-drift finding. M11a's pre-reg should explicitly state: "M10b empirically demonstrated frozen-banned-list drift; M11a fixes by iterative within-protocol extension."
 
-## Results
+## Results — Commit D (run on N=3 committed traces, 2026-05-08)
 
-(Populated at Commit D if and when run on the N=3 committed set. Per-trace observations table + aggregate metrics + N=3 binomial-CI point estimates. **Commit D is conditional on user choosing Option D-on-N=3 over Option D-skip.**)
+### Pre-Commit-D drift smoke (ran first; gating)
+
+3-trace V2-Opus bit-identical smoke vs M10's `runs/data/17b-content-opus-v2-{dev_v2,test_v1,test_v2}.json`. **PASS bit-identical on all 3 traces** for hit_rate, false_initiation_rate_per_hour, total_notifications, misses, llm_stats.arbiter_calls, llm_stats.arbiter_yes_rate, AND cost_usd. No Opus 4.7 drift between M10 close (2026-04-27) and M10b D run (2026-05-08). Smoke spend: ~$0.13 (already absorbed in cost totals below).
+
+### Per-trace observations table (filled at this commit)
+
+| trace | V2-3B hit | V2-3B false/h | V2-Opus hit | V2-Opus false/h | poll-Opus hit | cron30s hit | GT-regime in V2's YES enumeration? (independent) | V2-Opus closes V2-3B failures? |
+|---|---:|---:|---:|---:|---:|---:|---|---|
+| test_v6 | **0.40** | 0.00 | **1.00** | 0.00 | 1.00 | 1.00 | mixed (1 clean-in + 2 partial + 2 borderline-out) | YES (V2-3B 0.40 → V2-Opus 1.00) |
+| test_v7 | **1.00** | 0.00 | **1.00** | 0.00 | 1.00 | 1.00 | mixed (2 clean-in + 2 partial + 1 borderline-out) | n/a (V2-3B passes already) |
+| test_v8 | **0.40** | 0.00 | **0.60** | 0.00 | 1.00 | 1.00 | mixed (1 clean-in + 2 partial + 2 borderline-out) | **NO** (V2-3B 0.40 → V2-Opus 0.60; both fail joint bar) |
+
+Both V2-Opus false/h values held at 0.00 across all 3 traces — the **+5/h false/h ceiling** (M10b hardening edit) was satisfied with margin on every cell. The joint bar (hit ≥ 0.80 AND false/h ≤ 5.0/h) reduces to hit ≥ 0.80 in this run; no V2-Opus pass became a fail by the bias check, and no V2-Opus fail became a pass by being permissive.
+
+### Per-GT actual misses + prediction verification
+
+**test_v6 V2-3B misses**: `concert_swap`, `auction_ending`, `wedding_rsvp` (3 of 5 GTs missed; arbiter_yes_rate 0.125 = 1/8 — V2-3B was strongly NO-biased on this trace).
+
+| GT | predicted regime | predicted at-risk for V2-3B? | V2-3B actual | match |
+|---|---|---|---|---|
+| vet_emergency | PARTIALLY in-V2-enum | could go either way | **HIT** | (consistent) |
+| concert_swap | BORDERLINE/out | yes | **MISS** | ✓ correctly predicted |
+| elevator_outage | BORDERLINE/out | yes | **HIT** | ✗ predicted miss, actually hit |
+| auction_ending | PARTIALLY in-V2-enum | could go either way | **MISS** | (under-predicted; prediction was leaning hit) |
+| wedding_rsvp | IN-V2-enum (clean cat 3 deadline) | no | **MISS** | ✗ surprising — V2-3B's NO-bias on this trace overrode V2's literal YES enumeration |
+
+**Mechanism note on test_v6's V2-3B miss of wedding_rsvp** (a clean-in-V2-enum GT): V2-3B's arbiter_yes_rate of 0.125 indicates the 3B arbiter went into a strongly NO-biased regime on test_v6 specifically. The wedding-RSVP-deadline event matches V2's YES enumeration cleanly on the literal text ("deadline obligation within next few days"), but the 3B arbiter still said NO. **This is exactly the M8b coverage-gap mechanism** — V2-3B can be brittle on content that lexically should match V2's enumeration when the surrounding event distribution biases it toward NO. V2-Opus on the same arbiter_calls path (yes_rate 0.5 = 4/8) caught all 5 GTs including wedding_rsvp.
+
+**test_v7 V2-3B**: hit=1.00 (no misses). My prediction ("might land 0.60-0.80, jury_duty at-risk") was too pessimistic on V2-3B; jury_duty was caught despite the borderline-out classification. Mixed-regime traces don't always degrade V2-3B.
+
+**test_v8 V2-3B misses**: `vet_luna_tomorrow`, `mom_birthday_heads_up`, `bridgers_presale_window` (3 of 5).
+
+| GT | predicted regime | predicted at-risk for V2-3B? | V2-3B actual | match |
+|---|---|---|---|---|
+| photographer_voicemail_jen | IN-V2-enum (cat 4) | no | **HIT** | ✓ correctly predicted |
+| earthquake_local | PARTIALLY in-V2-enum | could go either way | **HIT** | (consistent) |
+| bridgers_presale_window | PARTIALLY in-V2-enum | could go either way | **MISS** | (under-predicted) |
+| vet_luna_tomorrow | BORDERLINE/out | yes | **MISS** | ✓ correctly predicted |
+| mom_birthday_heads_up | BORDERLINE/out | yes | **MISS** | ✓ correctly predicted |
+
+**test_v8 V2-Opus misses**: `mom_birthday_heads_up`, `bridgers_presale_window` (2 of 5; hit=0.60 < 0.80 → V2-Opus fails M10b joint bar). My prediction ("V2-Opus expected 0.80-1.00") was wrong here — even Opus 4.7 reads the family-birthday-reminder + concert-ticket-presale as not-YES under V2's enumeration. **mom_birthday_heads_up** is unambiguously out-of-V2-enum (family-event reminder not enumerated; my classification was correct, but I expected Opus to generalize beyond V2's literal list more aggressively). **bridgers_presale_window** is a more subtle case — V2's "deadline obligation" examples are "bill due, rent due, report deadline, payment reminder," and Opus reads "concert ticket presale opens in 10 minutes" as discretionary entertainment rather than an obligation. Both are V2-enumeration limits surfacing at Opus scale, not 3B-specific failures.
+
+### GT-regime prediction accuracy summary
+
+Across the 9 V2-3B miss-or-hit events with explicit per-GT predictions (test_v6 + test_v8; test_v7 had no V2-3B misses):
+- **5 of 9 predictions were directionally correct** (3 correct misses + 2 correct hits)
+- **2 of 9 were under-predicted** (auction_ending, bridgers_presale_window — predicted partial-in, actually missed)
+- **2 of 9 were over-predicted** (elevator_outage hit despite borderline-out; wedding_rsvp missed despite clean-in)
+
+The classification framework holds **partial predictive power** but is not deterministic. Per pre-reg defense #6, the GT-regime column was always observation-only (not gate-bearing); empirical accuracy at ~5/9 confirms it should remain observation-only in any future protocol revision.
+
+### Aggregate metrics (M10b N=3 committed set)
+
+- **N_fair**: 3 (poll-Opus = 1.00 on all 3 → P3 trace fairness PASS on all 3)
+- **V2-3B failure rate**: 2/3 = **66.7% point estimate**; 95% Clopper-Pearson binomial CI = **[9.4%, 99.2%]** (very wide; N=3 cannot tightly estimate the underlying rate)
+- **V2-3B mean hit rate**: (0.40 + 1.00 + 0.40) / 3 = **0.60**
+- **V2-Opus failure rate (joint bar: hit < 0.80 OR false/h > 5.0/h)**: 1/3 = **33.3% point estimate**; 95% CI = **[0.8%, 90.6%]**
+- **V2-Opus mean hit rate**: (1.00 + 1.00 + 0.60) / 3 = **0.87**
+- **V2-Opus mean false/h**: 0.00 across all 3 traces (joint-bar bias check satisfied with full margin)
+- **V2-Opus closes V2-3B failures**: 1 of 2 (test_v6 closed; test_v8 unclosed)
+- **V2-Opus introduces new failures vs V2-3B**: 0 (V2-Opus failures ⊆ V2-3B failures)
+- **Cost variance**: V2-Opus $/hit = $0.0118 / $0.0073 / $0.0150 across test_v6/v7/v8; poll-Opus $/hit = $0.1843 / $0.2009 / $0.1947. **V2-Opus is 13.0×–27.5× cheaper per hit than poll-Opus** across the N=3 committed set.
+
+### Combined N=5 framing (M10's test_v4 + test_v5 + M10b's test_v6/v7/v8)
+
+If we combine M10's two prior externally-authored traces with M10b's three committed traces, we get an aggregate N=5 picture (with the caveat that M10b halted before reaching its own pre-reg N=5 target):
+
+| trace | source | V2-3B hit | V2-3B fail? | V2-Opus hit | V2-Opus fail? |
+|---|---|---:|---:|---:|---:|
+| test_v4 | M10 | 0.40 | YES | 0.80 | NO |
+| test_v5 | M10 | 1.00 | NO | 1.00 | NO |
+| test_v6 | M10b | 0.40 | YES | 1.00 | NO |
+| test_v7 | M10b | 1.00 | NO | 1.00 | NO |
+| test_v8 | M10b | 0.40 | YES | 0.60 | YES |
+
+**Aggregate N=5 (M10 + M10b combined):**
+- V2-3B failure rate: **3/5 = 60.0%**; 95% CI = **[14.7%, 94.7%]**
+- V2-Opus failure rate: **1/5 = 20.0%**; 95% CI = **[0.5%, 71.6%]**
+- V2-Opus closes V2-3B failures: **2 of 3** (test_v4 + test_v6 closed; test_v8 unclosed)
+- V2-Opus introduces new failures vs V2-3B: **0** (V2-Opus failures ⊆ V2-3B failures across N=5)
+
+This combined N=5 has the same ordinal structure as M10b's N=3 alone, and qualitatively matches the pre-registered Row 4a outcome ("partial-closure with residuals") rather than Row 1 ("model-scale uniformly load-bearing"). The combined N=5 is below M10b's pre-reg N=5 target *for M10b alone* (M10b alone is N=3), but the cross-milestone aggregate of M10 + M10b sits at N=5 in fact.
+
+### Outcome interpretation (qualitative Row 4a match; not a pre-reg threshold fire)
+
+Per the M10b halt rationale, the pre-registered Outcome Interpretation Lookup Table (Rows 1/2/3/4a/4b) does **not directly fire** because N=5 was not reached *within M10b alone* (M10b halted at 3 of 5 traces under defense #7 systematic-drift activation). The pre-reg's integer-count thresholds (0/1/2-of-N for the failure-rate buckets) were calibrated for N=5; remapping to N=3 would inflate the per-trace weight of each integer.
+
+That said, the empirical pattern qualitatively maps to **Row 4a — "Partial-closure with residuals"**:
+- V2-Opus failure count > 0 (= 1 in M10b N=3; = 1 in N=5 aggregate)
+- V2-Opus failure count ≤ V2-3B failure count (V2-Opus ⊆ V2-3B failures on both N=3 and N=5 framings)
+- Aggregate Δ(failure_count) = V2-3B − V2-Opus = +1 in N=3, +2 in N=5 → improvement under V2-Opus, but not full closure
+
+Reading the locked Row 4a paper-line under the qualitative match (with full N=3 / N=5 caveats):
+
+> *"V2-Opus closes 1 of 2 (M10b N=3) or 2 of 3 (M10 + M10b N=5) of V2-3B's external-authoring failures, but exhibits its own residual joint-bar failure on `test_v8` (hit=0.60). Model-scale upgrade is **load-bearing-but-not-sufficient**: V2-Opus reduces the V2-3B failure rate but does not eliminate it under V2's closed enumeration. The unclosed test_v8 failure decomposes into mom_birthday_heads_up (out-of-V2-enum family-event reminder) + bridgers_presale_window (concert ticket presale, V2 reads 'discretionary entertainment' rather than 'deadline obligation'); both are V2-enumeration limits surfacing at Opus scale rather than 3B-specific failures. M11 candidates: routing / V4 prompt expansion / model-family upgrade. M10's H2 (model-scale closes the M8b coverage gap) is **modestly confirmed but not absolutely** — V2-Opus reduces failure rate from 60% to 20% on the combined N=5 external set (point estimates, both with wide CIs)."*
+
+This is the M10b paper-line under the D-on-N=3 outcome, with the methodology finding (frozen-banned-list systematic drift) as the headline and the N=3 / combined-N=5 partial-closure pattern as the supplementary empirical observation.
+
+### Pareto / cost summary (M10b N=3)
+
+V2-Opus per-hit cost stays in the same regime as M10's test_v5 numbers (M10: $0.0088/hit on test_v5; M10b: $0.0073-$0.0150/hit across test_v6/v7/v8). poll-Opus per-hit cost is $0.18-$0.20 across all three M10b traces (consistent with M10's test_v5 $0.2057/hit). **V2-Opus is 13.0× to 27.5× cheaper per hit than poll-Opus** across the M10b N=3, with the M10 P2 floor of 3× exceeded by 4-9× on every trace.
+
+Combined Pareto picture (M10 in-distribution + M10 test_v4/v5 + M10b N=3): V2-Opus content vs poll-Opus consistently delivers 13-33× cost reduction per hit at matched arbiter capability. The Pareto headline from M10 ("23.3× cheaper at matched arbiter quality on test_v5") generalizes to a 13-33× range across N=4 external traces.
+
+### M10b spend totals
+
+- Pre-Commit-D drift smoke: ~$0.13 (3 V2-Opus cells, $0.03-$0.06 each)
+- 12-cell harness: V2-3B ($0) + V2-Opus (~$0.15) + poll-Opus (~$0.58) + cron30 ($0) ≈ ~$0.73 (much lower than the $3-6 pre-reg estimate due to compact M10b traces)
+- **M10b total spend: ~$0.86 of $5-6 pre-reg budget** (well under; remaining budget reserved for M11a re-run with revised protocol)
+
+### M10b headline (final)
+
+> **M10b halted at 3-of-5 traces under defense-#7 systematic-drift activation (frozen-banned-list design produces empirically-detectable cross-trace overlap drift; 9+ thematic + 2 literal-ID overlaps in 6 fresh-session attempts; halt is pre-registered behavior under defense #7's "systematic drift is itself a finding" branch). The 3 committed externally-authored traces (test_v6, test_v7, test_v8) yielded the qualitative Row-4a "partial-closure with residuals" pattern: V2-Opus closes V2-3B's external-authoring failures partially (1 of 2 M10b-only; 2 of 3 combined N=5 with M10's test_v4/v5), with one residual unclosed failure on test_v8 (mom_birthday_heads_up + bridgers_presale_window are V2-enumeration limits at Opus scale, not 3B-specific). M10's H2 (model-scale closes M8b coverage gap) is modestly confirmed-but-not-absolutely under the combined N=5 (failure rate 60% → 20%, both with wide binomial CIs). Pareto headline holds: V2-Opus is 13-33× cheaper per hit than poll-Opus across all N=4 external traces. M11a (revised protocol with iterative within-protocol banned-list extension) is the natural successor; M11b (cross-model Claude sweep) and M11c (hierarchical routing) are independent named milestones.**
