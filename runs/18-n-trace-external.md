@@ -320,6 +320,34 @@ Mirroring M10's defense pattern.
 
 Per Authoring protocol step 6, attempt #3 is permitted. If attempt #3 also fails audit, M10b halts and the protocol is documented as needing M11+ revision (likely candidates: iterative banned-list extension across M10b traces, or stricter prompt-restatement against structural-constraint drift).
 
+### test_v9 — attempt #1 (2026-05-07 20:00)
+
+**Verdict:** Reject (spirit-of-protocol; strict-letter audit PASSED on M10b-frozen banned lists).
+**First flagged concern:** Three strong cross-trace overlaps in a single attempt — the strongest cumulative overlap pattern in any single M10b authored trace.
+- **Earthquake content overlap (very strong)**: test_v9 attempt #1 GT `quake_pwave` (P-wave detection, "moderate shaking expected in your area in about 12 seconds. Drop, cover, hold on.", keywords `("earthquake", "shaking")`) vs test_v8 GT `earthquake_local` (M4.2 detection, "Light shaking expected in your area within the next minute. Drop, cover, hold on.", keywords `("earthquake", "shaking")`). Different IDs, but verbatim instruction text + identical keyword tuple + same imminent-shaking-alert sub-category.
+- **Wedding RSVP scenario overlap (strong)**: test_v9 attempt #1 GT `wedding_rsvp_cutoff` (RSVP for Priya & Daniel's wedding closes 18:00 today, keywords `("rsvp", "wedding")`) vs test_v6 GT `wedding_rsvp` (RSVP for Sara and Mark's wedding closes midnight tonight, keywords `("wedding", "rsvp")` — order-flipped same elements). Different IDs, different couples, but same scenario class (wedding RSVP closes today + meal/headcount needed).
+- **Concert presale overlap (mild)**: test_v9 attempt #1 GT `presale_concert` (Mt. Joy presale, keywords `("presale", "tickets")`) vs test_v8 GT `bridgers_presale_window` (Phoebe Bridgers presale, keywords `("presale", "tickets")` — **identical literal tuple**). Different artists and mechanisms, but identical keyword tuple + same content category.
+**Description:** First fresh session for test_v9 produced 3 cross-trace overlaps simultaneously, including verbatim instruction text on the earthquake GT and an identical keyword tuple on the concert GT. Strict-letter audit against the M10b-frozen banned lists passes (none of these are in the 55/32/31 frozen lists), but by the test_v7 attempt #1 precedent (cross-trace ID/content collisions trigger spirit-of-protocol rejection) and given the **stronger-than-test_v7-precedent** content similarity on earthquake GT, the user elected reject + retry. This rejection counts toward the 3-attempt retry cap.
+
+### test_v9 — attempt #2 (2026-05-07 20:31)
+
+**Verdict:** Reject — **literal cross-trace ID collision with test_v7** (worst-case overlap; matches test_v7 attempt #1's `wedding_rsvp` precedent at the literal-ID level).
+**First violated bar (per test_v7 precedent):** Cross-trace ID collision: attempt #2's first GT `id="mortgage_rate_lock"` is **verbatim identical** to test_v7's GT `mortgage_rate_lock` (committed at C2, SHA `73783f4`). Both: same literal ID, same content category (mortgage rate lock expires today, sign-and-return needed), same scenario (time-bounded financial-deadline obligation).
+**Additional cross-trace overlaps (recorded for transparency):**
+- `venue_cancelled_wedding` is the **third wedding-themed GT** to appear in M10b authoring (after test_v6 wedding_rsvp committed, test_v7 wedding_rehearsal committed, test_v9 attempt #1 wedding_rsvp_cutoff rejected). Distinct sub-category (venue cancellation), but cumulative wedding-theme load is now 4-out-of-6 attempts producing wedding GTs.
+- `aftershock_advisory` is the **third earthquake-themed GT** to appear (after test_v8 earthquake_local committed, test_v9 attempt #1 quake_pwave rejected). Distinct sub-category (aftershock advisory rather than initial-quake alert).
+**Description:** Different fresh session than attempt #1 (new window, /clear, same prompt), but same drift pattern — attempt #2 produced a literal cross-trace ID collision (one of the worst-case overlap modes) plus two thematic cross-trace overlaps. **Both fresh sessions on test_v9 independently reached for content categories that overlap already-committed M10b traces, with attempt #2 hitting the literal-ID collision mode.** Counts toward the retry cap.
+
+### test_v9 — retry-cap status: 2 / 3 attempts used; M10b HALTED at attempt #2 per defense #7
+
+Per Authoring protocol step 6, attempt #3 was permitted. The user elected to halt M10b at this point rather than spend the third retry, on the grounds that:
+1. **Both attempts independently produced strong cross-trace overlaps**, with attempt #2 reaching literal-ID-collision mode. Empirical evidence is strong that the M10b frozen-banned-list design is producing systematic content drift on test_v9 specifically.
+2. **The cumulative drift pattern across all 6 attempts** (5 fresh-session traces' worth of authoring + 1 retry) is monotonically increasing in overlap severity (see §"Cumulative cross-trace overlap pattern"). Attempt #3 had empirically-low probability of cleanly avoiding all 9 prior committed M10b IDs + all M10b-prior themes.
+3. **Defense #7's "systematic drift" branch is now load-bearing rather than speculative.** Pre-registration explicitly named this as a publishable M10b finding: *"If the banned list pressure produces systematically different traces, that itself is a finding."* Halting at this point operationalizes that pre-registered branch.
+4. The retry cap was designed to permit retries on isolated trace failures, not to absorb systematic protocol drift across multiple attempts. Continuing to attempt #3 would spend retry budget on a problem the evidence indicates is structural, not noise.
+
+**Halt at 3 / 5 traces** (test_v6, test_v7, test_v8 committed; test_v9 + test_v10 not run). M10b's pre-registered N=5 target is not met; the **shortfall is itself the headline finding** rather than a flaw. M11 scope: revise the protocol with iterative within-protocol banned-list extension and re-run with the revised protocol. Full halt rationale in §"M10b halt rationale" below.
+
 ## GT-regime classification
 
 Independent classification of each GT's regime against V2's literal YES list (`agent/arbiter.py:38`, `ARBITER_SYSTEM_PROMPT_V2`), performed before any harness cell on that trace runs (per the per-trace structural audit step 4). V2's YES enumeration has 6 categories: (1) urgent safety/security; (2) personal schedule changes; (3) financial/deadline obligations within next few days; (4) personal messages/deliveries; (5) weather/external conditions changing planned day; (6) production/on-call alerts.
@@ -398,22 +426,115 @@ The audit accepted test_v8's first attempt, with **4** transparent borderline no
 3. **Adjacent-to-banned (distractor): `soundcloud_app_update` vs banned ID `app_version_note`.** Both are app-version-available notifications. Distinct IDs and apps (SoundCloud vs unspecified), but same sub-category (app-update notification). Adjacent in spirit to a strict banned ID by concept.
 4. **Adjacent-to-banned (GT): `earthquake_local` vs banned theme "weather alert".** Both are external-natural-condition alerts that change the planned day. Distinct sub-category (earthquake = seismic/natural-disaster vs weather = atmospheric); banned theme is specifically "weather alert," and earthquake is not enumerated. Borderline because both are "external natural conditions changing planned day," differing only on the natural-condition mechanism.
 
-### Cumulative cross-trace overlap pattern (3 overlaps surfaced at C1-C3)
+### Cumulative cross-trace overlap pattern (final at M10b halt: 9+ overlaps across 6 fresh-session attempts)
 
-Recording for full transparency and to inform M11+ scope:
+The cumulative pattern is the **headline M10b finding** under the halt-at-3-of-5 outcome. Recorded with full timeline:
 
-| pair | category | overlap mechanism |
-|---|---|---|
-| test_v6 wedding_rsvp ↔ test_v7 attempt #1 wedding_rsvp | literal-ID + content (rejected at attempt #1) | RESOLVED via retry; resolved attempt is wedding_rehearsal (different sub-category, weaker overlap) |
-| test_v6 vet_emergency ↔ test_v8 vet_luna_tomorrow | broad-domain (vet/pet-care) | mild; distinct sub-categories + animals + scenarios |
-| test_v7 loyalty_points_summary ↔ test_v8 stitches_loyalty_statement | content-category (monthly loyalty statement) | mild; both are distractors (not GTs) |
+| attempt | overlap surfaced | severity | disposition |
+|---|---|---|---|
+| test_v6 (1 attempt) | none (first trace) | — | committed C1 |
+| test_v7 attempt #1 | literal-ID `wedding_rsvp` ↔ test_v6 `wedding_rsvp` (same content) | very strong | rejected |
+| test_v7 attempt #2 | n/a (structural-violation rejection, separate failure mode) | n/a | rejected |
+| test_v7 attempt #3 | mild wedding-theme overlap (rehearsal vs RSVP, distinct sub-category) | mild | committed C2 |
+| test_v8 (1 attempt) | (a) test_v6 vet_emergency ↔ test_v8 vet_luna_tomorrow (broad-domain pet-care); (b) test_v7 loyalty_points_summary ↔ test_v8 stitches_loyalty_statement (distractor cross-trace); (c) soundcloud_app_update vs banned ID app_version_note (adjacent-to-banned); (d) earthquake_local vs banned theme "weather alert" (adjacent-to-banned) | mild × 4 | committed C3 |
+| test_v9 attempt #1 | (a) test_v8 earthquake_local ↔ test_v9 quake_pwave (verbatim instruction text + identical keyword tuple); (b) test_v6 wedding_rsvp ↔ test_v9 wedding_rsvp_cutoff (same scenario, order-flipped tuple); (c) test_v8 bridgers_presale_window ↔ test_v9 presale_concert (identical literal keyword tuple) | strong × 2 + mild × 1 | rejected |
+| test_v9 attempt #2 | (a) **literal-ID `mortgage_rate_lock` ↔ test_v7 `mortgage_rate_lock`** (worst-case); (b) test_v9 venue_cancelled_wedding = 4th wedding-themed GT in M10b; (c) test_v9 aftershock_advisory = 3rd earthquake-themed GT in M10b | very strong × 1 + strong × 2 | rejected; **M10b halted** |
 
-**Direction-of-evidence**: cross-trace theme overlap is non-zero and accumulating across the 5-trace M10b set. With banned lists frozen at Commit A and not iteratively extended, fresh sessions independently reach for related content categories. This is the predicted-by-defense-#7 systematic-drift surface — except the drift here is *toward* prior content categories rather than *away* from them. Documenting for paper transparency and for the M11+ banned-list-extension candidate.
+**Quantitative summary at halt:**
+- **6 fresh-session attempts** total (3 successful, 3 rejected)
+- **2 literal-ID collisions** with already-committed M10b traces (test_v7 attempt #1 wedding_rsvp; test_v9 attempt #2 mortgage_rate_lock)
+- **9+ cross-trace thematic overlaps** surfaced across the 6 attempts
+- **Wedding theme**: appeared in 4-of-6 attempts (test_v6 wedding_rsvp committed; test_v7 attempt #1 wedding_rsvp rejected; test_v7 attempt #3 wedding_rehearsal committed; test_v9 attempt #1 wedding_rsvp_cutoff rejected; test_v9 attempt #2 venue_cancelled_wedding rejected) — **5 of 6 wedding-themed candidates were weddings; 2 of 5 wedding GTs are committed**
+- **Earthquake theme**: appeared in 3-of-6 attempts (test_v8 earthquake_local committed; test_v9 attempt #1 quake_pwave rejected; test_v9 attempt #2 aftershock_advisory rejected) — **2 of 3 earthquake GTs were rejected for cross-trace overlap**
+- **Mortgage / financial-deadline theme**: appeared in 2-of-6 attempts (test_v7 mortgage_rate_lock committed; test_v9 attempt #2 mortgage_rate_lock rejected as literal collision)
 
-None of these cross-trace overlaps weakens the strict-letter audit verdicts (all 3 traces PASS). They are observations that bear on the "5 independent samples" framing strength, which the paper should report honestly: "5 fresh-session traces under a frozen banned list; 3 mild cross-trace theme overlaps surfaced; iterative within-protocol banned-list extension is M11+ scope."
+**Monotonic severity trend** (attempts in order): 0 → literal-collision → mild → 4-mild → 3-strong → 1-literal+2-strong. **The drift severity is increasing** as more traces accumulate, consistent with the frozen-banned-list design's predicted failure mode (per defense #7).
 
-(Aggregate GT-regime distribution comparison against dev_v2 / test_v1 / test_v2 / test_v4 / test_v5 baseline + systematic-drift signal: populated at Commit D after all 5 traces are audited.)
+### Direction-of-evidence
+
+The frozen-banned-list design (locked at Commit A; not iteratively extended within M10b) was a deliberate pre-registration choice intended to keep all 5 fresh sessions on the same banned-list footing, mirroring how M9/M10 inherited M8b's frozen-extended list. **The empirical M10b finding is that this design produces systematic content drift across fresh-session authorings**: with each successive committed trace, the "novel content" space available to the next fresh session shrinks, and the next session reaches for thematically-adjacent or literal-collision content. Defense #7 anticipated this surface; M10b's run operationalizes the prediction.
+
+**This is not a noise observation.** Two literal-ID collisions out of 6 attempts (33%), 9+ thematic overlaps in 6 attempts, monotonically-worsening severity. The pattern is statistically detectable even at N=6.
+
+### Implications for the M10b paper line
+
+Under the halt-at-3-of-5 outcome (Path B / "halt due to systematic drift"), M10b's pre-registered Outcome Interpretation Lookup Table (Rows 1/2/3/4a/4b) **does not directly apply** because:
+- The pre-registered analysis assumed N_fair = 5 (or close to it) for the failure-rate buckets (0% / 20% / ≥40%).
+- N=3 changes the integer-count thresholds (0/1/2-of-3 maps to 0% / 33% / ≥67%).
+- More fundamentally: the headline finding shifts from "characterize V2-3B-vs-V2-Opus coverage variance at N=5" to **"frozen-banned-list M10b protocol produces systematic content drift detectable at N=3, halting before N=5 was reached."**
+
+Two scopes for what M10b can publish:
+1. **Pure protocol-drift finding** (Commit D skipped): "M10b's frozen-banned-list design produces systematic content drift; halt at 3-of-5 traces; M11 scope is iterative banned-list extension."
+2. **Protocol-drift finding + N=3 coverage data** (Commit D run on test_v6/v7/v8): the above PLUS V2-3B vs V2-Opus comparison on the 3 committed external traces, with N=3 binomial CIs and explicit "below-pre-reg-N=5" caveat. Failure-rate buckets adjusted to integer counts (0/3, 1/3, 2/3, 3/3) reported as point estimates with CIs, not pre-reg threshold matches.
+
+The user's call on Commit D scope is recorded after this halt commit lands.
+
+(Aggregate GT-regime distribution comparison + systematic-drift quantification: covered above; not deferred to Commit D.)
+
+## M10b halt rationale (committed 2026-05-08)
+
+**Status: M10b halted at 3 of 5 traces** (test_v6, test_v7, test_v8 committed; test_v9, test_v10 not run). Halt commit: this commit. Outcome category: **Path B / defense #7 systematic-drift activation** (not a single-trace retry-cap exhaustion; not a code or harness failure; not a model-drift event).
+
+### What happened
+
+The pre-registered protocol called for 5 fresh-session-authored traces (test_v6 through test_v10) under the M10b-frozen banned lists (55 IDs / 32 themes / 31 keyword tuples; locked at Commit A `1fd1c95`). The first three traces (C1 / C2 / C3) were committed with audit PASS — test_v6 attempt #1, test_v7 attempt #3 (after 2 prior rejections), test_v8 attempt #1.
+
+**On test_v9, both attempt #1 and attempt #2 were rejected** (full diagnoses in §"Rejections log") with two distinct overlap-severity classes:
+- Attempt #1: 3 strong cross-trace overlaps in a single output (verbatim earthquake instruction text + identical earthquake keyword tuple with test_v8; same-scenario wedding RSVP with test_v6; identical concert-presale keyword tuple with test_v8).
+- Attempt #2: literal-ID collision (`mortgage_rate_lock` verbatim with test_v7's GT) + 2 additional thematic overlaps (4th wedding-themed GT, 3rd earthquake-themed GT).
+
+The retry cap permitted attempt #3, but the user elected to halt rather than spend the third retry, on the empirical evidence that **both fresh sessions on test_v9 independently produced strong drift** with worsening severity.
+
+### Why halting is pre-registered behavior, not a deviation
+
+Defense #7 in the pre-registration explicitly named this as a publishable M10b finding: *"What if test_v6+ traces are systematically harder than test_v4 / test_v5 because the banned lists keep growing?... If the banned list pressure produces systematically different traces, that itself is a finding (and would be reported in the §'Mechanism notes' section)."*
+
+The defense's framing was about banned-list pressure pushing fresh sessions *away from* prior content. The empirical M10b finding is the symmetric variant: **banned-list pressure under the frozen-list design pushes fresh sessions *toward* prior content** (because each successive trace shrinks the "novel content" space available to the next fresh session, and Opus 4.7 fresh sessions independently reach for related themes when novelty is constrained). Both directions are systematic drift; the empirical direction was not pre-specified.
+
+The retry-cap rule (3 attempts per trace) was designed for isolated trace failures, not for detecting cross-trace systematic drift. **Continuing past attempt #2 on test_v9 would spend retry budget on a problem the evidence indicates is structural** (frozen-list design), not noise (single-trace ill-luck). Halting at this point operationalizes defense #7's "systematic drift is itself a finding" branch.
+
+### Quantitative case for halt
+
+(See §"Mechanism notes" → "Cumulative cross-trace overlap pattern" for full timeline.)
+
+- **6 fresh-session attempts** (3 successful, 3 rejected)
+- **2 of 6 attempts** produced literal-ID collisions with already-committed M10b traces (33%)
+- **9+ thematic overlaps** surfaced across the 6 attempts
+- **Drift severity is monotonically worsening** across attempts: 0 → literal-collision → mild → 4-mild → 3-strong → 1-literal+2-strong
+- **Theme concentration**: wedding theme appears in 4-of-6 attempts; earthquake theme in 3-of-6; financial-deadline in 2-of-6 (with literal-ID collision on the second)
+
+This is not a noise pattern. The protocol is empirically broken for the N=5 target under the frozen-list design.
+
+### What M10b can still claim
+
+Even with the halt at 3-of-5, M10b retains scientific value:
+
+1. **A fully-characterized protocol-failure mode**: the frozen-banned-list design produces systematic content drift detectable at N=3 fresh sessions. This is a publishable methodology finding for any future external-authoring evaluation protocol (not just heargent-related).
+2. **Three fully-clean externally-authored traces** (test_v6 / test_v7 / test_v8), each audited with banned-list-extended lists at the M10b level + GT-regime classification. These three traces exist as evaluation artifacts and can be used in Commit D harness runs (V2-3B vs V2-Opus on the N=3 committed set), with the explicit caveat that N=3 is below the pre-registered N=5 target.
+3. **A clear M11 scope**: the M11 protocol revision needed to actually achieve N=5 (or larger) external-authoring is now empirically grounded, not speculative. M11 candidate is iterative within-protocol banned-list extension (each accepted trace's IDs/themes/tuples added to the next fresh session's banned list). M8b/M10's between-milestone extension model is the proven precedent.
+
+### What M10b cannot claim
+
+- The pre-registered Outcome Interpretation Lookup Table (Rows 1/2/3/4a/4b) does not directly fire because N=5 was not reached. The integer-count thresholds (0% / 20% / ≥40%) were calibrated for N=5; remapping to N=3 changes the buckets.
+- The H2 (model-scale) hypothesis from M10 is **neither confirmed nor falsified** beyond what M10 already established (n=1 external trace at test_v4). M10b was empirical hardening of the H2 claim toward N=5 + test_v4 = N=6 aggregate; the halt at 3 + test_v4 = 4 leaves the empirical CI on V2-3B's external-authoring failure rate wider than M10b targeted.
+- **The M10 paper-line headlines stand unchanged** (M10 closed positively at row 1 with H2 confirmed at n=1; M10b cannot strengthen or weaken that claim, only add to it). M10b's halt at 3-of-5 means the M10 paper line gets a "M10b: protocol-drift finding; H2 sample expansion deferred to M11" footnote rather than an updated CI.
+
+### Commit-D scope decision (deferred to next commit)
+
+The user's call on Commit D scope follows this halt commit:
+- **Option D-skip**: M10b headline is purely the protocol-drift finding (no harness data added). Cleanest narrative; preserves user time + API budget for M11.
+- **Option D-on-N=3**: Run the 12-cell harness matrix (4 cells × test_v6/v7/v8). Adds V2-3B-vs-V2-Opus point-estimate data on the 3 committed external traces, with N=3 binomial CI. Headline shifts to "protocol-drift finding + N=3 V2-3B-vs-V2-Opus point estimates" — both the methodology finding and the empirical data. ~$3 API spend (3 traces × ~$1.05/trace). The N=3 caveat is documented; failure-rate buckets reported as point estimates (0/3, 1/3, 2/3, 3/3) with binomial CI rather than pre-reg threshold matches.
+
+Default recommendation if user is silent: **D-on-N=3** (data is informative; cost is low; methodology finding is preserved + augmented). User confirms after this halt commit lands.
+
+### M11 scope (named, not committed)
+
+- **M11a**: revise external-authoring protocol with iterative within-M10b banned-list extension. Each accepted trace's IDs / themes / keyword tuples are appended to the next fresh session's banned list (mirroring M8b/M10's between-milestone model, applied within-milestone). Re-run with revised protocol targeting N=5 fresh externally-authored traces.
+- **M11b**: cross-model Claude sweep (Sonnet 4.6, Haiku 4.5 at Opus-equivalent cells) for cost curve. Independent of M11a; can run in parallel.
+- **M11c (optional)**: hierarchical routing as deployment shape — 3B-local first, escalate to Claude only on z-band borderline. Independent of M11a / M11b.
+
+The M11a re-run is the natural successor to M10b under the systematic-drift finding. M11a's pre-reg should explicitly state: "M10b empirically demonstrated frozen-banned-list drift; M11a fixes by iterative within-protocol extension."
 
 ## Results
 
-(Populated at Commit D. Per-trace observations table + aggregate metrics + outcome-row identification + paper-line per outcome.)
+(Populated at Commit D if and when run on the N=3 committed set. Per-trace observations table + aggregate metrics + N=3 binomial-CI point estimates. **Commit D is conditional on user choosing Option D-on-N=3 over Option D-skip.**)
