@@ -622,6 +622,60 @@ def test_trace_v8() -> Trace:
     )
 
 
+def test_trace_v11() -> Trace:
+    gts = [
+        _gt(
+            Event(id="locksmith_buzzer", kind="phone_message", sim_time=50.0,
+                  content="Locksmith voicemail: 'I'm downstairs at your building's front door right now but the buzzer doesn't work. Please come let me in or call me back immediately.'"),
+            window_s=25.0, keywords=("locksmith", "buzzer"),
+        ),
+        _gt(
+            Event(id="spanish_tutoring_shift", kind="calendar_update", sim_time=200.0,
+                  content="Your Spanish tutoring session originally at 15:00 today has been moved to 15:30 by your tutor."),
+            window_s=180.0, keywords=("tutoring", "moved"),
+        ),
+        _gt(
+            Event(id="bistro_wallet_holding", kind="notification", sim_time=350.0,
+                  content="Lighthouse Bistro lost & found: a navy wallet matching your reservation name was turned in last night. Pickup available at the host stand until close at 23:00 today."),
+            window_s=400.0, keywords=("wallet", "pickup"),
+        ),
+        _gt(
+            Event(id="city_marathon_closures", kind="world_event", sim_time=600.0,
+                  content="City marathon tomorrow morning closes most downtown streets from 7:00 to 11:30. Plan alternate routes if you're commuting through the core."),
+            window_s=300.0, keywords=("marathon", "closes"),
+        ),
+        _gt(
+            Event(id="pitch_slides_review_ask", kind="email", sim_time=820.0,
+                  content="Hey — could you give feedback on the investor pitch slides before tomorrow at 9am? I'd really appreciate one last read-through with fresh eyes."),
+            window_s=120.0, keywords=("slides", "feedback"),
+        ),
+    ]
+    distractors = [
+        Event(id="chess_puzzle_nudge", kind="notification", sim_time=120.0,
+              content="Daily puzzle reminder from your chess app: today's mate-in-three hasn't been solved yet."),
+        Event(id="printworks_payment_ack", kind="email", sim_time=280.0,
+              content="Hi — just confirming we received last week's payment, thanks again for being a great client. — Mara, PrintWorks"),
+        Event(id="trivia_league_round", kind="notification", sim_time=500.0,
+              content="Pub Trivia League: the next casual online round opens Saturday at 19:00. Drop in if you're free."),
+        Event(id="sam_article_forward", kind="email", sim_time=750.0,
+              content="Sam forwarded you a link: 'Why monorepos are making a comeback'. Thought you might enjoy reading it sometime."),
+    ]
+    all_events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v11",
+        events=all_events,
+        ground_truth=gts,
+        briefing="I'm working from home in Portland this week while juggling a small side project and a few household errands. My partner is out of town, so apartment access, vendor visits, and stray logistics are all on me. Tomorrow I also have a downtown commute and I'm helping a friend prep for an investor pitch.",
+        intents=(
+            "stay reachable for time-sensitive home services",
+            "support my friend's investor pitch prep",
+            "recover the lost wallet before the bistro closes",
+            "navigate tomorrow's downtown commute changes",
+            "keep the Spanish tutoring schedule on track",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -634,6 +688,7 @@ def get_trace(name: str) -> Trace:
         "test_v6": test_trace_v6,
         "test_v7": test_trace_v7,
         "test_v8": test_trace_v8,
+        "test_v11": test_trace_v11,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")

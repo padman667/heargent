@@ -424,18 +424,103 @@ M11a-specific additions:
 
 | trace | fresh-session timestamp | cwd | session model (user-confirmed) | /clear confirmation | audit attempt # | audit verdict |
 |---|---|---|---|---|---|---|
+| test_v11 | 2026-05-08 19:19 | `/Users/patrick.gergen/Pictures` | `claude-opus-4-7` (Opus 4.7, user-confirmed) | confirmed | 2 of 3 (attempt #1 rejected for structural-parsing; see §"Per-attempt drift log") | PASS (with 5 transparent borderline-theme notes; see §"Mechanism notes") |
 
 ## Per-attempt drift log
 
 (Populated during Commits C1-C5. One entry per fresh-session attempt — accepted AND rejected — per §"Drift-quantification log" full-transparency requirement; extends M10b's Rejections log discipline at runs/18 §"Rejections log" to also capture accepted-attempt drift content. Each entry notes: attempt number, fresh-session timestamp, verdict (PASS / REJECT), first violated audit step (if REJECT), per-overlap-severity counts (literal-ID / strong / mild) with specific trace+ID references, and a one-sentence description. A rejected generation is not merged; the generator code is not kept — carry-forward of M10b's discipline at runs/18 §"Rejections log" line 296.)
 
+### test_v11 — attempt #1 (2026-05-08 18:27)
+
+**Verdict:** Reject (strict-letter; structural-parsing violation — audit step 1 schema check fails).
+
+**First violated audit step (audit-checklist order):** Audit step 1 — schema check. The trace as authored does not parse at import time: the `travel_visa_window` GT's `Event(...)` construction contains a stray walrus expression `sim_function := None or "notification"` interleaved between keyword arguments, producing a `SyntaxError`. The audit's standard schema-check command (`uv run python -c "from sandbox.event_trace import get_trace; get_trace('test_v11')"`) fails on parse before any keyword/content, banned-list, or cross-trace literal-ID audit gate can run.
+
+**Per-overlap-severity counts:** literal-ID 0 / strong 0 / mild 0 (audit gates 2-5 not reached due to step-1 parse failure; no overlap evaluation possible).
+
+**Description:** Fresh session (Pictures cwd, 2026-05-08 18:27, dispatched response.model `claude-opus-4-7` user-verified, /clear confirmed) produced a single-shot trace whose visa GT line read `Event(id="travel_visa_window", kind="notification", sim_function := None or "notification", sim_time=520.0, content=...)` — an invalid Event construction dropping a walrus assignment between keyword args. Structural-parsing failure mode (test_v7-attempt-#2 class per runs/18 §"Failure-mode analysis"), not a banned-list-pressure signal: the bug is at the Python-syntax layer, not the content layer. Counts toward the retry cap. Pre-reg §"Reviewer-vulnerable surfaces and pre-registered defenses" defense #7 explicitly anticipates this failure mode at M11a's N≤15 attempts as M11a-extension scope input.
+
+### test_v11 — attempt #2 (2026-05-08 19:19)
+
+**Verdict:** PASS (audit-PASS with 5 transparent borderline-theme notes; see §"Mechanism notes" → test_v11 subsection).
+
+**First violated audit step:** N/A — all six audit steps pass strict-letter (schema, keyword/content alignment, banned-ID + banned-tuple bytewise review, cross-trace literal-ID grep, GT-regime classification independent). The 5 borderline-theme notes are mild structural overlaps, judgment-only per §"Drift-monitoring criterion" rubric line 285, and do not gate audit.
+
+**Per-overlap-severity counts (mechanical, against committed test_v6/v7/v8 GT pool — 15 prior committed GTs):**
+- Literal-ID 0 / strong 0 / mild 5.
+- Strong-overlap (a) GT keyword tuple bytewise match (order-independent, lowercased): 0 hits across `{locksmith,buzzer}`, `{tutoring,moved}`, `{wallet,pickup}`, `{marathon,closes}`, `{slides,feedback}` vs the 15 prior committed GT tuples.
+- Strong-overlap (b) ≥8-word verbatim phrase (lowercased, whitespace-normalized): 0 hits across the 5 new GT contents vs the 15 prior committed GT contents.
+- Mild overlap: 5 (one per GT; structural-pattern parallels with banned themes; see §"Mechanism notes" → test_v11 for per-GT diagnoses).
+- Cross-trace literal-ID collision (audit step 4): 0 collisions across 9 new IDs vs the 27 prior committed-trace IDs (test_v6/v7/v8).
+
+**Description:** Fresh session (Pictures cwd, 2026-05-08 19:19, dispatched response.model `claude-opus-4-7` user-verified, /clear confirmed) produced a single-shot trace passing strict-letter audit on first read at attempt #2 (after attempt #1's structural-parsing rejection). Variable name `all_events` preserved verbatim from fresh-session emission per the M10 permitted-edits rule (only registry-line addition required during integration; runs/16 line 239 protocol carry-forward). Mechanical drift rubric — 0 literal-ID collisions, 0 strong-overlap (a), 0 strong-overlap (b) — fully clean for M11a's drift-revision-success criterion (which requires 0 literal-ID across all attempts AND 0 strong overlaps in accepted traces, per §"Drift-monitoring criterion"). Trace accepted as M11a's first committed trace (C1).
+
+### test_v11 — retry-cap status: 2 / 3 attempts used; 1 remaining (attempt #2 accepted)
+
 ## GT-regime classification
 
 Independent classification of each GT's regime against V2's literal YES list (`agent/arbiter.py`, `ARBITER_SYSTEM_PROMPT_V2`), performed before any harness cell on that trace runs (per per-trace structural audit step 5). V2's YES enumeration has 6 categories: (1) urgent safety/security; (2) personal schedule changes; (3) financial/deadline obligations within next few days; (4) personal messages/deliveries; (5) weather/external conditions changing planned day; (6) production/on-call alerts. Per-trace subsections appended at each accepted Commit C1-C5; the regime column is mechanically reused as the appended banned-theme entry under the iterative-extension rule (per §"Authoring protocol per trace" → "Banned content themes" extension rule).
 
+### test_v11 (5 GTs)
+
+| GT id | regime | V2 category match | classification |
+|---|---|---|---|
+| locksmith_buzzer | vendor on-site at building entry, callback request to grant access, tight window | clean: cat 4 (personal messages/deliveries) — voicemail directed personally with urgent callback ask | **IN-V2-enum** |
+| spanish_tutoring_shift | tutoring session time-shift today (+30 min), personal-services schedule change | clean: cat 2 (personal schedule changes) — appointment-time-shift in personal-services domain | **IN-V2-enum** |
+| bistro_wallet_holding | lost-item recovery deadline today, tonight's-close pickup window | partial: cat 3 (deadline obligation) spirit match (pickup-by-tonight today-deadline; not a financial obligation in V2's bill/rent/report literal-example sense); cat 4 (personal deliveries) partial (lost-item-pickup is delivery-adjacent) | **PARTIALLY in-V2-enum** |
+| city_marathon_closures | civic-event affecting tomorrow's commute (planned street closures) | clean: cat 5 (weather/external conditions changing planned day) — civic event with published street closures fits the "external condition affecting planned day" framing | **IN-V2-enum** |
+| pitch_slides_review_ask | friend's professional-favor request with tomorrow-morning deadline | partial: cat 3 (deadline obligation) spirit match (tomorrow-9am deadline on slides review; not literal V2 example which lists bill/rent/report/payment); cat 4 (personal messages) partial match (friend's email ask) | **PARTIALLY in-V2-enum** |
+
+**Aggregate (test_v11):** 3 clean-in (locksmith_buzzer, spanish_tutoring_shift, city_marathon_closures) + 2 partial-in (bistro_wallet_holding, pitch_slides_review_ask) + 0 borderline-out. Slightly more in-enum-tilted than test_v6 (1+2+2) and test_v8 (1+2+2), closer to test_v7 (2+2+1). M11a-relevant prediction: V2-3B might land 0.60-1.00 (bistro_wallet_holding + pitch_slides_review_ask are the at-risk GTs); V2-Opus expected 0.80-1.00.
+
 ## Mechanism notes
 
 (Populated during Commits C1-C5 per accepted trace. One subsection per accepted M11a trace, documenting borderline-theme transparency notes — overlaps that do not rise to a strict banned-theme violation but are documented for paper-level transparency, mirroring M10b's §"Mechanism notes" pattern at runs/18 §"Mechanism notes" lines 391+. Borderline notes are judgment-only per §"Drift-monitoring criterion" rubric line 285 ("mild calls are reported but do not gate any pre-reg threshold") and do not gate audit; the strong-overlap rubric (a tuple-bytewise + b 8-word-verbatim) gates audit mechanically.)
+
+### test_v11 — borderline-theme notes (audit PASS at attempt #2 with transparency)
+
+The audit accepted test_v11's second attempt with five transparent borderline-theme notes (attempt #1 was rejected for structural-parsing per §"Per-attempt drift log" → test_v11 attempt #1; attempt #2 passed strict-letter audit on first read). All five notes are mild overlaps under the §"Drift-monitoring criterion" rubric line 285 ("broad-domain tag overlap, no strong sub-criterion fires") — judgment-only, do not gate. The strong-overlap rubric (a tuple-bytewise + b ≥8-word-verbatim) mechanically PASSED with zero hits across the new trace's 5 GTs vs the 15 prior committed GTs. Documented for paper-level transparency, mirroring M10b's full-disclosure pattern at runs/18 §"Mechanism notes" lines 393-462.
+
+1. **GT `locksmith_buzzer` vs banned themes "pet medical emergency + callback request 10-min auth window" / "family voicemail with airport pickup 15-min window".** All three involve a voicemail-with-tight-callback structural pattern. Domain genuinely distinct (locksmith access vs vet medical vs airport pickup); locksmith vendor-at-door is a new sub-category not present in either banned theme. Documented as mild-overlap because reviewers may push that "voicemail + sub-30s callback" is the load-bearing pattern regardless of domain; the literal banned-theme text refers specifically to vet/family-airport contexts that this GT does not match.
+
+2. **GT `spanish_tutoring_shift` vs banned theme "work meeting time/location change" + banned tuple `(meeting, moved)`.** Strongest of the 5 mild calls under the structural-overlap lens. The content template "Your X session originally at Y has been moved to Z by W" is identical to "your work meeting at Y has been moved to Z" with the noun substituted (tutoring session vs work meeting). The keyword tuple `(tutoring, moved)` shares only its 2nd element with banned `(meeting, moved)` — **NOT a bytewise match** (1st element differs); strong-overlap rubric (a) does not fire. Documented as mild-overlap because the structural template is near-identical to a banned theme; defense is the genuine domain distinction (Spanish tutoring is an educational service, not a work meeting; the 30-minute today-shift is independently realistic for tutoring scheduling) plus the rubric's deliberate choice to make strong-overlap mechanical-bytewise rather than structural (per §"Drift-monitoring criterion" line 287: noun-substitution attacks are mild by rubric-design intent, not strong).
+
+3. **GT `bistro_wallet_holding` vs banned theme "library hold expires" / banned tuple `(library, hold, expires)`.** Both share an item-pickup-with-today-deadline structural pattern. Domain distinct (lost-and-found wallet at restaurant vs library hold). Documented as mild-overlap because reviewers may push that "item-pickup-deadline-today" is the load-bearing pattern; the literal banned-theme text is library-hold-specific.
+
+4. **GT `city_marathon_closures` vs banned theme "parking meter or civil disruption affecting commute".** A planned permitted city marathon closing downtown streets is structurally similar to "civil disruption affecting commute" — the banned theme uses "OR" covering both parking-meter scenarios and broader civil-disruption scenarios, and a marathon affecting commute could plausibly read as the latter. **Closest call of the 5 borderlines** under strict literal-text reading. Defense: "civil disruption" typically connotes hostile/unplanned events (protests, strikes); a planned permitted civic event with published-in-advance street closures is semantically distinct and is a different sub-category of "external conditions affecting commute" than the banned theme's protest/strike examples (banned tuple `(protest, market street)` makes the protest-specific framing explicit). Documented as mild-overlap because the literal banned-theme text could plausibly be read to cover this GT; the audit-step-3 verdict of strict-letter PASS rests on the marathon-not-disruption distinction.
+
+5. **GT `pitch_slides_review_ask` vs banned theme "work deadline tomorrow/today/quarterly" + banned tuple `(deadline, quarterly)`.** Both share a tomorrow-morning-deadline-on-professional-task structural pattern. Domain distinction: this GT is a friend's favor-ask (request for feedback on slides) rather than the user's own work deadline; the keyword tuple `(slides, feedback)` is fully novel and the asker-as-friend-not-employer framing is distinct from the banned theme's "work deadline" framing. Documented as mild-overlap because reviewers may push that "tomorrow-morning deadline on professional work" is the load-bearing pattern; defense is the asker-relationship distinction.
+
+## Banned-list timeline
+
+Per-trace banned-list state at the moment each fresh-session authoring prompt was sent. The fresh session for trace N+1 sees the post-N extended state. Per pre-reg §"Authoring protocol per trace" iterative-extension rule: after each accepted Commit C(N), append the just-accepted trace's 9 IDs + 5 GT-regime themes (verbatim from §"GT-regime classification" regime column) + 5 GT keyword tuples before the next fresh session opens. Section header added at C1 (the first commit at which timeline content exists); pre-reg reference at line 62.
+
+### State at C1 fresh-session prompts (test_v11 attempts #1 and #2)
+
+= **M11a Commit A starting state (82 IDs / 47 themes / 46 tuples)**, verbatim from §"Banned lists for M11a (starting state at Commit A)". No iterative extension applied — test_v11 is M11a's first trace; the C1 fresh session for both attempt #1 and attempt #2 saw the Commit-A starting state unchanged. (Attempt #1 was rejected for structural-parsing, not banned-list-pressure; rejected attempts do not extend the banned list per §"Banned-list growth trajectory" line 131.)
+
+### State at C2 fresh-session prompt (test_v12; post-C1 extension)
+
+= **post-C1 extended state (91 IDs / 52 themes / 51 tuples)**, applying the iterative-extension rule with test_v11's accepted-attempt-#2 contributions:
+
+**Banned IDs (+9 from accepted test_v11; full new list 82 + 9 = 91):**
+```
+locksmith_buzzer, spanish_tutoring_shift, bistro_wallet_holding,
+city_marathon_closures, pitch_slides_review_ask,
+chess_puzzle_nudge, printworks_payment_ack, trivia_league_round, sam_article_forward
+```
+
+**Banned content themes (+5 from test_v11 GT-regime classification regime column, verbatim; full new list 47 + 5 = 52):**
+- vendor on-site at building entry, callback request to grant access, tight window
+- tutoring session time-shift today (+30 min), personal-services schedule change
+- lost-item recovery deadline today, tonight's-close pickup window
+- civic-event affecting tomorrow's commute (planned street closures)
+- friend's professional-favor request with tomorrow-morning deadline
+
+**Banned keyword tuples (+5 from accepted test_v11 GT keywords; full new list 46 + 5 = 51):**
+```
+(locksmith, buzzer), (tutoring, moved), (wallet, pickup), (marathon, closes), (slides, feedback)
+```
 
 ## Walkthrough kickoff in fresh session (M11a session)
 
