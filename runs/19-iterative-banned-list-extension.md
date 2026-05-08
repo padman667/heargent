@@ -418,6 +418,17 @@ M11a-specific additions:
 - **No exclusion of "inconvenient" rejected traces from the per-attempt drift log** — every fresh-session attempt is logged whether accepted or rejected, mirroring M10b's full-transparency Rejections log
 - **No self-restate pre-flight gate added in M11a** — M10b's test_v7 attempt #2 surfaced a second failure mode (fresh-session structural-constraints parsing variability) distinct from banned-list-pressure drift. A self-restate gate (prompt the fresh session to enumerate the 11 hard structural constraints back before generating) would address it, but adding it *here* would change two protocol levers at once and confound attribution of any drift improvement to the iterative-extension rule alone. Explicitly deferred to **M11a-extension scope** as a separately-pre-registered protocol layer; if M11a hits structural-parsing failures during authoring they are reported as observation, not scope creep, and will inform M11a-extension's pre-reg
 
+## Authoring sessions
+
+(Populated during Commits C1-C5. One row per fresh session. Per-session attestation per §"Authoring protocol per trace": timestamp + cwd + dispatched response.model + /clear confirmation per trace. Dispatched response.model is verified at the API level — not just at the Claude Code TUI /model line. Mirrors runs/18 §"Authoring sessions" structure verbatim with the dispatched-model clarification carried forward from M11a pre-reg line 9.)
+
+| trace | fresh-session timestamp | cwd | session model (user-confirmed) | /clear confirmation | audit attempt # | audit verdict |
+|---|---|---|---|---|---|---|
+
+## Per-attempt drift log
+
+(Populated during Commits C1-C5. One entry per fresh-session attempt — accepted AND rejected — per §"Drift-quantification log" full-transparency requirement; extends M10b's Rejections log discipline at runs/18 §"Rejections log" to also capture accepted-attempt drift content. Each entry notes: attempt number, fresh-session timestamp, verdict (PASS / REJECT), first violated audit step (if REJECT), per-overlap-severity counts (literal-ID / strong / mild) with specific trace+ID references, and a one-sentence description. A rejected generation is not merged; the generator code is not kept — carry-forward of M10b's discipline at runs/18 §"Rejections log" line 296.)
+
 ## Walkthrough kickoff in fresh session (M11a session)
 
 When this plan is loaded into the M11a fresh session, the agent should:
