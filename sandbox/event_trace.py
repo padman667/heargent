@@ -676,6 +676,64 @@ def test_trace_v11() -> Trace:
     )
 
 
+def test_trace_v12() -> Trace:
+    gts = [
+        _gt(
+            Event(id="garage_open_overnight", kind="alert", sim_time=50.0,
+                  content="Smart home alert: Your garage door has been open for 47 minutes after sunset."),
+            window_s=25.0, keywords=("garage", "open"),
+        ),
+        _gt(
+            Event(id="friend_hospitalized", kind="phone_message", sim_time=180.0,
+                  content="Voicemail from Sarah: Mike was hospitalized this morning with chest pains. He is stable at Memorial and she is calling close friends to update them."),
+            window_s=300.0, keywords=("hospitalized", "mike"),
+        ),
+        _gt(
+            Event(id="license_expires_today", kind="notification", sim_time=300.0,
+                  content="DMV reminder: Your driver's license expires today at midnight. Online renewal must be completed before then or you cannot legally drive tomorrow."),
+            window_s=600.0, keywords=("license", "expires"),
+        ),
+        _gt(
+            Event(id="hoa_assessment_vote", kind="email", sim_time=420.0,
+                  content="HOA emergency assessment vote closes today at 8pm: $3,400 special assessment per unit for foundation repair. Vote required from each owner."),
+            window_s=400.0, keywords=("hoa", "vote"),
+        ),
+        _gt(
+            Event(id="margin_account_warning", kind="email", sim_time=550.0,
+                  content="Brokerage notice: Margin account requires a $4,200 deposit within 2 hours to avoid forced liquidation of held positions."),
+            window_s=80.0, keywords=("margin", "deposit"),
+        ),
+    ]
+    distractors = [
+        Event(id="screen_time_report", kind="notification", sim_time=110.0,
+              content="Your weekly screen time report: 4h 12m daily average, down 8% from last week."),
+        Event(id="photo_backup_complete", kind="notification", sim_time=240.0,
+              content="Cloud storage backup completed: 1,247 photos synced to album 'Family 2025'."),
+        Event(id="grocer_back_in_stock", kind="email", sim_time=360.0,
+              content="FreshGrocer: Your favorite item 'Avocado' is back in stock at your local store this week."),
+        Event(id="calendar_yoga_suggest", kind="calendar_update", sim_time=500.0,
+              content="Calendar suggestion: 'Yoga with Anna' on Tuesdays — would you like to add this as a recurring event?"),
+    ]
+    all_events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v12",
+        events=all_events,
+        ground_truth=gts,
+        briefing=(
+            "I'm working from home today on a deep-focus draft for a client deliverable. "
+            "The house is quiet and I want to keep distractions to a minimum. "
+            "A handful of errands and life-admin items are floating in the background."
+        ),
+        intents=(
+            "finish client draft",
+            "minimize interruptions",
+            "stay on top of household admin",
+            "respond to genuine emergencies",
+            "protect deep work blocks",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -689,6 +747,7 @@ def get_trace(name: str) -> Trace:
         "test_v7": test_trace_v7,
         "test_v8": test_trace_v8,
         "test_v11": test_trace_v11,
+        "test_v12": test_trace_v12,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")
