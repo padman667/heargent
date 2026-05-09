@@ -522,6 +522,170 @@ chess_puzzle_nudge, printworks_payment_ack, trivia_league_round, sam_article_for
 (locksmith, buzzer), (tutoring, moved), (wallet, pickup), (marathon, closes), (slides, feedback)
 ```
 
+## Per-trace authoring prompts (verbatim, SHA256-attested)
+
+The pre-reg at line 60 references this content as the operationalization of "the prompt for each accepted trace is exactly reproducible." Prompts are preserved verbatim in Claude Code's session transcript JSONL files at `~/.claude/projects/-Users-patrick-gergen-Pictures/<sessionId>.jsonl`; the JSONL filesystem mtime + the per-message ISO timestamps pre-date this backfill commit by hours, providing tamper-resistance against the hostile-reviewer attack "how do I trust the retrieval pipeline?". Each subsection pastes the verbatim user message that opened the fresh session and includes a SHA256 of the byte sequence for cross-attestation.
+
+**This is a post-data documentation correction, not a data correction.** The prompt artifact is byte-identical to what was sent at the fresh session; only its storage location is being moved (from Claude Code's transcript store into the repo). The original prompts existed at the documented JSONL paths before this commit landed; backfill does not modify any pre-reg parameters, trace data, banned-list state, or audit verdicts. The C1 commit at SHA `2042dc5` already documented the trace + audit + drift-log entries; this backfill closes the prompt-storage gap that section §"Banned-list timeline" line 60 referenced but never operationalized.
+
+**Forward discipline (C2-C5):** each per-trace authoring prompt is to be committed alongside its trace at the same C-commit, not backfilled. C1 is the only backfill case; C2 onward will land prompts at their natural C-commit time.
+
+### test_v11 (attempts #1 and #2 used byte-identical prompt)
+
+- **SHA256:** `d4fa393225a0e710b4d8c8d13ad078d8940cc51dc46456e021a2712d7ddba3ec`
+- **Length:** 11787 chars
+- **Attempt #1 transcript:** `~/.claude/projects/-Users-patrick-gergen-Pictures/9c2745a1-ad7e-44ac-8046-f7a87c8a6d0c.jsonl`, first authoring user-message at message index 7, timestamp `2026-05-08T16:27:47.416Z` UTC (= 18:27 CEST)
+- **Attempt #2 transcript:** `~/.claude/projects/-Users-patrick-gergen-Pictures/4e906d63-41ca-40b8-a193-e56fba4eeeae.jsonl`, first authoring user-message at message index 5, timestamp `2026-05-08T17:17:29.311Z` UTC (= 19:17 CEST; user-reported 19:19 — within 2-min log/local clock variance)
+- **Byte-identical between attempts:** confirmed (SHA256 match across both transcripts) — protocol-compliant "no prompt edits between retries" per pre-reg §"Authoring protocol per trace"
+- **Reproduction:** `python3 -c "import json,hashlib,sys; d=[json.loads(l) for l in open(sys.argv[1])]; m=[x for x in d if x.get('type')=='user' and 'You are authoring' in str(x.get('message',{}).get('content',''))][0]; c=m['message']['content']; t=' '.join(x.get('text','') for x in c) if isinstance(c,list) else c; print(hashlib.sha256(t.encode()).hexdigest())" <transcript-path>` — should match the SHA256 above for either transcript path.
+
+````text
+You are authoring one Python function that returns a `Trace` object. This is a held-out    
+  evaluation trace for a project you have no other context about. Author it single-shot; do  
+  not ask clarifying questions, do not iterate, do not explain your choices.                 
+                                                                                             
+  **Schema** (from `sandbox/event_trace.py`):                                                
+                                                                                             
+  ```python                                                                                  
+  from dataclasses import dataclass                                                          
+  from sandbox.world import Event                                                            
+                                                                                             
+  @dataclass(frozen=True)                                                                    
+  class GroundTruthEvent:                                                                    
+      event: Event                                                                           
+      proaction_window_s: float
+      keywords: tuple[str, ...]                                                              
+                               
+  @dataclass(frozen=True)                                                                    
+  class Trace:           
+      name: str                                                                              
+      events: list[Event]
+      ground_truth: list[GroundTruthEvent]
+      briefing: str | None = None                                                            
+      intents: tuple[str, ...] = ()
+                                                                                             
+  Event has fields id: str, kind: str, sim_time: float, content: str.                        
+                                                                                             
+  Syntactic template (one unrelated example for style only — do not reuse its ids, content,  
+  or themes):                                                                                
+                                                                                             
+  def dev_trace_v1() -> Trace:
+      gts = [                                                                                
+          _gt(
+              Event(id="flight_delay", kind="email", sim_time=10.0,                          
+                    content="Flight UA123 to Berlin tomorrow has been delayed by 3 hours. New
+   departure: 14:30."),                                                                      
+              window_s=300.0, keywords=("flight", "delay"),
+          ),                                                                                 
+          _gt(    
+              Event(id="meeting_moved", kind="calendar_update", sim_time=60.0,               
+                    content="Meeting 'Design Review' tomorrow moved from 10:00 to 14:00."),  
+              window_s=300.0, keywords=("meeting", "moved"),                                 
+          ),                                                                                 
+          _gt(                                                                               
+              Event(id="weather_alert", kind="world_event", sim_time=120.0,
+                    content="Weather alert: heavy rain expected tomorrow morning; expect     
+  travel delays."),                                                                          
+              window_s=300.0, keywords=("weather", "rain"),                                  
+          ),                                                                                 
+          _gt(    
+              Event(id="deadline", kind="email", sim_time=300.0,
+                    content="Reminder: Quarterly Report deadline is in 24 hours."),          
+              window_s=600.0, keywords=("deadline", "quarterly"),                            
+          ),                                                                                 
+          _gt(                                                                               
+              Event(id="dentist_cancel", kind="calendar_update", sim_time=480.0,
+                    content="Your dentist appointment today at 16:00 has been cancelled."),  
+              window_s=300.0, keywords=("dentist", "cancelled"),                             
+          ),                                                                                 
+      ]                                                                                      
+      return Trace(name="dev_v1", events=[g.event for g in gts], ground_truth=gts)
+                                                                                             
+  _gt is a local helper equivalent to GroundTruthEvent(event=event,                          
+  proaction_window_s=window_s, keywords=keywords); you may use it or construct               
+  GroundTruthEvent directly.                                                                 
+                  
+  Structural requirements (hard constraints; violating any auto-rejects):                    
+   
+  - name = "test_v11".                                                                       
+  - Exactly 5 GroundTruthEvents and exactly 4 distractor Events (mixed into events list,
+  sorted by sim_time).                                                                       
+  - All sim_time values in [0, 1000]; for every GT, gt.event.sim_time + gt.proaction_window_s
+   ≤ 1000.                                                                                   
+  - At least 3 distinct kind values across the 5 GTs. Allowed kinds: email, calendar_update,
+  notification, alert, phone_message, world_event.                                           
+  - At least one GT with proaction_window_s ≤ 30.
+  - At least one GT with proaction_window_s ≥ 300.                                           
+  - Keyword/content alignment: for every GroundTruthEvent gt, every string kw in gt.keywords 
+  must satisfy kw.lower() in gt.event.content.lower(). Check is purely substring-based — if  
+  the keyword's characters don't literally appear in the content, it fails.                  
+  - Briefing: 2–4 first-person sentences describing the day's setting.                       
+  - Intents: tuple of exactly 5 short phrases.                                               
+  - Distractors are plausible routine / system noise a reasonable person would NOT want
+  surfaced.                                                                                  
+  - GTs are human-interpretable on content alone as warranting proaction.
+                                                                                             
+  Banned event ids (collision auto-rejects):
+  flight_delay, meeting_moved, weather_alert, deadline, dentist_cancel, fire_alarm,          
+  news_digest, weather_nominal, marketing_newsletter, system_heartbeat, package_arrival,     
+  doctor_callback, server_outage, rent_due, kid_school_pickup, slack_invite, calendar_advert,
+   promo_email, system_status, fire_kitchen, board_meeting, water_burst, er_call,            
+  security_breach, daily_briefing, status_ok, uptime_ping, newsletter, passport_expiry, 
+  prescription_urgent, car_recall, power_shutoff_planned, plumber_reschedule, spotify_weekly,
+   app_version_note, distant_birthday, photo_likes, parking_meter_oak, cover_standup_request,
+   gym_class_cancelled, library_hold_expiring, protest_commute_route, linkedin_connections,
+  github_repo_star, designgrid_renewal, calendar_feature_tip, babysitter_sick, rail_strike,
+  keynote_slot, card_fraud, tax_extension, icloud_storage, ebook_receipt, bank_survey,
+  podcast_charge, vet_emergency, concert_swap, elevator_outage, auction_ending, wedding_rsvp,
+   reddit_digest, steam_sale, bank_statement, twitter_followers, sister_pickup,
+  mortgage_rate_lock, jury_duty, airbnb_cancelled, wedding_rehearsal, poll_civic_reminder,
+  recipe_app_tip, loyalty_points_summary, podcast_episode_drop, vet_luna_tomorrow,
+  earthquake_local, mom_birthday_heads_up, bridgers_presale_window,
+  photographer_voicemail_jen, soundcloud_app_update, stitches_loyalty_statement,
+  strava_new_follower, reading_streak_47.
+
+  Banned content themes (semantic, not just string match):
+  fire alarm / kitchen fire, flight delay, dentist cancellation, package delivery, doctor
+  callback, production / server outage, rent due, school pickup, quarterly report, board     
+  meeting, water / pipe burst, ER call, security breach / unauthorized access, weather alert,
+   marketing newsletter, daily briefing, system heartbeat / status ping, passport renewal or 
+  visa, prescription refill or medication pickup, vehicle recall or airbag defect, planned
+  building electrical / power shutoff, plumber or appliance-install reschedule, parking meter
+   expiration or urban ticketing, colleague standup or vacation back-up cover ask, gym or
+  fitness class cancellation for facility maintenance, library hold expiring today, protest
+  or civil disruption affecting commute, babysitter cancellation / evening childcare
+  emergency, rail strike or labor-action transit disruption, conference keynote /
+  speaking-slot schedule change, credit card fraud or consumer financial fraud alert, tax
+  extension or accountant-flagged tax-filing deadline, pet medical emergency + callback
+  request 10-min auth window, friend social ticket-swap with hard 5pm deadline, building
+  elevator emergency-cable-repair service disruption, online auction ending in 10 min top
+  bidder financial decision, wedding RSVP deadline tonight at midnight + meal selection,
+  family voicemail with airport pickup 15-min window, financial deadline 17:00 today
+  (mortgage rate lock), civic obligation; confirm/postpone by tomorrow noon, travel
+  reservation cancellation for next weekend, family event rescheduled Sat 12:00 → Fri 18:00,
+  personal voicemail with hard 6pm-tonight deadline, M4.2 earthquake alert with imminent
+  shaking instruction, 10-min ticket presale window opening with access code, reminder for
+  tomorrow's vet appointment + prep needed (records, stool sample), proactive heads-up for
+  mother's birthday tomorrow + history of forgetting.
+
+  Banned keyword tuples (avoid reusing any tuple as a GT's keywords field):                  
+  (flight, delay), (meeting, moved), (weather, rain), (deadline, quarterly), (dentist, 
+  cancelled), (fire, alarm), (package, delivered), (doctor, call), (production, alert),      
+  (rent, due), (school, pick up), (fire, kitchen), (board, meeting), (water, burst), 
+  (hospital, mother), (security, unauthorized), (passport, expiring), (prescription, refill),
+   (recall, airbag), (power, shutoff), (plumber, reschedule), (parking, meter, expires), 
+  (standup, vacation), (gym, maintenance), (library, hold, expires), (protest, market
+  street), (babysit, tonight), (strike, rail), (keynote, moved), (suspicious, charge), (tax,
+  expires), (vet, surgery), (concert, swap), (elevator, "out of service"), (auction, ending),
+   (wedding, rsvp), (sister, airport), (mortgage, "rate lock"), (jury, duty), (airbnb,
+  cancelled), (wedding, rehearsal), (vet, luna), (earthquake, shaking), (mother, birthday),
+  (presale, tickets), (photographer, engagement).
+
+  Output: one Python function def test_trace_v11() -> Trace: in the style of the template,   
+  followed by a single line adding "test_v11": test_trace_v11 to the get_trace registry.
+  Return the code in a single fenced Python block. Do not explain.
+````
+
 ## Walkthrough kickoff in fresh session (M11a session)
 
 When this plan is loaded into the M11a fresh session, the agent should:
