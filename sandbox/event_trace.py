@@ -734,6 +734,64 @@ def test_trace_v12() -> Trace:
     )
 
 
+def test_trace_v13() -> Trace:
+    gts = [
+        _gt(
+            Event(id="counter_offer", kind="phone_message", sim_time=80.0,
+                  content="Voicemail from agent Sara: seller submitted a counter-offer on the maple house — they want $12k more and need an answer by 5pm today."),
+            window_s=600.0, keywords=("counter-offer", "agent"),
+        ),
+        _gt(
+            Event(id="interview_confirm", kind="email", sim_time=180.0,
+                  content="From Nora Patel (recruiter): confirming your onsite interview Thursday 9am. Please reply by end of day so we can release your slot if needed."),
+            window_s=480.0, keywords=("interview", "reply"),
+        ),
+        _gt(
+            Event(id="book_club_host", kind="notification", sim_time=310.0,
+                  content="Book club at your place tomorrow 19:00 — you're host this round; folks expect snacks and you still owe the group a book selection."),
+            window_s=240.0, keywords=("book club", "host"),
+        ),
+        _gt(
+            Event(id="figmaster_trial", kind="alert", sim_time=420.0,
+                  content="Heads up: your Figmaster trial converts to paid in 25 minutes — switch to your team's Pro seat first so tomorrow's client mockups stay on the shared workspace."),
+            window_s=25.0, keywords=("trial", "converts"),
+        ),
+        _gt(
+            Event(id="ryobi_warranty", kind="email", sim_time=700.0,
+                  content="Reminder from RyobiCare: warranty on your circular saw must be registered today at midnight to retain full coverage; otherwise it drops to base 90-day."),
+            window_s=300.0, keywords=("warranty", "registered"),
+        ),
+    ]
+    distractors = [
+        Event(id="meditation_nudge", kind="notification", sim_time=50.0,
+              content="Insight Timer: you haven't meditated in 3 days. Take 5 minutes now?"),
+        Event(id="cantina_review", kind="email", sim_time=240.0,
+              content="How was Cantina Verde? Rate your meal from last Tuesday."),
+        Event(id="phone_battery_low", kind="notification", sim_time=380.0,
+              content="Battery at 20%. Plug in soon to keep notifications running."),
+        Event(id="calendar_week_digest", kind="notification", sim_time=800.0,
+              content="Your week ahead: 12 events between Wednesday and Sunday."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v13",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "It's a Wednesday in mid-spring and I'm working from home while a real estate offer on a house we love is in active back-and-forth. "
+            "I have a recruiter pushing for confirmation on a Thursday interview and a client demo I need to be ready for tomorrow morning. "
+            "I want the assistant to flag only things that actually need a decision before end of day."
+        ),
+        intents=(
+            "close the maple house deal",
+            "lock in the Thursday interview",
+            "be ready for tomorrow's client demo",
+            "honor small social commitments",
+            "ignore routine noise",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -748,6 +806,7 @@ def get_trace(name: str) -> Trace:
         "test_v8": test_trace_v8,
         "test_v11": test_trace_v11,
         "test_v12": test_trace_v12,
+        "test_v13": test_trace_v13,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")

@@ -426,6 +426,7 @@ M11a-specific additions:
 |---|---|---|---|---|---|---|
 | test_v11 | 2026-05-08 19:19 | `/Users/patrick.gergen/Pictures` | `claude-opus-4-7` (Opus 4.7, user-confirmed) | confirmed | 2 of 3 (attempt #1 rejected for structural-parsing; see §"Per-attempt drift log") | PASS (with 5 transparent borderline-theme notes; see §"Mechanism notes") |
 | test_v12 | 2026-05-09 08:41 | `/Users/patrick.gergen/Pictures` | `claude-opus-4-7` (Opus 4.7, user-confirmed) | confirmed | 1 | PASS (with 5 transparent borderline-theme notes; see §"Mechanism notes") |
+| test_v13 | 2026-05-12 19:34 | `/Users/patrick.gergen/Pictures` | `claude-opus-4-7` (Opus 4.7, user-confirmed) | confirmed | 3 of 3 (attempts #1 + #2 rejected; see §"Per-attempt drift log") | PASS (with 5 transparent borderline-theme notes; see §"Mechanism notes") |
 
 ## Per-attempt drift log
 
@@ -477,6 +478,59 @@ M11a-specific additions:
 
 ### test_v12 — retry-cap status: 1 / 3 attempts used; 2 remaining (attempt #1 accepted)
 
+### test_v13 — attempt #1 (2026-05-09 09:26 CEST = 07:26 UTC)
+
+**Verdict:** Reject (audit step 3c banned-theme reuse).
+
+**First flagged violation:** Audit step 3c — banned-theme manual review. GT `frost_advisory_garden` ("Frost advisory for your area tonight: temperatures dropping to 29F. Cover sensitive outdoor plants before 22:00.") falls within the literal banned theme "weather alert/forecast/precipitation" (M10b-pre-reg banned theme #14, embedded verbatim in the C3 fresh-session prompt). The "/forecast/precipitation" qualifier on the literal banned-theme text signals broad coverage including weather-forecast events; a frost advisory IS a weather forecast about cold-temperature conditions. Strict-letter banned-theme reuse, distinct from the M10b wedding-theme precedent (M10b's wedding_rsvp + wedding_rehearsal accepted as mild because no literal "wedding event" banned theme existed; here, "weather alert" IS a literal banned theme covering frost).
+
+**Additional borderline notes (not load-bearing on the rejection itself):** GT `brother_layover_text` ("Hey, my layover got shortened — landing at SFO 19:40 instead of 21:15. Can you still grab me from arrivals?") shows strong structural overlap with banned theme "family voicemail with airport pickup, 15-min window" (test_v7) — sub-categories distinct (brother text vs sister voicemail; layover-shortened-arriving-early vs landed-early; 600s vs 15-min) but the broad domain "family member airport pickup with tight window" is identical. Combined with frost_advisory, two strong-borderlines in a single attempt.
+
+**Per-overlap-severity counts (mechanical, against committed test_v6/v7/v8/v11/v12 GT pool — 25 prior committed GTs):** literal-ID 0 / strong 0 / mild 5 (one per GT; strong-overlap rubric a+b mechanically PASSED at zero hits; all overlap classification is via judgment-based banned-theme review).
+
+**Description:** Fresh session (Pictures cwd, 2026-05-09 09:26 CEST, dispatched response.model `claude-opus-4-7` user-verified, /clear confirmed; transcript `~/.claude/projects/-Users-patrick-gergen-Pictures/b476c861-705a-48ea-92f0-83182cf34c90.jsonl`, prompt SHA `2b5b6c5f2a87618482ade211ae9dd2100639e7c246dd94906cd452fca7fcc627`). Single-shot output passed mechanical drift rubric + cross-trace literal-ID check + structural constraints, but failed strict-letter banned-theme review on `frost_advisory_garden` ≈ "weather alert/forecast/precipitation". Counts toward retry cap. Pre-reg defense #4 (banned-list saturation) and §"Drift-monitoring criterion" rubric line 285 (mild vs strong-mechanical distinction) both relevant: the rubric explicitly makes strong-overlap mechanical-only (a or b), so noun-substitution attacks are MILD by rubric; but banned-theme **REUSE** at the literal-text level is a separate gate via audit step 3c, and here the frost advisory falls within the literal "weather alert/forecast/precipitation" coverage.
+
+### test_v13 — attempt #2 (2026-05-09 09:35 CEST = 07:35 UTC)
+
+**Verdict:** Reject (audit step 1 structural-constraint violation).
+
+**First violated constraint (audit-checklist order):** Audit step 1 / hard structural constraint #3 — "for every GT, gt.event.sim_time + gt.proaction_window_s ≤ 1000". GT `zoom_link_changed` has sim_time=410.0 + window=600.0 = **1010.0 > 1000** — fails the inequality. Hard constraint violation; auto-rejects regardless of other audit steps.
+
+**Additional banned-theme borderline notes (not load-bearing on the rejection; constraint #3 supersedes):** GT `zoom_link_changed` (Zoom link changed for investor sync) shows strict-letter banned-theme reuse candidate vs "work meeting time/location change" (M10b banned theme #2, embedded verbatim in C3 prompt) — a Zoom link change IS a virtual-meeting location change. GT `bridge_lane_closure` (Hawthorne Bridge lane closure affecting commute today) shows strong structural overlap with banned theme "parking meter or civil disruption affecting commute" (M10b) + "civic-event affecting tomorrow's commute (planned street closures)" (test_v11). GT `contractor_arrival_window` (landscaping contractor 15-min out) shows strong structural overlap with test_v11 "vendor on-site at building entry, callback request to grant access, tight window". GT `freezer_door_ajar` shows structural overlap with test_v12 "smart-home alert: garage door left open after sunset". Recorded for transparency; the constraint #3 violation alone is sufficient for reject under hard-constraint auto-reject rule.
+
+**Per-overlap-severity counts:** literal-ID 0 / strong 0 / mild 5 (audit step 4 cross-trace literal-ID PASS, strong-overlap rubric a+b PASS; theme-reuse via judgment, structural overlap dominant).
+
+**Description:** Fresh session (Pictures cwd, 2026-05-09 09:35 CEST, dispatched response.model `claude-opus-4-7` user-verified, /clear confirmed; transcript `~/.claude/projects/-Users-patrick-gergen-Pictures/ecc027ec-a384-4935-ba51-a0cef117a052.jsonl`, prompt SHA `2b5b6c5f...` byte-identical to attempt #1 per "no prompt edits between retries"). Structural-parsing failure mode (test_v7-attempt-#2 class per runs/18 §"Failure-mode analysis"): the fresh session miscounted the sim_time+window arithmetic for `zoom_link_changed` (410+600=1010, off-by-10 from the cap). Counts toward retry cap. Pre-reg defense #7 explicitly anticipates this failure mode at M11a's N≤15 attempts as M11a-extension scope input.
+
+### test_v13 — attempt #3 (2026-05-12 19:34 CEST = 17:34 UTC)
+
+**Verdict:** PASS (audit-PASS with 5 transparent borderline-theme notes; see §"Mechanism notes" → test_v13 subsection).
+
+**First violated audit step:** N/A — all six audit steps pass strict-letter (schema, keyword/content alignment, banned-ID + banned-tuple bytewise review against 100 IDs / 56 tuples, cross-trace literal-ID grep against 45 prior committed IDs, GT-regime classification independent). The 5 borderline-theme notes are mild structural overlaps with prior accepted traces — broad-domain tag overlap, no strong sub-criterion fires — judgment-only per §"Drift-monitoring criterion" rubric line 285, and do not gate audit. **Critically: NO literal banned-theme reuse** (distinct from attempts #1 + #2; this is the qualitative improvement that enabled acceptance).
+
+**Per-overlap-severity counts (mechanical, against committed test_v6/v7/v8/v11/v12 GT pool — 25 prior committed GTs):**
+- Literal-ID 0 / strong 0 / mild 5.
+- Strong-overlap (a) GT keyword tuple bytewise match (order-independent, lowercased): 0 hits across `{agent,counter-offer}`, `{interview,reply}`, `{book club,host}`, `{converts,trial}`, `{registered,warranty}` vs the 25 prior committed GT tuples.
+- Strong-overlap (b) ≥8-word verbatim phrase (lowercased, whitespace-normalized): 0 hits across the 5 new GT contents vs the 25 prior committed GT contents.
+- Mild overlap: 5 (one per GT; structural-template parallels with prior accepted traces' themes; see §"Mechanism notes" → test_v13 for per-GT diagnoses; closest calls are `book_club_host` ≈ test_v8 "tomorrow vet appointment + prep" template and `ryobi_warranty` ≈ test_v12 "DMV license renewal deadline today at midnight" template).
+- Cross-trace literal-ID collision (audit step 4): 0 collisions across 9 new IDs vs the 45 prior committed-trace IDs.
+
+**Description:** Fresh session (Pictures cwd, 2026-05-12 19:34 CEST, dispatched response.model `claude-opus-4-7` user-verified, /clear confirmed; transcript `~/.claude/projects/-Users-patrick-gergen-Pictures/fcd09e33-9a7a-4761-8305-ea1d361c3f96.jsonl`, prompt SHA `2b5b6c5f...` byte-identical to attempts #1 + #2 per "no prompt edits between retries"). Single-shot output passing strict-letter audit on third read after attempts #1 (banned-theme reuse) and #2 (structural-constraint violation) rejections. Variable name `events` (not `all_events`) preserved verbatim from fresh-session emission per the M10 permitted-edits rule. Mechanical drift rubric — 0 literal-ID collisions, 0 strong-overlap (a), 0 strong-overlap (b) — fully clean for M11a's drift-revision-success criterion. Trace accepted as M11a's third committed trace (C3).
+
+### test_v13 — retry-cap status: 3 / 3 attempts used; 0 remaining (attempt #3 accepted at retry-cap boundary)
+
+**Trajectory note for M11a-extension scope:** test_v13 consumed the full retry-cap-3 budget to land an accepted trace. The two prior rejections are independently legitimate per pre-reg defenses #4 (banned-list saturation: attempt #1's frost_advisory → "weather alert/forecast/precipitation" reuse) and #7 (structural-parsing variability: attempt #2's sim_time+window=1010 arithmetic miss). The 3-attempts-to-accept pattern is consistent with M10b's test_v7 experience (also 3 attempts) and is within pre-reg expectations, but the qualitative pattern across M11a so far — test_v11 (2 attempts: structural-parsing + accept), test_v12 (1 attempt: accept), test_v13 (3 attempts: theme-reuse + structural-parsing + accept) — suggests fresh-session prompt-following reliability has high variance at the C2+ banned-list size (100/56). The pattern across rejected attempts is the empirical input to M11a-extension scope's self-restate pre-flight gate decision (deferred per pre-reg §"M11a-specific defenses" #7).
+
+### test_v13 — cross-attempt informational drift observations (rejected attempts #1 + #2; INFORMATIONAL — rejected attempts do not extend the banned list per pre-reg §"Banned-list growth trajectory" line 131)
+
+1. **`cloud_photos_synced` distractor ID convergence:** Both rejected attempt #1 ("412 photos from last weekend have finished syncing to your archive") and rejected attempt #2 ("218 photos from last weekend have finished syncing to your cloud library") independently produced the identical distractor ID `cloud_photos_synced`. Different fresh sessions (different sessionIds, different timestamps), different content (different photo counts, different sync destinations), but byte-identical distractor ID. Independent fresh-session convergence on the same identifier despite no shared transcript context. Not a protocol violation (rejected attempts don't extend the banned list; accepted attempt #3 does not contain `cloud_photos_synced`).
+
+2. **`("oven", "preheating")` keyword tuple convergence:** Both rejected attempt #1 (GT `oven_preheat_done`) and rejected attempt #2 (GT `oven_preheat_stuck`) independently produced the identical keyword tuple `("oven", "preheating")`. Different GT IDs, different sub-categories (preheat-done-casserole-ready vs preheat-stuck-no-cooking), but byte-identical tuple. Independent fresh-session convergence on the smart-oven domain. Not a protocol violation; accepted attempt #3 does not contain oven-related GTs.
+
+3. **5pm/EOD-today-deadline pattern:** All 3 attempts (rejected + accepted) included a GT with a "deadline today around 5pm" or "EOD today" framing. Attempt #1's brother_layover_text had an implicit afternoon-arrival pickup. Attempt #2's hoa-style today-deadlines. Attempt #3's counter_offer (5pm today), interview_confirm (EOD today), ryobi_warranty (midnight today). Suggests fresh-session preference for "today-deadline" content scaffolding.
+
+These convergence signals are documented for paper transparency and as M11a-extension scope inputs; they do not gate the trace acceptance per protocol (rejected-attempt content does not enter the banned list).
+
 ## GT-regime classification
 
 Independent classification of each GT's regime against V2's literal YES list (`agent/arbiter.py`, `ARBITER_SYSTEM_PROMPT_V2`), performed before any harness cell on that trace runs (per per-trace structural audit step 5). V2's YES enumeration has 6 categories: (1) urgent safety/security; (2) personal schedule changes; (3) financial/deadline obligations within next few days; (4) personal messages/deliveries; (5) weather/external conditions changing planned day; (6) production/on-call alerts. Per-trace subsections appended at each accepted Commit C1-C5; the regime column is mechanically reused as the appended banned-theme entry under the iterative-extension rule (per §"Authoring protocol per trace" → "Banned content themes" extension rule).
@@ -504,6 +558,19 @@ Independent classification of each GT's regime against V2's literal YES list (`a
 | margin_account_warning | brokerage margin call requiring 2-hour deposit to avoid forced liquidation | partial: cat 3 (financial obligation, deadline within next few days) spirit match (financial obligation with tight deadline; not literal V2 example which lists bill/rent/report/payment) | **PARTIALLY in-V2-enum** |
 
 **Aggregate (test_v12):** 2 clean-in (garage_open_overnight, friend_hospitalized) + 3 partial-in (license_expires_today, hoa_assessment_vote, margin_account_warning) + 0 borderline-out. Slightly more partial-tilted than test_v11 (3+2+0); aggregate spread across M11a so far at 5+5=10 GTs is 5 clean-in / 5 partial-in / 0 borderline-out — moderately more in-enum-tilted than M10b's combined N=3 (4 clean / 6 partial / 5 borderline-out across 15 GTs). M11a-relevant prediction: V2-3B might land 0.40-0.80 (license + hoa + margin are the at-risk GTs given financial-deadline literal-example mismatch); V2-Opus expected 0.80-1.00.
+
+### test_v13 (5 GTs)
+
+| GT id | regime | V2 category match | classification |
+|---|---|---|---|
+| counter_offer | voicemail about real-estate counter-offer with 5pm-today deadline, financial decision | clean: cat 3 (financial/deadline obligations) — real-estate financial decision deadline today; cat 4 (personal messages) — voicemail directed personally with agent contact | **IN-V2-enum** |
+| interview_confirm | recruiter email confirming scheduled interview, reply-or-lose-slot by EOD | partial: cat 3 (deadline obligation) spirit match (confirm-by-EOD-or-lose-slot is a deadline-with-consequence; not literal V2 example which lists bill/rent/report/payment); cat 4 (personal messages) partial match (recruiter email directed personally) | **PARTIALLY in-V2-enum** |
+| book_club_host | notification reminder about hosting book club tomorrow + prep needed | partial: cat 2 (personal schedule changes) spirit match (tomorrow personal-event reminder; not literally a schedule change but a hosting-prep heads-up); cat 5 (external conditions changing planned day) weak match (tomorrow event affects planned day prep) | **PARTIALLY in-V2-enum** |
+| figmaster_trial | SaaS trial conversion alert with tight-window pro-seat switch action | partial: cat 3 (financial/deadline obligations) spirit match (trial converts to paid in 25 min = financial-stake action deadline; not literal V2 example); cat 6 (production/on-call alerts) partial match (tech-tool transition affecting team workspace) | **PARTIALLY in-V2-enum** |
+| ryobi_warranty | consumer-warranty registration deadline today at midnight, coverage-drop consequence | partial: cat 3 (financial/deadline obligations within next few days) spirit match (consumer warranty obligation deadline tonight; not literal V2 example which lists bill/rent/report/payment) | **PARTIALLY in-V2-enum** |
+
+**Aggregate (test_v13):** 1 clean-in (counter_offer) + 4 partial-in (interview_confirm, book_club_host, figmaster_trial, ryobi_warranty) + 0 borderline-out. Continues the partial-tilt trend observed across M11a: test_v11 (3+2+0), test_v12 (2+3+0), test_v13 (1+4+0) — defense #4 saturation signal as cumulative banned-list grows. Aggregate M11a N=3 (15 GTs): 6 clean-in / 9 partial-in / 0 borderline-out. M11a-relevant prediction: V2-3B might land 0.40-0.80 (partial-in GTs are the at-risk ones given non-literal-V2-example status); V2-Opus expected 0.80-1.00.
+
 
 ## Mechanism notes
 
@@ -536,6 +603,20 @@ The audit accepted test_v12's first attempt with five transparent borderline-the
 4. **GT `hoa_assessment_vote` vs banned theme "civic obligation; confirm/postpone by tomorrow noon" (test_v7).** Both are governance-vote-with-deadline structural patterns. Sub-category distinct: HOA is private/community-association governance (homeowners' association vote on emergency assessment), not strictly civic in the public-sector sense the banned theme exemplifies (jury-duty-style civic obligation). Documented as mild-overlap because reviewers may construe "civic" broadly to include community governance; defense is the public-sector vs private-association distinction.
 
 5. **GT `margin_account_warning` vs banned themes "financial deadline 17:00 today (mortgage rate lock)" (test_v7) + "online auction ending in 10 min top bidder financial decision" (test_v6).** All three share a tight-window financial-deadline-with-stakes structural pattern. Sub-category distinct: brokerage margin call (forced liquidation if undeposited) vs mortgage rate-lock signing (refinance-rate consequence) vs auction top-bidder (purchase decision) — different financial mechanisms, different consequences, different industry domains. Documented as mild-overlap because the structural template "tight-deadline financial decision with adverse consequence" is shared; literal banned-theme text refers to mortgage and auction specifically.
+
+### test_v13 — borderline-theme notes (audit PASS at attempt #3 with transparency; attempts #1 + #2 rejected)
+
+The audit accepted test_v13's third attempt with five transparent borderline-theme notes after attempts #1 (banned-theme reuse on `frost_advisory_garden`) and #2 (structural-constraint #3 violation on `zoom_link_changed` arithmetic) were rejected. All five borderline-theme notes for the accepted attempt #3 are mild overlaps under the §"Drift-monitoring criterion" rubric line 285 ("broad-domain tag overlap, no strong sub-criterion fires") — judgment-only, do not gate. The strong-overlap rubric (a tuple-bytewise + b ≥8-word-verbatim) mechanically PASSED with zero hits across the new trace's 5 GTs vs the 25 prior committed GTs (test_v6/v7/v8/v11/v12). **Critically: no GT in attempt #3 falls within a literal banned-theme description verbatim** — this is the qualitative improvement that distinguishes attempt #3 from attempts #1 + #2. Documented for paper-level transparency, mirroring test_v11/test_v12 patterns at C1/C2.
+
+1. **GT `counter_offer` vs banned themes "financial deadline 17:00 today (mortgage rate lock)" (test_v7) + "personal voicemail with hard 6pm-tonight deadline" (test_v8).** All three share a voicemail-or-message-with-today's-financial-deadline structural pattern. Sub-categories distinct: real-estate counter-offer-acceptance (this GT) vs mortgage rate-lock-signing (test_v7) vs ambiguous personal-deadline voicemail (test_v8). Different financial mechanisms (counter-offer accept/reject vs rate-lock disclosure signing vs unspecified personal-deadline action). Documented as mild-overlap because the structural template "voicemail + financial-deadline-today" is shared; literal banned-theme text refers to mortgage rate-lock specifically.
+
+2. **GT `interview_confirm` vs banned theme "civic obligation; confirm/postpone by tomorrow noon" (test_v7).** Both share a confirm-by-deadline-or-lose-opportunity structural pattern. Sub-category distinct: jury-duty-style civic obligation (test_v7) vs recruiter-interview confirmation (this GT). Different domains: public-sector civic (jury summons) vs private-sector employment (recruiter). Documented as mild-overlap because the structural template "confirm by [deadline] or [consequence]" is shared; literal banned-theme text says "civic obligation" specifically (recruiter interview is private employment, not civic).
+
+3. **GT `book_club_host` vs banned theme "reminder for tomorrow's vet appointment + prep needed (records, stool sample)" (test_v8).** **Strongest structural call of the 5.** Both share a "reminder for tomorrow's [event] + prep needed" template — near-identical scaffolding. Sub-categories distinct: vet medical appointment off-site (test_v8) vs book club social event at user's place (this GT). Different prep types (vaccination records + stool sample vs snacks + book selection). Different event classes (medical vs social). Documented as mild-overlap because the structural template "tomorrow event reminder + prep heads-up" is near-identical; defense rests on the medical-vs-social sub-category distinction. By the M10b wedding-theme precedent (test_v6 wedding_rsvp + test_v7 wedding_rehearsal accepted as mild with distinct sub-categories), this is the same pattern: shared template, distinct sub-category.
+
+4. **GT `figmaster_trial` vs banned themes "10-min ticket presale window opening with access code" (test_v8) + "online auction ending in 10 min top bidder financial decision" (test_v6).** All three share a tight-window opportunity-or-financial-action structural pattern. Sub-categories distinct: SaaS trial conversion (this GT) vs ticket presale opening (test_v8) vs auction ending (test_v6). Different industry domains: SaaS/B2B tool (Figmaster) vs concert tickets (Phoebe Bridgers) vs consumer auction. Documented as mild-overlap because the structural template "X happens in 10-25 min, action required" is shared; literal banned-theme text refers to ticket presale and auction specifically.
+
+5. **GT `ryobi_warranty` vs banned theme "DMV driver's license renewal deadline today at midnight, legal/regulatory requirement" (test_v12).** **Second strongest structural call.** Both share an "X registration deadline today at midnight, coverage-or-consequence" structural template. Sub-categories distinct: state-DMV driver's license (legal, mandatory) vs RyobiCare circular-saw warranty (consumer, opt-in). Different consequences: cannot legally drive tomorrow (test_v12) vs warranty drops to base 90-day (this GT). Different authority types (government vs consumer-products vendor). Documented as mild-overlap because the structural template is near-identical; defense rests on the legal-vs-consumer sub-category distinction.
 
 ## Banned-list timeline
 
@@ -589,6 +670,28 @@ screen_time_report, photo_backup_complete, grocer_back_in_stock, calendar_yoga_s
 **Banned keyword tuples (+5 from accepted test_v12 GT keywords; full new list 51 + 5 = 56):**
 ```
 (garage, open), (hospitalized, mike), (license, expires), (hoa, vote), (margin, deposit)
+```
+
+### State at C4 fresh-session prompt (test_v14; post-C3 extension)
+
+= **post-C3 extended state (109 IDs / 62 themes / 61 tuples)**, applying the iterative-extension rule with test_v13's accepted-attempt-#3 contributions (rejected attempts #1 + #2 do not extend per pre-reg §"Banned-list growth trajectory" line 131):
+
+**Banned IDs (+9 from accepted test_v13; full new list 100 + 9 = 109):**
+```
+counter_offer, interview_confirm, book_club_host, figmaster_trial, ryobi_warranty,
+meditation_nudge, cantina_review, phone_battery_low, calendar_week_digest
+```
+
+**Banned content themes (+5 from test_v13 GT-regime classification regime column, verbatim; full new list 57 + 5 = 62):**
+- voicemail about real-estate counter-offer with 5pm-today deadline, financial decision
+- recruiter email confirming scheduled interview, reply-or-lose-slot by EOD
+- notification reminder about hosting book club tomorrow + prep needed
+- SaaS trial conversion alert with tight-window pro-seat switch action
+- consumer-warranty registration deadline today at midnight, coverage-drop consequence
+
+**Banned keyword tuples (+5 from accepted test_v13 GT keywords; full new list 56 + 5 = 61):**
+```
+(counter-offer, agent), (interview, reply), (book club, host), (trial, converts), (warranty, registered)
 ```
 
 ## Per-trace authoring prompts (verbatim, SHA256-attested)
@@ -999,6 +1102,165 @@ You are authoring one Python function that returns a `Trace` object. This is a h
     followed by a single line adding "test_v12": test_trace_v12 to the get_trace registry.
     Return the code in a single fenced Python block. Do not explain. 
 ````
+
+### test_v13 (3 attempts; attempts #1 and #2 rejected; attempt #3 accepted at retry-cap-3 boundary)
+
+All 3 attempts used **byte-identical** authoring prompt (protocol-compliant "no prompt edits between retries" per pre-reg §"Authoring protocol per trace"). Three different fresh sessions (different sessionIds, different timestamps spanning 2026-05-09 09:26 CEST through 2026-05-12 19:34 CEST), all paste-clean via `pbcopy < /tmp/c3_authoring_prompt.txt` discipline established at C3 to eliminate the C2 markdown-paste whitespace artifact.
+
+- **Raw SHA256 (all 3 attempts):** `2b5b6c5f2a87618482ade211ae9dd2100639e7c246dd94906cd452fca7fcc627`
+- **Length:** 13194 chars
+- **Whitespace-paste-clean across all 3 attempts** (verified via direct pbcopy-from-file rather than markdown-rendered paste; SHA byte-identical to mechanically-generated C3 prompt with zero whitespace drift, distinct from C2 which had a 4-space-indent paste artifact)
+- **Attempt #1 transcript:** `~/.claude/projects/-Users-patrick-gergen-Pictures/b476c861-705a-48ea-92f0-83182cf34c90.jsonl`, first authoring user-message at message index 7, timestamp `2026-05-09T07:26:59.362Z` UTC (= 09:26 CEST). Verdict REJECT (banned-theme reuse).
+- **Attempt #2 transcript:** `~/.claude/projects/-Users-patrick-gergen-Pictures/ecc027ec-a384-4935-ba51-a0cef117a052.jsonl`, first authoring user-message at message index 5, timestamp `2026-05-09T07:35:08.402Z` UTC (= 09:35 CEST; user-reported 09:36 — within 1-min log/local clock variance). Verdict REJECT (structural-constraint #3 violation).
+- **Attempt #3 transcript:** `~/.claude/projects/-Users-patrick-gergen-Pictures/fcd09e33-9a7a-4761-8305-ea1d361c3f96.jsonl`, first authoring user-message at message index 5, timestamp `2026-05-12T17:34:00.994Z` UTC (= 19:34 CEST). Verdict PASS.
+
+````text
+You are authoring one Python function that returns a `Trace` object. This is a held-out    
+  evaluation trace for a project you have no other context about. Author it single-shot; do  
+  not ask clarifying questions, do not iterate, do not explain your choices.                 
+                                                                                             
+  **Schema** (from `sandbox/event_trace.py`):                                                
+                                                                                             
+  ```python                                                                                  
+  from dataclasses import dataclass                                                          
+  from sandbox.world import Event                                                            
+                                                                                             
+  @dataclass(frozen=True)                                                                    
+  class GroundTruthEvent:                                                                    
+      event: Event                                                                           
+      proaction_window_s: float
+      keywords: tuple[str, ...]                                                              
+                               
+  @dataclass(frozen=True)                                                                    
+  class Trace:           
+      name: str                                                                              
+      events: list[Event]
+      ground_truth: list[GroundTruthEvent]
+      briefing: str | None = None                                                            
+      intents: tuple[str, ...] = ()
+                                                                                             
+  Event has fields id: str, kind: str, sim_time: float, content: str.                        
+                                                                                             
+  Syntactic template (one unrelated example for style only — do not reuse its ids, content,  
+  or themes):                                                                                
+                                                                                             
+  def dev_trace_v1() -> Trace:
+      gts = [                                                                                
+          _gt(
+              Event(id="flight_delay", kind="email", sim_time=10.0,                          
+                    content="Flight UA123 to Berlin tomorrow has been delayed by 3 hours. New
+   departure: 14:30."),                                                                      
+              window_s=300.0, keywords=("flight", "delay"),
+          ),                                                                                 
+          _gt(    
+              Event(id="meeting_moved", kind="calendar_update", sim_time=60.0,               
+                    content="Meeting 'Design Review' tomorrow moved from 10:00 to 14:00."),  
+              window_s=300.0, keywords=("meeting", "moved"),                                 
+          ),                                                                                 
+          _gt(                                                                               
+              Event(id="weather_alert", kind="world_event", sim_time=120.0,
+                    content="Weather alert: heavy rain expected tomorrow morning; expect     
+  travel delays."),                                                                          
+              window_s=300.0, keywords=("weather", "rain"),                                  
+          ),                                                                                 
+          _gt(    
+              Event(id="deadline", kind="email", sim_time=300.0,
+                    content="Reminder: Quarterly Report deadline is in 24 hours."),          
+              window_s=600.0, keywords=("deadline", "quarterly"),                            
+          ),                                                                                 
+          _gt(                                                                               
+              Event(id="dentist_cancel", kind="calendar_update", sim_time=480.0,
+                    content="Your dentist appointment today at 16:00 has been cancelled."),  
+              window_s=300.0, keywords=("dentist", "cancelled"),                             
+          ),                                                                                 
+      ]                                                                                      
+      return Trace(name="dev_v1", events=[g.event for g in gts], ground_truth=gts)
+                                                                                             
+  _gt is a local helper equivalent to GroundTruthEvent(event=event,                          
+  proaction_window_s=window_s, keywords=keywords); you may use it or construct               
+  GroundTruthEvent directly.                                                                 
+                  
+  Structural requirements (hard constraints; violating any auto-rejects):                    
+   
+  - name = "test_v13".                                                                       
+  - Exactly 5 GroundTruthEvents and exactly 4 distractor Events (mixed into events list,
+  sorted by sim_time).                                                                       
+  - All sim_time values in [0, 1000]; for every GT, gt.event.sim_time + gt.proaction_window_s
+   ≤ 1000.                                                                                   
+  - At least 3 distinct kind values across the 5 GTs. Allowed kinds: email, calendar_update,
+  notification, alert, phone_message, world_event.                                           
+  - At least one GT with proaction_window_s ≤ 30.
+  - At least one GT with proaction_window_s ≥ 300.                                           
+  - Keyword/content alignment: for every GroundTruthEvent gt, every string kw in gt.keywords 
+  must satisfy kw.lower() in gt.event.content.lower(). Check is purely substring-based — if  
+  the keyword's characters don't literally appear in the content, it fails.                  
+  - Briefing: 2–4 first-person sentences describing the day's setting.                       
+  - Intents: tuple of exactly 5 short phrases.                                               
+  - Distractors are plausible routine / system noise a reasonable person would NOT want
+  surfaced.                                                                                  
+  - GTs are human-interpretable on content alone as warranting proaction.
+                                                                                             
+  Banned event ids (collision auto-rejects):
+  flight_delay, meeting_moved, weather_alert, deadline, dentist_cancel, fire_alarm,          
+  news_digest, weather_nominal, marketing_newsletter, system_heartbeat, package_arrival,     
+  doctor_callback, server_outage, rent_due, kid_school_pickup, slack_invite, calendar_advert,
+   promo_email, system_status, fire_kitchen, board_meeting, water_burst, er_call,            
+  security_breach, daily_briefing, status_ok, uptime_ping, newsletter, passport_expiry, 
+  prescription_urgent, car_recall, power_shutoff_planned, plumber_reschedule, spotify_weekly,
+   app_version_note, distant_birthday, photo_likes, parking_meter_oak, cover_standup_request,
+   gym_class_cancelled, library_hold_expiring, protest_commute_route, linkedin_connections,
+  github_repo_star, designgrid_renewal, calendar_feature_tip, babysitter_sick, rail_strike,
+  keynote_slot, card_fraud, tax_extension, icloud_storage, ebook_receipt, bank_survey,
+  podcast_charge, vet_emergency, concert_swap, elevator_outage, auction_ending, wedding_rsvp,
+   reddit_digest, steam_sale, bank_statement, twitter_followers, sister_pickup,
+  mortgage_rate_lock, jury_duty, airbnb_cancelled, wedding_rehearsal, poll_civic_reminder,
+  recipe_app_tip, loyalty_points_summary, podcast_episode_drop, vet_luna_tomorrow,
+  earthquake_local, mom_birthday_heads_up, bridgers_presale_window,
+  photographer_voicemail_jen, soundcloud_app_update, stitches_loyalty_statement,
+  strava_new_follower, reading_streak_47, locksmith_buzzer, spanish_tutoring_shift, bistro_wallet_holding, city_marathon_closures, pitch_slides_review_ask, chess_puzzle_nudge, printworks_payment_ack, trivia_league_round, sam_article_forward, garage_open_overnight, friend_hospitalized, license_expires_today, hoa_assessment_vote, margin_account_warning, screen_time_report, photo_backup_complete, grocer_back_in_stock, calendar_yoga_suggest.
+
+  Banned content themes (semantic, not just string match):
+  fire alarm / kitchen fire, flight delay, dentist cancellation, package delivery, doctor
+  callback, production / server outage, rent due, school pickup, quarterly report, board     
+  meeting, water / pipe burst, ER call, security breach / unauthorized access, weather alert,
+   marketing newsletter, daily briefing, system heartbeat / status ping, passport renewal or 
+  visa, prescription refill or medication pickup, vehicle recall or airbag defect, planned
+  building electrical / power shutoff, plumber or appliance-install reschedule, parking meter
+   expiration or urban ticketing, colleague standup or vacation back-up cover ask, gym or
+  fitness class cancellation for facility maintenance, library hold expiring today, protest
+  or civil disruption affecting commute, babysitter cancellation / evening childcare
+  emergency, rail strike or labor-action transit disruption, conference keynote /
+  speaking-slot schedule change, credit card fraud or consumer financial fraud alert, tax
+  extension or accountant-flagged tax-filing deadline, pet medical emergency + callback
+  request 10-min auth window, friend social ticket-swap with hard 5pm deadline, building
+  elevator emergency-cable-repair service disruption, online auction ending in 10 min top
+  bidder financial decision, wedding RSVP deadline tonight at midnight + meal selection,
+  family voicemail with airport pickup 15-min window, financial deadline 17:00 today
+  (mortgage rate lock), civic obligation; confirm/postpone by tomorrow noon, travel
+  reservation cancellation for next weekend, family event rescheduled Sat 12:00 → Fri 18:00,
+  personal voicemail with hard 6pm-tonight deadline, M4.2 earthquake alert with imminent
+  shaking instruction, 10-min ticket presale window opening with access code, reminder for
+  tomorrow's vet appointment + prep needed (records, stool sample), proactive heads-up for
+  mother's birthday tomorrow + history of forgetting, vendor on-site at building entry, callback request to grant access, tight window, tutoring session time-shift today (+30 min), personal-services schedule change, lost-item recovery deadline today, tonight's-close pickup window, civic-event affecting tomorrow's commute (planned street closures), friend's professional-favor request with tomorrow-morning deadline, smart-home alert: garage door left open after sunset, household-security check-on with tight window, voicemail update about close friend hospitalized for chest pains, informational (no immediate-action demand), DMV driver's license renewal deadline today at midnight, legal/regulatory requirement, HOA emergency assessment vote with today-deadline financial-obligation decision, brokerage margin call requiring 2-hour deposit to avoid forced liquidation.
+
+  Banned keyword tuples (avoid reusing any tuple as a GT's keywords field):                  
+  (flight, delay), (meeting, moved), (weather, rain), (deadline, quarterly), (dentist, 
+  cancelled), (fire, alarm), (package, delivered), (doctor, call), (production, alert),      
+  (rent, due), (school, pick up), (fire, kitchen), (board, meeting), (water, burst), 
+  (hospital, mother), (security, unauthorized), (passport, expiring), (prescription, refill),
+   (recall, airbag), (power, shutoff), (plumber, reschedule), (parking, meter, expires), 
+  (standup, vacation), (gym, maintenance), (library, hold, expires), (protest, market
+  street), (babysit, tonight), (strike, rail), (keynote, moved), (suspicious, charge), (tax,
+  expires), (vet, surgery), (concert, swap), (elevator, "out of service"), (auction, ending),
+   (wedding, rsvp), (sister, airport), (mortgage, "rate lock"), (jury, duty), (airbnb,
+  cancelled), (wedding, rehearsal), (vet, luna), (earthquake, shaking), (mother, birthday),
+  (presale, tickets), (photographer, engagement), (locksmith, buzzer), (tutoring, moved), (wallet, pickup), (marathon, closes), (slides, feedback), (garage, open), (hospitalized, mike), (license, expires), (hoa, vote), (margin, deposit).
+
+  Output: one Python function def test_trace_v13() -> Trace: in the style of the template,   
+  followed by a single line adding "test_v13": test_trace_v13 to the get_trace registry.
+  Return the code in a single fenced Python block. Do not explain.
+````
+
 
 
 ## Walkthrough kickoff in fresh session (M11a session)
