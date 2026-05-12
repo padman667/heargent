@@ -792,6 +792,60 @@ def test_trace_v13() -> Trace:
     )
 
 
+def test_trace_v14() -> Trace:
+    gts = [
+        _gt(
+            Event(id="backup_codes_rotating", kind="notification", sim_time=40.0,
+                  content="Account two-factor backup codes are being rotated in 25 seconds; once rotation completes, current codes become invalid — save or print the new codes shown on screen now."),
+            window_s=20.0, keywords=("backup", "codes"),
+        ),
+        _gt(
+            Event(id="inspector_walkthrough_advanced", kind="calendar_update", sim_time=150.0,
+                  content="Today's 1:30 PM walkthrough of 426 Pine with the structural inspector has been moved up to 11:30 AM at the seller's request; bring the punch list and the disclosure packet."),
+            window_s=120.0, keywords=("walkthrough", "inspector"),
+        ),
+        _gt(
+            Event(id="movers_swap_slot", kind="phone_message", sim_time=220.0,
+                  content="Voicemail from Hiroshi at City Movers: 'Driver opened up a 7 AM slot tomorrow instead of your 2 PM booking — needs a yes or no in the next hour or it goes to someone else.'"),
+            window_s=240.0, keywords=("movers", "slot"),
+        ),
+        _gt(
+            Event(id="bond_purchase_confirm", kind="email", sim_time=380.0,
+                  content="Your Treasury Direct purchase order for $10,000 in Series I savings bonds requires final confirmation by end of business today (5:00 PM ET); without it the order will be cancelled and the rate locked-in window will be forfeited."),
+            window_s=600.0, keywords=("bond", "confirmation"),
+        ),
+        _gt(
+            Event(id="boil_water_zip", kind="world_event", sim_time=480.0,
+                  content="Public utility advisory: a boil-water notice is now in effect for your zip code through tomorrow evening; do not consume tap water or use it for cooking without boiling for at least one minute."),
+            window_s=480.0, keywords=("boil-water", "tap"),
+        ),
+    ]
+    distractors = [
+        Event(id="beanwise_promo_20pct", kind="email", sim_time=15.0,
+              content="Promotional: 20% off your next refill at Beanwise — use code GRIND20 at checkout, expires Friday."),
+        Event(id="sticker_packs_added", kind="notification", sim_time=95.0,
+              content="Your messaging app added three new sticker packs you can use in DMs; tap to browse."),
+        Event(id="editor_focus_tip", kind="notification", sim_time=310.0,
+              content="Tip: try the new 'focus mode' in your editor for distraction-free writing — tap to learn more."),
+        Event(id="design_weekly_digest", kind="email", sim_time=720.0,
+              content="Design Weekly: seven articles you might enjoy in product design this week, plus a roundup of new component libraries."),
+    ]
+    all_events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v14",
+        events=all_events,
+        ground_truth=gts,
+        briefing="I'm working from my home office in Chicago today while juggling a small move next week and an active offer on a unit on Pine Street. My inbox fills up with low-signal newsletters and app tips, so I rely on Claude to flag what genuinely needs me. Treasury Direct, the movers, and a structural walkthrough are all in motion in parallel.",
+        intents=(
+            "Don't miss high-stakes financial confirmation windows",
+            "Keep moving logistics and same-day reschedules on track",
+            "Protect attention from app, promo, and newsletter noise",
+            "Surface account-security alerts within seconds",
+            "Be ready to act on public health or utility advisories",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -807,6 +861,7 @@ def get_trace(name: str) -> Trace:
         "test_v11": test_trace_v11,
         "test_v12": test_trace_v12,
         "test_v13": test_trace_v13,
+        "test_v14": test_trace_v14,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")
