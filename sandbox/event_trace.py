@@ -846,6 +846,64 @@ def test_trace_v14() -> Trace:
     )
 
 
+def test_trace_v15() -> Trace:
+    gts = [
+        _gt(
+            Event(id="skip_level_addition", kind="calendar_update", sim_time=55.0,
+                  content="Skip-level 1:1 with Ravi added to your calendar at 2:00 PM today. Tentative — accept, decline, or propose a new time before end of day."),
+            window_s=600.0, keywords=("1:1", "skip-level"),
+        ),
+        _gt(
+            Event(id="baby_shower_gift_close", kind="email", sim_time=120.0,
+                  content="Last call for Priya's baby shower group gift — the collection closes at 11:30 today before we place the order. Venmo @teampriya if you're chipping in."),
+            window_s=420.0, keywords=("baby shower", "collection"),
+        ),
+        _gt(
+            Event(id="visa_autopay_low_balance", kind="alert", sim_time=230.0,
+                  content="Heads up: your Visa auto-payment of $843 is scheduled for tonight, but your checking balance is currently $612. Move funds or the payment will reverse."),
+            window_s=480.0, keywords=("auto-payment", "balance"),
+        ),
+        _gt(
+            Event(id="olia_reservation_hold", kind="notification", sim_time=360.0,
+                  content="Your reservation at Olia tonight at 7:30 will auto-cancel in 15 minutes unless you tap Confirm."),
+            window_s=30.0, keywords=("reservation", "auto-cancel"),
+        ),
+        _gt(
+            Event(id="brake_job_approval", kind="phone_message", sim_time=510.0,
+                  content="This is Sal at Pinewood Auto — your brake pads are shot. If you approve the $480 brake job before 3 PM I can finish it today, otherwise it pushes to next Tuesday."),
+            window_s=120.0, keywords=("brake", "approve"),
+        ),
+    ]
+    distractors = [
+        Event(id="utility_usage_summary", kind="email", sim_time=25.0,
+              content="Your April electricity usage was 312 kWh — 4% below your 12-month average. No action needed."),
+        Event(id="coffee_subscription_promo", kind="email", sim_time=180.0,
+              content="Spring beans are here — take 15% off your next Roastery House bag with code BLOOM15. Offer good through the month."),
+        Event(id="streaming_new_releases", kind="notification", sim_time=295.0,
+              content="New this week on Plume: 4 series and 9 films added in your watchlist's genres. Open the app to browse."),
+        Event(id="smart_speaker_firmware", kind="notification", sim_time=470.0,
+              content="Your Lumen Mini speaker installed firmware 8.4.1 overnight. Voice quality improvements; no setup required."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v15",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "Working from home today between calls and an evening dinner I still haven't confirmed. "
+            "A few small commitments are piling up — a coworker's group gift closing midmorning, a calendar surprise from my skip-level, and a car at the shop waiting on my call. "
+            "I'd like to be left alone unless something genuinely needs me to act in the next hour."
+        ),
+        intents=(
+            "act on today-only windows before they close",
+            "respond to humans waiting on my decision",
+            "avoid surfacing routine digests and promos",
+            "keep money from bouncing or being wasted",
+            "follow through on commitments to family and coworkers",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -862,6 +920,7 @@ def get_trace(name: str) -> Trace:
         "test_v12": test_trace_v12,
         "test_v13": test_trace_v13,
         "test_v14": test_trace_v14,
+        "test_v15": test_trace_v15,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")
