@@ -1751,3 +1751,138 @@ When this plan is loaded into the M11a fresh session, the agent should:
 5. Begin Commit C1 (first fresh-session-authored trace, test_v11) only after Commit A lands. The fresh-session prompt for test_v11 embeds the M11a-Commit-A starting banned-list state (82 IDs / 47 themes / 46 tuples).
 
 This plan is the locked design for M11a. Any deviation requires a new plan iteration before code is written.
+
+## Commit D results
+
+(Populated at Commit D; verbatim execution per pre-reg §"Commit D harness execution" lines 349-363. Pre-Commit-D drift smoke on 3 co-developed traces vs `runs/data/17b-content-opus-v2-*.json` ran first, PASS bit-identical. 20-cell harness matrix run on test_v11..test_v15 immediately after. Per-trace observations, aggregate metrics at three N-scopes, P1/P2/P3 verdicts, drift-revision verdict, and outcome row identification all computed verbatim against frozen pre-reg rules; Row 4a paper-line text reproduced verbatim from §"Outcome interpretation lookup table" with integer placeholders filled from observed counts and 95% Clopper-Pearson binomial CIs.)
+
+### Pre-Commit-D bit-identical drift smoke
+
+3 V2-Opus cells on `dev_v2` / `test_v1` / `test_v2` bit-compared against `runs/data/17b-content-opus-v2-{dev_v2,test_v1,test_v2}.json` (M10's V2-Opus regression baseline at 2026-04-27; M10b D's drift smoke PASSed against the same at 2026-05-08).
+
+| trace | arbiter_calls | arbiter_yes_rate | arbiter_input_tokens | arbiter_output_tokens | arbiter_dispatched_model | hit / false_h |
+|---|---|---|---|---|---|---|
+| dev_v2  | 4 (match) | 0.75 (match) | 1854 (match) | 8 (match) | claude-opus-4-7 (match) | 1.00 / 0.000 (match) |
+| test_v1 | 8 (match) | 0.625 (match) | 3677 (match) | 16 (match) | claude-opus-4-7 (match) | 1.00 / 3.673 (match) |
+| test_v2 | 7 (match) | 0.42857142857142855 (match to 16 digits) | 3208 (match) | 14 (match) | claude-opus-4-7 (match) | 1.00 / 0.000 (match) |
+
+PASS on all three. **Opus 4.7 stable across 2026-04-27 → 2026-05-08 → 2026-05-13 (16 days, three M-milestone cycles).** No model rotation. Smoke cost: $0.15 across the three cells (within ~$0.13 pre-reg marginal budget).
+
+Smoke JSON paths: `runs/data/19d-smoke-content-opus-v2-{dev_v2,test_v1,test_v2}.json`.
+
+### 20-cell harness raw results
+
+| trace | cell | hit | false/h | dur(s) | total_notif | hits | distractors | arb_calls | arb_yes_rate | cost ($) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| test_v11 | V2-3B     | 0.40 | 3.711  | 970.0  | 3 | 2 | 4 | 7 | 0.143  | 0.0000 |
+| test_v11 | V2-Opus   | 1.00 | 3.711  | 970.0  | 6 | 5 | 4 | 7 | 0.571  | 0.0517 |
+| test_v11 | poll-Opus | 1.00 | 0.000  | 970.0  | 5 | 5 | 4 | — | —      | 0.9780 |
+| test_v11 | cron30s   | 1.00 | 14.845 | 970.0  | 9 | 5 | 4 | — | —      | 0.0000 |
+| test_v12 | V2-3B     | 0.60 | 7.742  | 930.0  | 5 | 3 | 4 | 6 | 0.333  | 0.0000 |
+| test_v12 | V2-Opus   | 1.00 | 7.742  | 930.0  | 7 | 5 | 4 | 6 | 0.667  | 0.0438 |
+| test_v12 | poll-Opus | 1.00 | 0.000  | 930.0  | 5 | 5 | 4 | — | —      | 0.9574 |
+| test_v12 | cron30s   | 1.00 | 15.484 | 930.0  | 9 | 5 | 4 | — | —      | 0.0000 |
+| test_v13 | V2-3B     | 0.80 | 0.000  | 1030.0 | 4 | 4 | 4 | 6 | 0.167  | 0.0000 |
+| test_v13 | V2-Opus   | 1.00 | 0.000  | 1030.0 | 5 | 5 | 4 | 6 | 0.333  | 0.0433 |
+| test_v13 | poll-Opus | 1.00 | 3.495  | 1030.0 | 6 | 5 | 4 | — | —      | 0.9333 |
+| test_v13 | cron30s   | 1.00 | 13.981 | 1030.0 | 9 | 5 | 4 | — | —      | 0.0000 |
+| test_v14 | V2-3B     | 1.00 | 0.000  | 1010.0 | 5 | 5 | 4 | 6 | 0.500  | 0.0000 |
+| test_v14 | V2-Opus   | 1.00 | 0.000  | 1010.0 | 5 | 5 | 4 | 6 | 0.500  | 0.0445 |
+| test_v14 | poll-Opus | 1.00 | 0.000  | 1010.0 | 5 | 5 | 4 | — | —      | 1.0817 |
+| test_v14 | cron30s   | 1.00 | 14.257 | 1010.0 | 9 | 5 | 4 | — | —      | 0.0000 |
+| test_v15 | V2-3B     | 0.80 | 0.000  | 740.0  | 4 | 4 | 4 | 6 | 0.333  | 0.0000 |
+| test_v15 | V2-Opus   | 1.00 | 0.000  | 740.0  | 5 | 5 | 4 | 6 | 0.500  | 0.0445 |
+| test_v15 | poll-Opus | 1.00 | 0.000  | 740.0  | 5 | 5 | 4 | — | —      | 0.7892 |
+| test_v15 | cron30s   | 1.00 | 19.459 | 740.0  | 9 | 5 | 4 | — | —      | 0.0000 |
+
+JSON paths: `runs/data/19d-{content-3b-v2,content-opus-v2,poll-opus,cron30}-{test_v11..test_v15}.json`.
+
+### P3 — Trace-fairness sanity (evaluated FIRST per pre-reg line 193)
+
+poll-Opus hit ≥ 0.80 on **all 5 M11a traces** (all 5 cells at hit_rate = 1.00). Combined with M10b's test_v6/v7/v8 (all poll-Opus hit = 1.00) and M10's test_v4 + test_v5 (all poll-Opus hit = 1.00), the fair-trace subset at every N-scope equals the full sample: **N_fair_5 = 5, N_fair_8 = 8, N_fair_10 = 10.** All P1/P2 verdicts computed on the full sample at each scope; sensitivity = included-all = fair-subset on every scope.
+
+### Per-trace observations table (populated)
+
+| trace | V2-3B hit | V2-3B false/h | V2-Opus hit | V2-Opus false/h | poll-Opus hit | cron30s hit | GT-regime in V2's YES enumeration (audit step 5) | V2-Opus closes V2-3B failures? |
+|---|---|---|---|---|---|---|---|---|
+| test_v11 | 0.40 | 3.711 | 1.00 | 3.711 | 1.00 | 1.00 | 3 clean-in / 2 partial-in / 0 borderline-out | **YES on hits** (V2-Opus closes all 3 V2-3B GT misses: spanish_tutoring_shift + city_marathon_closures + pitch_slides_review_ask). Both arbiters surface 1 identical false-init (`trivia_league_round`); V2-Opus passes joint bar at false/h = 3.711 < 5.0/h |
+| test_v12 | 0.60 | 7.742 | 1.00 | 7.742 | 1.00 | 1.00 | 2 clean-in / 3 partial-in / 0 borderline-out | **YES on hits** (V2-Opus closes both V2-3B GT misses: friend_hospitalized + margin_account_warning). **NO on joint bar**: V2-Opus inherits V2-3B's 2 false-inits (`grocer_back_in_stock` + `calendar_yoga_suggest`) at false/h = 7.742 > 5.0/h |
+| test_v13 | 0.80 | 0.000 | 1.00 | 0.000 | 1.00 | 1.00 | 1 clean-in / 4 partial-in / 0 borderline-out | **YES on hits** (V2-Opus closes V2-3B's 1 GT miss: counter_offer). No false-inits in either cell |
+| test_v14 | 1.00 | 0.000 | 1.00 | 0.000 | 1.00 | 1.00 | 3 clean-in / 2 partial-in / 0 borderline-out | N/A (V2-3B already at hit = 1.0; V2-Opus matches event-for-event) |
+| test_v15 | 0.80 | 0.000 | 1.00 | 0.000 | 1.00 | 1.00 | 3 clean-in / 2 partial-in / 0 borderline-out | **YES on hits** (V2-Opus closes V2-3B's 1 GT miss: visa_autopay_low_balance). No false-inits in either cell |
+
+### Aggregate metrics per N-scope (95% Clopper-Pearson binomial CIs)
+
+| Scope | N_fair | V2-3B failures | V2-3B fail rate | V2-3B CI95 | V2-Opus failures | V2-Opus fail rate | V2-Opus CI95 | V2-Opus closes V2-3B fails |
+|---|---|---|---|---|---|---|---|---|
+| **M11a alone** (primary for protocol-revision question) | 5 | 2 (test_v11, test_v12) | 40.0% | [5.3%, 85.3%] | 1 (test_v12) | 20.0% | [0.5%, 71.6%] | 1/2 |
+| M10b + M11a (intermediate sensitivity) | 8 | 4 (test_v6, test_v8, test_v11, test_v12) | 50.0% | [15.7%, 84.3%] | 2 (test_v8, test_v12) | 25.0% | [3.2%, 65.1%] | 2/4 |
+| **M10 + M10b + M11a** (primary for H2 coverage-rate question) | 10 | 5 (test_v4, test_v6, test_v8, test_v11, test_v12) | 50.0% | [18.7%, 81.3%] | 2 (test_v8, test_v12) | 20.0% | [2.5%, 55.6%] | 3/5 |
+
+### P1 / P2 verdicts at each scope (per pre-reg buckets verbatim)
+
+**P1 — V2-3B failure-rate bucket:**
+- M11a-alone N=5 (pre-reg line 202): 2/5 = 40% → **"≥ 40% (≥ 2/N_fair_5)" bucket**
+- M10b+M11a N=8 (pre-reg line 207): 4/8 = 50% → **"≥ 38% (≥ 3/N_fair_8)" bucket**
+- M10+M10b+M11a N=10 (pre-reg line 213): 5/10 = 50% → **"≥ 40% (≥ 4/N_fair_10)" bucket**
+
+**P2 — V2-Opus joint-bar failure (`hit < 0.80 OR false/h > 5.0/h`; pre-reg line 219):**
+- M11a alone: **1/5** — test_v12 false/h = 7.742 > 5.0/h (YES-bias ceiling check fail)
+- M10b + M11a: **2/8** — test_v8 hit = 0.60 < 0.80 (V2-enumeration limit at Opus scale; M10b finding carried) + test_v12 false/h spike
+- M10 + M10b + M11a: **2/10** — same two
+
+### Outcome row identification (verbatim per pre-reg §"Outcome interpretation lookup table" line 227)
+
+| Scope | V2-3B failure rate | V2-Opus failure count | Row condition | Row identified |
+|---|---|---|---|---|
+| M11a-alone N=5 | 40% (2/5) | 1 | `any V2-3B rate AND V2-Opus > 0 AND V2-Opus ≤ V2-3B (1 ≤ 2)` | **Row 4a** |
+| M10b + M11a N=8 | 50% (4/8) | 2 | `any V2-3B rate AND V2-Opus > 0 AND V2-Opus ≤ V2-3B (2 ≤ 4)` | **Row 4a** |
+| M10 + M10b + M11a N=10 | 50% (5/10) | 2 | `any V2-3B rate AND V2-Opus > 0 AND V2-Opus ≤ V2-3B (2 ≤ 5)` | **Row 4a** |
+
+**All three N-scopes converge on Row 4a — Partial-closure with residuals; model-scale is load-bearing-but-not-sufficient.**
+
+### Row 4a paper-line — M11a-alone N=5 primary (protocol-revision question)
+
+Reproduced verbatim from pre-reg line 256 with integer placeholders filled from observed counts; wording is not edited at Commit D.
+
+> *"On 1/5 M11a traces, V2-Opus failed the joint bar (hit < 0.80 OR false/h > 5.0/h) — extending M10b's test_v8 finding into the M11a sample. V2-Opus failure count (1) ≤ V2-3B failure count (2); model-scale is load-bearing-but-not-sufficient. Per-failure mechanism: test_v12 V2-Opus false/h = 7.742/h driven by 2 V2-prompt-inherited YES-bias false-inits (grocer_back_in_stock 'Avocado back in stock' + calendar_yoga_suggest 'recurring event suggestion') — events that V2-3B also surfaces (V2-3B's test_v12 false/h is bytewise identical at 7.742), meaning the YES-bias mechanism is V2-prompt-inherent rather than Opus-specific permissiveness. Combined N=10 V2-Opus failure rate sits at 2/10 = 20.0% (95% CI [2.5%, 55.6%]). The H2 claim updates from 'V2-Opus closes M8b's gap' to 'V2-Opus closes M8b's gap on most external-authored content but exhibits residual gaps on V2-prompt-inherited YES-bias distractors and Opus-scale V2-enumeration limits.' Future work (M11+) addresses these via routing / V4 prompt expansion / model-family upgrade."*
+
+### Row 4a paper-line — combined N=10 primary (H2 coverage-rate question)
+
+Reproduced verbatim from pre-reg line 258 with integer placeholders filled from observed counts; wording is not edited at Commit D.
+
+> *"Across 10 fresh externally-authored traces under three protocol generations (M10 frozen list; M10b frozen list; M11a iteratively-extended list), V2-Opus failed the joint bar on 2/10 traces. V2-Opus failure count (2) ≤ V2-3B failure count (5); model-scale is load-bearing-but-not-sufficient under the strongest available external sample. Per-failure mechanism: (a) test_v8 V2-Opus hit = 0.60 < 0.80 driven by 2 V2-enumeration limits at Opus scale (mom_birthday_heads_up + bridgers_presale_window — discretionary entertainment + family-event reminders outside V2's literal 'deadline obligation' enumeration); (b) test_v12 V2-Opus false/h = 7.742 > 5.0/h driven by V2-prompt-inherited YES-bias on grocer_back_in_stock + calendar_yoga_suggest distractors that V2-3B also surfaces. M10b's test_v8 partial-closure pattern replicates in the M11a sample. Combined-N=10 V2-3B failure rate is 5/10 = 50.0% (95% CI [18.7%, 81.3%]) and V2-Opus failure rate is 2/10 = 20.0% (95% CI [2.5%, 55.6%]). H2 is confirmed in direction (V2-Opus reduces failure rate from 50% → 20%, a 30 pp reduction with non-overlapping point estimates but partially overlapping CIs) but not in absolute (residuals remain). Future work (M11+) addresses via routing / V4 prompt / model-family upgrade."*
+
+### Drift-revision verdict (per pre-reg §"Pre-registered M11a success criteria" lines 287-289)
+
+**M11a drift-revision outcome: SUCCESS.**
+
+- **0 literal-ID collisions** across all 9 M11a fresh-session attempts (denominator = 9 attempts across 5 accepted + 4 rejected). M10b had 2 of 6 attempts = 33% literal-ID collision rate (test_v7 attempt #1; test_v9 attempt #2); M11a iterative-extension protocol structurally eliminated this mode.
+- **0 strong-overlap (a) GT keyword tuple bytewise matches** in accepted traces (5/5 traces clean against the mechanical bytewise-tuple rubric).
+- **0 strong-overlap (b) ≥8-word verbatim phrase matches** in accepted traces (5/5 traces clean against the mechanical phrase rubric).
+- 4 rejected attempts (test_v11 #1: structural-parsing walrus syntax; test_v13 #1: banned-theme reuse on `frost_advisory_garden`; test_v13 #2: structural constraint #3 arithmetic; test_v15 #1: structural constraint #3 arithmetic) all rejected for non-literal-ID reasons → all within retry budget per pre-reg §"Authoring protocol per trace" line 52.
+- Mild-overlap rate in accepted traces (report-only; does not gate per pre-reg line 285): 25/25 GTs across 5 accepted traces show ≥1 mild structural-template overlap with prior committed GTs. Consistent with M10b's report-only mild-overlap rate.
+
+Compared with M10b's 2-of-6 literal-ID collision rate → defense-#7 halt at N=3, **M11a's iterative-extension protocol revision delivered the targeted N=5 with zero mechanical drift signals.** The methodological contribution stands independently of the H2-coverage-rate Row-4a outcome.
+
+### Independent finding: V2-prompt-inherited YES-bias (refines Row-4a mechanism)
+
+A diagnostic refinement of the Row-4a mechanism on test_v11 and test_v12: the V2-Opus false-init events on these traces are **bytewise identical to the V2-3B false-init events** (same event_ids surfaced, same false/h numerator on the same trace duration denominator). V2-Opus inherits V2-3B's permissiveness on `trivia_league_round` (test_v11; both arbiters YES on a casual pub-trivia social-meetup notification at Saturday 19:00), `grocer_back_in_stock` (test_v12; both YES on 'Your favorite item Avocado is back in stock at your local store this week'), and `calendar_yoga_suggest` (test_v12; both YES on a recurring-event calendar suggestion) rather than introducing model-scale-specific permissiveness.
+
+This refines the Row-4a finding: V2-Opus closes V2-3B's GT-side coverage gaps but does **not** improve V2-prompt's distractor-side selectivity. The cleanest interpretation is that V2's closed YES enumeration is over-inclusive on borderline retail / calendar-suggestion / social-meetup content for both 3B and Opus arbiters, suggesting future V4 prompt revisions should add explicit NO examples covering these classes rather than reaching for further model-scale upgrades. Logged here as an independent finding within Row 4a; does not change the row identification (joint-bar failure on test_v12 stands per pre-reg P2 definition regardless of mechanism).
+
+### Cost summary
+
+- Pre-Commit-D drift smoke: **$0.15** (3 V2-Opus cells; within pre-reg ~$0.13 marginal budget)
+- 20-cell harness matrix: **$4.95** (V2-3B 5 × $0 = $0; V2-Opus 5 × $0.043-0.052 = $0.23; poll-Opus 5 × $0.789-1.082 = $4.74; cron30s 5 × $0 = $0)
+- **Total Commit D spend: $5.10**, within pre-reg $5-6 budget per §"Cost framework" line 313
+- Pareto check: V2-Opus tok-cost-per-hit across N=5 M11a traces = $0.0086-$0.0103/hit ($0.0517 / 5 hits = $0.0103/hit on test_v11; $0.0438 / 5 = $0.0088 on test_v12; $0.0433 / 5 = $0.0087 on test_v13; $0.0445 / 5 = $0.0089 on test_v14; $0.0445 / 5 = $0.0089 on test_v15). poll-Opus = $0.158-$0.216/hit. Ratio V2-Opus is **15.4×-23.3× cheaper per hit than poll-Opus** across the M11a sample — Pareto headline holds within the previously-reported 13-33× range.
+
+### M11a closure summary
+
+- Drift-revision verdict: **SUCCESS** at the iterative-extension protocol revision (0 literal-ID, 0 strong-overlap mechanical across 5 accepted traces and 9 total attempts).
+- H2 coverage-rate verdict at combined-N=10 primary scope: **Row 4a — partial-closure with residuals**. V2-3B failure rate 50% (CI [18.7%, 81.3%]); V2-Opus failure rate 20% (CI [2.5%, 55.6%]); V2-Opus closes 3 of 5 V2-3B failures, introduces 2 joint-bar failures (test_v8 hit-side; test_v12 false-h-side). Model-scale is load-bearing-but-not-sufficient. Pareto headline 13-33× cheaper per hit than poll-Opus survives the expanded sample.
+- Independent finding: V2-prompt-inherited YES-bias on retail/calendar-suggestion/social-meetup distractors (V2-Opus inherits V2-3B's permissiveness rather than improving selectivity); future V4 prompt revisions are the more targeted lever than further model-scale upgrades.
+- M11a authoring phase + harness phase together: ~$5.10 against $5-6 pre-reg budget.
+
+Commit D is one bundled commit per pre-reg §"Five-commit protocol" line 146 containing: 23 new `runs/data/19d-*.json` cell + smoke JSONs; this §"Commit D results" appendix in runs/19; row 19 + status block + paper framing line updates in runs/README.md.

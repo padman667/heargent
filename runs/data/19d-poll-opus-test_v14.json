@@ -1,0 +1,53 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "backup_codes_rotating",
+      "notification_sim_time": 40.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "inspector_walkthrough_advanced",
+      "notification_sim_time": 150.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "movers_swap_slot",
+      "notification_sim_time": 220.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "bond_purchase_confirm",
+      "notification_sim_time": 380.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "boil_water_zip",
+      "notification_sim_time": 480.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "react_poll_claude",
+  "cost_usd": 1.081695,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1010.0,
+  "llm_stats": {
+    "calls": 202,
+    "input_tokens": 65068,
+    "output_tokens": 1409,
+    "dispatched_model": "claude-opus-4-7"
+  },
+  "trace_name": "test_v14",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": null,
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v2"
+}
