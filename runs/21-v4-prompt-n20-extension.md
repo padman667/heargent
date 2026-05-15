@@ -1,7 +1,7 @@
 # Run 21 — M11a-extension: V4 prompt revision + N=20 expansion
 
 **Pre-reg date:** 2026-05-15 (M11a-extension Commit A landing).
-**Pre-reg SHA:** `{filled at this commit by post-commit doc-completeness backfill}`
+**Pre-reg SHA:** `b1d2521`
 **Source plan:** `~/.claude/plans/m11a-extension-v4-prompt-n20.md` (locked source; this file is the verbatim pre-reg copy per §D13 Commit A step 2; any further plan revision happens at the locked-plan path and back-propagates to this file via §D13's pre-Commit-D fix discipline).
 **Predecessor state:** M11b Commit D at HEAD `2d79690` (Row 1 at point estimate with Row 4a + Row 5 caveats; D7-confirm 6/6 cells; V2-Opus combined-N=10 corrected to 3/10 = 30% per `c0c6099`).
 **Pricing attestation:** `runs/data/21a-pricing-attestation-2026-05-15.json` (zero observed-published-rate drift vs M11b's `20a-...-2026-05-13.json`; M10 lock $15/$75 Opus preserved for cross-milestone consistency; Sonnet $3/$15 + Haiku $1/$5 matched to M11b lock).
