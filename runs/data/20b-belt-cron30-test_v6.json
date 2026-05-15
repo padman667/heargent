@@ -1,0 +1,48 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 15.483870967741934,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 9,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "vet_emergency",
+      "notification_sim_time": 60.0,
+      "time_to_notice_s": 10.0
+    },
+    {
+      "event_id": "concert_swap",
+      "notification_sim_time": 180.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "elevator_outage",
+      "notification_sim_time": 300.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "auction_ending",
+      "notification_sim_time": 420.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "wedding_rsvp",
+      "notification_sim_time": 600.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "cron_keyword_30s",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 930.0,
+  "trace_name": "test_v6",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": null,
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v2",
+  "arbiter_model": "opus"
+}

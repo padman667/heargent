@@ -2,12 +2,23 @@ from __future__ import annotations
 
 import argparse
 import importlib
+import inspect
 import json
 import sys
 from typing import Protocol
 
 from sandbox.event_trace import Trace, get_trace
 from sandbox.world import Event, World
+
+
+# M11b §D6: --arbiter-model CLI flag routes through this alias map for
+# ClaudeArbiter and baselines.react_poll_claude. Pinned per
+# runs/20-cross-model-sweep.md + runs/data/20a-pricing-attestation-2026-05-13.json.
+_MODEL_ALIASES = {
+    "opus": "claude-opus-4-7",
+    "sonnet": "claude-sonnet-4-6",
+    "haiku": "claude-haiku-4-5",
+}
 
 
 class Agent(Protocol):
@@ -101,6 +112,7 @@ def _load_agent(
     arbiter_random_p: float | None = None,
     arbiter_random_seed: int | None = None,
     arbiter_system_prompt: str = "v2",
+    arbiter_model: str = "opus",
 ) -> Agent:
     module_name, _, cls_name = spec.rpartition(":")
     if not module_name:
@@ -118,7 +130,8 @@ def _load_agent(
     if arbiter_mode == "claude":
         # M10 (runs/17 SHA 68d42e3) — Claude-API arbiter dispatched here
         # rather than via HeargentZA.from_trace so agent/loop.py stays
-        # untouched per the pre-reg's "Critical files" list.
+        # untouched per the pre-reg's "Critical files" list. M11b §D6 threads
+        # --arbiter-model through the ClaudeArbiter model kwarg.
         from agent.arbiter import (
             ARBITER_SYSTEM_PROMPT_V2,
             ARBITER_SYSTEM_PROMPT_V3,
@@ -129,7 +142,9 @@ def _load_agent(
             if arbiter_system_prompt == "v3"
             else ARBITER_SYSTEM_PROMPT_V2
         )
-        arbiter = ClaudeArbiter(system_prompt=prompt)
+        arbiter = ClaudeArbiter(
+            system_prompt=prompt, model=_MODEL_ALIASES[arbiter_model]
+        )
         return cls(arbiter=arbiter)
     if arbiter_mode is not None:
         if not hasattr(cls, "from_trace"):
@@ -138,6 +153,12 @@ def _load_agent(
         if arbiter_random_seed is not None:
             kwargs["random_seed"] = arbiter_random_seed
         return cls.from_trace(trace, **kwargs)
+    # Final fallback. M11b §D6: thread --arbiter-model through cls(model=...) if
+    # cls accepts a `model` kwarg (baselines.react_poll_claude:ReactPollClaude
+    # is the M11b target; non-Claude baselines without a `model` parameter
+    # continue to receive a zero-arg cls() call unchanged).
+    if "model" in inspect.signature(cls).parameters:
+        return cls(model=_MODEL_ALIASES[arbiter_model])
     return cls()
 
 
@@ -182,6 +203,12 @@ def main() -> int:
         default="v2",
         help="System prompt for --arbiter-mode=claude (V2 closed enumeration or V3 principled criterion). Ignored for content/random.",
     )
+    parser.add_argument(
+        "--arbiter-model",
+        choices=["opus", "sonnet", "haiku"],
+        default="opus",
+        help="Claude model for --arbiter-mode=claude OR for baselines.react_poll_claude:ReactPollClaude. Resolved via _MODEL_ALIASES per M11b §D6 (runs/20-cross-model-sweep.md) + locked rates per runs/data/20a-pricing-attestation-2026-05-13.json.",
+    )
     args = parser.parse_args()
 
     trace = get_trace(args.trace)
@@ -194,6 +221,7 @@ def main() -> int:
         arbiter_random_p=args.arbiter_random_p,
         arbiter_random_seed=args.arbiter_random_seed,
         arbiter_system_prompt=args.arbiter_system_prompt,
+        arbiter_model=args.arbiter_model,
     )
     metrics = run(agent, trace, tick_dt_s=args.tick_dt)
     metrics["trace_name"] = trace.name
@@ -203,6 +231,7 @@ def main() -> int:
     metrics["arbiter_random_p"] = args.arbiter_random_p
     metrics["arbiter_random_seed"] = args.arbiter_random_seed
     metrics["arbiter_system_prompt"] = args.arbiter_system_prompt
+    metrics["arbiter_model"] = args.arbiter_model
     if args.arbiter_mode == "claude":
         # Augment llm_stats with Claude arbiter token counts and override
         # cost_usd (HeargentZA.cost_usd returns 0.0 by default since the

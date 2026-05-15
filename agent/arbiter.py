@@ -12,8 +12,35 @@ if TYPE_CHECKING:
 
 # Anthropic Opus 4.7 rates locked at runs/17-claude-arbiter.md SHA 68d42e3
 # (M10 Commit A pre-reg). Used by ClaudeArbiter and baselines.react_poll_claude.
+# Observed published rate at M11b Commit A was $5/$25 (rotated since M10);
+# M10 lock holds for M11b cost computations per runs/20-cross-model-sweep.md
+# §D4 points 3+5 + runs/data/20a-pricing-attestation-2026-05-13.json.
 OPUS_INPUT_USD_PER_M = 15.0
 OPUS_OUTPUT_USD_PER_M = 75.0
+
+# Anthropic Sonnet 4.6 + Haiku 4.5 rates locked at runs/20-cross-model-sweep.md
+# SHA 0b47ce3 (M11b Commit A pre-reg) per pricing attestation
+# runs/data/20a-pricing-attestation-2026-05-13.json; verified bit-identical to
+# plan §D4 placeholders at Commit A.
+SONNET_INPUT_USD_PER_M = 3.0
+SONNET_OUTPUT_USD_PER_M = 15.0
+HAIKU_INPUT_USD_PER_M = 1.0
+HAIKU_OUTPUT_USD_PER_M = 5.0
+
+
+def _rates_for(model: str) -> tuple[float, float]:
+    """Return (input_usd_per_m, output_usd_per_m) for a given model alias.
+
+    Substring-dispatch (rather than exact match) for stability against alias
+    rotation within a major version. M11b §D6.
+    """
+    if model.startswith("claude-opus"):
+        return OPUS_INPUT_USD_PER_M, OPUS_OUTPUT_USD_PER_M
+    if model.startswith("claude-sonnet"):
+        return SONNET_INPUT_USD_PER_M, SONNET_OUTPUT_USD_PER_M
+    if model.startswith("claude-haiku"):
+        return HAIKU_INPUT_USD_PER_M, HAIKU_OUTPUT_USD_PER_M
+    raise ValueError(f"Unknown model for rate lookup: {model!r}")
 
 ARBITER_SYSTEM_PROMPT = (
     "You are a triage filter for a proactive assistant. Decide whether a\n"
@@ -231,9 +258,10 @@ class ClaudeArbiter:
 
     @property
     def cost_usd(self) -> float:
+        input_rate, output_rate = _rates_for(self.model)
         return (
-            self.input_tokens * OPUS_INPUT_USD_PER_M
-            + self.output_tokens * OPUS_OUTPUT_USD_PER_M
+            self.input_tokens * input_rate
+            + self.output_tokens * output_rate
         ) / 1_000_000
 
     def classify(self, text: str) -> bool:

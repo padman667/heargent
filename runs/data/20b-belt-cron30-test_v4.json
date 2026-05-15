@@ -1,0 +1,48 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 14.257425742574258,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 9,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "parking_meter_oak",
+      "notification_sim_time": 180.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "cover_standup_request",
+      "notification_sim_time": 240.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "gym_class_cancelled",
+      "notification_sim_time": 380.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "library_hold_expiring",
+      "notification_sim_time": 520.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "protest_commute_route",
+      "notification_sim_time": 700.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "cron_keyword_30s",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1010.0,
+  "trace_name": "test_v4",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": null,
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v2",
+  "arbiter_model": "opus"
+}

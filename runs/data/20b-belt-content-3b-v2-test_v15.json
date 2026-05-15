@@ -1,0 +1,154 @@
+{
+  "hit_rate": 0.8,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 4,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "baby_shower_gift_close",
+      "notification_sim_time": 120.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "visa_autopay_low_balance",
+      "notification_sim_time": 230.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "olia_reservation_hold",
+      "notification_sim_time": 360.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "brake_job_approval",
+      "notification_sim_time": 510.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "skip_level_addition"
+  ],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.50_w16",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 740.0,
+  "llm_stats": {
+    "calls": 15,
+    "prompt_tokens": 4744,
+    "completion_tokens": 188,
+    "total_duration_s": 11.911685624,
+    "arbiter_calls": 6,
+    "arbiter_yes_rate": 0.3333333333333333
+  },
+  "trace_name": "test_v15",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "content",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v2",
+  "arbiter_model": "opus",
+  "surprise_log": [
+    {
+      "sim_time": 25.0,
+      "event_id": "utility_usage_summary",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Your April electricity usage was 312 kWh \u2014 4% below your 12-month average. No action needed.",
+      "surprise": 0.550539613073469,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 55.0,
+      "event_id": "skip_level_addition",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Skip-level 1:1 with Ravi added to your calendar at 2:00 PM today. Tentative \u2014 accept, decline, or propose a new time before end of day.",
+      "surprise": 0.3702561943258591,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 120.0,
+      "event_id": "baby_shower_gift_close",
+      "prediction": "Skip-level 1:1 with Ravi scheduled for 2:00 PM today.",
+      "observation": "Last call for Priya's baby shower group gift \u2014 the collection closes at 11:30 today before we place the order. Venmo @teampriya if you're chipping in.",
+      "surprise": 0.430927892017417,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 180.0,
+      "event_id": "coffee_subscription_promo",
+      "prediction": "Priya's baby shower gift collection closing soon, last chance to contribute by 11:30.",
+      "observation": "Spring beans are here \u2014 take 15% off your next Roastery House bag with code BLOOM15. Offer good through the month.",
+      "surprise": 0.4761594549095213,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 230.0,
+      "event_id": "visa_autopay_low_balance",
+      "prediction": "Spring beans sale ends soon, last chance to save 15% on Roastery House bags.",
+      "observation": "Heads up: your Visa auto-payment of $843 is scheduled for tonight, but your checking balance is currently $612. Move funds or the payment will reverse.",
+      "surprise": 0.5153080239545167,
+      "z": 0.8865221068858957,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 295.0,
+      "event_id": "streaming_new_releases",
+      "prediction": "Visa auto-payment of $843 scheduled for tonight could cause a reversal if not addressed.",
+      "observation": "New this week on Plume: 4 series and 9 films added in your watchlist's genres. Open the app to browse.",
+      "surprise": 0.5817505320267737,
+      "z": 1.7865175528828063,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 360.0,
+      "event_id": "olia_reservation_hold",
+      "prediction": "New Spring beans discount offer ends soon with code BLOOM15.",
+      "observation": "Your reservation at Olia tonight at 7:30 will auto-cancel in 15 minutes unless you tap Confirm.",
+      "surprise": 0.41924733282640114,
+      "z": -0.9539484402092724,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 470.0,
+      "event_id": "smart_speaker_firmware",
+      "prediction": "Visa auto-payment of $843 scheduled for tonight, prompting immediate action to prevent payment reversal.",
+      "observation": "Your Lumen Mini speaker installed firmware 8.4.1 overnight. Voice quality improvements; no setup required.",
+      "surprise": 0.5156574260921521,
+      "z": 0.5385485202946548,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 510.0,
+      "event_id": "brake_job_approval",
+      "prediction": "Visa auto-payment of $843 scheduled for tonight, prompting potential balance check or fund movement action.",
+      "observation": "This is Sal at Pinewood Auto \u2014 your brake pads are shot. If you approve the $480 brake job before 3 PM I can finish it today, otherwise it pushes to next Tuesday.",
+      "surprise": 0.3647198802218834,
+      "z": -1.756567340921561,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    }
+  ]
+}

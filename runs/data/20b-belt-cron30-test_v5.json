@@ -1,0 +1,48 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 13.980582524271846,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 9,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "babysitter_sick",
+      "notification_sim_time": 50.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "rail_strike",
+      "notification_sim_time": 200.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "keynote_slot",
+      "notification_sim_time": 350.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "card_fraud",
+      "notification_sim_time": 500.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "tax_extension",
+      "notification_sim_time": 700.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "cron_keyword_30s",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1030.0,
+  "trace_name": "test_v5",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": null,
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v2",
+  "arbiter_model": "opus"
+}

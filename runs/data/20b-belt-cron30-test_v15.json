@@ -1,0 +1,48 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 19.45945945945946,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 9,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "skip_level_addition",
+      "notification_sim_time": 60.0,
+      "time_to_notice_s": 5.0
+    },
+    {
+      "event_id": "baby_shower_gift_close",
+      "notification_sim_time": 120.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "visa_autopay_low_balance",
+      "notification_sim_time": 230.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "olia_reservation_hold",
+      "notification_sim_time": 360.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "brake_job_approval",
+      "notification_sim_time": 510.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "cron_keyword_30s",
+  "cost_usd": 0.0,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 740.0,
+  "trace_name": "test_v15",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": null,
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v2",
+  "arbiter_model": "opus"
+}

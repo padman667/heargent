@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 from typing import TYPE_CHECKING
 
-from agent.arbiter import OPUS_INPUT_USD_PER_M, OPUS_OUTPUT_USD_PER_M
+from agent.arbiter import _rates_for
 from baselines.react_poll_local import POLL_SYSTEM
 from sandbox.event_trace import Trace
 from sandbox.world import Event, World
@@ -114,9 +114,10 @@ class ReactPollClaude:
             self._pending.remove(ev)
 
     def cost_usd(self) -> float:
+        input_rate, output_rate = _rates_for(self.model)
         return (
-            self.input_tokens * OPUS_INPUT_USD_PER_M
-            + self.output_tokens * OPUS_OUTPUT_USD_PER_M
+            self.input_tokens * input_rate
+            + self.output_tokens * output_rate
         ) / 1_000_000
 
     def llm_stats(self) -> dict:
