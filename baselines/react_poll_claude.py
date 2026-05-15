@@ -103,10 +103,12 @@ class ReactPollClaude:
 
         nums = re.findall(r"\d+", response)
         to_surface: list[Event] = []
+        seen_indices: set[int] = set()
         for n in nums:
             idx = int(n) - 1
-            if 0 <= idx < len(self._pending):
+            if 0 <= idx < len(self._pending) and idx not in seen_indices:
                 to_surface.append(self._pending[idx])
+                seen_indices.add(idx)
 
         for ev in to_surface:
             world.surface(content=ev.content, event_id=ev.id)
