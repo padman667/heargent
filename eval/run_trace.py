@@ -135,13 +135,15 @@ def _load_agent(
         from agent.arbiter import (
             ARBITER_SYSTEM_PROMPT_V2,
             ARBITER_SYSTEM_PROMPT_V3,
+            ARBITER_SYSTEM_PROMPT_V4,
             ClaudeArbiter,
         )
-        prompt = (
-            ARBITER_SYSTEM_PROMPT_V3
-            if arbiter_system_prompt == "v3"
-            else ARBITER_SYSTEM_PROMPT_V2
-        )
+        if arbiter_system_prompt == "v4":
+            prompt = ARBITER_SYSTEM_PROMPT_V4
+        elif arbiter_system_prompt == "v3":
+            prompt = ARBITER_SYSTEM_PROMPT_V3
+        else:
+            prompt = ARBITER_SYSTEM_PROMPT_V2
         arbiter = ClaudeArbiter(
             system_prompt=prompt, model=_MODEL_ALIASES[arbiter_model]
         )
@@ -199,9 +201,9 @@ def main() -> int:
     )
     parser.add_argument(
         "--arbiter-system-prompt",
-        choices=["v2", "v3"],
+        choices=["v2", "v3", "v4"],
         default="v2",
-        help="System prompt for --arbiter-mode=claude (V2 closed enumeration or V3 principled criterion). Ignored for content/random.",
+        help="System prompt for --arbiter-mode=claude (V2 closed enumeration, V3 principled criterion, or V4 M11a-extension targeted distractor + discretionary-deadline revision per runs/21-v4-prompt-n20-extension.md §D1). Ignored for content/random.",
     )
     parser.add_argument(
         "--arbiter-model",

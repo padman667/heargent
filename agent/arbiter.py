@@ -126,6 +126,60 @@ ARBITER_SYSTEM_PROMPT_V3 = (
 )
 
 
+# M11a-extension (runs/21-v4-prompt-n20-extension.md; Commit A SHA b1d2521;
+# pre-reg §D1): V4 prompt revision designed from M11b D7-confirm (6/6
+# cross-tier V2-prompt YES-bias on retail-back-in-stock + calendar-recurring
+# + casual-social-meetup distractor classes) + M11a test_v8 V2-enumeration
+# limit (`mom_birthday_heads_up` + `bridgers_presale_window` NO under V2's
+# closed YES list). V4 adds three explicit NO subclauses with one canonical
+# example each (1:1 clause-to-D7-distractor-class mapping) + a seventh YES
+# class for discretionary-deadline obligations (family milestones with
+# social cost; scarcity-bounded opportunities under one hour). V2's six
+# closed YES classes + four NO classes retained verbatim. Output format
+# unchanged (single YES/NO uppercase line). Chat-template wire-up
+# (`system=rules, user=event_content`) identical to V2/V3 per M9 choice (a).
+# Bytewise frozen at locked plan ~/.claude/plans/m11a-extension-v4-prompt-n20.md
+# §D1; any revision happens at the locked-plan path and back-propagates.
+ARBITER_SYSTEM_PROMPT_V4 = (
+    "You are a triage filter for a proactive assistant. Decide whether a\n"
+    "single observed event warrants surfacing to the user right now.\n"
+    "\n"
+    "Surface (YES) if the event describes any of:\n"
+    " - an urgent safety or security issue (fire, break-in, medical\n"
+    "   emergency, security breach, unauthorized access)\n"
+    " - a schedule change affecting the user personally (meeting moved,\n"
+    "   meeting cancelled, flight delayed, appointment rescheduled,\n"
+    "   appointment cancelled)\n"
+    " - a financial or deadline obligation the user must act on within\n"
+    "   the next few days (bill due, rent due, report deadline,\n"
+    "   payment reminder)\n"
+    " - a message or delivery directed personally to the user (package\n"
+    "   delivered, callback requested, voicemail or phone message,\n"
+    "   hospital calling about a family member)\n"
+    " - a weather alert or external condition that would plausibly\n"
+    "   change the user's planned day\n"
+    " - a production/on-call alert or outage for a system the user owns\n"
+    " - a discretionary-deadline obligation: a family milestone with\n"
+    "   social cost (birthday or anniversary heads-up) OR a\n"
+    "   scarcity-bounded opportunity with a limited window (presale or\n"
+    "   queue offer with a ticket limit and a window under one hour)\n"
+    "\n"
+    "Do NOT surface (NO) if the event is:\n"
+    " - routine status, uptime, heartbeat, or \"all systems normal\" pings\n"
+    " - marketing, promotional, or newsletter content\n"
+    " - generic daily briefings that explicitly state no urgent items\n"
+    " - feature announcements, app updates, or social/channel invites\n"
+    " - a back-in-stock or restock notification without an explicit\n"
+    "   scarcity window (e.g., \"your favorite item is back in stock\")\n"
+    " - a recurring-event calendar suggestion or app suggestion\n"
+    "   (e.g., \"add as recurring?\")\n"
+    " - a casual social-meetup notification without time-pressure\n"
+    "   (e.g., \"pub trivia tonight at 7pm\")\n"
+    "\n"
+    "Output exactly YES or NO, uppercase, on a single line. No explanation."
+)
+
+
 _DECISION = re.compile(r"\b(YES|NO)\b")
 
 

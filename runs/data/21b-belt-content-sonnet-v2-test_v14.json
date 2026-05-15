@@ -1,0 +1,160 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "backup_codes_rotating",
+      "notification_sim_time": 40.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "inspector_walkthrough_advanced",
+      "notification_sim_time": 150.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "movers_swap_slot",
+      "notification_sim_time": 220.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "bond_purchase_confirm",
+      "notification_sim_time": 380.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "boil_water_zip",
+      "notification_sim_time": 480.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.50_w16",
+  "cost_usd": 0.006558,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1010.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 2867,
+    "completion_tokens": 149,
+    "total_duration_s": 32.263153917,
+    "arbiter_calls": 6,
+    "arbiter_yes_rate": 0.5,
+    "arbiter_input_tokens": 2066,
+    "arbiter_output_tokens": 24,
+    "arbiter_dispatched_model": "claude-sonnet-4-6"
+  },
+  "trace_name": "test_v14",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v2",
+  "arbiter_model": "sonnet",
+  "surprise_log": [
+    {
+      "sim_time": 15.0,
+      "event_id": "beanwise_promo_20pct",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Promotional: 20% off your next refill at Beanwise \u2014 use code GRIND20 at checkout, expires Friday.",
+      "surprise": 0.5398898956578453,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 40.0,
+      "event_id": "backup_codes_rotating",
+      "prediction": "Beanwise email promotion for refills about to expire.",
+      "observation": "Account two-factor backup codes are being rotated in 25 seconds; once rotation completes, current codes become invalid \u2014 save or print the new codes shown on screen now.",
+      "surprise": 0.4740596370417466,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 95.0,
+      "event_id": "sticker_packs_added",
+      "prediction": "Account backup codes will be invalidated shortly, prompting users to save or print new ones.",
+      "observation": "Your messaging app added three new sticker packs you can use in DMs; tap to browse.",
+      "surprise": 0.4762824484964564,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 150.0,
+      "event_id": "inspector_walkthrough_advanced",
+      "prediction": "Account two-factor backup codes rotation about to complete, making current codes invalid.",
+      "observation": "Today's 1:30 PM walkthrough of 426 Pine with the structural inspector has been moved up to 11:30 AM at the seller's request; bring the punch list and the disclosure packet.",
+      "surprise": 0.5079205887638031,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 220.0,
+      "event_id": "movers_swap_slot",
+      "prediction": "Today's property walkthrough scheduled for later today has been rescheduled earlier.",
+      "observation": "Voicemail from Hiroshi at City Movers: 'Driver opened up a 7 AM slot tomorrow instead of your 2 PM booking \u2014 needs a yes or no in the next hour or it goes to someone else.'",
+      "surprise": 0.40940362276188924,
+      "z": -3.354162791194244,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 310.0,
+      "event_id": "editor_focus_tip",
+      "prediction": "Voicemail from City Movers expecting immediate response on driver's slot change.",
+      "observation": "Tip: try the new 'focus mode' in your editor for distraction-free writing \u2014 tap to learn more.",
+      "surprise": 0.5348827311234887,
+      "z": 1.2317149419407651,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 380.0,
+      "event_id": "bond_purchase_confirm",
+      "prediction": "Voicemail from City Movers driver deciding on 7 AM slot by Hiroshi's deadline.",
+      "observation": "Your Treasury Direct purchase order for $10,000 in Series I savings bonds requires final confirmation by end of business today (5:00 PM ET); without it the order will be cancelled and the rate locked-in window will be forfeited.",
+      "surprise": 0.4617716361136751,
+      "z": -0.6467497203891743,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 480.0,
+      "event_id": "boil_water_zip",
+      "prediction": "Voicemail from City Movers driver deciding on new slot, deadline in half an hour.",
+      "observation": "Public utility advisory: a boil-water notice is now in effect for your zip code through tomorrow evening; do not consume tap water or use it for cooking without boiling for at least one minute.",
+      "surprise": 0.48991736707852995,
+      "z": 0.0853501263695311,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 720.0,
+      "event_id": "design_weekly_digest",
+      "prediction": "Public utility advisory: Boil-water notice in effect due to contaminated water supply.",
+      "observation": "Design Weekly: seven articles you might enjoy in product design this week, plus a roundup of new component libraries.",
+      "surprise": 0.5612053997400602,
+      "z": 1.885008096452747,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    }
+  ]
+}

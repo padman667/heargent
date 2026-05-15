@@ -505,3 +505,82 @@ The cross-tier-V4 diagnostic asks: does V4 mechanism behavior reproduce bytewise
 | M11b 3-commit M10-shape protocol | Extended to 4-commit with Commit C trace authoring inserted (D13) |
 | M11b transparent-bug-fix discipline (`b78554d`) | Carries forward (D13) |
 | M11b transparent-correction-commit discipline (`c0c6099`) | Carries forward (D13) |
+
+---
+
+## Commit B Results — V4 prompt wiring + drift baselines + belt-and-suspenders
+
+**Commit B date:** 2026-05-15 (M11a-extension Commit B landing). Per pre-reg §D13 Commit B scope: code wiring (~50 LOC across 3 files; ~30 prompt + ~5 routing in `agent/arbiter.py`, ~10 in `eval/run_trace.py`, ~25 NEW in `eval/author_trace.py`) + Opus carryover PASS gate vs `17b-*` + V4-Sonnet/Haiku Phase 1 baselines + 30-cell V2 cross-milestone belt-and-suspenders PASS gate per §D9 Surface #5 + §D9 Surface #13. No fresh-session trace authoring at Commit B; that is Commit C scope per the four-commit M10-shape protocol (§D13).
+
+**Pre-Commit-B SHA backfill (Phase 0 of this session per §D13 + M11b a782fc0 / M11a 7c24d08 / M10b 629e0e4 precedent):** `15484b6` — replaced two SHA placeholders (`{filled at this commit by post-commit doc-completeness backfill}` in this file header line 4 + `{filled at this commit}` in `runs/README.md` row 21) with literal `b1d2521` (Commit A SHA). Mirrors M11b's a782fc0 single-file SHA-backfill discipline; no-amend invariant preserved (amending Commit A would invalidate `b1d2521`).
+
+### (1) `agent/arbiter.py` — `ARBITER_SYSTEM_PROMPT_V4` constant added per §D1 verbatim lock
+
+Inserted between `ARBITER_SYSTEM_PROMPT_V3` (line 126 closing paren) and `_DECISION` regex (now line ~145) at the structural position mirroring V3's. **Bytewise-verified** against the locked plan §D1 Python-literal block at `~/.claude/plans/m11a-extension-v4-prompt-n20.md` lines 51-89: **sha256 = `09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6`** (1851 bytes). Match: True. Any future revision to the V4 prompt text happens at the locked-plan path and back-propagates here per §D13 pre-Commit-D fix discipline.
+
+V4 design summary (per §D1 construction principles 1-4): retains V2's six closed-enumeration YES classes + four NO classes verbatim; adds a seventh YES class for *discretionary-deadline obligations* (family milestones with social cost OR scarcity-bounded opportunities under one hour) targeting the M11a test_v8 V2-enumeration limit; adds three explicit NO subclauses with one canonical example each (back-in-stock without scarcity window; recurring-event calendar suggestion; casual social-meetup without time-pressure) — each subclause maps 1:1 to one M11b D7-confirm distractor class. Output format unchanged (`YES` or `NO` uppercase, single line). Chat-template wire-up (`system=rules, user=event_content`) bytewise identical to V2/V3 per M9 wire-up choice (a).
+
+### (2) `eval/run_trace.py` — `--arbiter-system-prompt {v2,v3,v4}` CLI routing
+
+Extended argparse choices `{v2,v3}` → `{v2,v3,v4}`; `_load_agent` claude-mode dispatch routes `v4` → `ARBITER_SYSTEM_PROMPT_V4` via explicit if/elif/else chain (mirrors V3 routing pattern). Verified at CLI help: `--arbiter-system-prompt {v2,v3,v4}` surfaces.
+
+### (3) `eval/author_trace.py` (NEW) — self-restate pre-flight gate per §D4 + D14-H7
+
+~25 LOC at `eval/author_trace.py`. Module entry point: `python -m eval.author_trace --banned-list <path>`. Emits the locked §D4 self-restate prompt verbatim with the iteratively-extended banned list inlined; fresh-session authoring sessions read the emitted text, restate constraints (a)-(d) in their own words BEFORE authoring, and persist the restate response as a Commit C audit artifact alongside the authored trace. Targets the M11a structural-parsing-failure rate of 3/9 = 33% (runs/19 attempts log) at the M11a-extension N=10-fresh target. Smoke-tested at Commit B with a synthetic 2-line banned list: prompt + banned-list contents emit cleanly.
+
+### (4) 3-cell V2-Opus carryover smoke vs `runs/data/17b-content-opus-v2-*.json` — **PASS gate**
+
+V2-Opus on `{dev_v2, test_v1, test_v2}` after V4 wiring; per-field bit-compare on M11b-precedent 7 load-bearing fields (`hit_rate`, `false_initiation_rate_per_hour`, `arbiter_calls`, `arbiter_yes_rate`, `arbiter_input_tokens`, `arbiter_output_tokens`, `arbiter_dispatched_model`). Output JSONs: `runs/data/21b-smoke-content-opus-v2-{dev_v2,test_v1,test_v2}.json`.
+
+| Trace | hit_rate | false/h | arbiter_calls | yes_rate | in_tok | out_tok | dispatched_model | Verdict |
+|---|---|---|---|---|---|---|---|---|
+| dev_v2 | 1.0 | 0.0 | 4 | 0.75 | 1854 | 8 | `claude-opus-4-7` | PASS (7/7 bit-identical) |
+| test_v1 | 1.0 | 3.6735 | 8 | 0.625 | 3677 | 16 | `claude-opus-4-7` | PASS (7/7 bit-identical) |
+| test_v2 | 1.0 | 0.0 | 7 | 0.4286 | 3208 | 14 | `claude-opus-4-7` | PASS (7/7 bit-identical) |
+
+**Verdict: 3/3 PASS** — V4 wiring did NOT disturb the V2 path. Opus 4.7 alias additionally stable across M10 (2026-04-27) → M11a (2026-05-08-13) → M11b (2026-05-13-15) → M11a-extension Commit B (2026-05-15) over 18 days at the V2 code path.
+
+### (5) V4-Sonnet + V4-Haiku Phase 1 baselines (observational; §D12 Phase 1)
+
+3-cell V4-Sonnet + 3-cell V4-Haiku on `{dev_v2, test_v1, test_v2}` archived as Phase 1 reference for Commit D Phase 2 + Phase 3 within-milestone drift smoke (§D12 triangulated B → D-start → D-end). No bit-compare gate at Commit B (no prior reference; V4 is new). Output JSONs: `runs/data/21b-baseline-content-{sonnet,haiku}-v4-{dev_v2,test_v1,test_v2}.json` (6 files). `arbiter_dispatched_model` verified per cell: Sonnet returns `claude-sonnet-4-6` (alias); Haiku returns `claude-haiku-4-5-20251001` (dated suffix per `_rates_for` substring dispatch per M11b §D6).
+
+### (6) 30-cell V2 cross-milestone belt-and-suspenders — **PASS gate per §D9 Surface #5 + Surface #13**
+
+V2-Opus + V2-Sonnet + V2-Haiku re-runs on the combined-N=10 sample existing at Commit B time (M10 `test_v4` + M10 `test_v5` + M10b `test_v6/v7/v8` + M11a `test_v11..v15`); per-field bit-compare on the 7 load-bearing fields vs cross-milestone references:
+
+| Tier | Reference JSONs | Cells | PASS |
+|---|---|---|---|
+| V2-Opus | M10 `17b-content-opus-v2-test_v4` + M10 `17d-content-opus-v2-test_v5` + M10b `18d-content-opus-v2-test_v{6,7,8}` + M11a `19d-content-opus-v2-test_v{11..15}` | 10 | **10/10 PASS** |
+| V2-Sonnet | M11b `20d-content-sonnet-v2-test_v{4,5,6,7,8,11,12,13,14,15}` | 10 | **10/10 PASS** |
+| V2-Haiku | M11b `20d-content-haiku-v2-test_v{4,5,6,7,8,11,12,13,14,15}` | 10 | **10/10 PASS** |
+
+Output JSONs: `runs/data/21b-belt-content-{opus,sonnet,haiku}-v2-test_v{4,5,6,7,8,11,12,13,14,15}.json` (30 files).
+
+**Verdict: 30/30 PASS bit-identical.** §D9 Surface #5 (M11b-data-drift halt-gate) cleared. §D9 Surface #13 (cross-milestone Claude alias drift between M11b 2026-05-13/15 and M11a-extension 2026-05-15) cleared at Layer 1: V2-Opus / V2-Sonnet / V2-Haiku alias dispatch stable across the cross-milestone interval at the load-bearing-field level. Layer 2 (within-milestone V4 determinism via §D12 triangulated drift smoke at Phase 2 + Phase 3) remains for Commit D. Reviewer attack "V4-vs-V2 deltas at M11a-extension could reflect Anthropic-side `claude-opus-4-7` alias rotation between M11b and M11a-extension, not the V4 prompt mechanism" is mechanically converted into a bit-identical-verified cross-milestone V2 baseline.
+
+### Cost
+
+| Step | Cells | Spend |
+|---|---|---|
+| Step 4 — V2-Opus carryover smoke (vs `17b-*`) | 3 | $0.1339 |
+| Step 5 — V4-Sonnet Phase 1 baseline | 3 | $0.0283 |
+| Step 5 — V4-Haiku Phase 1 baseline | 3 | $0.0094 |
+| Step 6 — V2-Opus belt-and-suspenders | 10 | $0.4487 |
+| Step 6 — V2-Sonnet belt-and-suspenders | 10 | $0.0659 |
+| Step 6 — V2-Haiku belt-and-suspenders | 10 | $0.0219 |
+| **Total** | **39** | **$0.7081** |
+
+Cumulative M11a-extension spend through Commit B: pricing-attestation fetch $0 (no API spend) + Commit B $0.7081 = **$0.7081 of the $4 pre-reg budget** (~18% utilized; cross-milestone-locked Opus rate $15/$75 per M10 lock; Sonnet $3/$15 + Haiku $1/$5 per M11b/M11a-extension lock; no observed-published-rate drift vs M11b per `21a-pricing-attestation-2026-05-15.json`).
+
+### Frozen artifacts at Commit B (NOT touched, per §D13 staging discipline)
+
+- `agent/loop.py`, `agent/llm.py`, `agent/predictor.py`, `agent/surprise.py` — frozen throughout milestone.
+- `sandbox/event_trace.py` — frozen at Commit B; new `test_v21..test_v30` definitions added at Commit C only.
+- `baselines/` — no `react_poll_claude.py` edit at Commit B (M11b's `b78554d` dedupe fix carries forward unchanged; rate-table inherited from M11b's `c562173` `_rates_for` substring dispatch).
+- `pyproject.toml`, `uv.lock` — no dependency changes at Commit B.
+
+### Next: Commit C — fresh-session trace authoring `test_v21..test_v30`
+
+Per §D13: 10 fresh-session-authored traces under M11a iterative-extension protocol with self-restate pre-flight gate at `eval/author_trace.py`. Acceptance rate ~56% per M11a empirical → expected 12-18 fresh-session attempts to land 10 accepted traces. Numbering locked at `test_v21..test_v30` per D14-H8 (chronological resumption preserving v9/v10 historical gap). Banned-list extension carries forward at each acceptance. Audit-gate enforced per accepted trace. Defense-#4 halt-condition: > 25 attempts → milestone halts pending banned-list-protocol revision.
+
+Commit C is deferred to future fresh sessions per M10-shape protocol + auto-memory `feedback_new_session_for_arch_work.md`.

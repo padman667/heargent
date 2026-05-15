@@ -1,0 +1,157 @@
+{
+  "hit_rate": 0.8,
+  "false_initiation_rate_per_hour": 3.711340206185567,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "locksmith_buzzer",
+      "notification_sim_time": 50.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "spanish_tutoring_shift",
+      "notification_sim_time": 200.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "bistro_wallet_holding",
+      "notification_sim_time": 350.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "city_marathon_closures",
+      "notification_sim_time": 600.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "pitch_slides_review_ask"
+  ],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.50_w16",
+  "cost_usd": 0.002516,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 970.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 2684,
+    "completion_tokens": 143,
+    "total_duration_s": 31.903112167,
+    "arbiter_calls": 7,
+    "arbiter_yes_rate": 0.42857142857142855,
+    "arbiter_input_tokens": 2376,
+    "arbiter_output_tokens": 28,
+    "arbiter_dispatched_model": "claude-haiku-4-5-20251001"
+  },
+  "trace_name": "test_v11",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v2",
+  "arbiter_model": "haiku",
+  "surprise_log": [
+    {
+      "sim_time": 50.0,
+      "event_id": "locksmith_buzzer",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Locksmith voicemail: 'I'm downstairs at your building's front door right now but the buzzer doesn't work. Please come let me in or call me back immediately.'",
+      "surprise": 0.507117094948174,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 120.0,
+      "event_id": "chess_puzzle_nudge",
+      "prediction": "Locksmith attempting to gain entry via a physical key at the front door.",
+      "observation": "Daily puzzle reminder from your chess app: today's mate-in-three hasn't been solved yet.",
+      "surprise": 0.5349321773948079,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 200.0,
+      "event_id": "spanish_tutoring_shift",
+      "prediction": "Locksmith at front door, expecting immediate action or call back.",
+      "observation": "Your Spanish tutoring session originally at 15:00 today has been moved to 15:30 by your tutor.",
+      "surprise": 0.5330783966967337,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 280.0,
+      "event_id": "printworks_payment_ack",
+      "prediction": "Locksmith arriving soon for front door issue.",
+      "observation": "Hi \u2014 just confirming we received last week's payment, thanks again for being a great client. \u2014 Mara, PrintWorks",
+      "surprise": 0.45182788624649506,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 350.0,
+      "event_id": "bistro_wallet_holding",
+      "prediction": "Locksmith at front door requesting immediate attention or call back.",
+      "observation": "Lighthouse Bistro lost & found: a navy wallet matching your reservation name was turned in last night. Pickup available at the host stand until close at 23:00 today.",
+      "surprise": 0.4745035244246667,
+      "z": -0.9606468282903815,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 500.0,
+      "event_id": "trivia_league_round",
+      "prediction": "Locksmith arriving soon for front door issue at your building.",
+      "observation": "Pub Trivia League: the next casual online round opens Saturday at 19:00. Drop in if you're free.",
+      "surprise": 0.4636384934331872,
+      "z": -1.1220686804844122,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 600.0,
+      "event_id": "city_marathon_closures",
+      "prediction": "Locksmith arrives at your building's front door for a potential access issue.",
+      "observation": "City marathon tomorrow morning closes most downtown streets from 7:00 to 11:30. Plan alternate routes if you're commuting through the core.",
+      "surprise": 0.4865928997852367,
+      "z": -0.23140686627484594,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 750.0,
+      "event_id": "sam_article_forward",
+      "prediction": "City marathon closing downtown streets, expect traffic delays and rerouted commuters.",
+      "observation": "Sam forwarded you a link: 'Why monorepos are making a comeback'. Thought you might enjoy reading it sometime.",
+      "surprise": 0.49446589461660195,
+      "z": 0.044853990611950764,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 820.0,
+      "event_id": "pitch_slides_review_ask",
+      "prediction": "Locksmith at front door due to buzzer malfunction; urgent action needed.",
+      "observation": "Hey \u2014 could you give feedback on the investor pitch slides before tomorrow at 9am? I'd really appreciate one last read-through with fresh eyes.",
+      "surprise": 0.5270440206154411,
+      "z": 1.1843534849837174,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    }
+  ]
+}
