@@ -1,0 +1,54 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 11.020408163265307,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 8,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "vet_luna_tomorrow",
+      "notification_sim_time": 50.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "earthquake_local",
+      "notification_sim_time": 200.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "mom_birthday_heads_up",
+      "notification_sim_time": 320.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "bridgers_presale_window",
+      "notification_sim_time": 500.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "photographer_voicemail_jen",
+      "notification_sim_time": 700.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "react_poll_claude",
+  "cost_usd": 0.0456,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 980.0,
+  "llm_stats": {
+    "calls": 196,
+    "input_tokens": 31100,
+    "output_tokens": 2900,
+    "dispatched_model": "claude-haiku-4-5-20251001"
+  },
+  "trace_name": "test_v8",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": null,
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v2",
+  "arbiter_model": "haiku"
+}

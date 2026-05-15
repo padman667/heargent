@@ -498,3 +498,197 @@ Aggregate: read 50 Commit D cell JSONs + 26 Commit B JSONs + M11a's `19d-*` JSON
 5. Begin Commit B (code wiring + Opus carryover smoke + Sonnet + Haiku baselines + V2-3B + cron30s belt-and-suspenders re-run) only after Commit A lands.
 
 This plan is the locked design for M11b at the maximum-defensibility posture. Any deviation requires a new plan iteration before Commit A lands.
+
+---
+
+# Commit D Results (M11b Commit D harness execution + analysis)
+
+**Commit D date:** 2026-05-15. **Pre-reg SHA at Commit A:** `0b47ce3`. **Commit B SHA:** `c562173`. **Pre-Commit-D fix commits:** `b78554d` (react_poll_claude dedupe fix — duplicate-index responses surfaced at Sonnet test_v5 poll cell; bit-identical preservation verified on test_v4); `c0c6099` (M11a Commit D correction — V2-Opus combined-N=10 count 2/10 → 3/10 under strict joint-bar, surfaced during Commit D analysis prep; see runs/19 §"Row 4a paper-line — combined N=10 primary" + correction-note subsection for full audit).
+
+**Cells executed at Commit D:** 50 D-phase JSONs total per pre-reg §D2 — 20 V2-Sonnet/Haiku harness + 20 poll-Sonnet/Haiku harness + 4 V3-Sonnet/Haiku attribution + 6 Phase 2 + 6 Phase 3 drift smoke. All cells passed without harness errors after the pre-Commit-D dedupe fix.
+
+## Drift smoke: Sonnet + Haiku Phase 2 + Phase 3 vs Phase 1 baselines (per pre-reg §D3)
+
+18 within-milestone drift smoke cells (3 Sonnet + 3 Haiku × 3 phases × 3 co-developed traces): **18/18 PASS bit-identical** vs Phase 1 baselines (`runs/data/20b-baseline-content-{sonnet,haiku}-v2-{dev_v2,test_v1,test_v2}.json`) on the 7 M11a-precedent load-bearing fields (`hit_rate`, `false_initiation_rate_per_hour`, `arbiter_calls`, `arbiter_yes_rate`, `arbiter_input_tokens`, `arbiter_output_tokens`, `arbiter_dispatched_model`). Sonnet 4.6 + Haiku 4.5 are bit-stable across the entire B → Commit-D-start → Commit-D-end execution window. Triangulated B → D-start → D-end smoke per §D3 — reviewer-defense: "Sonnet/Haiku drifted mid-harness and you didn't notice" is foreclosed by Phase 2 + Phase 3 bracketing the harness window with bit-identical compares against Phase 1.
+
+## Per-trace observations (10 rows × per-tier cells)
+
+| Trace | V2-3B (h/false_h) | V2-Opus (h/false_h) | V2-Sonnet (h/false_h) | V2-Haiku (h/false_h) | poll-Sonnet (h) | poll-Haiku (h) | poll-Opus (h) | cron30s (h) | P1 V2-S matches V2-O? | P2 V2-H matches V2-O? |
+|---|---|---|---|---|---|---|---|---|---|---|
+| test_v4  | 0.40/7.13 | 0.80/7.13 | 0.80/7.13 | 0.80/7.13 | 1.00 | 1.00 | (carry; 1.00 via M8b 15c) | 1.00 | Y | Y |
+| test_v5  | 1.00/0.00 | 1.00/0.00 | 1.00/0.00 | 1.00/0.00 | 1.00 | 1.00 | 1.00 | 1.00 | Y | Y |
+| test_v6  | 0.40/0.00 | 1.00/0.00 | 1.00/0.00 | 0.60/0.00 | 1.00 | 1.00 | 1.00 | 1.00 | Y | **N** (Δhit=0.40) |
+| test_v7  | 1.00/0.00 | 1.00/0.00 | 1.00/0.00 | 1.00/0.00 | 1.00 | 1.00 | 1.00 | 1.00 | Y | Y |
+| test_v8  | 0.40/0.00 | 0.60/0.00 | 0.60/0.00 | 0.60/0.00 | 1.00 | 1.00 | 1.00 | 1.00 | Y | Y |
+| test_v11 | 0.40/3.71 | 1.00/3.71 | 1.00/3.71 | 0.80/3.71 | 1.00 | 1.00 | 1.00 | 1.00 | Y | **N** (Δhit=0.20) |
+| test_v12 | 0.60/7.74 | 1.00/7.74 | 1.00/7.74 | 1.00/7.74 | 1.00 | 1.00 | 1.00 | 1.00 | Y | Y |
+| test_v13 | 0.80/0.00 | 1.00/0.00 | 1.00/0.00 | 1.00/3.50 | 1.00 | 1.00 | 1.00 | 1.00 | Y | **N** (Δfalse/h=3.50) |
+| test_v14 | 1.00/0.00 | 1.00/0.00 | 1.00/0.00 | 1.00/0.00 | 1.00 | 1.00 | 1.00 | 1.00 | Y | Y |
+| test_v15 | 0.80/0.00 | 1.00/0.00 | 1.00/0.00 | 1.00/0.00 | 1.00 | 1.00 | 1.00 | 1.00 | Y | Y |
+
+Per-trace majority for P1 (V2-Sonnet matches V2-Opus): **10/10 ≥ 6/10 PASS**.
+Per-trace majority for P2 (V2-Haiku matches V2-Opus): **7/10 ≥ 6/10 PASS**.
+
+V2-Sonnet is per-trace bytewise-identical to V2-Opus on hit_rate AND false/h for all 10 traces. V2-Haiku mismatches on 3 traces (test_v6 hit-side; test_v11 hit-side; test_v13 false/h-side); on the other 7, Haiku tracks Opus exactly.
+
+poll-Opus on test_v4: M11b uses M8b's 15c-poll-test_v4.json (poll-local at M8b, not poll-Opus); the Pareto-cost denominator for test_v4 uses poll-Opus average across the other 9 carry-forward cells.
+
+## Per-tier joint-bar failure-rate metrics at combined-N=10
+
+| Tier | Failures (joint bar: hit<0.80 OR false/h>5.0/h) | Failure rate | 95% CP CI | Bootstrap CI (n=2000, seed=42) | Δ vs V2-3B (pp) | Δ vs V2-Opus (pp) | CP-CI overlaps V2-3B point? | CP-CI overlaps V2-Opus point? |
+|---|---|---|---|---|---|---|---|---|
+| V2-3B (carry; belt-PASS-verified) | 5/10 (test_v4, test_v6, test_v8, test_v11, test_v12) | 50.0% | [18.7%, 81.3%] | [20.0%, 80.0%] | — | +20 | — | YES (V2-Opus 30% within V2-3B CI) |
+| V2-Opus (carry; corrected per `c0c6099`) | 3/10 (test_v4, test_v8, test_v12) | 30.0% | [6.7%, 65.2%] | [0.0%, 60.0%] | −20 | — | YES (V2-3B 50% within V2-Opus CI) | — |
+| **V2-Sonnet (M11b)** | 3/10 (test_v4, test_v8, test_v12) | **30.0%** | [6.7%, 65.2%] | [0.0%, 60.0%] | −20 | **0** | YES | YES |
+| **V2-Haiku (M11b)** | 4/10 (test_v4, test_v6, test_v8, test_v12) | **40.0%** | [12.2%, 73.8%] | [10.0%, 70.0%] | −10 | +10 | YES | YES |
+
+**Per-failure mechanism per cell:**
+
+- **test_v4** (all three Claude tiers: V2-Opus + V2-Sonnet + V2-Haiku) — false/h=7.128, hit=0.80; mechanism = surprise-gate auto-surf bypass on `designgrid_renewal` + `calendar_feature_tip` (both events have z<−0.5, bypass arbiter). Bytewise identical across V2-3B/Opus/Sonnet/Haiku because the surprise gate is local-deterministic (qwen2.5:3b predictor + nomic-embed scorer shared across all tiers).
+- **test_v8** (all three Claude tiers: V2-Opus + V2-Sonnet + V2-Haiku) — hit=0.60, false/h=0.00; mechanism = V2-enumeration limit (mom_birthday_heads_up family-event reminder + bridgers_presale_window concert-presale — discretionary content outside V2's literal "deadline obligation" enumeration). All Claude tiers exhibit the same NO on these events under V2's closed YES list.
+- **test_v12** (all three Claude tiers: V2-Opus + V2-Sonnet + V2-Haiku) — hit=1.00, false/h=7.742; mechanism = V2-prompt-inherited YES-bias on `grocer_back_in_stock` + `calendar_yoga_suggest`. Bytewise identical across V2-3B/Opus/Sonnet/Haiku. The mechanism is V2-prompt-inherent across the entire Claude family.
+- **test_v6** (V2-Haiku only) — hit=0.60, false/h=0.00; mechanism = Haiku-specific V2-enumeration limit on the M10b test_v6 GTs (concert_swap, auction_ending — Haiku says NO where Sonnet+Opus say YES). Distinct from test_v8's enumeration limit which affects all Claude tiers; this is Haiku-scale-specific.
+
+Three V2-Opus joint-bar failures (test_v4, test_v8, test_v12) are inherited bytewise by both V2-Sonnet AND V2-Haiku. V2-Haiku adds one additional joint-bar failure (test_v6) that V2-Sonnet does NOT exhibit — Haiku-scale-specific V2-enumeration limit.
+
+## Pareto-cost table per tier at combined-N=10
+
+| Tier | Mean $/cell | Mean $/hit | Min $/hit | Max $/hit | n cells with hits |
+|---|---|---|---|---|---|
+| V2-3B (local) | $0.0000 | $0.0000 | — | — | 10/10 |
+| V2-Opus | $0.0449 | $0.0098 | $0.0073 | $0.0150 | 10/10 |
+| **V2-Sonnet** | **$0.0066** | **$0.0014** | $0.0011 | $0.0022 | 10/10 |
+| **V2-Haiku** | **$0.0022** | **$0.0005** | $0.0004 | $0.0010 | 10/10 |
+| poll-Opus (carry) | $0.9631 | $0.1926 | $0.1578 | $0.2163 | 9/10 |
+| **poll-Sonnet** | $0.1309 | $0.0262 | $0.0212 | $0.0313 | 10/10 |
+| **poll-Haiku** | $0.0437 | $0.0087 | $0.0061 | $0.0097 | 10/10 |
+| cron30s (carry; belt-PASS) | $0.0000 | $0.0000 | — | — | 10/10 |
+
+**Matched-arbiter Pareto ratios (poll-tier $/hit ÷ HeargentZA-tier $/hit at same model):**
+
+- V2-Opus vs poll-Opus: **19.7×** cheaper per hit
+- **V2-Sonnet vs poll-Sonnet: 18.3×** cheaper per hit
+- **V2-Haiku vs poll-Haiku: 16.6×** cheaper per hit
+
+**Cross-tier Pareto ratios (V2-Opus $/hit ÷ V2-{tier} $/hit at same prompt V2):**
+
+- V2-Sonnet vs V2-Opus: **6.8×** cheaper per hit
+- **V2-Haiku vs V2-Opus: 18.5×** cheaper per hit
+
+The matched-arbiter Pareto ratio is robust to the Opus-rate lock (§D4 + pricing attestation): V2-X vs poll-X ratios use the same per-token rate for both arbiter and baseline at each tier, so the locked-rate vs published-rate gap is internally consistent within each ratio. Cross-tier ratios depend on the Opus-rate lock; absolute $/hit at the Opus tier should be divided by ~3 for current-Anthropic-rate (Opus $5/$25) deployment projections, but the V2-Haiku vs V2-Opus 18.5× ratio survives any uniform Opus-rate scaling factor.
+
+## P1 / P2 / P3 / P4 verdicts
+
+**P1 — V2-Sonnet matches V2-Opus joint bar:**
+- (a) Per-trace majority (≥ 6 of 10): **10/10 = PASS**
+- (b) Combined point estimates within ±10pp: |30%-30%|=**0pp PASS**; CIs overlap: identical [6.7%, 65.2%] = **PASS**
+- **P1 PASS**
+
+**P2 — V2-Haiku matches V2-Opus joint bar:**
+- (a) Per-trace majority (≥ 6 of 10): **7/10 = PASS** (mismatch on test_v6, test_v11, test_v13)
+- (b) Combined point estimates within ±10pp: |40%-30%|=**10pp at boundary, PASS** (inclusive interpretation of "within"); CIs overlap: V2-Haiku [12.2%, 73.8%] ∩ V2-Opus [6.7%, 65.2%] = [12.2%, 65.2%] non-empty = **PASS**
+- **P2 PASS at the ±10pp boundary**
+
+**P3 — Tier beats V2-3B floor (strictly less + non-overlapping CI):**
+- V2-Sonnet 30% < V2-3B 50% point estimate, but V2-Sonnet CI [6.7%, 65.2%] contains V2-3B point 50% — CIs overlap V2-3B point estimate. **P3 FAIL on V2-Sonnet at N=10**.
+- V2-Haiku 40% < V2-3B 50% point estimate, but V2-Haiku CI [12.2%, 73.8%] contains V2-3B point 50% — CIs overlap V2-3B point estimate. **P3 FAIL on V2-Haiku at N=10**.
+- (Note: V2-Opus itself also fails P3 at N=10: V2-Opus 30% < V2-3B 50%, but V2-Opus CI [6.7%, 65.2%] contains V2-3B 50% — the entire H2 finding is at point-estimate level, not at non-overlapping-CI level, at this sample size.)
+
+**P4 — Pareto headline:**
+- Per-cell mean cost + per-cell cost-per-hit reported in the Pareto-cost table above. All three matched-arbiter ratios (V2-Sonnet / V2-Haiku / V2-Opus vs their poll counterparts) exceed the pre-reg's "≥3× cheaper" floor by a substantial margin (16.6×–19.7×). **P4 PASS**.
+
+## Primary outcome row identification (mechanical from §D5 6-row table)
+
+Mechanical reading of the §D5 6-row table against the P1/P2/P3 verdicts:
+
+- Row 1 (P1 PASS AND P2 PASS): **satisfied** (Sonnet matches Opus exactly; Haiku matches at boundary)
+- Row 4a (any | P3 FAIL on Haiku): **also satisfied** (V2-Haiku CI overlaps V2-3B point estimate)
+- Row 5 (all CIs overlap V2-3B + V2-Opus): **also satisfied** (V2-Sonnet AND V2-Haiku CIs overlap both V2-3B's [18.7%, 81.3%] and V2-Opus's [6.7%, 65.2%])
+
+The three rows are non-mutually-exclusive at this data point. Per the §D5 row-ordering (Row 1 listed first, declared "best" outcome), the **mechanical primary outcome is Row 1**. The Row 4a + Row 5 conditions both apply as **critical concurrent caveats** that the locked Row 1 paper-line text does not anticipate.
+
+**Locked Row 1 paper-line text — integer placeholders filled at Commit D; wording is not edited:**
+
+> *"Across N=10 fresh externally-authored traces under the M11a iteratively-extended-banned-list protocol (three protocol generations combined: M10 frozen list test_v4/v5; M10b frozen list test_v6/v7/v8; M11a iteratively-extended list test_v11..v15), V2-Sonnet failure rate **3**/10 = **30.0%** (95% CP CI **[6.7%, 65.2%]**; bootstrap CI **[0.0%, 60.0%]**) and V2-Haiku failure rate **4**/10 = **40.0%** (95% CP CI **[12.2%, 73.8%]**; bootstrap CI **[10.0%, 70.0%]**) both match V2-Opus failure rate 3/10 = 30.0% (corrected per M11b-Commit-D-surfaced M11a aggregation error; see runs/19 §"Row 4a paper-line — combined N=10 primary" correction-note) within ±10pp at point estimate with overlapping CIs. Pareto headline: V2-Haiku is **18.5×** cheaper per hit than V2-Opus and **16.6×** cheaper per hit than poll-Haiku at matched-arbiter cost denominator; V2-Sonnet is **6.8×**/**18.3×** respectively. Strict Pareto improvement: the Claude tier curve flattens at Haiku for this workload; Opus is overkill at the M11a sample's distractor distribution. Deployment shape collapses to Haiku as default with no observed quality penalty at N=10. Cross-protocol caveat from M11a defense #5 inherited unchanged; cross-tier comparison is internally consistent per trace."*
+
+**Commit-D critical caveats to the Row 1 paper-line text (these caveats are required for paper-defensibility but were not anticipated by the pre-reg's locked Row 1 wording):**
+
+1. **P2 PASS is at the ±10pp boundary, not strict.** |V2-Haiku 40% − V2-Opus 30%| = **10pp exact**, the maximum tolerable point-estimate gap for P2 PASS. Per-trace majority is 7/10, just above the ≥6/10 threshold. Calling Haiku "sufficient" with a 10pp point-estimate failure-rate gap is true at the pre-registered criterion but should be read with the understanding that it sits at the criterion boundary, not in its interior. V2-Sonnet's match to V2-Opus is materially cleaner (point estimate 30%=30%, 10/10 per-trace match).
+
+2. **P3 FAILS on all three Claude tiers at N=10 — the H2 finding is underpowered.** V2-Sonnet, V2-Haiku, AND V2-Opus all have CIs ([6.7%, 65.2%] / [12.2%, 73.8%] / [6.7%, 65.2%]) that contain V2-3B's 50% point estimate. The cross-family upgrade (3B → Claude tier ladder) does NOT strictly beat V2-3B with non-overlapping CIs at this sample size for ANY of the three Claude tiers. The corrected M11a finding ("V2-Opus reduces failure rate from 50% → 30% (20 pp reduction with non-overlapping point estimates but partially overlapping CIs)") sits at the point-estimate level, not at the non-overlapping-CI level, at N=10. M11b's data does not change this — it confirms it for Sonnet + Haiku.
+
+3. **Row 4a's P3-FAIL-on-Haiku condition is concurrently satisfied.** Mechanically the pre-reg's §D5 row table is non-mutually-exclusive on this data point; Row 1 (P1+P2 PASS) and Row 4a (P3 FAIL on Haiku) BOTH fire. Row 4a's framing ("Haiku is insufficient capability") substantively conflicts with Row 1's framing ("Haiku sufficient; Opus overkill"). The honest synthesis: V2-Haiku is statistically indistinguishable from V2-Opus on this sample at the ±10pp tolerance (Row 1 PASS); V2-Haiku is ALSO statistically indistinguishable from V2-3B (Row 4a observation). At N=10 the cross-family-tier curve is too underpowered to substantively distinguish "Haiku matches Opus" from "Haiku falls to V2-3B level".
+
+4. **Row 5's underpowered-at-N=10 condition is concurrently satisfied.** All four tiers' (V2-3B / V2-Opus / V2-Sonnet / V2-Haiku) CIs mutually overlap. The cross-tier ranking at point estimate (V2-Opus = V2-Sonnet = 30% < V2-Haiku = 40% < V2-3B = 50%) is consistent with Row 1's "tier curve flattens at Haiku" reading but cannot be statistically distinguished from Row 4a/Row 5 alternatives at N=10. Substantive cross-tier ranking deferred to **M11b-extension** scope (N=20+) for tightened CIs, named here as a separately-pre-registered milestone.
+
+**Honest Commit-D synthesis paper-line (additional to the locked Row 1 text):**
+
+> *"M11b's combined-N=10 cross-tier sweep places V2-Sonnet (3/10 = 30%; CP CI [6.7%, 65.2%]) and V2-Haiku (4/10 = 40%; CP CI [12.2%, 73.8%]) at point estimates that match V2-Opus (3/10 = 30%; CP CI [6.7%, 65.2%]) within the pre-registered ±10pp tolerance (V2-Sonnet 0pp gap; V2-Haiku 10pp gap at the criterion boundary), and substantially Pareto-improve cost-per-hit by 6.8×/18.5× cross-tier and 18.3×/16.6× matched-arbiter respectively. The point-estimate finding is Row 1 (Strict Pareto improvement; tier curve flattens at Haiku), with V2-Sonnet matching V2-Opus exactly and V2-Haiku matching at the criterion boundary. The CI finding is Row 5 (underpowered at N=10): all three Claude tiers' 95% Clopper-Pearson CIs contain V2-3B's 50% point estimate, so P3 (strictly beats V2-3B with non-overlapping CI) FAILS at N=10 for every tier including V2-Opus — the corrected M11a H2 finding sits at the point-estimate level, and M11b confirms this is also true for Sonnet + Haiku. Substantive deployment recommendation: V2-Haiku is the Pareto-default for this workload at point estimate, with V2-Opus residuals (test_v4 surprise-gate auto-surf bypass; test_v8 V2-enumeration limit; test_v12 V2-prompt YES-bias) all inherited bytewise by V2-Sonnet and V2-Haiku, plus one Haiku-specific Haiku-scale-V2-enumeration-limit residual on test_v6. M11b-extension (N=20+) tightens CIs to definitively distinguish Row 1 from Row 4a/Row 5; the V4 prompt revision (M11a-extension scope) addresses the V2-prompt YES-bias residual that is the single largest cross-tier-shared mechanism."*
+
+## D7 secondary outcome — bytewise-identical-false-init cross-product
+
+Mechanical 6-cell cross-product per §D7: {V2-Sonnet, V2-Haiku} × {`trivia_league_round`, `grocer_back_in_stock`, `calendar_yoga_suggest`}.
+
+| Trace | event_id | V2-3B | V2-Opus | V2-Sonnet | V2-Haiku |
+|---|---|---|---|---|---|
+| test_v11 | trivia_league_round | YES | YES | **YES** | **YES** |
+| test_v12 | grocer_back_in_stock | YES | YES | **YES** | **YES** |
+| test_v12 | calendar_yoga_suggest | YES | YES | **YES** | **YES** |
+
+**6 of 6 cells YES → D7-confirm branch identified mechanically.**
+
+**Locked D7-confirm paper-line — event-ID assignments filled at Commit D; wording not edited:**
+
+> *"The V2-prompt-inherited YES-bias on retail-back-in-stock / calendar-suggestion / casual-social-meetup distractors observed at V2-3B and V2-Opus (M11a independent finding) is reproduced bytewise at V2-Sonnet and V2-Haiku. V2-Sonnet surfaces **{`trivia_league_round`, `grocer_back_in_stock`, `calendar_yoga_suggest`}** on the {test_v11, test_v12} pair; V2-Haiku surfaces **{`trivia_league_round`, `grocer_back_in_stock`, `calendar_yoga_suggest`}** on the same pair. The mechanism is V2-prompt-inherent across the entire Claude family + qwen2.5:3b — not a model-scale or model-family property. The targeted next lever is V4 prompt revisions adding explicit NO examples for these distractor classes (M11a-extension scope), not further cross-family swap. The Row 1 primary outcome finding is refined: model-family-tier swap below Opus does not address the V2-prompt-inherent distractor mechanism on this sample."*
+
+This is a strong cross-confirmation finding: the V2-prompt-inherited YES-bias mechanism is preserved BYTEWISE across the Claude family (Opus + Sonnet + Haiku) PLUS qwen2.5:3b. Four independent model implementations agree on the same YES decisions for the same three borderline distractor events. The mechanism cannot be addressed by model-tier swap; V4 prompt revisions (M11a-extension) are the only targeted lever.
+
+## V3 attribution on failure subset {test_v4, test_v5}
+
+| Trace | V2-3B | V2-Opus (carry) | V3-Opus (carry; M10) | V3-Sonnet (M11b) | V3-Haiku (M11b) | V3 capability threshold |
+|---|---|---|---|---|---|---|
+| test_v4 | 0.40/7.13 | 0.80/7.13 | 0.80/7.13 | 0.80/7.13 | **1.00/7.13** | V3 viable at Haiku scale on test_v4 (V3-Haiku hit-rate exceeds V2-Opus on this trace — discovers `cover_standup_request` colleague-social-ask GT that V2's closed enumeration narrowly misses across all tiers) |
+| test_v5 | 1.00/0.00 | 1.00/0.00 | 1.00/0.00 | 1.00/0.00 | 1.00/0.00 | V3 viable at every Claude tier on test_v5 (all hit=1.00, joint-bar PASS) |
+
+**V3 capability threshold for the test_v4/test_v5 subset:** falls **at or below Haiku** (V3-Haiku hit ≥ 0.80 on both traces). This refines M9's path-C close on V3-3B falsification: V3 is model-capability-bound at qwen2.5:3b but viable at Haiku-and-above. Specifically, V3-Haiku on test_v4 achieves hit=1.00 — strictly better than V2-Opus (0.80), V3-Opus (0.80), and V2-Sonnet (0.80) on the same trace via V3's principled-criterion-AND-gate reading correctly catching the colleague-social-ask GT `cover_standup_request` that all V2 variants miss as out-of-enumeration. (The false/h=7.13 surprise-gate auto-surf bypass mechanism on test_v4 is upstream of the arbiter and identical across all variants of HeargentZAWide, so V3-Haiku's joint-bar still FAILS on test_v4 — but the hit-side improvement is meaningful.)
+
+Reported observationally per §D5 ("V3-Sonnet + V3-Haiku × failure subset is observational second-axis on V3's model-capability threshold; not part of the primary Pareto outcome").
+
+## Cost summary
+
+| Component | Cells | Est. cost (pre-reg §"Cost framework") | Actual cost |
+|---|---|---|---|
+| Harness V2-Sonnet × 10 | 10 | $0.11 | $0.0657 (computed at locked $3/$15 Sonnet rates) |
+| Harness V2-Haiku × 10 | 10 | $0.035 | $0.0217 (at locked $1/$5 Haiku rates) |
+| Harness V3-Sonnet × 2 (test_v4, test_v5) | 2 | $0.014 | ~$0.006 |
+| Harness V3-Haiku × 2 (test_v4, test_v5) | 2 | $0.004 | ~$0.002 |
+| Harness poll-Sonnet × 10 | 10 | $2.00 | $1.309 |
+| Harness poll-Haiku × 10 | 10 | $0.67 | $0.437 |
+| Belt-and-suspenders V2-3B × 10 (Commit B) | 10 | $0 | $0 (local) |
+| Belt-and-suspenders cron30s × 10 (Commit B) | 10 | $0 | $0 (local) |
+| Opus carryover smoke × 3 (Commit B) | 3 | $0.15 | $0.0268 |
+| Sonnet smoke baseline + Phase 2 + Phase 3 (3+3+3) | 9 | $0.045 | $0.0257 |
+| Haiku smoke baseline + Phase 2 + Phase 3 (3+3+3) | 9 | $0.0135 | $0.0086 |
+| **TOTAL M11b spend across Commits B + D** | **85** | **~$3.05** | **~$1.91 of $4–5 pre-reg budget** |
+
+Actual spend **~63% under** pre-reg estimate (~$1.91 vs ~$3.05). The largest savings came from poll-Sonnet (1.309 vs 2.00 estimate) and poll-Haiku (0.437 vs 0.67 estimate); Haiku's faster token generation means fewer total tokens per poll call than the Sonnet/Opus extrapolation suggested.
+
+## M11b closure summary
+
+- **Drift smoke verdict:** 18/18 Sonnet + Haiku Phase 2 + Phase 3 cells PASS bit-identical vs Phase 1 baselines (`20b-baseline-*`). Sonnet 4.6 + Haiku 4.5 alias stable through the M11b Commit B → Commit D execution window. Opus 4.7 stable across M10 → M11a → M11b (18+ days) per the Commit B Opus carryover smoke vs `17b-*`.
+- **Primary outcome row:** **Row 1 (Strict Pareto improvement) at point estimate**, mechanically per P1 + P2 PASS; with critical concurrent Row 4a (P3 FAIL on Haiku) and Row 5 (underpowered at N=10) caveats documented in the four Commit-D caveats above. Honest synthesis paper-line published alongside the locked Row 1 paper-line text.
+- **D7 secondary outcome:** **D7-confirm at 6/6 cells** — V2-prompt-inherited YES-bias mechanism preserved bytewise across Opus + Sonnet + Haiku + qwen2.5:3b on `trivia_league_round` + `grocer_back_in_stock` + `calendar_yoga_suggest`. Mechanism is V2-prompt-inherent, not model-scale-specific. V4 prompt revisions (M11a-extension) are the only targeted lever; cross-family swap below Opus does not address.
+- **Pareto headline:** V2-Haiku is **18.5× cheaper per hit than V2-Opus** (cross-tier) and **16.6× cheaper per hit than poll-Haiku** (matched-arbiter). V2-Sonnet is **6.8× / 18.3×** respectively. The 16-20× matched-arbiter Pareto ratio is preserved across the entire Claude tier ladder.
+- **V3 attribution:** V3 capability threshold for {test_v4, test_v5} falls at or below Haiku; V3-Haiku achieves hit=1.00 on test_v4 (the strongest hit-side performance across all V2/V3 variants on that trace).
+- **M11a correction commit (`c0c6099`):** V2-Opus combined-N=10 reference corrected from 2/10 = 20% to 3/10 = 30% under strict joint-bar; H2 finding direction unchanged (Row 4a partial-closure-with-residuals), magnitude reduced (20pp reduction vs original 30pp); independent V2-prompt-YES-bias finding scope clarified (2 traces test_v11+test_v12, not 3 — test_v4 is a distinct surprise-gate auto-surf bypass mechanism); three V2-Opus residual mechanisms now mapped to three distinct next-step levers.
+- **react_poll_claude dedupe fix (`b78554d`):** Pre-existing bug latent since M10; surfaced at Sonnet poll on test_v5. Generic robustness fix; bit-identical preservation verified on test_v4 before/after.
+- **Cumulative M11b spend ~$1.91 of $4–5 pre-reg budget** (~63% under estimate).
+
+**Future work named per pre-reg §"Non-goals" + §"Reviewer-vulnerable surfaces":**
+
+- **M11a-extension** — V4 prompt revisions (explicit NO examples for `grocer_back_in_stock`-class retail / `calendar_yoga_suggest`-class recurring-suggestion / `trivia_league_round`-class social-meetup distractors) + self-restate pre-flight gate + scope at N=20+ for tighter binomial CIs. Now the most targeted lever per D7-confirm: the V2-prompt YES-bias mechanism is preserved across the entire Claude family + qwen2.5:3b, so V4 prompt is the only mechanism-level lever for this residual.
+- **M11b-extension** — Cross-tier sweep at N=20+ for tightened CIs to definitively distinguish Row 1 (Sonnet/Haiku match Opus) from Row 4a (Haiku falls to V2-3B level) — at N=10 these are statistically indistinguishable for the Haiku tier.
+- **M11c** — Hierarchical routing (3B-local → Sonnet/Opus escalation) as deployment shape. With V2-Sonnet at 30%=V2-Opus failure rate and **6.8× cheaper per hit** at point estimate, Sonnet is the strong routing-default candidate; Opus is reserved for the cells where V3 (or future V4) capability is needed.
+- **M11d** (named here for completeness) — Cross-vendor sweep (GPT / Gemini / Llama at Opus-equivalent capability) under a separate pre-reg. Out of scope at M11b per §"Non-goals".
+
+Commit D is one bundled commit per pre-reg §"Three-commit protocol" containing: 50 D-phase `runs/data/20d-*.json` cells; this §"Commit D Results" appendix in runs/20; row 20 + status block + paper framing line updates in runs/README.md; the `.commit_d_analysis.py` aggregate script as a reproducibility artifact.

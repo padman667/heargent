@@ -1,0 +1,54 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 10.485436893203884,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 8,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "babysitter_sick",
+      "notification_sim_time": 50.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "rail_strike",
+      "notification_sim_time": 200.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "keynote_slot",
+      "notification_sim_time": 350.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "card_fraud",
+      "notification_sim_time": 500.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "tax_extension",
+      "notification_sim_time": 700.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "react_poll_claude",
+  "cost_usd": 0.047791,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1030.0,
+  "llm_stats": {
+    "calls": 206,
+    "input_tokens": 33191,
+    "output_tokens": 2920,
+    "dispatched_model": "claude-haiku-4-5-20251001"
+  },
+  "trace_name": "test_v5",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": null,
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v2",
+  "arbiter_model": "haiku"
+}
