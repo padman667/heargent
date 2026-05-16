@@ -904,6 +904,64 @@ def test_trace_v15() -> Trace:
     )
 
 
+def test_trace_v21() -> Trace:
+    gts = [
+        _gt(
+            Event(id="gas_leak_kitchen_sensor", kind="alert", sim_time=15.0,
+                  content="Sensor in kitchen detected a natural-gas leak — concentration above safety threshold. Open windows; do NOT operate switches or appliances. Evacuate and call the gas company immediately."),
+            window_s=60.0, keywords=("gas", "leak"),
+        ),
+        _gt(
+            Event(id="cardio_appt_rescheduled", kind="phone_message", sim_time=100.0,
+                  content="Voicemail from Northwest Cardiology: your appointment with Dr. Park scheduled for Thursday 10am has been rescheduled to Friday 2pm. Please call back to confirm the new slot."),
+            window_s=600.0, keywords=("appointment", "rescheduled"),
+        ),
+        _gt(
+            Event(id="vinyl_drop_press_today", kind="notification", sim_time=200.0,
+                  content="Vinyl drop alert: Sault's 'Earth' double-LP first pressing — 250 copies, dropping at 14:30 today. The shop's purchase queue is open for 30 minutes; first-come, first-served. Once gone, no second pressing."),
+            window_s=25.0, keywords=("vinyl", "drop"),
+        ),
+        _gt(
+            Event(id="student_loan_repayment_resume", kind="email", sim_time=250.0,
+                  content="Your federal student loan auto-debit resumes in 48 hours after the COVID pause. Current minimum payment: $342/month. To request an income-driven repayment plan instead, you must apply at studentaid.gov within the next 48 hours."),
+            window_s=480.0, keywords=("loan", "repayment"),
+        ),
+        _gt(
+            Event(id="legal_doc_courier_signature", kind="notification", sim_time=400.0,
+                  content="Courier from Whitfield & Holst delivering certified legal documents requiring your signature is at the lobby. They can only release to you in person and will wait 15 minutes before returning to sender."),
+            window_s=20.0, keywords=("courier", "signature"),
+        ),
+    ]
+    distractors = [
+        Event(id="restock_camping_lantern", kind="email", sim_time=50.0,
+              content="Good news — the Goal Zero Lighthouse Mini lantern you saved last fall is back in stock at Adventure Outfitters. We've replenished the stock; browse when ready. No purchase deadline or quantity limit at this time."),
+        Event(id="calendar_running_club_recur", kind="notification", sim_time=150.0,
+              content="Calendar suggestion: I noticed you've gone running with Maya three Thursdays in a row. Add 'Thursday run with Maya' as a recurring weekly event? Suggestion only — dismiss or set up later."),
+        Event(id="arcade_meetup_kira", kind="notification", sim_time=300.0,
+              content="Kira's organizing a casual arcade night at Quarterworld this Saturday around 7pm. No commitment, no RSVP — show up if you're free."),
+        Event(id="discord_unread_digest", kind="notification", sim_time=700.0,
+              content="You have 12 unread messages across 3 Discord servers: #react-discussion (4), #portland-coffee (5), and #book-recs (3). Open the app to catch up when you have time."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v21",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "Friday morning at home in Portland. "
+            "I've blocked the day for a stack of personal errands and an evening commitment with friends. "
+            "My phone's on do-not-disturb but I want anything genuinely urgent to surface so I don't miss it."
+        ),
+        intents=(
+            "knock through Friday errands",
+            "DND mode for noise",
+            "evening commitment with friends",
+            "don't miss urgent items",
+            "no late fees or missed slots",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -921,6 +979,7 @@ def get_trace(name: str) -> Trace:
         "test_v13": test_trace_v13,
         "test_v14": test_trace_v14,
         "test_v15": test_trace_v15,
+        "test_v21": test_trace_v21,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")

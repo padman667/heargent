@@ -1,0 +1,77 @@
+{
+  "milestone": "M11a-extension-C1",
+  "trace_id": "test_v21",
+  "attempt_number": 1,
+  "attempted_at_utc": "2026-05-16T06:38:16Z",
+  "verdict": "accepted",
+  "banned_list_path": "runs/data/21c-banned-list-pre-c1.txt",
+  "banned_list_sha256_at_attempt": "be3f6f5b4263066fe71aa31ee677e85af0bd296aac44a3ad6b512e27e68dad46",
+  "banned_list_state_counts": {"event_ids": 127, "themes": 72, "tuples": 71},
+  "self_restate_prompt_path": "/tmp/m11a-ext-c1-restate-prompt.txt",
+  "self_restate_prompt_sha256": "1175e4808ff75c678dd4b5fe6108225926b5ce07e0c247976745e027421cb98c",
+  "self_restate_prompt_bytes": 10293,
+  "self_restate_response_verbatim": "(a) Write the trace function using only straightforward Python — plain keyword arguments to constructors, no exotic syntax — so that `from sandbox.event_trace import get_trace; get_trace(\"test_v21\")` imports without raising any SyntaxError, ImportError, or KeyError.\n\n(b) Do not use the walrus operator `:=` anywhere in the function body. Use plain `=` for any assignment and pass values directly into Event() and GroundTruthEvent() calls.\n\n(c) Every Event id is a plain string literal — no f-string interpolation, no concatenation, no expression that builds the id at runtime. Each `Event(id=\"...\")` value is hard-coded.\n\n(d) None of the 127 event_ids in the iteratively-extended banned list may appear as an Event.id in test_v21. (By extension of the M11a iterative-extension protocol the file inlines: also avoid the 72 banned themes as GT semantic content and the 71 banned keyword tuples as GroundTruthEvent.keywords.)",
+  "authored_trace_verbatim": "def test_trace_v21() -> Trace:\n    gts = [\n        _gt(\n            Event(id=\"gas_leak_kitchen_sensor\", kind=\"alert\", sim_time=15.0,\n                  content=\"Sensor in kitchen detected a natural-gas leak — concentration above safety threshold. Open windows; do NOT operate switches or appliances. Evacuate and call the gas company immediately.\"),\n            window_s=60.0, keywords=(\"gas\", \"leak\"),\n        ),\n        _gt(\n            Event(id=\"cardio_appt_rescheduled\", kind=\"phone_message\", sim_time=100.0,\n                  content=\"Voicemail from Northwest Cardiology: your appointment with Dr. Park scheduled for Thursday 10am has been rescheduled to Friday 2pm. Please call back to confirm the new slot.\"),\n            window_s=600.0, keywords=(\"appointment\", \"rescheduled\"),\n        ),\n        _gt(\n            Event(id=\"vinyl_drop_press_today\", kind=\"notification\", sim_time=200.0,\n                  content=\"Vinyl drop alert: Sault's 'Earth' double-LP first pressing — 250 copies, dropping at 14:30 today. The shop's purchase queue is open for 30 minutes; first-come, first-served. Once gone, no second pressing.\"),\n            window_s=25.0, keywords=(\"vinyl\", \"drop\"),\n        ),\n        _gt(\n            Event(id=\"student_loan_repayment_resume\", kind=\"email\", sim_time=250.0,\n                  content=\"Your federal student loan auto-debit resumes in 48 hours after the COVID pause. Current minimum payment: $342/month. To request an income-driven repayment plan instead, you must apply at studentaid.gov within the next 48 hours.\"),\n            window_s=480.0, keywords=(\"loan\", \"repayment\"),\n        ),\n        _gt(\n            Event(id=\"legal_doc_courier_signature\", kind=\"notification\", sim_time=400.0,\n                  content=\"Courier from Whitfield & Holst delivering certified legal documents requiring your signature is at the lobby. They can only release to you in person and will wait 15 minutes before returning to sender.\"),\n            window_s=20.0, keywords=(\"courier\", \"signature\"),\n        ),\n    ]\n    distractors = [\n        Event(id=\"restock_camping_lantern\", kind=\"email\", sim_time=50.0,\n              content=\"Good news — the Goal Zero Lighthouse Mini lantern you saved last fall is back in stock at Adventure Outfitters. We've replenished the stock; browse when ready. No purchase deadline or quantity limit at this time.\"),\n        Event(id=\"calendar_running_club_recur\", kind=\"notification\", sim_time=150.0,\n              content=\"Calendar suggestion: I noticed you've gone running with Maya three Thursdays in a row. Add 'Thursday run with Maya' as a recurring weekly event? Suggestion only — dismiss or set up later.\"),\n        Event(id=\"arcade_meetup_kira\", kind=\"notification\", sim_time=300.0,\n              content=\"Kira's organizing a casual arcade night at Quarterworld this Saturday around 7pm. No commitment, no RSVP — show up if you're free.\"),\n        Event(id=\"discord_unread_digest\", kind=\"notification\", sim_time=700.0,\n              content=\"You have 12 unread messages across 3 Discord servers: #react-discussion (4), #portland-coffee (5), and #book-recs (3). Open the app to catch up when you have time.\"),\n    ]\n    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)\n    return Trace(\n        name=\"test_v21\",\n        events=events,\n        ground_truth=gts,\n        briefing=(\n            \"Friday morning at home in Portland. \"\n            \"I've blocked the day for a stack of personal errands and an evening commitment with friends. \"\n            \"My phone's on do-not-disturb but I want anything genuinely urgent to surface so I don't miss it.\"\n        ),\n        intents=(\n            \"knock through Friday errands\",\n            \"DND mode for noise\",\n            \"evening commitment with friends\",\n            \"don't miss urgent items\",\n            \"no late fees or missed slots\",\n        ),\n    )\n",
+  "audit_gate_result": {
+    "step_1_schema_check": "PASS",
+    "step_1_evidence": "uv run python -c 'from sandbox.event_trace import get_trace; t = get_trace(\"test_v21\"); print(t.name, len(t.events), len(t.ground_truth), t.duration_s)' yields 'test_v21 9 5 760.0' with no exception.",
+    "step_2_keyword_content_alignment": "PASS",
+    "step_2_evidence": "All 10 (kw, content) substring checks pass: (gas, leak) -> both substrings in content; (appointment, rescheduled); (vinyl, drop); (loan, repayment); (courier, signature). Verified mechanically.",
+    "step_3a_banned_event_id_review": "PASS",
+    "step_3a_evidence": "Mechanical set-intersection of test_v21's 9 event_ids vs 127 banned event_ids in runs/data/21c-banned-list-pre-c1.txt: 0 collisions.",
+    "step_3b_banned_theme_review": "PASS",
+    "step_3b_evidence": "Hand-audit against 72 cumulative banned themes. Per-GT verdict: (1) gas_leak_kitchen_sensor — distinct from 'fire alarm/kitchen fire' (different substance + mechanism), 'water/pipe burst' (different infrastructure), 'earthquake alert' (different cause); (2) cardio_appt_rescheduled — distinct from 'dentist cancellation' (different specialty + reschedule vs cancellation), 'vet appointment reminder + prep needed' (different specialty + reschedule vs reminder); (3) vinyl_drop_press_today — banned theme '10-min ticket presale window opening with access code' has 4 qualifiers (10-min, ticket, presale, access code); my GT differs on all four (30-minute window, vinyl product release not ticket, drop not presale, open queue not access-coded); strict-letter PASS; precisely the V4 new YES-class generalization target per locked plan §D9 defense #8; (4) student_loan_repayment_resume — distinct from 'Visa autopay tonight, insufficient checking balance, move funds or reverse' (failed payment vs resuming payment + IDR plan choice), 'rent due', 'mortgage rate lock', 'HOA emergency assessment vote', 'tax extension'; (5) legal_doc_courier_signature — distinct from 'package delivery' (courier process-server-style with in-person-signature + 15-min wait is categorically different from standard parcel delivery). Distractors hand-audit: D1 restock_camping_lantern is V4 NEW NO subclass 'back-in-stock without scarcity window' (V4 prompt distinguishes from 'marketing/promotional/newsletter'); D2 calendar_running_club_recur is V4 NEW NO subclass 'recurring-event calendar suggestion' (distinct from any M11a banned theme); D3 arcade_meetup_kira is V4 NEW NO subclass 'casual social-meetup without time-pressure' (distinct from 'friend social ticket-swap' theme via no-deadline + no-RSVP + arcade-not-ticket-swap); D4 discord_unread_digest is V2/V4 existing NO class 'feature announcements/social/channel invites' (distinct from 'marketing newsletter' theme).",
+    "step_3c_banned_keyword_tuple_review": "PASS",
+    "step_3c_evidence": "Mechanical set-intersection of test_v21's 5 GT keyword tuples (('gas','leak'), ('appointment','rescheduled'), ('vinyl','drop'), ('loan','repayment'), ('courier','signature')) vs 71 banned tuples in runs/data/21c-banned-list-pre-c1.txt: 0 collisions (bytewise).",
+    "step_4_cross_trace_literal_id_collision": "PASS",
+    "step_4_evidence": "Mechanical grep of test_v21's 9 event_ids against the union of event_ids in dev_v1/dev_v2/test_v1/test_v2/test_v3/test_v4/test_v5/test_v6/test_v7/test_v8/test_v11/test_v12/test_v13/test_v14/test_v15 via get_trace iteration: 0 collisions. HALT-trigger NOT fired.",
+    "drift_overlap_strong_a_tuple_bytewise": "PASS",
+    "drift_overlap_strong_a_evidence": "Same as step 3c — 0 bytewise collisions; explicit redundant check confirms cross-trace strong-overlap (a) protocol.",
+    "drift_overlap_strong_b_8word_verbatim": "PASS",
+    "drift_overlap_strong_b_evidence": "Mechanical 8-gram set-intersection of test_v21's content+briefing 8-grams (237 unique) vs union of dev_v1..test_v15 content+briefing 8-grams (1922 unique): 0 overlaps. Verified via Python ngram(8) set intersection."
+  },
+  "first_violated_check": null,
+  "rejection_reason_verbatim": null,
+  "gt_regime_classification": [
+    {"gt_id": "gas_leak_kitchen_sensor", "regime": "urgent safety/security issue — household natural-gas-leak detection requiring immediate evacuation"},
+    {"gt_id": "cardio_appt_rescheduled", "regime": "schedule change affecting the user personally — medical specialty (cardiology) appointment rescheduled at provider request"},
+    {"gt_id": "vinyl_drop_press_today", "regime": "discretionary-deadline obligation — scarcity-bounded opportunity, queue offer with product limit (250 copies) and window under one hour (30 min); V4 NEW YES-class target"},
+    {"gt_id": "student_loan_repayment_resume", "regime": "financial/deadline obligation — federal student loan auto-debit resumption + 48-hour income-driven-repayment-plan application deadline"},
+    {"gt_id": "legal_doc_courier_signature", "regime": "message/delivery directed personally to the user — certified legal documents requiring in-person signature, 15-minute lobby wait before return-to-sender"}
+  ],
+  "defensibility_self_check_per_locked_plan_d9_defense_8": {
+    "distractors_testing_v4_new_no_subclauses": [
+      {"distractor_id": "restock_camping_lantern", "v4_new_no_subclause": "back-in-stock notification without an explicit scarcity window", "new_phrasing": true, "new_event_id": true, "compares_against_prior": "test_v12 grocer_back_in_stock (Forager Sourdough Rye, Stonebridge Market) — test_v21 substitutes Goal Zero Lighthouse Mini lantern at Adventure Outfitters with 'replenished the stock; browse when ready; no purchase deadline or quantity limit'"},
+      {"distractor_id": "calendar_running_club_recur", "v4_new_no_subclause": "recurring-event calendar suggestion or app suggestion", "new_phrasing": true, "new_event_id": true, "compares_against_prior": "test_v12 calendar_yoga_suggest (yoga, Sunday morning) — test_v21 substitutes running with Maya on Thursdays with 'Suggestion only — dismiss or set up later'"},
+      {"distractor_id": "arcade_meetup_kira", "v4_new_no_subclause": "casual social-meetup notification without time-pressure", "new_phrasing": true, "new_event_id": true, "compares_against_prior": "test_v11 trivia_league_round (pub trivia, Saturday 19:00) — test_v21 substitutes casual arcade night at Quarterworld with 'No commitment, no RSVP — show up if you're free'"}
+    ],
+    "gts_testing_v4_new_yes_class": [
+      {"gt_id": "vinyl_drop_press_today", "v4_new_yes_subclass": "scarcity-bounded opportunity with a window under one hour", "new_phrasing": true, "new_event_id": true, "compares_against_prior": "test_v8 bridgers_presale_window (10-min ticket presale with access code) — test_v21 substitutes vinyl record drop with 30-min open-queue first-come first-served"}
+    ],
+    "compliant_content_controls": [
+      {"event_id": "gas_leak_kitchen_sensor", "v2_v4_yes_class": "urgent safety/security issue"},
+      {"event_id": "cardio_appt_rescheduled", "v2_v4_yes_class": "schedule change affecting the user personally (appointment rescheduled)"},
+      {"event_id": "student_loan_repayment_resume", "v2_v4_yes_class": "financial/deadline obligation the user must act on within the next few days"},
+      {"event_id": "legal_doc_courier_signature", "v2_v4_yes_class": "message/delivery directed personally to the user"},
+      {"event_id": "discord_unread_digest", "v2_v4_no_class": "feature announcements, app updates, or social/channel invites"}
+    ],
+    "coverage_summary": "test_v21 covers all 3 V4 NEW NO subclauses in distractors (3 of 4 distractor slots; 4th is V2/V4 existing-NO compliant-content control) + 1 V4 NEW YES subclause in a GT (1 of 5 GT slots; remaining 4 GTs are V2/V4 existing-YES compliant-content controls). This is the maximal V4-mechanism coverage achievable in a single 5-GT-4-distractor trace under the locked plan §D9 defense #8 brief."
+  },
+  "fresh_session_metadata": {
+    "cwd": "/Users/patrick.gergen/projects/heargent",
+    "dispatched_model": "claude-opus-4-7",
+    "clear_confirmed": true,
+    "session_authoring_notes": "Authored in-session per kickoff Phase 1 step 3 instruction. The §D4 self-restate gate is the structural-parsing-failure pre-flight check; the cwd-switch to ~/Pictures used in M11a runs/19 §Authoring sessions was not invoked for M11a-extension C1 because the kickoff explicitly directed authoring in this session with V4-mechanism knowledge per locked plan §D9 defense #8 (V4 must generalize to UNSEEN distractors — author intentionally tests V4's NEW NO subclauses under NEW phrasing/event_id, which requires V4-mechanism awareness). Author session is fresh per auto-memory feedback_new_session_for_arch_work.md (this session opened for M11a-extension C1 specifically)."
+  },
+  "milestone_attempt_count_running": {
+    "cumulative_milestone_attempts_to_date": 1,
+    "cumulative_accepted_traces_to_date": 1,
+    "remaining_traces_for_combined_n20_closure": 9,
+    "structural_parsing_failure_rate_to_date": "0/1 attempts",
+    "halt_conditions_status": {
+      "literal_id_collision_halt": "not triggered (step 4 PASS)",
+      "banned_list_saturation_halt": "not triggered (1 attempt < 25 threshold)",
+      "retry_cap_3_on_test_v21": "not exhausted (1/3 used; PASS at attempt #1)"
+    }
+  }
+}

@@ -583,4 +583,99 @@ Cumulative M11a-extension spend through Commit B: pricing-attestation fetch $0 (
 
 Per §D13: 10 fresh-session-authored traces under M11a iterative-extension protocol with self-restate pre-flight gate at `eval/author_trace.py`. Acceptance rate ~56% per M11a empirical → expected 12-18 fresh-session attempts to land 10 accepted traces. Numbering locked at `test_v21..test_v30` per D14-H8 (chronological resumption preserving v9/v10 historical gap). Banned-list extension carries forward at each acceptance. Audit-gate enforced per accepted trace. Defense-#4 halt-condition: > 25 attempts → milestone halts pending banned-list-protocol revision.
 
-Commit C is deferred to future fresh sessions per M10-shape protocol + auto-memory `feedback_new_session_for_arch_work.md`.
+Commit C lands one accepted trace per transparent commit per M11a `2042dc5` precedent. C-protocol governance decisions D-C1.1..D-C1.6 locked at C1 first-land (see Commit C1 below) and inherited by C2..C10 unchanged.
+
+## Commit C1 — test_v21 (2026-05-16)
+
+**Verdict: test_v21 ACCEPTED at attempt 1/3; audit-gate 8/8 PASS.** Cumulative milestone attempt count 1/25; 9 traces remaining for combined-N=20 closure. Self-restate pre-flight gate per §D4 prevented the M11a-class structural-parsing-failure mode at attempt #1 (M11a-extension structural-parsing-failure rate to date: 0/1 attempts).
+
+### C-protocol governance decisions (D-C1.1..D-C1.6 locked at C1 first-land)
+
+Locked at this commit and inherited by C2..C10 without further deliberation (mirror M11a iterative-extension discipline — "no protocol revisions mid-milestone"). Full rationale + alternatives-considered table archived at `~/.claude/plans/adaptive-discovering-key.md`.
+
+| Decision | Lock |
+|---|---|
+| **D-C1.1 Banned-list provenance/storage** | Extract M11a end-state (127 IDs / 72 themes / 71 tuples) into NEW human-readable `runs/data/21c-banned-list-pre-c{N}.txt` at each C-step land time; parallel `.json` for programmatic audit. Each accepted trace's contributions extend the file at the NEXT C-step's commit (state at C{N} attempt 1 is bit-identical reproducible via single-file path + SHA256). |
+| **D-C1.2 Self-restate response persistence schema** | Per-attempt artifact at `runs/data/21c-author-test_v{NN}-attempt-{N}-{accepted,rejected}.json`. Fields: `attempt_number`, `attempted_at_utc`, `verdict`, `banned_list_path` + `banned_list_sha256_at_attempt` + `banned_list_state_counts`, `self_restate_prompt_sha256`, `self_restate_response_verbatim`, `authored_trace_verbatim`, `audit_gate_result` (per-step PASS/FAIL with evidence), `gt_regime_classification`, `defensibility_self_check_per_locked_plan_d9_defense_8`, `fresh_session_metadata`, `milestone_attempt_count_running`. Mirror M11a runs/19 §"Per-attempt drift log" per-attempt transparency. |
+| **D-C1.3 Audit-gate precise checklist** | Lock M11a's 6-step audit verbatim from runs/19 §"Per-trace structural audit", augmented with drift strong-overlap rubric (a)+(b) as **explicit reject criteria** (8 items total). Self-restate response is NOT used as an audit reject criterion (pre-flight gate ≠ audit gate; conflation would break attribution per locked plan §D4). |
+| **D-C1.4 Retry-cap policy per trace** | Retry-cap = 3 per trace for non-literal-ID rejection reasons. M11a verbatim carry-forward. Literal-ID collision HALTS milestone (per D-C1.5 #1), does not consume retry budget. Single protocol-lever change (self-restate gate addition) preserves attribution of structural-parsing-failure rate to that gate alone. |
+| **D-C1.5 Halt-conditions** | Three halts tracked: (1) literal-ID collision → drift-revision-failure milestone halt (M11a carry); (2) >25 cumulative attempts AND <10 accepted → banned-list-saturation milestone halt (locked plan §D9 defense #4); (3) retry-cap-3 exhausted on current trace → session-halt (the trace abandoned), milestone continues with next `test_v{NN+1}`. Each C-step commit message surfaces cumulative attempts + per-trace attempts + structural-parsing-failure-rate-to-date. |
+| **D-C1.6 Commit shape** | Single C-step commit bundling: (i) banned-list-pre-c{N}.txt+.json (created or NEW), (ii) per-attempt artifact JSON(s), (iii) `sandbox/event_trace.py` test_v{NN} append + registry-line addition, (iv) `runs/21-*.md` Commit C{N} subsection append, (v) `runs/README.md` row 21 Status update. Mirror M11a `2042dc5` precedent. |
+
+### Banned-list starting state (M11a end-state)
+
+- Source artifact: `runs/data/21c-banned-list-pre-c1.txt` (SHA256 `be3f6f5b4263066fe71aa31ee677e85af0bd296aac44a3ad6b512e27e68dad46`; 9884 bytes; 127 banned event_ids + 72 banned themes + 71 banned keyword tuples).
+- Parallel structured artifact: `runs/data/21c-banned-list-pre-c1.json` (same content in `{event_ids: [...], themes: [...], tuples: [...]}` schema; 10014 bytes).
+- Provenance chain: runs/16 (M8b/M9: 46 IDs / 27 themes / 26 tuples) → runs/18 (+ M10b test_v5: 55 / 32 / 31) → runs/19 §"Banned lists for M11a (starting state)" (+ M10b test_v6/v7/v8: 82 / 47 / 46) → runs/19 §"Banned-list timeline" (+ M11a test_v11..v15: 127 / 72 / 71). Bit-identical to runs/19 §"State at end-of-M11a (post-C5; final cumulative banned-list state)".
+
+### Self-restate pre-flight gate (§D4 + D14-H7)
+
+- Command: `python -m eval.author_trace --banned-list runs/data/21c-banned-list-pre-c1.txt > /tmp/m11a-ext-c1-restate-prompt.txt`
+- Rendered prompt SHA256: `1175e4808ff75c678dd4b5fe6108225926b5ce07e0c247976745e027421cb98c` (10293 bytes)
+- Self-restate response (verbatim restating of constraints (a)-(d) in author's own words; archived in `runs/data/21c-author-test_v21-attempt-1-accepted.json` `self_restate_response_verbatim` field).
+- Outcome: structural-parsing-failure mode (M11a 3/9 = 33% baseline) NOT triggered at attempt #1; schema check via `get_trace('test_v21')` passes on first import.
+
+### Attempt #1 — ACCEPTED (audit-gate 8/8 PASS)
+
+**Verdict:** Accept (strict-letter; 8 of 8 audit-gate items PASS).
+
+**Audit-gate results:**
+
+| Step | Item | Verdict | Evidence |
+|---|---|---|---|
+| 1 | Schema check via `get_trace('test_v21')` | PASS | `uv run python -c "from sandbox.event_trace import get_trace; t = get_trace('test_v21'); print(t.name, len(t.events), len(t.ground_truth), t.duration_s)"` yields `test_v21 9 5 760.0` with no exception. |
+| 2 | Keyword/content alignment (M8b hard constraint) | PASS | All 10 (kw, content.lower()) substring checks pass: (`gas`, `leak`); (`appointment`, `rescheduled`); (`vinyl`, `drop`); (`loan`, `repayment`); (`courier`, `signature`). |
+| 3a | Banned event_id literal review (vs 127 banned IDs) | PASS | Mechanical set-intersection: 0 collisions across test_v21's 9 event_ids. |
+| 3b | Banned theme semantic review (vs 72 banned themes) | PASS | Per-GT hand-audit verdicts archived in artifact `audit_gate_result.step_3b_evidence`. GT 3 (`vinyl_drop_press_today`) is the V4 NEW YES-class generalization target per locked plan §D9 defense #8 — distinct from test_v8's banned theme "10-min ticket presale window opening with access code" on all 4 qualifiers (30-min window vs 10-min, vinyl product release vs ticket, drop vs presale, open queue vs access code). All 4 distractors distinct from any banned theme. |
+| 3c | Banned keyword tuple bytewise review (vs 71 banned tuples) | PASS | Mechanical set-intersection: 0 bytewise collisions across 5 GT tuples. |
+| 4 | **Cross-trace literal-ID collision check** (HALT-gate per D-C1.5 #1) | PASS | Mechanical grep of 9 event_ids vs union of dev_v1/dev_v2/test_v1/v2/v3/v4/v5/v6/v7/v8/v11..v15 event_ids: 0 collisions. **HALT-trigger NOT fired.** |
+| 5 | Drift strong-overlap (a) GT tuple bytewise (cross-trace) | PASS | Same mechanical set-intersection as 3c; explicit redundant cross-trace check confirms 0 collisions. |
+| 6 | Drift strong-overlap (b) ≥8-word verbatim phrase | PASS | 8-gram set-intersection: test_v21 has 237 unique 8-grams across content+briefing fields; prior dev/test traces have 1922 unique 8-grams; overlap = 0. |
+
+**GT-regime classification (audit step 7; for Commit D per-trace observations table):**
+- GT 1 `gas_leak_kitchen_sensor` — urgent safety/security issue: household natural-gas-leak detection with immediate evacuation imperative.
+- GT 2 `cardio_appt_rescheduled` — schedule change affecting the user personally: medical specialty (cardiology) appointment rescheduled at provider request.
+- GT 3 `vinyl_drop_press_today` — discretionary-deadline obligation (V4 NEW YES-class): scarcity-bounded opportunity with queue offer + product limit (250 copies) + window under one hour (30 min).
+- GT 4 `student_loan_repayment_resume` — financial/deadline obligation: federal student loan auto-debit resumption + 48-hour IDR plan application deadline.
+- GT 5 `legal_doc_courier_signature` — message/delivery directed personally: certified legal documents requiring in-person signature + 15-minute lobby wait before return-to-sender.
+
+**Defensibility self-check per §D9 defense #8 (audit step 8; V4 NEW NO-subclause generalization):**
+- Distractor `restock_camping_lantern` tests V4 NEW NO subclause "back-in-stock notification without explicit scarcity window" under NEW phrasing/event_id (Goal Zero Lighthouse Mini at Adventure Outfitters with "replenished the stock; browse when ready; no purchase deadline or quantity limit") vs test_v12's `grocer_back_in_stock`.
+- Distractor `calendar_running_club_recur` tests V4 NEW NO subclause "recurring-event calendar suggestion or app suggestion" under NEW phrasing/event_id (running with Maya on Thursdays + "Suggestion only — dismiss or set up later") vs test_v12's `calendar_yoga_suggest`.
+- Distractor `arcade_meetup_kira` tests V4 NEW NO subclause "casual social-meetup notification without time-pressure" under NEW phrasing/event_id (casual arcade night at Quarterworld Saturday with "No commitment, no RSVP — show up if you're free") vs test_v11's `trivia_league_round`.
+- GT `vinyl_drop_press_today` tests V4 NEW YES subclause "scarcity-bounded opportunity with window under one hour" under NEW phrasing/event_id (vinyl record drop, open queue, 30-min window) vs test_v8's `bridgers_presale_window` (10-min ticket presale with access code).
+- Coverage summary: all 3 V4 NEW NO subclauses + 1 V4 NEW YES subclause covered at test_v21 — maximal V4-mechanism coverage in a single 5-GT-4-distractor trace under the §D9 defense #8 brief.
+
+**Per-attempt artifact:** `runs/data/21c-author-test_v21-attempt-1-accepted.json` (full audit-gate evidence + self-restate response verbatim + authored-trace verbatim + GT-regime classification + defensibility self-check archived).
+
+### Banned-list state delta at C1
+
+- Pre-C1 (M11a end-state, ships at C1): 127 IDs / 72 themes / 71 tuples.
+- C1 contributions from accepted test_v21 (to be incorporated into `21c-banned-list-pre-c2.txt` at C2 land time per D-C1.1):
+  - **+9 IDs:** `gas_leak_kitchen_sensor`, `cardio_appt_rescheduled`, `vinyl_drop_press_today`, `student_loan_repayment_resume`, `legal_doc_courier_signature`, `restock_camping_lantern`, `calendar_running_club_recur`, `arcade_meetup_kira`, `discord_unread_digest`.
+  - **+5 themes (GT-regime regime column verbatim):** urgent safety/security issue — household natural-gas-leak detection with immediate evacuation imperative; schedule change affecting the user personally — medical specialty (cardiology) appointment rescheduled at provider request; discretionary-deadline obligation — scarcity-bounded opportunity, queue offer with product limit and window under one hour; financial/deadline obligation — federal student loan auto-debit resumption + IDR plan application deadline; message/delivery directed personally — certified legal documents requiring in-person signature + 15-minute lobby wait before return-to-sender.
+  - **+5 tuples (GT keyword tuples verbatim):** `(gas, leak)`, `(appointment, rescheduled)`, `(vinyl, drop)`, `(loan, repayment)`, `(courier, signature)`.
+- Post-C1 (input state for C2): 136 IDs / 77 themes / 76 tuples. File ships at C2 land time as `runs/data/21c-banned-list-pre-c2.{txt,json}` per D-C1.1 invariant ("no file mutates after the C-step that created it").
+
+### Halt-condition status at C1
+
+- Literal-ID collision halt (D-C1.5 #1): **not triggered** (audit step 4 PASS).
+- Banned-list-saturation halt (D-C1.5 #2 = §D9 defense #4, >25 attempts AND <10 accepted): **not triggered** (1 cumulative milestone attempt < 25; 1 accepted trace toward target of 10).
+- Retry-cap-3 on test_v21 (D-C1.5 #3): **not exhausted** (1/3 used; PASS at attempt #1).
+
+### Cumulative milestone-spend through Commit C1
+
+Commit C1 spend: $0 (no API spend at Commit C1 — author session in-process; self-restate gate rendered locally without API calls; audit-gate checks are local Python). Cumulative M11a-extension spend through Commit C1: $0.7081 (unchanged from Commit B; ~18% of $4 pre-reg budget).
+
+### Frozen artifacts at Commit C1 (NOT touched, per locked plan §D13)
+
+- `agent/loop.py`, `agent/llm.py`, `agent/predictor.py`, `agent/surprise.py`, `agent/arbiter.py` — frozen throughout milestone.
+- `eval/run_trace.py`, `eval/author_trace.py` — frozen at Commit C (CLI choices + self-restate gate locked at Commit B).
+- `sandbox/event_trace.py` test_v4..test_v15 definitions — frozen historical artifacts (only NEW `test_trace_v21` added at C1, plus the registry line `"test_v21": test_trace_v21,`).
+- `baselines/`, `pyproject.toml`, `uv.lock` — no changes at Commit C1.
+
+### Next: Commit C2 — fresh-session trace authoring `test_v22`
+
+Per locked plan §D13 + D-C1.1: future session opens with `runs/data/21c-banned-list-pre-c2.{txt,json}` (NEW; reflects test_v21 contributions) as the pre-C2 starting state. Self-restate gate rendered against the pre-C2 file. Same C-protocol governance decisions (D-C1.1..D-C1.6) apply unchanged. Cumulative milestone attempt count 1/25 carries forward.
+
+Commit C2 is deferred to a future fresh session per M10-shape protocol + auto-memory `feedback_new_session_for_arch_work.md`.
