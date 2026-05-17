@@ -1,0 +1,145 @@
+{
+  "milestone": "M11a-extension Commit C2",
+  "trace_id": "test_v22",
+  "attempt_number": 2,
+  "attempted_at_utc": "2026-05-17T05:42:40Z",
+  "verdict": "accepted",
+  "banned_list_path": "runs/data/21c-banned-list-pre-c2.txt",
+  "banned_list_sha256_at_attempt": "e98e5b10125ef34cefc85234fa95b7c7d22d1b2e9d3796b8c8353b973d4b185d",
+  "banned_list_state_counts": {
+    "event_ids": 136,
+    "themes": 77,
+    "tuples": 76
+  },
+  "self_restate_prompt_path": "/tmp/m11a-ext-c2-restate-prompt.txt",
+  "self_restate_prompt_sha256": "3bafb3ff59d3ef1cc82b3e94633d24bd8ddbea8c766e7e5db9f8a14ebb681148",
+  "self_restate_prompt_bytes": 11582,
+  "self_restate_response_verbatim": "(a) Plain parseable Python. test_trace_v22 must be a literal function returning a Trace dataclass populated with string literals (content, briefing), tuple literals (keywords, intents), and float literals (sim_time, window_s). No f-string substitution, no eval/exec, no metaclass tricks. The module must import without exception and get_trace('test_v22') must return a populated Trace; audit-gate step 1 fails on first invocation otherwise.\n\n(b) No walrus operator. I will not use the PEP 572 := operator anywhere in the body — all assignments are plain = at statement level, addressing the M11a test_v11 #1 walrus failure mode that broke parsing in a way the schema-import didn't surface until runtime.\n\n(c) No arithmetic in event_id strings. Each Event.id is a literal string token written at author time (e.g., \"datastore_replica_failover_p1\"), never a computed expression like f\"event_{i}\" or string concatenation/format substitution. The id is fixed in source; addresses M11a test_v13 #2 and test_v15 #1 arithmetic-in-id failure modes.\n\n(d) Banned event_ids. The 136 IDs enumerated in the pre-C2 banned list (M8b/M9 46 + M10b test_v5 9 + M10b test_v6/v7/v8 27 + M11a test_v11..v15 45 + M11a-extension test_v21 9) are bytewise-prohibited as Event.id values in test_v22, with no cross-trace literal-ID collision against dev_v1/dev_v2/test_v1..test_v15/test_v21 either (audit-gate step 4 HALT-gate per D-C1.5 #1).",
+  "authored_trace_verbatim": "def test_trace_v22() -> Trace:\n    gts = [\n        _gt(\n            Event(id=\"grandpa_90th_birthday_tomorrow\", kind=\"notification\", sim_time=80.0,\n                  content=\"Reminder pinned by Mom in the family chat: Grandpa Walter's 90th birthday party is tomorrow at 1pm at the Riverview Country Club ballroom. All five siblings and twelve cousins are flying or driving in; you signed up to give the toast at the cake-cutting. You haven't written it yet, and the rehearsal-dinner photos confirm everyone is expecting it.\"),\n            window_s=480.0, keywords=(\"grandpa\", \"birthday\"),\n        ),\n        _gt(\n            Event(id=\"flash_flood_warning_overnight\", kind=\"alert\", sim_time=220.0,\n                  content=\"NWS flash flood warning issued for King County through 6am Friday: 4-6 inches of rain expected overnight; low-lying roads on the I-5 corridor expected to close; your morning commute route on Westlake Avenue is inside the warning zone. Local authorities advise the I-405 alternate.\"),\n            window_s=300.0, keywords=(\"flood\", \"warning\"),\n        ),\n        _gt(\n            Event(id=\"datastore_replica_failover_p1\", kind=\"alert\", sim_time=380.0,\n                  content=\"PagerDuty P1 [primary-postgres-001]: database failover triggered at 04:47 UTC; writes failing with SQLSTATE 08006; on-call rotation lists you as primary for the payments-data shard. Promotion ETA is 10 minutes; estimated customer-facing downtime ~12 minutes if not resolved by 04:57.\"),\n            window_s=60.0, keywords=(\"database\", \"failover\"),\n        ),\n        _gt(\n            Event(id=\"aging_parent_fall_alert_emergency_pendant\", kind=\"alert\", sim_time=480.0,\n                  content=\"Medical-alert pendant for your father (Robert) triggered fall-detection at 6:42am; automatic EMS dispatch was confirmed; you are listed as the primary emergency contact. The pendant operator is on the line awaiting your callback to coordinate hospital handoff; ambulance ETA to his address is 8 minutes.\"),\n            window_s=30.0, keywords=(\"fall\", \"pendant\"),\n        ),\n        _gt(\n            Event(id=\"property_tax_installment_due_today\", kind=\"notification\", sim_time=560.0,\n                  content=\"King County Treasurer reminder: your property tax first-installment payment of $3,180 is due today by 5pm. Pay via the online portal at kingcounty.gov/treasury or in person at the courthouse cashier. Late-payment penalty of 10% applies if not paid by today's 5pm cutoff; certified collection notice mails on day 31.\"),\n            window_s=300.0, keywords=(\"property\", \"tax\"),\n        ),\n    ]\n    distractors = [\n        Event(id=\"sneakers_wishlist_back_in_stock_email\", kind=\"email\", sim_time=20.0,\n              content=\"Good news from SneakerVault: your wishlist item, the Nike Air Max 90 (size 11, Triple White), is back in stock. We've restocked plenty of pairs; no rush, no quantity limit. Shop when you're ready — orders ship within 5-7 business days at standard prices.\"),\n        Event(id=\"calendar_coffee_lisa_weekly_suggest\", kind=\"notification\", sim_time=140.0,\n              content=\"Google Calendar suggestion: We noticed you have met Lisa for coffee five Wednesdays in a row at 9am at Heart Coffee. Would you like to add 'Wednesday coffee with Lisa' as a recurring weekly event? Options: Add weekly / Add once / Dismiss. No deadline — suggestion only.\"),\n        Event(id=\"pickup_basketball_saturday_open\", kind=\"notification\", sim_time=300.0,\n              content=\"Text from Marco: hey, we're running pickup 5-on-5 at the Wallingford courts Saturday at 10am. Totally casual, no commitment — show up if you feel like it, ignore if you're busy. Same crew as last month.\"),\n        Event(id=\"chrome_extension_marketplace_update\", kind=\"email\", sim_time=680.0,\n              content=\"Chrome announcement: we've updated the extension review system in the Chrome Web Store. Visit the marketplace homepage to browse newly featured extensions and read the updated reviewer guidelines. No action required.\"),\n    ]\n    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)\n    return Trace(\n        name=\"test_v22\",\n        events=events,\n        ground_truth=gts,\n        briefing=(\n            \"Tuesday morning at home in Seattle. \"\n            \"Code review due by EOD on a payments-data migration, and I'm also on the on-call rotation through tonight. \"\n            \"Focus mode is on for my IM apps; I want only urgent items or genuine time-sensitive obligations to break through — routine pings and casual social can wait until evening.\"\n        ),\n        intents=(\n            \"ship the payments-data review by EOD\",\n            \"on-call rotation tonight\",\n            \"focus mode for IM noise\",\n            \"don't miss urgent items\",\n            \"no missed deadlines or family obligations\",\n        ),\n    )",
+  "step_3_5_pre_flight_keyword_substring_verification": {
+    "rule": "D-C2.attempt2.C — every GT keyword tuple element must appear as a case-insensitive substring of the GT's Event.content, mechanically verified before invoking audit-gate step 2; per-attempt author discipline addition not modifying the locked audit-gate at D-C1.3",
+    "verdict": "PASS",
+    "evidence": "uv run python -c 'from sandbox.event_trace import get_trace; t = get_trace(\"test_v22\"); [print(f\"{kw!r} in {g.event.id}: {kw.lower() in g.event.content.lower()}\") for g in t.ground_truth for kw in g.keywords]' yields 10 lines all 'True': ('grandpa', grandpa_90th_birthday_tomorrow) True; ('birthday', grandpa_90th_birthday_tomorrow) True; ('flood', flash_flood_warning_overnight) True; ('warning', flash_flood_warning_overnight) True; ('database', datastore_replica_failover_p1) True; ('failover', datastore_replica_failover_p1) True; ('fall', aging_parent_fall_alert_emergency_pendant) True; ('pendant', aging_parent_fall_alert_emergency_pendant) True; ('property', property_tax_installment_due_today) True; ('tax', property_tax_installment_due_today) True."
+  },
+  "audit_gate_result": {
+    "step_1_schema_check": "PASS",
+    "step_1_evidence": "uv run python -c 'from sandbox.event_trace import get_trace; t = get_trace(\"test_v22\"); print(t.name, len(t.events), len(t.ground_truth), t.duration_s)' yields 'test_v22 9 5 890.0' with no exception. Schema check PASS.",
+    "step_2_keyword_content_alignment": "PASS",
+    "step_2_evidence": "M8b hard constraint: every GT keyword tuple element appears as case-insensitive substring of that GT's Event.content. All 10 pairs PASS (mechanical check pre-verified at Step 3.5 and re-confirmed at audit-gate): (grandpa, grandpa_90th_birthday_tomorrow) PASS; (birthday, grandpa_90th_birthday_tomorrow) PASS; (flood, flash_flood_warning_overnight) PASS; (warning, flash_flood_warning_overnight) PASS; (database, datastore_replica_failover_p1) PASS; (failover, datastore_replica_failover_p1) PASS; (fall, aging_parent_fall_alert_emergency_pendant) PASS; (pendant, aging_parent_fall_alert_emergency_pendant) PASS; (property, property_tax_installment_due_today) PASS; (tax, property_tax_installment_due_today) PASS.",
+    "step_3a_banned_event_id_review": "PASS",
+    "step_3a_evidence": "Mechanical set-intersection of test_v22's 9 event_ids (grandpa_90th_birthday_tomorrow, flash_flood_warning_overnight, datastore_replica_failover_p1, aging_parent_fall_alert_emergency_pendant, property_tax_installment_due_today, sneakers_wishlist_back_in_stock_email, calendar_coffee_lisa_weekly_suggest, pickup_basketball_saturday_open, chrome_extension_marketplace_update) vs 136 banned event_ids in runs/data/21c-banned-list-pre-c2.txt: 0 collisions.",
+    "step_3b_banned_theme_review": "PASS",
+    "step_3b_evidence": "Per-GT hand-audit against 77 banned themes; 5 GT themes pass with distinguishing qualifiers documented. GT 1 grandpa_90th_birthday_tomorrow → V4 NEW YES family-milestone-with-social-cost subclass (NEW phrasing/event_id vs test_v8 mom_birthday_heads_up banned predecessor; subject grandpa vs mother, specific 90th milestone vs unspecified age, toast-at-cake-cutting obligation vs forgetting concern, Riverview Country Club venue vs unspecified). GT 2 flash_flood_warning_overnight → V2 EXISTING YES weather alert (NEW specific incident vs M8b generic 'weather alert' class-level placeholder; NWS authority, 4-6\" overnight rain mechanism, I-5/Westlake commute-impact, distinct from M11a test_v14 boil-water-advisory water-quality-public-health). GT 3 datastore_replica_failover_p1 → V2 EXISTING YES production/on-call alert (NEW specific incident vs M8b generic 'production / server outage' class-level placeholder; PagerDuty primary-postgres-001 specific, SQLSTATE 08006 mechanism, SLO 12-min downtime, payments-data shard customer-facing impact). GT 4 aging_parent_fall_alert_emergency_pendant → V2 EXISTING YES urgent safety/medical-emergency (NEW sub-class vs M8b 'ER call' generic, vs M11a test_v12 hospitalized-friend informational-only, vs C1 gas_leak_kitchen_sensor different sub-class; medical-alert pendant fall-detection auto-EMS-dispatch with primary-contact-callback action demand). GT 5 property_tax_installment_due_today → V2 EXISTING YES financial/deadline obligation (NEW specific incident vs M8b 'rent due' generic, vs M10b test_v5 tax-extension IRS-side, vs M11a test_v12 DMV-license-renewal, vs M11a test_v13 warranty-registration, vs C1 student_loan_repayment_resume federal-student-loan; King County Treasurer county-level property-tax first-installment with 10% late penalty and day-31 certified collection notice).",
+    "step_3c_banned_keyword_tuple_review": "PASS",
+    "step_3c_evidence": "Mechanical set-intersection of test_v22's 5 GT keyword tuples ((grandpa, birthday), (flood, warning), (database, failover), (fall, pendant), (property, tax)) vs 76 banned tuples in runs/data/21c-banned-list-pre-c2.json: 0 bytewise collisions. Note (mother, birthday) banned but (grandpa, birthday) bytewise-distinct; (production, alert) banned but (database, failover) bytewise-distinct; (tax, expires) banned but (property, tax) bytewise-distinct.",
+    "step_4_cross_trace_literal_id_collision": "PASS",
+    "step_4_evidence": "Mechanical grep of test_v22's 9 event_ids against the union of event_ids in dev_v1/dev_v2/test_v1/test_v2/test_v3/test_v4/test_v5/test_v6/test_v7/test_v8/test_v11/test_v12/test_v13/test_v14/test_v15/test_v21 via get_trace iteration: 0 collisions against 136 prior event_ids. HALT-trigger NOT fired per D-C1.5 #1.",
+    "drift_overlap_strong_a_tuple_bytewise": "PASS",
+    "drift_overlap_strong_a_evidence": "Mechanical set-intersection of test_v22's 5 GT tuples vs union of prior GT tuples (76 unique across dev_v1..test_v21): 0 collisions. Same result as step 3c against the banned-list (which is the union of prior GT tuples by construction).",
+    "drift_overlap_strong_b_8word_verbatim": "PASS",
+    "drift_overlap_strong_b_evidence": "Mechanical 8-gram set-intersection of test_v22's content+briefing 8-grams (378 unique) vs union of dev_v1..test_v21 content+briefing 8-grams (2159 unique): 0 overlaps."
+  },
+  "gt_regime_classification": [
+    {
+      "gt_index": 1,
+      "event_id": "grandpa_90th_birthday_tomorrow",
+      "regime": "discretionary-deadline obligation (V4 NEW YES, family-milestone-with-social-cost subclass)",
+      "rationale": "Proactive heads-up for grandfather's 90th milestone birthday party tomorrow with toast-at-cake-cutting obligation; all siblings + cousins committed/travelled; toast unwritten and expected. Maps 1:1 to V4 prompt's seventh YES class: 'discretionary-deadline obligation: a family milestone with social cost (birthday or anniversary heads-up)'."
+    },
+    {
+      "gt_index": 2,
+      "event_id": "flash_flood_warning_overnight",
+      "regime": "weather alert (V2 EXISTING YES)",
+      "rationale": "NWS flash flood warning for King County with 4-6\" overnight rain, low-lying I-5 corridor road closures expected, user's morning commute on Westlake Avenue in warning zone, I-405 alternate advised. Maps 1:1 to V4 prompt's fifth YES class: 'a weather alert or external condition that would plausibly change the user's planned day'."
+    },
+    {
+      "gt_index": 3,
+      "event_id": "datastore_replica_failover_p1",
+      "regime": "production/on-call alert (V2 EXISTING YES)",
+      "rationale": "PagerDuty P1 database failover on primary-postgres-001 with SQLSTATE 08006 write-failures; user is primary on-call for payments-data shard; SLO 12-min downtime if not resolved by 04:57; customer-facing checkout impacted. Maps 1:1 to V4 prompt's sixth YES class: 'a production/on-call alert or outage for a system the user owns'."
+    },
+    {
+      "gt_index": 4,
+      "event_id": "aging_parent_fall_alert_emergency_pendant",
+      "regime": "urgent safety/security issue (V2 EXISTING YES — medical-emergency sub-class)",
+      "rationale": "Medical-alert pendant for elderly father (Robert) triggered fall-detection at 6:42am with automatic EMS dispatch confirmed; user listed as primary emergency contact; pendant operator awaiting callback to coordinate hospital handoff; ambulance ETA 8 minutes. Maps 1:1 to V4 prompt's first YES class: 'an urgent safety or security issue (fire, break-in, medical emergency, security breach, unauthorized access)'."
+    },
+    {
+      "gt_index": 5,
+      "event_id": "property_tax_installment_due_today",
+      "regime": "financial/deadline obligation (V2 EXISTING YES)",
+      "rationale": "King County Treasurer property-tax first-installment payment of $3,180 due today by 5pm; 10% late-payment penalty applies if missed; day-31 certified collection notice if not paid. Maps 1:1 to V4 prompt's third YES class: 'a financial or deadline obligation the user must act on within the next few days (bill due, rent due, report deadline, payment reminder)'."
+    }
+  ],
+  "defensibility_self_check_per_locked_plan_d9_defense_8": {
+    "v4_new_no_subclause_coverage": [
+      {
+        "distractor_event_id": "sneakers_wishlist_back_in_stock_email",
+        "v4_subclause": "back-in-stock or restock notification without an explicit scarcity window",
+        "new_phrasing_vs_predecessors": "SneakerVault email re: Nike Air Max 90 wishlist item — different vendor (SneakerVault vs grocer / Adventure Outfitters), different product class (sneakers vs grocery / camping gear), different specific motif ('no rush, no quantity limit, ships 5-7 business days') vs test_v12 grocer_back_in_stock banned predecessor AND vs C1 (test_v21) restock_camping_lantern NEW choice."
+      },
+      {
+        "distractor_event_id": "calendar_coffee_lisa_weekly_suggest",
+        "v4_subclause": "recurring-event calendar suggestion or app suggestion",
+        "new_phrasing_vs_predecessors": "Google Calendar suggesting weekly Wednesday coffee with Lisa based on 5-Wednesday history at Heart Coffee — different activity class (coffee vs yoga / running), different person, different cadence-detection motif vs test_v12 calendar_yoga_suggest banned predecessor AND vs C1 (test_v21) calendar_running_club_recur NEW choice."
+      },
+      {
+        "distractor_event_id": "pickup_basketball_saturday_open",
+        "v4_subclause": "casual social-meetup notification without time-pressure",
+        "new_phrasing_vs_predecessors": "Text from Marco re: pickup 5-on-5 basketball at Wallingford courts Saturday 10am — different activity (basketball vs trivia / arcade), different person, different venue, 'totally casual, no commitment, ignore if busy' framing vs test_v11 trivia_league_round banned predecessor AND vs C1 (test_v21) arcade_meetup_kira NEW choice."
+      }
+    ],
+    "v4_new_yes_subclause_coverage": [
+      {
+        "gt_event_id": "grandpa_90th_birthday_tomorrow",
+        "v4_subclause": "family milestone with social cost (birthday or anniversary heads-up)",
+        "new_phrasing_vs_predecessors": "Grandpa Walter's 90th milestone birthday party tomorrow with toast obligation at cake-cutting — different subject (grandpa vs mother), specific 90th milestone vs unspecified age, toast obligation + sibling/cousin attendance vs forgetting concern, Riverview Country Club ballroom venue vs unspecified, distinct from test_v8 mom_birthday_heads_up banned predecessor. C1 (test_v21) covered the OTHER V4 NEW YES subclause (scarcity-bounded-opportunity); C2 (this trace) covers the family-milestone subclause — together C1+C2 give cross-trace V4 NEW YES subclass coverage of both named subclauses."
+      }
+    ],
+    "compliant_content_no_regression_class_coverage": [
+      {
+        "gt_event_id": "flash_flood_warning_overnight",
+        "v2_yes_class": "weather alert"
+      },
+      {
+        "gt_event_id": "datastore_replica_failover_p1",
+        "v2_yes_class": "production/on-call alert or outage"
+      },
+      {
+        "gt_event_id": "aging_parent_fall_alert_emergency_pendant",
+        "v2_yes_class": "urgent safety or security issue (medical-emergency sub-class)"
+      },
+      {
+        "gt_event_id": "property_tax_installment_due_today",
+        "v2_yes_class": "financial or deadline obligation"
+      },
+      {
+        "distractor_event_id": "chrome_extension_marketplace_update",
+        "v2_no_class": "feature announcements, app updates, or social/channel invites"
+      }
+    ],
+    "coverage_summary": "C2 V4 NEW YES family-milestone-with-social-cost subclause (NEW phrasing/event_id vs test_v8 mom_birthday_heads_up) + 3 V4 NEW NO subclauses (back-in-stock / recurring-calendar-suggest / casual-social-meetup) all repeated under NEW phrasing/event_id vs both M11a banned predecessors AND test_v21 NEW choices per D-C2.attempt2.B locked subclause brief. Cross-trace V4-mechanism coverage at C1+C2: both V4 NEW YES subclauses (scarcity-bounded-opportunity at C1; family-milestone-with-social-cost at C2) + all 3 V4 NEW NO subclauses (3x repeated across C1 and C2 under NEW phrasing each time)."
+  },
+  "fresh_session_metadata": {
+    "session_protocol": "M11a iterative-extension fresh-session-restart-from-scratch; no carryover of specific event_ids, content phrasings, keyword tuples, sim_times, briefing, or intents from attempt #1",
+    "lesson_carryover_from_attempt_1": "Abstract M8b discipline (every GT keyword must appear as case-insensitive substring of the GT's Event.content) carried forward as Step 3.5 pre-flight author-discipline check per D-C2.attempt2.C; specific authored content from attempt #1 NOT reused",
+    "attempt_1_artifact_sealed_for_transparency": "runs/data/21c-author-test_v22-attempt-1-rejected.json (sha256 9c93c3f0c22f32b437f7c3627bb6d15b7b54360fa919f421e3ade719559f4031); ships in C2 commit bundle per D-C1.2 + D-C1.6 transparency",
+    "shared_event_ids_with_attempt_1": "NONE (attempt #2 has zero event_id overlap with attempt #1's authored trace; fresh-session-restart preserves M11a iterative-extension protocol design principle)",
+    "shared_keyword_tuples_with_attempt_1": "NONE (attempt #2 GT keyword tuples are entirely fresh)",
+    "shared_briefing_or_intents_with_attempt_1": "NONE (attempt #2 Tuesday-Seattle-payments-data-on-call setting is distinct from attempt #1's setting)"
+  },
+  "milestone_attempt_count_running": {
+    "cumulative_milestone_attempts_to_date": 3,
+    "cumulative_accepted_traces_to_date": 2,
+    "remaining_traces_for_combined_n20_closure": 8,
+    "milestone_target_accepted_traces": 10,
+    "structural_parsing_failure_rate_to_date": "0/3 attempts (step-1 schema check 100% PASS; the C2 attempt-1 rejection was step-2 M8b keyword/content alignment, NOT structural-parsing-failure per §D4 design)",
+    "audit_gate_failure_rate_to_date_overall": "1/3 attempts (C2 attempt-1 rejected at step 2; C1 attempt-1 + C2 attempt-2 accepted)",
+    "per_trace_attempts_on_test_v22": "2 of 3 retry-cap budget used; PASS at attempt 2/3",
+    "halt_conditions_status": {
+      "literal_id_collision_halt_D_C1_5_1": "not triggered (step 4 PASS at all 3 attempts to date)",
+      "banned_list_saturation_halt_D_C1_5_2_defense_4": "not triggered (3 cumulative milestone attempts < 25 cap)",
+      "retry_cap_3_per_trace_halt_D_C1_5_3": "not triggered on test_v22 (accepted at attempt 2/3; 1 retry remaining had it not accepted)"
+    }
+  }
+}

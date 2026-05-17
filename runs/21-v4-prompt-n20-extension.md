@@ -679,3 +679,150 @@ Commit C1 spend: $0 (no API spend at Commit C1 — author session in-process; se
 Per locked plan §D13 + D-C1.1: future session opens with `runs/data/21c-banned-list-pre-c2.{txt,json}` (NEW; reflects test_v21 contributions) as the pre-C2 starting state. Self-restate gate rendered against the pre-C2 file. Same C-protocol governance decisions (D-C1.1..D-C1.6) apply unchanged. Cumulative milestone attempt count 1/25 carries forward.
 
 Commit C2 is deferred to a future fresh session per M10-shape protocol + auto-memory `feedback_new_session_for_arch_work.md`.
+
+---
+
+## Commit C2 — test_v22 (2026-05-17)
+
+**Verdict: test_v22 ACCEPTED at attempt 2/3; audit-gate 8/8 PASS at the accepting attempt. Attempt 1/3 REJECTED at audit-gate step 2 (M8b keyword/content alignment) on 2 of 10 keyword pairs — D-C1.3 audit-gate working as designed; rejection artifact ships in this commit bundle per D-C1.2 + D-C1.6 transparency.** Cumulative milestone attempt count 3/25 through Commit C2 (C1 attempt-1 + C2 attempt-1 + C2 attempt-2); 8 traces remaining for combined-N=20 closure. Self-restate pre-flight gate per §D4 prevented the M11a-class structural-parsing-failure mode at all attempts (M11a-extension structural-parsing-failure rate to date: 0/3 attempts — the C2 attempt-1 rejection was step-2 M8b alignment, NOT structural-parsing-failure per §D4 design; self-restate gate addresses audit-gate step 1 territory only).
+
+### C-protocol governance decisions inherited from C1
+
+D-C1.1..D-C1.6 locked at C1 first-land (`1fefe6e`) and inherited VERBATIM at C2 with no re-litigation per "no scope drift within a milestone" operating principle.
+
+### C2 attempt-specific Plan locks (per-attempt discipline; not C-protocol governance)
+
+| Decision | Lock |
+|---|---|
+| **D-C2.B locked subclause coverage brief (inherited from C2 attempt #1 Plan; verbatim)** | Option (a) within-V4-class power: 1 V4 NEW YES family-milestone-with-social-cost subclass GT (NEW phrasing/event_id vs test_v8 `mom_birthday_heads_up` banned predecessor) + 4 V2/V4 EXISTING YES compliant-content controls (prefer weather alert + production/on-call subclasses C1 did NOT cover); 2-3 V4 NEW NO subclause repeats (back-in-stock-without-scarcity + recurring-event-calendar-suggest + casual-social-meetup) under NEW phrasing/event_id vs BOTH M11a banned predecessors AND test_v21 NEW choices; 1-2 V2/V4 EXISTING NO compliant-content controls. |
+| **D-C2.attempt2.A state-confirm checklist (NEW)** | Pre-attempt-#2 state confirmed via three on-disk sha256 verifications (pre-C2 banned-list `.txt` `e98e5b10...`; `.json` `e9cadf8d...`; attempt-1-rejected.json `9c93c3f0...`) — confirms attempt #1's on-disk artifacts persisted through the fresh-session restart bit-identical to attempt-#1-session end state, satisfying "no file mutates after the C-step that created it" extended to "no file mutates after the session that created it". `sandbox/event_trace.py` confirmed HEAD bit-identical (`7384e504...`) before authoring. |
+| **D-C2.attempt2.C Step 3.5 pre-flight keyword literal-substring verification (NEW per-attempt author discipline)** | After Step 3 (author trace) and BEFORE Step 4 (run audit-gate), mechanically verify that every GT keyword tuple element appears as case-insensitive substring of that GT's `Event.content`. Implementation: `uv run python -c "from sandbox.event_trace import get_trace; t = get_trace('test_v22'); [print(f'{kw!r} in {g.event.id}: {kw.lower() in g.event.content.lower()}') for g in t.ground_truth for kw in g.keywords]"`. ALL must print `True`. ANY `False` → revise GT content OR replace keyword; revert `sandbox/event_trace.py` if schema check was attempted; re-author Step 3; re-run Step 3.5. Author-discipline pre-flight only — does NOT modify the audit-gate locked at D-C1.3; does NOT consume retry-cap budget per D-C1.4 (the retry-cap counts audit-gate-submitted attempts only). Reviewer-defense: mirrors M11a test_v11 #1 walrus-syntax failure → all subsequent M11a fresh-session attempts adopted "no walrus operator" as a per-attempt pre-flight without modifying the audit-gate. Attribution remains clean: self-restate gate → structural-parsing (audit step 1 territory); Step 3.5 → M8b keyword/content alignment (audit step 2 territory). |
+| **D-C2.attempt2.D commit shape extension** | D-C2.D commit shape inherits VERBATIM with one extension: the C2 commit bundles BOTH attempt-1-rejected.json AND the accepting attempt-N-accepted.json (and any intermediate attempt-{2..N-1}-rejected.json) per D-C1.2 + D-C1.6 transparency. C2 commit message names "attempt N / N total attempts" showing the rejection trajectory. |
+
+### Banned-list starting state (C1 end-state)
+
+- Source artifact: `runs/data/21c-banned-list-pre-c2.txt` (SHA256 `e98e5b10125ef34cefc85234fa95b7c7d22d1b2e9d3796b8c8353b973d4b185d`; 11173 bytes; 136 banned event_ids + 77 banned themes + 76 banned keyword tuples).
+- Parallel structured artifact: `runs/data/21c-banned-list-pre-c2.json` (SHA256 `e9cadf8daaaace5439b50cbddd10fd79cf357e090ad33ddcf6c49638bab4b51e`; 11160 bytes; same content in structured schema).
+- Provenance: bit-identical to C1 end-state per D-C1.1 invariant; ships at C2 (was authored at C2-attempt-#1 session and persisted untracked through the fresh-session-restart for attempt-#2).
+
+### Self-restate pre-flight gate (§D4 + D14-H7)
+
+- Command: `uv run python -m eval.author_trace --banned-list runs/data/21c-banned-list-pre-c2.txt > /tmp/m11a-ext-c2-restate-prompt.txt`
+- Rendered prompt SHA256: `3bafb3ff59d3ef1cc82b3e94633d24bd8ddbea8c766e7e5db9f8a14ebb681148` (11582 bytes)
+- Re-rendered against the on-disk pre-C2 banned-list file at attempt #2 session — bytewise identical to the prompt rendered at attempt #1 session (file path + file sha256 unchanged; helper `eval/author_trace.py` unchanged since Commit B).
+- Outcome: structural-parsing-failure mode (M11a 3/9 = 33% baseline) NOT triggered at either attempt; schema check via `get_trace('test_v22')` passes on first import at attempt #2.
+
+### Attempt #1 — REJECTED (audit-gate step 2 FAIL on 2 of 10 keyword pairs)
+
+**Verdict:** Reject at first-match-rejection per D-C1.3 audit-gate semantics. First violated check: `step_2_keyword_content_alignment`.
+
+**Audit-gate trace at rejection:**
+
+| Step | Item | Verdict |
+|---|---|---|
+| 1 | Schema check via `get_trace('test_v22')` | PASS — 9 events / 5 GTs / duration 950.0s |
+| 2 | Keyword/content alignment (M8b hard constraint) | **FAIL** — 8 of 10 pairs PASS; 2 FAIL |
+| 3a | Banned event_id literal review | PASS — 0 collisions vs 136 banned IDs |
+| 3b | Banned theme semantic review | not_evaluated (first-match-rejection at step 2) |
+| 3c | Banned keyword tuple bytewise review | PASS — 0 collisions vs 76 banned tuples |
+| 4 | Cross-trace literal-ID collision (HALT-gate) | PASS — HALT not triggered |
+| 5 | Drift strong-overlap (a) GT tuple bytewise | PASS |
+| 6 | Drift strong-overlap (b) ≥8-word verbatim | PASS |
+
+**Rejection reason (verbatim from artifact `rejection_reason_verbatim`):** "Two GT keyword-content alignment failures: GT 3 `payments_webhook_alert_oncall` has keywords=('webhook', 'alert') but the literal word 'alert' does not appear in the GT's `Event.content` (the content uses 'PagerDuty P1', '5xx', 'SLO at risk' but never the word 'alert'); GT 4 `power_disconnect_tomorrow_notice` has keywords=('utility', 'disconnect') but the literal word 'utility' does not appear in the GT's `Event.content` (the utility provider is named 'Seattle City Light' but the generic word 'utility' is absent). M8b's keyword/content alignment hard constraint requires every keyword tuple element to appear as a case-insensitive substring of the GT's content; this is the M8b structural prerequisite for harness scoring (keyword-match-on-content is the join key between GT and arbiter-tagged events). Both keyword pairs need either the content revised to include the literal word, or the keyword replaced with a word that appears in the content."
+
+**Per-attempt artifact:** `runs/data/21c-author-test_v22-attempt-1-rejected.json` (SHA256 `9c93c3f0c22f32b437f7c3627bb6d15b7b54360fa919f421e3ade719559f4031`; full audit-gate evidence + self-restate response verbatim + authored-trace verbatim + post-rejection-actions-taken archived; ships with this C2 commit bundle per D-C1.2 + D-C1.6 transparency).
+
+**Reviewer-defense (D-C1.3 audit-gate working as designed):** The audit-gate caught an author oversight at the pre-submission gate before it could corrupt harness data. The rejection artifact ships in the C2 commit bundle (not hidden, not amended away); the cumulative-milestone attempt count includes attempt #1 transparently (3/25 through Commit C2 — C1 attempt-1 + C2 attempt-1 + C2 attempt-2 — not 2/25). Per locked plan §D9 defense #4 + D-C1.5 #2, banned-list saturation halt counts CUMULATIVE attempts not just accepted-trace count; this rejection contributes to the 25-attempt cap toward the 10-accepted-trace target.
+
+### Attempt #2 — ACCEPTED (audit-gate 8/8 PASS)
+
+**Verdict:** Accept (strict-letter; 8 of 8 audit-gate items PASS). Authored in a fresh session restart from scratch per M11a iterative-extension protocol with NO carryover of specific event_ids, content phrasings, keyword tuples, sim_times, briefing, or intents from attempt #1.
+
+**Step 3.5 pre-flight keyword literal-substring verification (per D-C2.attempt2.C):**
+
+Mechanical check before audit-gate invocation — all 10 keyword/content pairs print `True`:
+
+| Keyword | GT event_id | Pre-flight verdict |
+|---|---|---|
+| `grandpa` | `grandpa_90th_birthday_tomorrow` | True |
+| `birthday` | `grandpa_90th_birthday_tomorrow` | True |
+| `flood` | `flash_flood_warning_overnight` | True |
+| `warning` | `flash_flood_warning_overnight` | True |
+| `database` | `datastore_replica_failover_p1` | True |
+| `failover` | `datastore_replica_failover_p1` | True |
+| `fall` | `aging_parent_fall_alert_emergency_pendant` | True |
+| `pendant` | `aging_parent_fall_alert_emergency_pendant` | True |
+| `property` | `property_tax_installment_due_today` | True |
+| `tax` | `property_tax_installment_due_today` | True |
+
+**Audit-gate results (8/8 PASS):**
+
+| Step | Item | Verdict | Evidence |
+|---|---|---|---|
+| 1 | Schema check via `get_trace('test_v22')` | PASS | `uv run python -c "from sandbox.event_trace import get_trace; t = get_trace('test_v22'); print(t.name, len(t.events), len(t.ground_truth), t.duration_s)"` yields `test_v22 9 5 890.0` with no exception. |
+| 2 | Keyword/content alignment (M8b hard constraint) | PASS | All 10 (kw, content.lower()) substring checks pass (Step 3.5 pre-flight + audit-gate verification both PASS): `(grandpa, grandpa_90th_birthday_tomorrow)`; `(birthday, grandpa_90th_birthday_tomorrow)`; `(flood, flash_flood_warning_overnight)`; `(warning, flash_flood_warning_overnight)`; `(database, datastore_replica_failover_p1)`; `(failover, datastore_replica_failover_p1)`; `(fall, aging_parent_fall_alert_emergency_pendant)`; `(pendant, aging_parent_fall_alert_emergency_pendant)`; `(property, property_tax_installment_due_today)`; `(tax, property_tax_installment_due_today)`. |
+| 3a | Banned event_id literal review (vs 136 banned IDs) | PASS | Mechanical set-intersection: 0 collisions across test_v22's 9 event_ids. |
+| 3b | Banned theme semantic review (vs 77 banned themes) | PASS | Per-GT hand-audit verdicts archived in artifact `audit_gate_result.step_3b_evidence`. GT 1 `grandpa_90th_birthday_tomorrow` is the V4 NEW YES family-milestone-with-social-cost subclass NEW phrasing/event_id vs test_v8's banned `mom_birthday_heads_up` (subject grandpa vs mother; specific 90th milestone vs unspecified; toast-at-cake-cutting obligation vs forgetting concern; Riverview Country Club venue vs unspecified). GT 2 flash flood warning is NEW specific incident vs M8b's generic 'weather alert' class-level placeholder. GT 3 database failover P1 is NEW specific incident vs M8b's generic 'production / server outage'. GT 4 medical-alert pendant fall-detection is NEW sub-class vs M8b 'ER call' generic, vs M11a test_v12 hospitalized-friend informational-only, vs C1 gas_leak_kitchen_sensor different sub-class. GT 5 property-tax first-installment is NEW specific incident vs M8b 'rent due' generic / M10b test_v5 tax-extension IRS-side / M11a test_v12 DMV-license-renewal / M11a test_v13 warranty-registration / C1 student_loan federal-loan. |
+| 3c | Banned keyword tuple bytewise review (vs 76 banned tuples) | PASS | Mechanical set-intersection: 0 bytewise collisions across 5 GT tuples `[(grandpa, birthday), (flood, warning), (database, failover), (fall, pendant), (property, tax)]`. Note `(mother, birthday)` banned but `(grandpa, birthday)` bytewise-distinct; `(production, alert)` banned but `(database, failover)` bytewise-distinct; `(tax, expires)` banned but `(property, tax)` bytewise-distinct. |
+| 4 | **Cross-trace literal-ID collision check** (HALT-gate per D-C1.5 #1) | PASS | Mechanical grep of 9 event_ids vs union of dev_v1/dev_v2/test_v1..v8/v11..v15/v21 event_ids: 0 collisions against 136 prior event_ids. **HALT-trigger NOT fired.** |
+| 5 | Drift strong-overlap (a) GT tuple bytewise (cross-trace) | PASS | Same mechanical set-intersection as 3c against the union-of-prior-GT-tuples (76 unique across dev_v1..test_v21): 0 collisions. |
+| 6 | Drift strong-overlap (b) ≥8-word verbatim phrase | PASS | 8-gram set-intersection: test_v22 has 378 unique 8-grams across content+briefing fields; prior dev/test traces have 2159 unique 8-grams; overlap = 0. |
+
+**GT-regime classification (audit step 7; for Commit D per-trace observations table):**
+
+- GT 1 `grandpa_90th_birthday_tomorrow` — **discretionary-deadline obligation (V4 NEW YES, family-milestone-with-social-cost subclass)**: proactive heads-up for grandfather Walter's 90th milestone birthday party tomorrow with toast-at-cake-cutting obligation; all siblings + cousins committed/travelled.
+- GT 2 `flash_flood_warning_overnight` — **weather alert (V2 EXISTING YES)**: NWS flash flood warning for King County with 4-6" overnight rain, low-lying I-5 corridor road closures expected, user's Westlake Avenue commute in warning zone, I-405 alternate advised.
+- GT 3 `datastore_replica_failover_p1` — **production/on-call alert (V2 EXISTING YES)**: PagerDuty P1 database failover on primary-postgres-001 with SQLSTATE 08006 write-failures; user primary on-call for payments-data shard; 12-min SLO downtime impact.
+- GT 4 `aging_parent_fall_alert_emergency_pendant` — **urgent safety/security issue (V2 EXISTING YES — medical-emergency sub-class)**: medical-alert pendant for elderly father (Robert) triggered fall-detection with auto-EMS-dispatch; user primary emergency contact; pendant operator awaiting callback for hospital handoff.
+- GT 5 `property_tax_installment_due_today` — **financial/deadline obligation (V2 EXISTING YES)**: King County Treasurer property-tax first-installment $3,180 due today 5pm; 10% late penalty + day-31 certified collection notice if missed.
+
+**Defensibility self-check per §D9 defense #8 (audit step 8; V4-mechanism subclause coverage):**
+
+V4 NEW YES coverage at C2:
+- GT `grandpa_90th_birthday_tomorrow` tests V4 NEW YES subclause "family milestone with social cost (birthday or anniversary heads-up)" under NEW phrasing/event_id vs test_v8 `mom_birthday_heads_up` banned predecessor. **Cross-trace V4 NEW YES coverage at C1+C2: C1 covered the scarcity-bounded-opportunity subclause (`vinyl_drop_press_today`); C2 covers the family-milestone-with-social-cost subclause — together C1+C2 cover BOTH V4 NEW YES subclauses across the M11a-extension 10-trace new set.**
+
+V4 NEW NO coverage at C2 (all 3 V4 NEW NO subclauses repeated under NEW phrasing/event_id vs M11a banned predecessors AND C1 test_v21 NEW choices):
+- Distractor `sneakers_wishlist_back_in_stock_email` tests V4 NEW NO subclause "back-in-stock notification without explicit scarcity window" under NEW phrasing/event_id (SneakerVault email re: Nike Air Max 90 wishlist item; "no rush, no quantity limit, ships 5-7 business days") vs test_v12's `grocer_back_in_stock` (M11a banned) AND vs test_v21's `restock_camping_lantern` (C1 NEW choice).
+- Distractor `calendar_coffee_lisa_weekly_suggest` tests V4 NEW NO subclause "recurring-event calendar suggestion or app suggestion" under NEW phrasing/event_id (Google Calendar suggesting weekly Wednesday coffee with Lisa based on 5-Wednesday history at Heart Coffee; "Add weekly / Add once / Dismiss") vs test_v12's `calendar_yoga_suggest` (M11a banned) AND vs test_v21's `calendar_running_club_recur` (C1 NEW choice).
+- Distractor `pickup_basketball_saturday_open` tests V4 NEW NO subclause "casual social-meetup notification without time-pressure" under NEW phrasing/event_id (text from Marco re: pickup 5-on-5 basketball at Wallingford courts Saturday 10am; "totally casual, no commitment, ignore if busy") vs test_v11's `trivia_league_round` (M11a banned) AND vs test_v21's `arcade_meetup_kira` (C1 NEW choice).
+
+V2 EXISTING NO compliant-content control at C2:
+- Distractor `chrome_extension_marketplace_update` tests V2 EXISTING NO "feature announcements, app updates, or social/channel invites" — Chrome Web Store extension-review-system update with marketplace homepage browse suggestion; no action required.
+
+**Coverage summary at C2:** 1 V4 NEW YES family-milestone-with-social-cost (NEW phrasing) + 3 V4 NEW NO subclauses (back-in-stock + recurring-calendar-suggest + casual-social-meetup, all 3 covered with NEW phrasing vs M11a banned predecessors AND vs C1 NEW choices) + 1 V2 EXISTING NO control + 4 V2 EXISTING YES compliant-content controls (weather alert + production/on-call alert + urgent safety medical-emergency + financial/deadline obligation) — maximal V4-mechanism coverage at C2 + cross-trace V4 NEW YES subclass complementarity vs C1 (both V4 NEW YES subclauses covered across the C1+C2 pair).
+
+**Per-attempt artifact (accepting):** `runs/data/21c-author-test_v22-attempt-2-accepted.json` (SHA256 `c2b474c3eab0ef70252b8ecd9c869cdb485dc786f23958c1db15c26e27da6246`; 22447 bytes; full audit-gate evidence + Step 3.5 pre-flight verification log + self-restate response verbatim + authored-trace verbatim + GT-regime classification + defensibility self-check + fresh-session-restart metadata archived).
+
+### Banned-list state delta at C2
+
+- Pre-C2 (C1 end-state, ships at C2): 136 IDs / 77 themes / 76 tuples.
+- C2 contributions from accepted test_v22 (to be incorporated into `21c-banned-list-pre-c3.txt` at C3 land time per D-C1.1):
+  - **+9 IDs:** `grandpa_90th_birthday_tomorrow`, `flash_flood_warning_overnight`, `datastore_replica_failover_p1`, `aging_parent_fall_alert_emergency_pendant`, `property_tax_installment_due_today`, `sneakers_wishlist_back_in_stock_email`, `calendar_coffee_lisa_weekly_suggest`, `pickup_basketball_saturday_open`, `chrome_extension_marketplace_update`.
+  - **+5 themes (GT-regime regime column verbatim):** discretionary-deadline obligation (V4 NEW YES, family-milestone subclass) — proactive heads-up for grandfather's 90th milestone birthday party tomorrow with toast obligation; weather alert (V2 EXISTING YES) — NWS flash flood warning for King County with 4-6" overnight rain and commute-route impact; production/on-call alert (V2 EXISTING YES) — PagerDuty P1 database failover on primary-postgres-001 with SLO-bound resolution window; urgent safety/security issue (V2 EXISTING YES, medical-emergency sub-class) — medical-alert pendant fall-detection auto-EMS-dispatch + primary-contact callback obligation for elderly father; financial/deadline obligation (V2 EXISTING YES) — county property tax first-installment payment with end-of-day 5pm cutoff + 10% late penalty.
+  - **+5 tuples (GT keyword tuples verbatim):** `(grandpa, birthday)`, `(flood, warning)`, `(database, failover)`, `(fall, pendant)`, `(property, tax)`.
+- Post-C2 (input state for C3): 145 IDs / 82 themes / 81 tuples. File ships at C3 land time as `runs/data/21c-banned-list-pre-c3.{txt,json}` per D-C1.1 invariant.
+
+### Halt-condition status at C2
+
+- Literal-ID collision halt (D-C1.5 #1): **not triggered** (audit step 4 PASS at the accepting attempt; attempt-1 also PASSed step 4).
+- Banned-list-saturation halt (D-C1.5 #2 = §D9 defense #4, >25 attempts AND <10 accepted): **not triggered** (3 cumulative milestone attempts < 25; 2 accepted traces toward target of 10).
+- Retry-cap-3 on test_v22 (D-C1.5 #3): **not exhausted** (2/3 used; PASS at attempt #2 / 1 retry remaining had attempt #2 not accepted).
+
+### Cumulative milestone-spend through Commit C2
+
+Commit C2 spend: $0 at attempt #1 + $0 at attempt #2 (both attempts in-session author + local Python audit-gate; self-restate gate rendered locally; no API spend). Cumulative M11a-extension spend through Commit C2: $0.7081 (unchanged from Commit C1; ~18% of $4 pre-reg budget).
+
+### Frozen artifacts at Commit C2 (NOT touched, per locked plan §D13 + D-C1.6 carry-forward)
+
+- `agent/loop.py`, `agent/llm.py`, `agent/predictor.py`, `agent/surprise.py`, `agent/arbiter.py` — frozen throughout milestone.
+- `eval/run_trace.py`, `eval/author_trace.py` — frozen at Commit C (CLI choices + self-restate gate locked at Commit B).
+- `sandbox/event_trace.py` test_v4..test_v15 + test_v21 definitions — frozen historical artifacts (only NEW `test_trace_v22` added at C2, plus the registry line `"test_v22": test_trace_v22,`).
+- `runs/data/21c-banned-list-pre-c1.{txt,json}` + `runs/data/21c-author-test_v21-*.json` — frozen at C1; do NOT mutate.
+- `baselines/`, `pyproject.toml`, `uv.lock` — no changes at Commit C2.
+
+### Next: Commit C3 — fresh-session trace authoring `test_v23`
+
+Per locked plan §D13 + D-C1.1: future session opens with `runs/data/21c-banned-list-pre-c3.{txt,json}` (NEW; reflects test_v21 + test_v22 contributions; 145 IDs / 82 themes / 81 tuples) as the pre-C3 starting state. Self-restate gate rendered against the pre-C3 file. Same C-protocol governance decisions (D-C1.1..D-C1.6) apply unchanged. Cumulative milestone attempt count 3/25 carries forward. Step 3.5 pre-flight keyword literal-substring verification (D-C2.attempt2.C) carries forward as a per-attempt author discipline (not a C-protocol governance change).
+
+Commit C3 is deferred to a future fresh session per M10-shape protocol + auto-memory `feedback_new_session_for_arch_work.md`.

@@ -962,6 +962,64 @@ def test_trace_v21() -> Trace:
     )
 
 
+def test_trace_v22() -> Trace:
+    gts = [
+        _gt(
+            Event(id="grandpa_90th_birthday_tomorrow", kind="notification", sim_time=80.0,
+                  content="Reminder pinned by Mom in the family chat: Grandpa Walter's 90th birthday party is tomorrow at 1pm at the Riverview Country Club ballroom. All five siblings and twelve cousins are flying or driving in; you signed up to give the toast at the cake-cutting. You haven't written it yet, and the rehearsal-dinner photos confirm everyone is expecting it."),
+            window_s=480.0, keywords=("grandpa", "birthday"),
+        ),
+        _gt(
+            Event(id="flash_flood_warning_overnight", kind="alert", sim_time=220.0,
+                  content="NWS flash flood warning issued for King County through 6am Friday: 4-6 inches of rain expected overnight; low-lying roads on the I-5 corridor expected to close; your morning commute route on Westlake Avenue is inside the warning zone. Local authorities advise the I-405 alternate."),
+            window_s=300.0, keywords=("flood", "warning"),
+        ),
+        _gt(
+            Event(id="datastore_replica_failover_p1", kind="alert", sim_time=380.0,
+                  content="PagerDuty P1 [primary-postgres-001]: database failover triggered at 04:47 UTC; writes failing with SQLSTATE 08006; on-call rotation lists you as primary for the payments-data shard. Promotion ETA is 10 minutes; estimated customer-facing downtime ~12 minutes if not resolved by 04:57."),
+            window_s=60.0, keywords=("database", "failover"),
+        ),
+        _gt(
+            Event(id="aging_parent_fall_alert_emergency_pendant", kind="alert", sim_time=480.0,
+                  content="Medical-alert pendant for your father (Robert) triggered fall-detection at 6:42am; automatic EMS dispatch was confirmed; you are listed as the primary emergency contact. The pendant operator is on the line awaiting your callback to coordinate hospital handoff; ambulance ETA to his address is 8 minutes."),
+            window_s=30.0, keywords=("fall", "pendant"),
+        ),
+        _gt(
+            Event(id="property_tax_installment_due_today", kind="notification", sim_time=560.0,
+                  content="King County Treasurer reminder: your property tax first-installment payment of $3,180 is due today by 5pm. Pay via the online portal at kingcounty.gov/treasury or in person at the courthouse cashier. Late-payment penalty of 10% applies if not paid by today's 5pm cutoff; certified collection notice mails on day 31."),
+            window_s=300.0, keywords=("property", "tax"),
+        ),
+    ]
+    distractors = [
+        Event(id="sneakers_wishlist_back_in_stock_email", kind="email", sim_time=20.0,
+              content="Good news from SneakerVault: your wishlist item, the Nike Air Max 90 (size 11, Triple White), is back in stock. We've restocked plenty of pairs; no rush, no quantity limit. Shop when you're ready — orders ship within 5-7 business days at standard prices."),
+        Event(id="calendar_coffee_lisa_weekly_suggest", kind="notification", sim_time=140.0,
+              content="Google Calendar suggestion: We noticed you have met Lisa for coffee five Wednesdays in a row at 9am at Heart Coffee. Would you like to add 'Wednesday coffee with Lisa' as a recurring weekly event? Options: Add weekly / Add once / Dismiss. No deadline — suggestion only."),
+        Event(id="pickup_basketball_saturday_open", kind="notification", sim_time=300.0,
+              content="Text from Marco: hey, we're running pickup 5-on-5 at the Wallingford courts Saturday at 10am. Totally casual, no commitment — show up if you feel like it, ignore if you're busy. Same crew as last month."),
+        Event(id="chrome_extension_marketplace_update", kind="email", sim_time=680.0,
+              content="Chrome announcement: we've updated the extension review system in the Chrome Web Store. Visit the marketplace homepage to browse newly featured extensions and read the updated reviewer guidelines. No action required."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v22",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "Tuesday morning at home in Seattle. "
+            "Code review due by EOD on a payments-data migration, and I'm also on the on-call rotation through tonight. "
+            "Focus mode is on for my IM apps; I want only urgent items or genuine time-sensitive obligations to break through — routine pings and casual social can wait until evening."
+        ),
+        intents=(
+            "ship the payments-data review by EOD",
+            "on-call rotation tonight",
+            "focus mode for IM noise",
+            "don't miss urgent items",
+            "no missed deadlines or family obligations",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -980,6 +1038,7 @@ def get_trace(name: str) -> Trace:
         "test_v14": test_trace_v14,
         "test_v15": test_trace_v15,
         "test_v21": test_trace_v21,
+        "test_v22": test_trace_v22,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")
