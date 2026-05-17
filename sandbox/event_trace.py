@@ -1136,6 +1136,64 @@ def test_trace_v24() -> Trace:
     )
 
 
+def test_trace_v25() -> Trace:
+    gts = [
+        _gt(
+            Event(id="parents_fiftieth_anniversary_dinner_tomorrow_toast_request", kind="phone_message", sim_time=120.0,
+                  content="Voicemail from your sister Diane: this is the final reminder about Mom and Dad's fiftieth wedding anniversary dinner tomorrow night at 7pm at Boulevard — you're the only one Mom's asked to give the family toast, Mark and Carol are both flying in from Seattle and Boston for this single evening and heading straight back Friday morning, and the only time the four of you will be together all year is between courses. Please confirm by tomorrow noon so the maître d' can finalize seating and Mom can stop worrying."),
+            window_s=240.0, keywords=("anniversary", "fiftieth"),
+        ),
+        _gt(
+            Event(id="child_medication_ingestion_poison_control_emergency_call", kind="phone_message", sim_time=320.0,
+                  content="Found your three-year-old in the bathroom with the cap off your migraine antihistamines and at least four pills missing from the pack. Poison Control just called back: bring the child and the medication bottle to the emergency room right now — do not induce vomiting at home. Estimated ingestion under twenty minutes ago; ER triage is expecting you and the medication when you arrive, and is asking you to call back from the car with a weight estimate."),
+            window_s=120.0, keywords=("medication", "ingestion"),
+        ),
+        _gt(
+            Event(id="dental_implant_surgery_rescheduled_tomorrow_8am_surgeon_emergency", kind="phone_message", sim_time=480.0,
+                  content="Voicemail from Dr. Patel's oral surgery office: your dental implant procedure scheduled for tomorrow 8am must be pushed because the surgeon is being called into an emergency case this evening for another patient. The earliest slot we can offer is next Wednesday 7am or the following Thursday 11am — please call back by 6pm today to lock one in, otherwise we'll need to release the anesthesia booking and you'll be at the back of next month's queue."),
+            window_s=180.0, keywords=("dental", "implant"),
+        ),
+        _gt(
+            Event(id="quarterly_estimated_tax_q3_payment_eod_irs_penalty_5pm", kind="email", sim_time=620.0,
+                  content="IRS reminder: your Q3 quarterly estimated tax payment is due by 5pm Eastern today via EFTPS for the 1040-ES installment covering July through September. Failing to pay by the 5pm cutoff triggers underpayment penalty calculation back to the April safe-harbor anchor plus a charge of roughly half a percent per month against the shortfall until the balance is paid. Bank ACH cutoff for next-day settlement is 8pm; the EFTPS receipt arrives within 24 hours of submission."),
+            window_s=200.0, keywords=("quarterly", "tax"),
+        ),
+        _gt(
+            Event(id="redis_memory_saturation_eviction_cascade_120min_outage_risk", kind="alert", sim_time=790.0,
+                  content="PagerDuty P1 from infra-mon: redis-prod-cluster-01 memory saturation alert — used memory at 13.4 GB on a 14 GB allocation; the allkeys-lru eviction policy is throwing OOM errors back to the API gateway at roughly 200 evictions per second; session-cache hit rate has collapsed from 98% to 41% over the last ten minutes and queue depth is climbing. You're listed as primary on the cache-tier runbook this week; full session outage projected if the working set hits the 14 GB hard cap within roughly 120 minutes at the current write rate."),
+            window_s=180.0, keywords=("redis", "memory"),
+        ),
+    ]
+    distractors = [
+        Event(id="kubernetes_autoscaler_monthly_cluster_health_report_nominal", kind="email", sim_time=60.0,
+              content="Monthly cluster-health digest for prod-k8s-01: all 47 node groups stayed within HPA target bands; the cluster-autoscaler scaled up 8 times and down 12 times this period with no failed scaling events; spot-instance interrupt rate at 0.3%, inside the historical 0.2 to 0.4 percent band; control-plane API latency p99 at 84ms. No anomalies were detected this cycle. The next health digest is scheduled for the first of next month."),
+        Event(id="inkwell_indie_bookstore_quarterly_preorder_catalog_winter", kind="email", sim_time=240.0,
+              content="Inkwell Books winter preorder catalog is live: 23 forthcoming titles handpicked by our staff, including new releases from Marisa Crane and Tony Tulathimutte, plus exclusive signed bookplates for the first 50 preorders of each title. Shipping in late December or early January depending on the publisher schedule. Browse the catalog at your leisure and reply with any questions. Manage email cadence in your account preferences."),
+        Event(id="friday_weekly_recap_briefing_no_outstanding_items", kind="notification", sim_time=550.0,
+              content="Friday afternoon recap: this week you closed 14 tickets, attended 11 meetings averaging 38 minutes each, and sent 87 emails with a 92 percent reply rate within 24 hours. Inbox is at 4 unread; next week's calendar shows two heads-down blocks and one cross-team review on Wednesday. No outstanding items are flagged for your attention before Monday morning. Enjoy the weekend."),
+        Event(id="vscode_marketplace_verified_publisher_tab_launch_announcement", kind="notification", sim_time=710.0,
+              content="Visual Studio Code marketplace: we've launched a new Verified Publisher tab in the extensions sidebar — extensions from publishers with multi-factor account verification and signed publisher manifests now surface in a curated panel for easier discovery. Existing extension installation flows are unchanged and no migration is needed. The feature is on by default and can be toggled in the marketplace settings panel."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v25",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "Tuesday afternoon at home in Madison. "
+            "Our three-year-old is just back from preschool and napping, I'm covering the cache-tier production rotation this week, the Q3 estimated-tax window closes today, and the family group chat has been buzzing about a milestone family dinner tomorrow night. "
+            "Notifications are filtered for urgent: child-safety, family-personal, hard-deadline financial, and production-incident signals should break through; routine reports and promotional emails can stack up for later."
+        ),
+        intents=(
+            "respond instantly to any child-safety signal",
+            "hold the cache-tier production rotation through end of day",
+            "do not miss any hard-deadline financial or medical-admin item",
+            "be present for the family-milestone obligation from the group chat",
+            "let routine reports and promotional emails wait until the end of the day",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -1157,6 +1215,7 @@ def get_trace(name: str) -> Trace:
         "test_v22": test_trace_v22,
         "test_v23": test_trace_v23,
         "test_v24": test_trace_v24,
+        "test_v25": test_trace_v25,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")

@@ -1,0 +1,245 @@
+{
+  "attempt_number": 1,
+  "attempted_at_utc": "2026-05-17T00:00:00Z",
+  "verdict": "ACCEPTED",
+  "trace_name": "test_v25",
+  "banned_list_path": "runs/data/21c-banned-list-pre-c5.txt",
+  "banned_list_sha256_at_attempt": "62065485743afa7a264a345857b18dcc1a882e2065359fe95ccd43541467514b",
+  "banned_list_json_sha256_at_attempt": "baee65241a78bf07d9a3a33c96321e45c06e1b32ca2b28f72800071405fd2162",
+  "banned_list_bytes_at_attempt": {
+    "txt": 16162,
+    "json": 15859
+  },
+  "banned_list_state_counts": {
+    "event_ids": 163,
+    "themes": 92,
+    "tuples": 91
+  },
+  "self_restate_prompt_sha256": "511d3ff4d2cc566c640757e01a9b9e35d37fe31b96b8f69ed892ef53520c062f",
+  "self_restate_prompt_bytes": 16571,
+  "self_restate_response_verbatim": "Restating the four constraints in my own words before authoring test_trace_v25:\n\n(a) Python parseability: the EventTrace function definition I write must be a valid Python module fragment that sandbox/event_trace.py's existing import path can load and instantiate without raising. Concretely, every Event(...) call must specify id, kind, sim_time, content with literal values; every _gt(...) wrapper must specify event, window_s, keywords; the returned Trace must specify name, events, ground_truth, briefing, intents. The `keywords` field must be a literal `(str, str)` tuple in the GT construction, not a list comprehension or a generator.\n\n(b) No walrus operator: I will not use Python's `:=` named-expression syntax anywhere in the trace definition. All names will be bound via plain `=` statements or via direct positional/keyword arguments inside constructor calls. Inline assignment-as-expression is disallowed across the entire test_trace_v25 function body.\n\n(c) No arithmetic in event_id strings: every Event.id is a literal string token between quotes — no f-string interpolation, no `+` concatenation, no integer-suffix multiplication, no `.format(...)` calls. The id field at runtime equals exactly what I type between the quotes at authoring time.\n\n(d) Avoid the 163 banned event_ids, 92 banned content themes, and 91 banned keyword tuples in the iteratively-extended banned list at runs/data/21c-banned-list-pre-c5.txt (covering M8b/M9 + M10b test_v5/v6/v7/v8 + M11a test_v11..v15 + M11a-extension test_v21..v24). Each of my 9 chosen event_ids (5 GTs + 4 distractors) must be set-disjoint from the 163 banned IDs. Each of my 5 GT content themes must be semantically distinct from the 92 banned themes (audit-gate step 3b). Each of my 5 GT keyword tuples must be bytewise-distinct from the 91 banned tuples (audit-gate step 3c). Additionally per audit-gate steps 4-6, my 9 event_ids must be set-disjoint from the union of all prior accepted trace IDs (HALT-gate per D-C1.5 #1) and my GT tuples + 8-grams must be set-disjoint from prior accepted traces' GT tuples + 8-grams (drift strong-overlap rubric (a) + (b)).",
+  "authored_trace_verbatim": {
+    "name": "test_v25",
+    "duration_s": 1000.0,
+    "events": [
+      {"id": "kubernetes_autoscaler_monthly_cluster_health_report_nominal", "kind": "email", "sim_time": 60.0, "content": "Monthly cluster-health digest for prod-k8s-01: all 47 node groups stayed within HPA target bands; the cluster-autoscaler scaled up 8 times and down 12 times this period with no failed scaling events; spot-instance interrupt rate at 0.3%, inside the historical 0.2 to 0.4 percent band; control-plane API latency p99 at 84ms. No anomalies were detected this cycle. The next health digest is scheduled for the first of next month."},
+      {"id": "parents_fiftieth_anniversary_dinner_tomorrow_toast_request", "kind": "phone_message", "sim_time": 120.0, "content": "Voicemail from your sister Diane: this is the final reminder about Mom and Dad's fiftieth wedding anniversary dinner tomorrow night at 7pm at Boulevard — you're the only one Mom's asked to give the family toast, Mark and Carol are both flying in from Seattle and Boston for this single evening and heading straight back Friday morning, and the only time the four of you will be together all year is between courses. Please confirm by tomorrow noon so the maître d' can finalize seating and Mom can stop worrying."},
+      {"id": "inkwell_indie_bookstore_quarterly_preorder_catalog_winter", "kind": "email", "sim_time": 240.0, "content": "Inkwell Books winter preorder catalog is live: 23 forthcoming titles handpicked by our staff, including new releases from Marisa Crane and Tony Tulathimutte, plus exclusive signed bookplates for the first 50 preorders of each title. Shipping in late December or early January depending on the publisher schedule. Browse the catalog at your leisure and reply with any questions. Manage email cadence in your account preferences."},
+      {"id": "child_medication_ingestion_poison_control_emergency_call", "kind": "phone_message", "sim_time": 320.0, "content": "Found your three-year-old in the bathroom with the cap off your migraine antihistamines and at least four pills missing from the pack. Poison Control just called back: bring the child and the medication bottle to the emergency room right now — do not induce vomiting at home. Estimated ingestion under twenty minutes ago; ER triage is expecting you and the medication when you arrive, and is asking you to call back from the car with a weight estimate."},
+      {"id": "dental_implant_surgery_rescheduled_tomorrow_8am_surgeon_emergency", "kind": "phone_message", "sim_time": 480.0, "content": "Voicemail from Dr. Patel's oral surgery office: your dental implant procedure scheduled for tomorrow 8am must be pushed because the surgeon is being called into an emergency case this evening for another patient. The earliest slot we can offer is next Wednesday 7am or the following Thursday 11am — please call back by 6pm today to lock one in, otherwise we'll need to release the anesthesia booking and you'll be at the back of next month's queue."},
+      {"id": "friday_weekly_recap_briefing_no_outstanding_items", "kind": "notification", "sim_time": 550.0, "content": "Friday afternoon recap: this week you closed 14 tickets, attended 11 meetings averaging 38 minutes each, and sent 87 emails with a 92 percent reply rate within 24 hours. Inbox is at 4 unread; next week's calendar shows two heads-down blocks and one cross-team review on Wednesday. No outstanding items are flagged for your attention before Monday morning. Enjoy the weekend."},
+      {"id": "quarterly_estimated_tax_q3_payment_eod_irs_penalty_5pm", "kind": "email", "sim_time": 620.0, "content": "IRS reminder: your Q3 quarterly estimated tax payment is due by 5pm Eastern today via EFTPS for the 1040-ES installment covering July through September. Failing to pay by the 5pm cutoff triggers underpayment penalty calculation back to the April safe-harbor anchor plus a charge of roughly half a percent per month against the shortfall until the balance is paid. Bank ACH cutoff for next-day settlement is 8pm; the EFTPS receipt arrives within 24 hours of submission."},
+      {"id": "vscode_marketplace_verified_publisher_tab_launch_announcement", "kind": "notification", "sim_time": 710.0, "content": "Visual Studio Code marketplace: we've launched a new Verified Publisher tab in the extensions sidebar — extensions from publishers with multi-factor account verification and signed publisher manifests now surface in a curated panel for easier discovery. Existing extension installation flows are unchanged and no migration is needed. The feature is on by default and can be toggled in the marketplace settings panel."},
+      {"id": "redis_memory_saturation_eviction_cascade_120min_outage_risk", "kind": "alert", "sim_time": 790.0, "content": "PagerDuty P1 from infra-mon: redis-prod-cluster-01 memory saturation alert — used memory at 13.4 GB on a 14 GB allocation; the allkeys-lru eviction policy is throwing OOM errors back to the API gateway at roughly 200 evictions per second; session-cache hit rate has collapsed from 98% to 41% over the last ten minutes and queue depth is climbing. You're listed as primary on the cache-tier runbook this week; full session outage projected if the working set hits the 14 GB hard cap within roughly 120 minutes at the current write rate."}
+    ],
+    "ground_truth": [
+      {"event_id": "parents_fiftieth_anniversary_dinner_tomorrow_toast_request", "window_s": 240.0, "keywords": ["anniversary", "fiftieth"]},
+      {"event_id": "child_medication_ingestion_poison_control_emergency_call", "window_s": 120.0, "keywords": ["medication", "ingestion"]},
+      {"event_id": "dental_implant_surgery_rescheduled_tomorrow_8am_surgeon_emergency", "window_s": 180.0, "keywords": ["dental", "implant"]},
+      {"event_id": "quarterly_estimated_tax_q3_payment_eod_irs_penalty_5pm", "window_s": 200.0, "keywords": ["quarterly", "tax"]},
+      {"event_id": "redis_memory_saturation_eviction_cascade_120min_outage_risk", "window_s": 180.0, "keywords": ["redis", "memory"]}
+    ],
+    "briefing": "Tuesday afternoon at home in Madison. Our three-year-old is just back from preschool and napping, I'm covering the cache-tier production rotation this week, the Q3 estimated-tax window closes today, and the family group chat has been buzzing about a milestone family dinner tomorrow night. Notifications are filtered for urgent: child-safety, family-personal, hard-deadline financial, and production-incident signals should break through; routine reports and promotional emails can stack up for later.",
+    "intents": [
+      "respond instantly to any child-safety signal",
+      "hold the cache-tier production rotation through end of day",
+      "do not miss any hard-deadline financial or medical-admin item",
+      "be present for the family-milestone obligation from the group chat",
+      "let routine reports and promotional emails wait until the end of the day"
+    ]
+  },
+  "step_3_5_pre_flight_keyword_substring_verification": {
+    "discipline_inherits": "D-C2.attempt2.C / D-C3.attempt1.C / D-C4.attempt1.C — pre-flight verification of every GT keyword tuple element as case-insensitive literal substring of that GT's Event.content before audit-gate invocation; does NOT consume retry-cap per D-C1.4",
+    "iteration_log": [
+      {
+        "run": 1,
+        "outcome": "PASS",
+        "pairs": [
+          {"keyword": "anniversary", "event_id": "parents_fiftieth_anniversary_dinner_tomorrow_toast_request", "result": true},
+          {"keyword": "fiftieth", "event_id": "parents_fiftieth_anniversary_dinner_tomorrow_toast_request", "result": true},
+          {"keyword": "medication", "event_id": "child_medication_ingestion_poison_control_emergency_call", "result": true},
+          {"keyword": "ingestion", "event_id": "child_medication_ingestion_poison_control_emergency_call", "result": true},
+          {"keyword": "dental", "event_id": "dental_implant_surgery_rescheduled_tomorrow_8am_surgeon_emergency", "result": true},
+          {"keyword": "implant", "event_id": "dental_implant_surgery_rescheduled_tomorrow_8am_surgeon_emergency", "result": true},
+          {"keyword": "quarterly", "event_id": "quarterly_estimated_tax_q3_payment_eod_irs_penalty_5pm", "result": true},
+          {"keyword": "tax", "event_id": "quarterly_estimated_tax_q3_payment_eod_irs_penalty_5pm", "result": true},
+          {"keyword": "redis", "event_id": "redis_memory_saturation_eviction_cascade_120min_outage_risk", "result": true},
+          {"keyword": "memory", "event_id": "redis_memory_saturation_eviction_cascade_120min_outage_risk", "result": true}
+        ],
+        "in_session_iteration_required": false
+      }
+    ],
+    "first_run_pass_note": "Like C4 attempt-1, Step 3.5 PASSed on first run with no in-session revision required. The two-word/one-word failure mode that C3 surfaced ('pickup' vs 'pick up') was avoided at draft time via explicit single-word keyword-substring attention. The discipline's self-improving trajectory continues."
+  },
+  "audit_gate_result": {
+    "step_1_schema_check": {
+      "verdict": "PASS",
+      "evidence": "uv run python -c \"from sandbox.event_trace import get_trace; t = get_trace('test_v25'); print(t.name, len(t.events), len(t.ground_truth), t.duration_s)\" yields `test_v25 9 5 1000.0` with no exception."
+    },
+    "step_2_keyword_content_alignment": {
+      "verdict": "PASS",
+      "evidence": "All 10 (kw, content.lower()) substring checks PASS at Step 3.5 pre-flight (first run, no iteration) AND at the redundant audit-gate verification."
+    },
+    "step_3a_banned_event_id_collision": {
+      "verdict": "PASS",
+      "evidence": "Mechanical set-intersection: 0 collisions across test_v25's 9 event_ids vs 163 banned event_ids."
+    },
+    "step_3b_banned_theme_semantic_review": {
+      "verdict": "PASS",
+      "evidence": {
+        "gt1_parents_fiftieth_anniversary": "V4 NEW YES family-milestone-with-social-cost. Distinct vs C2 banned theme `grandfather's 90th milestone birthday party with toast obligation` on (a) family-tier (parents joint vs grandparent singular), (b) milestone-type (50th wedding anniversary vs 90th age birthday), (c) social-cost mechanism (multi-sibling travel-in for one-evening-only joint marriage milestone with single-toast obligation vs single-grandparent age milestone with toast). Distinct vs M10b test_v8 banned theme `proactive heads-up for mother's birthday tomorrow + history of forgetting` on (a) family-tier (parents joint vs mother singular), (b) milestone-type (50th wedding anniversary vs annual birthday), (c) mechanism (toast obligation + siblings flying in vs reminder + forgetting-history). Distinct vs M8b banned ID `distant_birthday` semantic neighborhood (no matching banned theme directly).",
+        "gt2_child_medication_ingestion": "V2 EXISTING YES urgent-safety. Distinct vs C1 `household natural-gas-leak detection with immediate evacuation imperative` on fault class (medication-ingestion vs gas-leak) and response (ER transport vs evacuation). Distinct vs C2 `medical-alert pendant fall-detection auto-EMS-dispatch + primary-contact callback obligation for elderly father` on patient (toddler vs elderly father), fault (accidental medication ingestion vs fall-detection), and protocol (Poison Control consultation + ER transport vs auto-EMS-dispatch + medical-pendant). Distinct vs C4 `indoor carbon monoxide alarm in basement utility room with 95 ppm sensor reading and household-evacuation imperative + gas company emergency dial` on fault class (medication-ingestion vs CO atmospheric poisoning) and response (ER transport vs evacuation + gas company emergency dial). Distinct vs M9 `fire alarm / kitchen fire` entirely.",
+        "gt3_dental_implant_surgery_rescheduled": "V2 EXISTING YES schedule-change. Distinct vs C1 `medical specialty (cardiology) appointment rescheduled at provider request` on specialty (dental implant surgery vs cardiology follow-up), procedure type (surgical implant vs office appointment), reason (surgeon emergency for another patient vs unspecified provider request), direction (pushed to next week vs unspecified), and consequence (lose anesthesia booking + next-month-queue vs unspecified). Distinct vs C3 `court clerk same-day moving small-claims hearing from 2pm to 11am` on institution (medical vs court), direction (next-week-pushed vs same-day-advanced), and consequence class (anesthesia-booking-loss vs default-judgment-plus-collection). Distinct vs C4 `pediatrician's office advances child's 4yo wellness visit from next-Tuesday to today-4pm` on specialty (dental surgery vs pediatric wellness), patient (user vs child), direction (pushed to next week vs advanced same day), and procedure (surgical implant vs wellness visit). Distinct vs M11a test_v11 `tutoring session time-shift today (+30 min)` on domain (medical surgery vs tutoring) and magnitude (next-week vs 30-min). Distinct vs M10b test_v6 `wedding RSVP deadline tonight at midnight + meal selection` entirely.",
+        "gt4_quarterly_estimated_tax": "V2 EXISTING YES financial/deadline. Distinct vs C1 `federal student loan auto-debit resumption + IDR plan application deadline` on obligation (estimated tax vs student loan), penalty (underpayment penalty calculation vs default-on-resume), and counterparty (IRS vs federal loan servicer). Distinct vs C2 `county property tax first-installment payment with end-of-day 5pm cutoff + 10% late penalty` on tax type (federal income vs county property), penalty mechanism (federal underpayment calculation vs county 10% flat late), and counterparty (IRS vs county). Distinct vs C3 `homeowner insurance auto-debit failed last billing cycle, 72-hour policy lapse risk` on obligation type (estimated tax vs lapsed insurance remediation), timeline (5pm-today vs 72-hour window), and counterparty (IRS vs insurer + mortgage lender). Distinct vs M11a test_v15 `Visa autopay tonight, insufficient checking balance` on obligation (estimated tax vs credit-card autopay) entirely.",
+        "gt5_redis_memory_saturation": "V2 EXISTING YES production/on-call. Distinct vs C2 `PagerDuty P1 database failover on primary-postgres-001 with SLO-bound resolution window` on tier (cache vs DB), fault (memory saturation + eviction cascade vs replica failover), remediation (cache restart/key-eviction adjustment vs DB-promotion), and urgency-mechanism (120-min full-outage vs 10-min replica promotion ETA). Distinct vs C3 `TLS certificate for customer-facing billing-webhook endpoint expiring in 3 hours with on-call primary on cert-manager rotation` on fault class (memory saturation vs TLS cert expiry) and remediation (cache restart vs cert renewal). Distinct vs C4 `PagerDuty P2 disk-space critical on api-prod-host-07 with /var/log filling at 200MB/min and 90-min OOM-projection on storage-rotation runbook` on resource (RAM/cache vs disk), rate (`200 evictions per second` vs `200 MB per minute`), urgency window (120-min full-outage vs 90-min disk-OOM), and runbook (cache-tier vs storage-rotation)."
+      }
+    },
+    "step_3c_banned_keyword_tuple_bytewise_review": {
+      "verdict": "PASS",
+      "evidence": "Mechanical set-intersection: 0 bytewise collisions across 5 GT tuples [`(anniversary, fiftieth)`, `(medication, ingestion)`, `(dental, implant)`, `(quarterly, tax)`, `(redis, memory)`] vs 91 banned tuples. Semantically-adjacent bytewise-distinct cases: `(mother, birthday)` banned (M10b test_v8) + `(grandpa, birthday)` banned (M11a-ext C2) but `(anniversary, fiftieth)` bytewise-distinct on both elements; `(dentist, cancelled)` banned (M8b) but `(dental, implant)` bytewise-distinct (`dentist ≠ dental` and `cancelled ≠ implant`); `(deadline, quarterly)` banned (M8b) + `(property, tax)` + `(tax, expires)` banned but `(quarterly, tax)` bytewise-distinct from all on at least one element each ((quarterly,tax) ≠ (deadline,quarterly) different order; ≠ (property,tax) on first element; ≠ (tax,expires) on order); `(database, failover)` + `(disk, space)` + `(production, alert)` + `(tls, expiry)` banned production/on-call tuples but `(redis, memory)` bytewise-distinct on both elements vs all four; `(vet, surgery)` banned (M10b test_v6) but `(dental, implant)` does not collide (different second element); `(prescription, refill)` banned (M8b) but `(medication, ingestion)` bytewise-distinct on both."
+    },
+    "step_4_cross_trace_literal_id_collision_HALT": {
+      "verdict": "PASS",
+      "evidence": "Mechanical grep of test_v25's 9 event_ids vs union of dev_v1/dev_v2/test_v1..v8/v11..v15/v21..v24 event_ids (163 prior IDs): 0 collisions. HALT-trigger per D-C1.5 #1 NOT fired."
+    },
+    "step_5_drift_strong_overlap_a_gt_tuple_bytewise_cross_trace": {
+      "verdict": "PASS",
+      "evidence": "Same mechanical set-intersection as 3c against the union of all prior trace GT tuples (91 unique): 0 collisions."
+    },
+    "step_6_drift_strong_overlap_b_8gram_verbatim": {
+      "verdict": "PASS",
+      "evidence": "8-gram set-intersection across content + briefing + intents fields: test_v25 has 679 unique 8-grams; prior dev/test traces have 3471 unique 8-grams; overlap = 0."
+    }
+  },
+  "gt_regime_classification": {
+    "gt1": {
+      "event_id": "parents_fiftieth_anniversary_dinner_tomorrow_toast_request",
+      "regime": "discretionary-deadline obligation (V4 NEW YES, family-milestone-with-social-cost subclass) — proactive heads-up about parents' fiftieth milestone wedding anniversary dinner tomorrow night with explicit toast obligation + two siblings flying in from Seattle and Boston for one-evening-only joint marriage milestone + tomorrow-noon confirm deadline so the venue can finalize seating."
+    },
+    "gt2": {
+      "event_id": "child_medication_ingestion_poison_control_emergency_call",
+      "regime": "urgent safety/security issue (V2 EXISTING YES) — accidental ingestion by three-year-old of migraine antihistamines under 20 minutes ago with Poison Control directive to bring child + medication bottle directly to ER (do not induce vomiting) + ER triage expecting callback with weight estimate."
+    },
+    "gt3": {
+      "event_id": "dental_implant_surgery_rescheduled_tomorrow_8am_surgeon_emergency",
+      "regime": "schedule change affecting the user personally (V2 EXISTING YES) — dental implant procedure scheduled for tomorrow 8am pushed to next week 7am (Wednesday) or following Thursday 11am at oral surgeon request (emergency surgery for another patient this evening) + 6pm-today-confirm-or-lose-anesthesia-booking deadline."
+    },
+    "gt4": {
+      "event_id": "quarterly_estimated_tax_q3_payment_eod_irs_penalty_5pm",
+      "regime": "financial/deadline obligation (V2 EXISTING YES) — IRS Q3 quarterly estimated tax payment due 5pm-ET today via EFTPS for the 1040-ES installment covering July-September + underpayment-penalty calculation back to April safe-harbor anchor + 0.5%/month late charge on the shortfall + 8pm ACH cutoff for next-day settlement."
+    },
+    "gt5": {
+      "event_id": "redis_memory_saturation_eviction_cascade_120min_outage_risk",
+      "regime": "production/on-call alert (V2 EXISTING YES) — PagerDuty P1 redis-prod-cluster-01 memory saturation at 13.4 GB of 14 GB allocation + allkeys-lru eviction policy throwing OOM errors back to API gateway at 200 evictions/sec + session-cache hit rate collapsed 98%→41% over 10 minutes + queue depth climbing + full session outage projected within 120 minutes if working set hits 14 GB hard cap; user listed primary on cache-tier runbook this week."
+    }
+  },
+  "defensibility_self_check_per_locked_plan_d9_defense_8": {
+    "v4_new_yes_coverage_at_c5": "1 instance under family-milestone-with-social-cost subclause (parents_fiftieth_anniversary_dinner_tomorrow_toast_request). Lifts that subclause cross-trace coverage 1x→2x (C2 grandpa_90th_birthday_tomorrow + C5 parents_fiftieth_anniversary_dinner); lifts total V4 NEW YES cross-trace instance count from 2 to 3. Defensibility: V4 NEW YES was the asymmetrically-weakest mechanism-evidence cell at C4 end (2 instances vs V4 NEW NO 6 total instances); a 50% lift on the weaker side strengthens MECHANISM_CONFIRM more than a 17% lift on the stronger side would. Family-milestone subclass picked over scarcity-bounded because it is the closer cross-trace analog to M11a test_v8's mom_birthday_heads_up residual cell — the V4 prompt's literal named target for V2-enumeration-limit closure on discretionary-social family obligations.",
+    "v4_new_no_coverage_at_c5": "NONE (intentional per D-C5.attempt1.B locked path-(c) choice). All 3 V4 NEW NO subclauses already 2x each at C1+C2; total 6 V4 NEW NO instances cross-trace post-C2. The argument from C3 + C4 (3rd-repeat marginal info dominated by H4 denominator growth) inverts at C5 only for the V4 NEW YES side because of the asymmetric-weakness situation; V4 NEW NO 6→7 would not move the symmetric-evidence needle.",
+    "v2_existing_yes_compliant_content_coverage_at_c5": [
+      {
+        "class": "urgent-safety/security",
+        "trace_lift": "3x→4x",
+        "gt": "child_medication_ingestion_poison_control_emergency_call",
+        "novelty_brief": "NEW within-class incident distinct from C1 gas_leak_kitchen_sensor (different fault: medication-ingestion vs atmospheric gas leak), C2 aging_parent_fall_alert_emergency_pendant (different patient: toddler vs elderly father; different protocol: Poison Control + ER transport vs auto-EMS-dispatch + medical-pendant), C4 carbon_monoxide_alarm_evacuate_call_gas_company (different fault: medication ingestion vs CO atmospheric poisoning; different response: ER transport vs evacuation + gas-company emergency dial)."
+      },
+      {
+        "class": "schedule-change",
+        "trace_lift": "3x→4x",
+        "gt": "dental_implant_surgery_rescheduled_tomorrow_8am_surgeon_emergency",
+        "novelty_brief": "NEW within-class incident distinct from C1 cardio_appt_rescheduled (different specialty: dental implant surgery vs cardiology follow-up; different procedure: surgical vs office visit; different consequence: lose-anesthesia-booking vs unspecified), C3 court_hearing_moved_same_day_default_risk (different institution: medical vs court; different direction: pushed-to-next-week vs advanced-same-day), C4 pediatrician_visit_advanced_today_4pm (different specialty + patient + direction)."
+      },
+      {
+        "class": "financial/deadline",
+        "trace_lift": "3x→4x",
+        "gt": "quarterly_estimated_tax_q3_payment_eod_irs_penalty_5pm",
+        "novelty_brief": "NEW within-class incident distinct from C1 student_loan_repayment_resume (different obligation: federal income estimated tax vs federal student loan IDR), C2 property_tax_installment_due_today (different tax type: federal income vs county property; different penalty mechanism: federal underpayment-calculation vs county 10% flat-late), C3 homeowner_insurance_lapse_72h_notice (different obligation type: estimated tax vs insurance-lapse remediation; different timeline: 5pm-today vs 72-hour-window)."
+      },
+      {
+        "class": "production/on-call",
+        "trace_lift": "3x→4x",
+        "gt": "redis_memory_saturation_eviction_cascade_120min_outage_risk",
+        "novelty_brief": "NEW within-class incident distinct from C2 datastore_replica_failover_p1 (different tier: cache vs DB; different fault: memory saturation + eviction cascade vs replica failover; different remediation: cache restart/eviction-adjustment vs DB-promotion), C3 tls_cert_expiry_3hr_customer_endpoint (different fault class: memory saturation vs TLS cert expiry; different remediation), C4 disk_space_critical_var_log_api_host_oom_90min (different resource: RAM/cache vs disk; different rate: `200 evictions per second` vs `200 MB per minute`; different runbook: cache-tier vs storage-rotation)."
+      }
+    ],
+    "v2_existing_no_compliant_content_coverage_at_c5": [
+      {
+        "class": "routine-status/heartbeat",
+        "trace_lift": "2x→3x",
+        "distractor": "kubernetes_autoscaler_monthly_cluster_health_report_nominal",
+        "novelty_brief": "NEW sub-cell distinct from C3 cloud_backup_daily_success_digest (different platform: K8s autoscaling vs cloud backup; different cadence: monthly vs daily) and C4 ssl_monitor_weekly_digest_no_rotations_required (different platform: K8s vs SSL cert monitor; different cadence: monthly vs weekly; different domain: compute-infra-health vs cert-rotation-tracking)."
+      },
+      {
+        "class": "marketing/newsletter",
+        "trace_lift": "2x→3x",
+        "distractor": "inkwell_indie_bookstore_quarterly_preorder_catalog_winter",
+        "novelty_brief": "NEW sub-cell distinct from C3 kitchen_gear_quarterly_digital_magazine (different product: books vs kitchen gear; different commerce model: preorder catalog vs digital magazine) and C4 tea_club_monthly_subscriber_tasting_newsletter (different product: indie bookstore vs tea subscription; different cadence: quarterly preorder vs monthly subscription tasting)."
+      },
+      {
+        "class": "generic-daily-briefing-explicitly-no-urgent",
+        "trace_lift": "2x→3x",
+        "distractor": "friday_weekly_recap_briefing_no_outstanding_items",
+        "novelty_brief": "NEW sub-cell distinct from C3 morning_briefing_no_urgent_items_today (different cadence: weekly Friday-recap vs daily morning; different target horizon: next-week vs today-no-urgent) and C4 evening_briefing_no_pending_items_tomorrow_clear (different cadence: weekly Friday-recap vs daily evening; different target horizon: next-week + work-week-summary vs tomorrow-clear)."
+      },
+      {
+        "class": "feature-announcement/app-update",
+        "trace_lift": "2x→3x",
+        "distractor": "vscode_marketplace_verified_publisher_tab_launch_announcement",
+        "novelty_brief": "NEW sub-cell distinct from C2 chrome_extension_marketplace_update (different product: VS Code vs Chrome extensions; different update class: verified-publisher-tab launch vs marketplace-policy update) and C3 notion_new_dashboard_feature_tour (different product: VS Code marketplace vs Notion app; different feature type: verified-publisher discovery panel vs dashboard editor tour)."
+      }
+    ],
+    "v2_no_class_skipped_at_c5": {
+      "class": "social-channel-invite",
+      "reason": "Stays at 2x (C1 discord_unread_digest + C4 slack_frontend_weekly_community_invite). C5 path-(c) selected 4 of 5 V2 NO classes for the 2x→3x triangulation lift; the 5th can lift at C6..C10. Reviewer-defense: deferring social-channel-invite to a later C-step preserves a 2x→3x lift for future scope (one fewer constraint for C6+ authoring) without sacrificing any V2 NO denominator strength this single trace."
+    },
+    "cross_trace_coverage_state_through_c5": {
+      "v4_new_yes_subclauses": {
+        "scarcity-bounded-opportunity": "1x (C1 vinyl_drop_press_today)",
+        "family-milestone-with-social-cost": "2x (C2 grandpa_90th_birthday_tomorrow + C5 parents_fiftieth_anniversary_dinner_tomorrow_toast_request)"
+      },
+      "v4_new_yes_total_instances": 3,
+      "v4_new_no_subclauses": {
+        "back-in-stock-without-scarcity": "2x (C1 restock_camping_lantern + C2 sneakers_wishlist_back_in_stock_email)",
+        "recurring-event-calendar-suggestion": "2x (C1 calendar_running_club_recur + C2 calendar_coffee_lisa_weekly_suggest)",
+        "casual-social-meetup-without-time-pressure": "2x (C1 arcade_meetup_kira + C2 pickup_basketball_saturday_open)"
+      },
+      "v4_new_no_total_instances": 6,
+      "v2_existing_yes_classes": {
+        "urgent-safety": "4x (C1+C2+C4+C5)",
+        "schedule-change": "4x (C1+C3+C4+C5)",
+        "financial/deadline": "4x (C1+C2+C3+C5)",
+        "message/delivery": "3x (C1+C3+C4)",
+        "weather-alert": "3x (C2+C3+C4)",
+        "production/on-call": "4x (C2+C3+C4+C5)",
+        "discretionary-deadline-V4-YES": "2x (C1 vinyl_drop scarcity-bounded + C2 grandpa_birthday family-milestone) — V4 NEW YES subclasses; C5 adds family-milestone 1x→2x but the discretionary-deadline-V4-YES class total stays at 2x with the C5 instance counted in the family-milestone sub-cell"
+      },
+      "v2_existing_no_classes": {
+        "routine-status/heartbeat": "3x (C3+C4+C5)",
+        "marketing/newsletter": "3x (C3+C4+C5)",
+        "generic-daily-briefing-explicitly-no-urgent": "3x (C3+C4+C5)",
+        "feature-announcement/app-update": "3x (C2+C3+C5)",
+        "social-channel-invite": "2x (C1+C4)"
+      }
+    },
+    "summary": "C5 contributes the asymmetric V4 NEW YES 3rd-instance lift on family-milestone-with-social-cost subclass (2→3 V4 NEW YES total cross-trace; family-milestone subclause 1x→2x) + 4 V2 EXISTING YES classes lifted 3x→4x + 4 V2 EXISTING NO classes lifted 2x→3x. The V4 NEW YES asymmetric-weakness argument + the M11a test_v8 mom_birthday_heads_up MECHANISM_CONFIRM target argument together justify path (c) over (a)/(b)/(d) at C5; social-channel-invite V2 NO stays at 2x with a planned C6+ lift."
+  },
+  "fresh_session_metadata": {
+    "discipline": "fresh-session-restart-from-scratch per locked plan §D13 + auto-memory feedback_new_session_for_arch_work.md",
+    "carryover_from_c1_c2_c3_c4": "ZERO event_id, content phrasing, keyword tuple, sim_time, briefing, intent reused from C1 attempt-1 + C2 attempt-1 + C2 attempt-2 + C3 attempt-1 + C4 attempt-1",
+    "session_opened_at_head": "e998a075def104194f8ad276b0f473c1a8146f39",
+    "sandbox_event_trace_py_sha256_at_session_open": "f99a4f8ccb491c47ba877445087730d58a94fbe81396520b6e02f78a994e74d1",
+    "sandbox_event_trace_py_bytes_at_session_open": 69666,
+    "v4_prompt_sha256_at_session_open": "09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6",
+    "v4_prompt_bytes_at_session_open": 1851,
+    "v4_prompt_locked_plan_anchor": "~/.claude/plans/m11a-extension-v4-prompt-n20.md §D1; bytewise-frozen since Commit B (adc1cba), inherited unchanged through Commits C1..C4"
+  },
+  "milestone_attempt_count_running": {
+    "before_c5_attempt_1": 5,
+    "after_c5_attempt_1_acceptance": 6,
+    "halt_threshold_d_c1_5_2": 25,
+    "halt_triggered": false,
+    "structural_parsing_failure_rate_to_date": "0/6 attempts (C1 attempt-1 + C2 attempt-1 + C2 attempt-2 + C3 attempt-1 + C4 attempt-1 + C5 attempt-1 — all PASS at audit-gate step 1; C2 attempt-1 rejection was step-2 M8b alignment, NOT step-1 structural-parsing per §D4 design)",
+    "literal_id_collision_halt_triggered": false,
+    "retry_cap_on_test_v25": "1/3 used (attempt-1 accepted at first try; 2 retries unused)"
+  }
+}
