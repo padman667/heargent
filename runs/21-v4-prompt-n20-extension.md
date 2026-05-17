@@ -826,3 +826,122 @@ Commit C2 spend: $0 at attempt #1 + $0 at attempt #2 (both attempts in-session a
 Per locked plan §D13 + D-C1.1: future session opens with `runs/data/21c-banned-list-pre-c3.{txt,json}` (NEW; reflects test_v21 + test_v22 contributions; 145 IDs / 82 themes / 81 tuples) as the pre-C3 starting state. Self-restate gate rendered against the pre-C3 file. Same C-protocol governance decisions (D-C1.1..D-C1.6) apply unchanged. Cumulative milestone attempt count 3/25 carries forward. Step 3.5 pre-flight keyword literal-substring verification (D-C2.attempt2.C) carries forward as a per-attempt author discipline (not a C-protocol governance change).
 
 Commit C3 is deferred to a future fresh session per M10-shape protocol + auto-memory `feedback_new_session_for_arch_work.md`.
+
+---
+
+## Commit C3 — test_v23 (2026-05-17)
+
+**Verdict: test_v23 ACCEPTED at attempt 1/3; audit-gate 8/8 PASS.** Cumulative milestone attempt count 4/25 through Commit C3 (C1 attempt-1 + C2 attempt-1 + C2 attempt-2 + C3 attempt-1); 7 traces remaining for combined-N=20 closure. Self-restate pre-flight gate per §D4 prevented the M11a-class structural-parsing-failure mode at this attempt (M11a-extension structural-parsing-failure rate to date: 0/4 attempts). Step 3.5 pre-flight keyword literal-substring verification (D-C3.attempt1.C inheriting verbatim from D-C2.attempt2.C) caught one keyword/content misalignment at first run and was iterated in-session before audit-gate invocation — the explicit intended workflow per the locked author-discipline addition; does NOT consume retry-cap budget per D-C1.4.
+
+### C-protocol governance decisions inherited from C1 + C2
+
+D-C1.1..D-C1.6 locked at C1 first-land (`1fefe6e`) inherit VERBATIM at C3 with no re-litigation per "no scope drift within a milestone" operating principle. D-C2.A..D-C2.D (locked at C2 attempt-#1 Plan) and D-C2.attempt2.A..D-C2.attempt2.D (locked at C2 attempt-#2 Plan `f9808c8`) also inherit VERBATIM at C3. The per-attempt author discipline added at C2 attempt #2 (Step 3.5 pre-flight) carries forward as standing author discipline through C3..C10.
+
+### C3 attempt-specific Plan locks (per-attempt discipline; not C-protocol governance)
+
+| Decision | Lock |
+|---|---|
+| **D-C3.attempt1.A state-confirm checklist** | Pre-attempt-#1 state confirmed via four on-disk verifications: main HEAD `f9808c8` (M11a-extension Commit C2); working tree clean; `sandbox/event_trace.py` sha256 `42332303ff83f9e0e90b2149fe4293839f357ca082a77968e1ed73f4499367af` (58368 bytes; HEAD-bit-identical post-C2 incl. `test_trace_v22` + registry line); V4 prompt string sha256 `09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6` (1851 bytes; bytewise-identical to §D1 lock — `agent/arbiter.py` last touched at `adc1cba` Commit B, unchanged through C1+C2). D-C2.attempt2.A precedent mirrored verbatim. |
+| **D-C3.attempt1.B subclause coverage brief inheritance + C3-specific content recommendation** | D-C2.B brief inherits VERBATIM (within-V4-class power + V2/V4 EXISTING YES compliant-content controls + V4 NEW NO subclause repeats + V2/V4 EXISTING NO compliant-content controls). C3-specific (locked at Plan): C3 prioritizes compliant-content controls — 5 GTs across 5 V2 EXISTING YES classes under NEW specific incidents distinct from C1+C2 within-class predecessors, plus 4 V2 EXISTING NO distractors across 4 V2 NO classes; zero V4 NEW NO subclause repeats (3 subclauses already covered 2x each at C1+C2); zero V4 NEW YES subclause coverage (both subclauses already covered singularly at C1+C2). Defensibility framing: H4 COMPLIANT_NO_REGRESSION strict-+0 (per D14-H4) gates Row 1 firing regardless of MECHANISM_CONFIRM verdict; a single non-flagged-trace regression at single-shot temperature=0 inference sinks the headline to Row 3 PARTIAL SUCCESS; C3 maximizes the H4 denominator with V2 EXISTING YES + V2 EXISTING NO compliant-content cells. |
+| **D-C3.attempt1.C Step 3.5 pre-flight keyword literal-substring verification** | Inherits VERBATIM from D-C2.attempt2.C. Mechanically verify every GT keyword tuple element appears as case-insensitive substring of that GT's Event.content via `uv run python -c "from sandbox.event_trace import get_trace; t = get_trace('test_v23'); [print(f'{kw!r} in {g.event.id}: {kw.lower() in g.event.content.lower()}') for g in t.ground_truth for kw in g.keywords]"`. ALL must print `True`. ANY `False` → revise GT content OR replace keyword; revert `sandbox/event_trace.py` if schema check was attempted; re-author Step 3; re-run Step 3.5. Does NOT consume retry-cap budget per D-C1.4. |
+| **D-C3.attempt1.D commit shape** | D-C2.attempt2.D commit shape inherits VERBATIM with normal attempt-#1-accepts trajectory (no rejected-attempt bundling since attempt #1 accepted). |
+
+### Banned-list starting state (C2 end-state)
+
+- Source artifact: `runs/data/21c-banned-list-pre-c3.txt` (SHA256 `603498b434b45ddde7ba0be350403b6253351d99a58f37485593219be470d7dd`; 12661 bytes; 145 banned event_ids + 82 banned themes + 81 banned keyword tuples).
+- Parallel structured artifact: `runs/data/21c-banned-list-pre-c3.json` (SHA256 `b24f24c142a32f388da95de1c1dd371cddb6d7a80a112881a3d1c7268e1e2ca7`; 12552 bytes; same content in structured schema).
+- Provenance: extended at C3-attempt-#1 session by appending C2's accepted test_v22 contributions (+9 IDs / +5 themes / +5 tuples) to the pre-C2 banned-list (`e98e5b10…` / `e9cadf8d…`, 136/77/76) per D-C1.1 invariant. Pre-C2 files NOT mutated (verified bit-identical pre and post C3 authoring).
+
+### Self-restate pre-flight gate (§D4 + D14-H7)
+
+- Command: `uv run python -m eval.author_trace --banned-list runs/data/21c-banned-list-pre-c3.txt > /tmp/m11a-ext-c3-restate-prompt.txt`
+- Rendered prompt SHA256: `de8d3d16f8f77dcc71735e0b5b506c684d8f9f2cf6112a63304312eb864737a0` (13070 bytes).
+- Self-restate response authored in own words distinct from C1's response + C2 attempt-#1's response + C2 attempt-#2's response per fresh-session-restart-from-scratch discipline; full text archived verbatim in artifact `21c-author-test_v23-attempt-1-accepted.json` `self_restate_response_verbatim` field.
+- Outcome: structural-parsing-failure mode (M11a 3/9 = 33% baseline) NOT triggered; schema check via `get_trace('test_v23')` passes on first import.
+
+### Step 3.5 pre-flight keyword literal-substring verification (D-C3.attempt1.C in-session iteration)
+
+| Run | Outcome | Detail |
+|---|---|---|
+| 1 | **FAIL** on 1 of 10 pairs | `('pickup', partner_voicemail_ring_pickup_jeweler): False` — content used "pick up" (two words with space) but keyword tuple element is `pickup` (one word without space); literal substring check requires bytewise match. |
+| 1 → 2 | **Corrective action** | In-session edit to GT 3 content: "to pick up the resized wedding ring" → "for the pickup of the resized wedding ring"; preserves semantic meaning; revised in-place per D-C3.attempt1.C explicit allowance ("revise GT content OR replace keyword; re-author Step 3; re-run Step 3.5"); does NOT consume retry-cap budget per D-C1.4. |
+| 2 | **PASS** — all 10 pairs print `True` | `('court', court_hearing_moved_same_day_default_risk) True; ('hearing', court_hearing_moved_same_day_default_risk) True; ('insurance', homeowner_insurance_lapse_72h_notice) True; ('lapse', homeowner_insurance_lapse_72h_notice) True; ('ring', partner_voicemail_ring_pickup_jeweler) True; ('pickup', partner_voicemail_ring_pickup_jeweler) True; ('dust', dust_storm_warning_freeway_visibility) True; ('storm', dust_storm_warning_freeway_visibility) True; ('tls', tls_cert_expiry_3hr_customer_endpoint) True; ('expiry', tls_cert_expiry_3hr_customer_endpoint) True`. |
+
+**Reviewer-defense (Step 3.5 working as designed):** Step 3.5 caught a misalignment that would have rejected at audit-gate step 2 if the trace had been submitted directly — the explicit purpose of the D-C2.attempt2.C author-discipline addition (mirror of M11a test_v11 #1 walrus-syntax → per-attempt-pre-flight discipline carry-forward). The in-session iteration is the intended workflow; the iteration is transparently logged in the per-attempt artifact + this subsection. Attribution remains clean: self-restate gate → structural-parsing (audit step 1 territory); Step 3.5 → M8b keyword/content alignment (audit step 2 territory).
+
+### Audit-gate results (8/8 PASS)
+
+| Step | Item | Verdict | Evidence |
+|---|---|---|---|
+| 1 | Schema check via `get_trace('test_v23')` | PASS | `uv run python -c "from sandbox.event_trace import get_trace; t = get_trace('test_v23'); print(t.name, len(t.events), len(t.ground_truth), t.duration_s)"` yields `test_v23 9 5 890.0` with no exception. |
+| 2 | Keyword/content alignment (M8b hard constraint) | PASS | All 10 `(kw, content.lower())` substring checks pass (Step 3.5 pre-flight + audit-gate verification both PASS at the re-run). Pairs: `(court, court_hearing_moved_same_day_default_risk)`; `(hearing, court_hearing_moved_same_day_default_risk)`; `(insurance, homeowner_insurance_lapse_72h_notice)`; `(lapse, homeowner_insurance_lapse_72h_notice)`; `(ring, partner_voicemail_ring_pickup_jeweler)`; `(pickup, partner_voicemail_ring_pickup_jeweler)`; `(dust, dust_storm_warning_freeway_visibility)`; `(storm, dust_storm_warning_freeway_visibility)`; `(tls, tls_cert_expiry_3hr_customer_endpoint)`; `(expiry, tls_cert_expiry_3hr_customer_endpoint)`. |
+| 3a | Banned event_id literal review (vs 145 banned IDs) | PASS | Mechanical set-intersection: 0 collisions across test_v23's 9 event_ids. |
+| 3b | Banned theme semantic review (vs 82 banned themes) | PASS | Per-GT hand-audit verdicts archived in artifact `audit_gate_result.step_3b_evidence`. All 5 GT themes pass with distinguishing qualifiers documented vs nearest banned predecessors (sub-cell-distinct for each: schedule-change court-default-risk vs C1 cardio-rescheduled; financial/deadline homeowner-insurance-lapse vs C1 student-loan + C2 property-tax + M11a test_v15 Visa-autopay; message/delivery partner-jeweler-pickup vs M10b family-voicemail-airport + M11a test_v14 movers + M11a test_v15 auto-mechanic + M11a test_v13 real-estate-counter + C1 courier-signature; weather alert dust-storm-Maricopa-County vs C2 flash-flood-King-County; production/on-call TLS-cert-expiry vs C2 database-failover-postgres). |
+| 3c | Banned keyword tuple bytewise review (vs 81 banned tuples) | PASS | Mechanical set-intersection: 0 bytewise collisions across 5 GT tuples `[(court, hearing), (insurance, lapse), (ring, pickup), (dust, storm), (tls, expiry)]`. Note semantically-adjacent bytewise-distinct cases: `(wallet, pickup)` banned (M11a test_v11) but `(ring, pickup)` bytewise-distinct on first element; `(license, expires)` + `(passport, expiring)` banned but `(tls, expiry)` bytewise-distinct on both elements + `'expiry'` ≠ `'expires'` / `'expiring'` as tokens; `(weather, rain)` banned but `(dust, storm)` bytewise-distinct on both elements; `(production, alert)` banned but `(tls, expiry)` bytewise-distinct on both elements + different fault class. |
+| 4 | **Cross-trace literal-ID collision check** (HALT-gate per D-C1.5 #1) | PASS | Mechanical grep of 9 event_ids vs union of dev_v1/dev_v2/test_v1..v8/v11..v15/v21/v22 event_ids: 0 collisions against 145 prior event_ids. **HALT-trigger NOT fired.** |
+| 5 | Drift strong-overlap (a) GT tuple bytewise (cross-trace) | PASS | Same mechanical set-intersection as 3c against the union-of-prior-GT-tuples (81 unique across dev_v1..test_v22): 0 collisions. |
+| 6 | Drift strong-overlap (b) ≥8-word verbatim phrase | PASS | 8-gram set-intersection: test_v23 has 528 unique 8-grams across content+briefing+intents fields; prior dev/test traces have 4004 unique 8-grams; overlap = 0. |
+
+### GT-regime classification (audit step 7; for Commit D per-trace observations table)
+
+- GT 1 `court_hearing_moved_same_day_default_risk` — **schedule change affecting the user personally (V2 EXISTING YES)**: court clerk email moving today's 2pm small-claims hearing to today 11am on Judge Calderon's reassigned docket; user on $4,200 case (Acme Plumbing vs. user); confirm appearance by 10am via eFile portal or default judgment + collection proceedings follow.
+- GT 2 `homeowner_insurance_lapse_72h_notice` — **financial/deadline obligation (V2 EXISTING YES)**: Liberty Mutual notice — homeowner insurance auto-debit failed last billing cycle (linked checking transfer NSF); policy lapses in 72 hours unless $2,470 clears via carrier portal; mortgage lender notified on lapse + force-placed coverage at +$300/mo above prior premium.
+- GT 3 `partner_voicemail_ring_pickup_jeweler` — **message or delivery directed personally to the user (V2 EXISTING YES)**: voicemail from partner Mira asking user to swing by Goldsmiths on Roosevelt Row this afternoon for the pickup of the resized wedding ring; her 3pm meeting ran long; shop closes at 5pm sharp with no weekend hours; one-week delay if missed; explicit callback request.
+- GT 4 `dust_storm_warning_freeway_visibility` — **weather alert (V2 EXISTING YES)**: NWS dust storm warning for Maricopa County through 8pm tonight — 50+ mph wind gusts kicking up dense dust along I-10 between Phoenix and Tucson; visibility may drop below quarter-mile; driver advisory; user's afternoon drive to Tucson conference passes through warned corridor.
+- GT 5 `tls_cert_expiry_3hr_customer_endpoint` — **production/on-call alert (V2 EXISTING YES)**: PagerDuty P2 from Datadog synthetic monitor — TLS certificate for api.acmewidgets.com (user's team's customer-facing billing-webhook endpoint) expires at 16:32 PST today; current time 13:14 PST leaves 3hr 18min to issue and deploy renewal via cert-manager; customer billing webhooks 502 on expiry; on-call rotation runbook lists user as primary.
+
+### Defensibility self-check per §D9 defense #8 (audit step 8; V4-mechanism + V2-class subclause coverage)
+
+**V4 NEW YES coverage at C3:** **NONE** (intentional per D-C3.attempt1.B defensibility framing). Both V4 NEW YES subclauses already covered singularly across C1+C2 (scarcity-bounded-opportunity at C1 `vinyl_drop_press_today`; family-milestone-with-social-cost at C2 `grandpa_90th_birthday_tomorrow`); a third instance at C3 would over-weight V4 NEW YES vs the H4 COMPLIANT_NO_REGRESSION denominator.
+
+**V4 NEW NO coverage at C3:** **NONE** (intentional per D-C3.attempt1.B). All 3 V4 NEW NO subclauses already covered 2x each at C1+C2 under NEW phrasing per subclass: back-in-stock-without-scarcity (`restock_camping_lantern` at C1 + `sneakers_wishlist_back_in_stock_email` at C2); recurring-event-calendar-suggestion (`calendar_running_club_recur` at C1 + `calendar_coffee_lisa_weekly_suggest` at C2); casual-social-meetup-without-time-pressure (`arcade_meetup_kira` at C1 + `pickup_basketball_saturday_open` at C2). Additional repeats yield less marginal H4 value than compliant-content additions; defensibility framing prioritizes H4 denominator-building at C3.
+
+**V2 EXISTING YES compliant-content coverage at C3 (5 GTs across 5 distinct V2 YES classes):**
+- GT `court_hearing_moved_same_day_default_risk` tests V2 schedule-change-affecting-user-personally class under NEW specific incident distinct from C1's medical-specialty cardio reschedule.
+- GT `homeowner_insurance_lapse_72h_notice` tests V2 financial/deadline-obligation class under NEW specific incident distinct from C1's federal student loan + C2's county property tax + M11a's mortgage-rate / Visa-autopay / HOA / margin / bond / warranty.
+- GT `partner_voicemail_ring_pickup_jeweler` tests V2 message/delivery-directed-personally class under NEW specific incident distinct from C1's certified legal courier + M10b's family-airport-voicemail / personal-6pm-voicemail / photographer-voicemail + M11a's real-estate / movers / auto-mechanic / hospitalized-friend voicemails.
+- GT `dust_storm_warning_freeway_visibility` tests V2 weather-alert class under NEW specific incident distinct from C2's flash-flood-King-County (different geography Maricopa vs King; different meteorology dust-storm vs flash-flood; different driving hazard zero-visibility vs road-closure).
+- GT `tls_cert_expiry_3hr_customer_endpoint` tests V2 production/on-call-alert class under NEW specific incident distinct from C2's database-failover-postgres (different fault class TLS-cert-expiry vs DB-replica-failover; different remediation cert-manager-renewal vs DB-promotion; different urgency-mechanism 3hr-to-issue+deploy vs 10min-promotion-ETA).
+
+**V2 EXISTING NO compliant-content distractor coverage at C3 (4 distractors across 4 distinct V2 NO classes):**
+- Distractor `cloud_backup_daily_success_digest` tests V2 "routine status, uptime, heartbeat, or 'all systems normal' pings" — CloudStash daily backup digest with successful snapshot; explicit "All systems normal" framing.
+- Distractor `kitchen_gear_quarterly_digital_magazine` tests V2 "marketing, promotional, or newsletter content" — Kitchen Gear Quarterly Spring digital magazine issue; explicit unsubscribe-footer framing.
+- Distractor `morning_briefing_no_urgent_items_today` tests V2 "generic daily briefings that explicitly state no urgent items" — Wednesday morning briefing explicitly stating "No time-sensitive items flagged for today".
+- Distractor `notion_new_dashboard_feature_tour` tests V2 "feature announcements, app updates, or social/channel invites" — Notion analytics dashboard feature rollout announcement; explicit "No action required" framing.
+
+**Coverage summary at C3:** Maximal H4 COMPLIANT_NO_REGRESSION evidence-base contribution at a single trace cell — 5 V2 EXISTING YES GTs across 5 distinct V2 YES classes + 4 V2 EXISTING NO distractors across 4 distinct V2 NO classes; zero V4 NEW YES or V4 NEW NO repeats. Cross-trace coverage state through C3: **V4 NEW YES 2/2 subclauses covered** (singular-each via C1+C2); **V4 NEW NO 3/3 subclauses covered** (each 2x via C1+C2 under NEW phrasing); **V2 EXISTING YES classes coverage across C1+C2+C3**: urgent-safety (C1+C2), schedule-change (C1+C3), financial/deadline (C1+C2+C3), message/delivery (C1+C3), weather-alert (C2+C3), production/on-call (C2+C3), discretionary-deadline-V4-YES (C1+C2); **V2 EXISTING NO classes coverage across C1+C2+C3**: routine-status/heartbeat (C3 first coverage), marketing/newsletter (C3 first coverage), generic-daily-briefing-explicitly-no-urgent (C3 first coverage), feature-announcement/app-update (C2+C3), discord-social-channel (C1).
+
+**Per-attempt artifact (accepting):** `runs/data/21c-author-test_v23-attempt-1-accepted.json` (SHA256 `6767e7d1882285cac54d1ea8c63cc77d211c9b51ebcd5d84638ee088a39426ee`; 31455 bytes; full audit-gate evidence + Step 3.5 pre-flight verification iteration log + self-restate response verbatim + authored-trace verbatim + GT-regime classification + defensibility self-check + fresh-session-restart metadata archived).
+
+### Banned-list state delta at C3
+
+- Pre-C3 (C2 end-state, ships at C3): 145 IDs / 82 themes / 81 tuples.
+- C3 contributions from accepted test_v23 (to be incorporated into `21c-banned-list-pre-c4.txt` at C4 land time per D-C1.1):
+  - **+9 IDs:** `court_hearing_moved_same_day_default_risk`, `homeowner_insurance_lapse_72h_notice`, `partner_voicemail_ring_pickup_jeweler`, `dust_storm_warning_freeway_visibility`, `tls_cert_expiry_3hr_customer_endpoint`, `cloud_backup_daily_success_digest`, `kitchen_gear_quarterly_digital_magazine`, `morning_briefing_no_urgent_items_today`, `notion_new_dashboard_feature_tour`.
+  - **+5 themes (GT-regime regime column verbatim):** schedule change affecting the user personally (V2 EXISTING YES) — court clerk same-day moving small-claims hearing from 2pm to 11am with 10am confirm deadline and default-judgment-plus-collection risk; financial/deadline obligation (V2 EXISTING YES) — homeowner insurance auto-debit failed last billing cycle, 72-hour policy lapse risk + force-placed-coverage penalty + mortgage-lender notification; message/delivery directed personally to the user (V2 EXISTING YES) — partner voicemail requesting cross-town jeweler pickup of resized wedding ring before 5pm closing + one-week delay penalty + callback request; weather alert (V2 EXISTING YES) — NWS dust storm warning for Maricopa County with 50+ mph gusts and zero-visibility risk on I-10 between Phoenix and Tucson; production/on-call alert (V2 EXISTING YES) — TLS certificate for customer-facing billing-webhook endpoint expiring in 3 hours with on-call primary on cert-manager rotation.
+  - **+5 tuples (GT keyword tuples verbatim):** `(court, hearing)`, `(insurance, lapse)`, `(ring, pickup)`, `(dust, storm)`, `(tls, expiry)`.
+- Post-C3 (input state for C4): 154 IDs / 87 themes / 86 tuples. File ships at C4 land time as `runs/data/21c-banned-list-pre-c4.{txt,json}` per D-C1.1 invariant.
+
+### Halt-condition status at C3
+
+- Literal-ID collision halt (D-C1.5 #1): **not triggered** (audit step 4 PASS at the accepting attempt).
+- Banned-list-saturation halt (D-C1.5 #2 = §D9 defense #4, >25 attempts AND <10 accepted): **not triggered** (4 cumulative milestone attempts < 25; 3 accepted traces toward target of 10).
+- Retry-cap-3 on test_v23 (D-C1.5 #3): **not exhausted** (1/3 used; PASS at attempt #1 / 2 retries remaining had attempt #1 not accepted).
+
+### Cumulative milestone-spend through Commit C3
+
+Commit C3 spend: $0 at attempt #1 (in-session author + local Python audit-gate; self-restate gate rendered locally; no API spend). Cumulative M11a-extension spend through Commit C3: $0.7081 (unchanged from Commit C2; ~18% of $4 pre-reg budget).
+
+### Frozen artifacts at Commit C3 (NOT touched, per locked plan §D13 + D-C1.6 carry-forward)
+
+- `agent/loop.py`, `agent/llm.py`, `agent/predictor.py`, `agent/surprise.py`, `agent/arbiter.py` — frozen throughout milestone.
+- `eval/run_trace.py`, `eval/author_trace.py` — frozen at Commit C (CLI choices + self-restate gate locked at Commit B).
+- `sandbox/event_trace.py` test_v4..test_v15 + test_v21 + test_v22 definitions — frozen historical artifacts (only NEW `test_trace_v23` added at C3, plus the registry line `"test_v23": test_trace_v23,`).
+- `runs/data/21c-banned-list-pre-c{1,2}.{txt,json}` + `runs/data/21c-author-test_v{21,22}-*.json` — frozen at C1+C2; do NOT mutate.
+- `baselines/`, `pyproject.toml`, `uv.lock` — no changes at Commit C3.
+
+### Next: Commit C4 — fresh-session trace authoring `test_v24`
+
+Per locked plan §D13 + D-C1.1: future session opens with `runs/data/21c-banned-list-pre-c4.{txt,json}` (NEW; reflects test_v21 + test_v22 + test_v23 contributions; 154 IDs / 87 themes / 86 tuples) as the pre-C4 starting state. Self-restate gate rendered against the pre-C4 file. Same C-protocol governance decisions (D-C1.1..D-C1.6) apply unchanged. Cumulative milestone attempt count 4/25 carries forward. Step 3.5 pre-flight keyword literal-substring verification (D-C2.attempt2.C / D-C3.attempt1.C) carries forward as standing per-attempt author discipline.
+
+Commit C4 is deferred to a future fresh session per M10-shape protocol + auto-memory `feedback_new_session_for_arch_work.md`.

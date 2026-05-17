@@ -1020,6 +1020,64 @@ def test_trace_v22() -> Trace:
     )
 
 
+def test_trace_v23() -> Trace:
+    gts = [
+        _gt(
+            Event(id="court_hearing_moved_same_day_default_risk", kind="email", sim_time=120.0,
+                  content="Court clerk email: your small-claims hearing #SC-24-3812 (Acme Plumbing vs. you, $4,200) originally scheduled for today 2pm has been moved to today 11am on Judge Calderon's reassigned docket. Confirm appearance by 10am via the eFile portal or you will be in default; default judgment plus collection proceedings follow automatically."),
+            window_s=300.0, keywords=("court", "hearing"),
+        ),
+        _gt(
+            Event(id="homeowner_insurance_lapse_72h_notice", kind="email", sim_time=260.0,
+                  content="Liberty Mutual insurance notice: your homeowner insurance auto-debit failed at last billing cycle (the linked checking transfer was returned NSF) and the policy will lapse in 72 hours unless payment of $2,470 clears via the carrier portal. After lapse, your mortgage lender is auto-notified and force-placed coverage begins at $300 per month above your prior premium."),
+            window_s=600.0, keywords=("insurance", "lapse"),
+        ),
+        _gt(
+            Event(id="partner_voicemail_ring_pickup_jeweler", kind="phone_message", sim_time=380.0,
+                  content="Voicemail from your partner Mira: please swing by Goldsmiths on Roosevelt Row this afternoon for the pickup of the resized wedding ring; her own 3pm meeting ran long. The shop closes at 5pm sharp with no weekend hours, so if the ring is not collected today it sits in the safe until next Friday. She asked you to call back to confirm."),
+            window_s=240.0, keywords=("ring", "pickup"),
+        ),
+        _gt(
+            Event(id="dust_storm_warning_freeway_visibility", kind="alert", sim_time=540.0,
+                  content="NWS dust storm warning for Maricopa County through 8pm tonight: sustained 50+ mph wind gusts kicking up dense dust along I-10 between Phoenix and Tucson; visibility may drop below a quarter-mile. Driver advisory: pull off the freeway and turn lights off if caught in zero-visibility. Your afternoon drive to the Tucson conference passes through the warned corridor."),
+            window_s=200.0, keywords=("dust", "storm"),
+        ),
+        _gt(
+            Event(id="tls_cert_expiry_3hr_customer_endpoint", kind="alert", sim_time=720.0,
+                  content="PagerDuty P2 from Datadog synthetic monitor: the TLS certificate for api.acmewidgets.com (your team's customer-facing billing-webhook endpoint) expires at 16:32 PST today; current time 13:14 PST leaves 3 hours 18 minutes to issue and deploy the renewal via cert-manager. Customer billing webhooks will return 502 on expiry; the rotation runbook lists you as primary."),
+            window_s=120.0, keywords=("tls", "expiry"),
+        ),
+    ]
+    distractors = [
+        Event(id="cloud_backup_daily_success_digest", kind="email", sim_time=60.0,
+              content="Daily backup digest from CloudStash: yesterday's incremental snapshot completed successfully — 2.3 GB across 14,820 files; zero errors; next snapshot tonight at 2am. All systems normal. Manage notification preferences in your account settings."),
+        Event(id="kitchen_gear_quarterly_digital_magazine", kind="email", sim_time=180.0,
+              content="Fresh off the press: Kitchen Gear Quarterly Spring issue — 28 pages on stand-mixer testing, knife sharpening across budget tiers, and a roundup of seasonal cookbook reviews. Read at your leisure online or download the PDF for offline browsing. Unsubscribe at any time from the footer link."),
+        Event(id="morning_briefing_no_urgent_items_today", kind="notification", sim_time=440.0,
+              content="Wednesday morning briefing: your calendar has 2 scheduled items (10am team standup, 3pm 1:1 with Sara); inbox sits at 47 unread; outdoor air quality moderate. No time-sensitive items flagged for today. Have a productive day."),
+        Event(id="notion_new_dashboard_feature_tour", kind="email", sim_time=620.0,
+              content="Notion product announcement: our new analytics dashboard is rolling out to every workspace this month. Take the 2-minute interactive tour to explore the pivot views and AI-generated summaries. No action required on your end — the feature is opt-in via the workspace settings menu whenever you are ready."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v23",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "Wednesday afternoon at home in Phoenix. "
+            "I'm prepping for a small-claims hearing this afternoon, expecting a customer-facing TLS rotation handoff before EOD, and a couple of personal admin items are lingering. "
+            "Notifications are muted by default — only obviously urgent or genuinely time-bound items should break through; routine digests and promotional emails can wait."
+        ),
+        intents=(
+            "represent myself at the small-claims hearing today",
+            "TLS cert rotation handoff before end of day",
+            "keep heads-down on focused work between commitments",
+            "do not miss urgent or hard-deadline items",
+            "minimal interruption from routine pings and promos",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -1039,6 +1097,7 @@ def get_trace(name: str) -> Trace:
         "test_v15": test_trace_v15,
         "test_v21": test_trace_v21,
         "test_v22": test_trace_v22,
+        "test_v23": test_trace_v23,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")
