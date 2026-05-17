@@ -1078,6 +1078,64 @@ def test_trace_v23() -> Trace:
     )
 
 
+def test_trace_v24() -> Trace:
+    gts = [
+        _gt(
+            Event(id="carbon_monoxide_alarm_evacuate_call_gas_company", kind="alert", sim_time=80.0,
+                  content="Indoor carbon monoxide alarm triggered in the basement utility room: sensor reads 95 ppm CO and climbing; the safe threshold is 9 ppm. Evacuate the house immediately with all family members and pets, leave doors open behind you, and dial the gas company emergency line from outside. Do not re-enter until first responders give the all-clear."),
+            window_s=180.0, keywords=("carbon", "monoxide"),
+        ),
+        _gt(
+            Event(id="pediatrician_visit_advanced_today_4pm", kind="email", sim_time=210.0,
+                  content="Pediatrician's office: we've advanced your child's 4-year-old wellness visit from Tuesday next week to today at 4pm because Dr. Albright had a cancellation and wants to fit you in before her two-week leave begins tomorrow. Please confirm or call back to decline by 1pm so we can offer the open slot to another family on the waitlist."),
+            window_s=300.0, keywords=("pediatrician", "advanced"),
+        ),
+        _gt(
+            Event(id="hospital_grandmother_hip_fracture_next_of_kin_callback", kind="phone_message", sim_time=340.0,
+                  content="Voicemail from St. Vincent's hospital admitting desk: your grandmother Eleanor was admitted through emergency in the last hour with a left hip fracture from a fall at home; she is stable but the chart lists you as next-of-kin proxy. Charge nurse Tanya asked that you call ward 4-North directly to discuss surgical consent and transfer logistics before evening rounds at 8pm."),
+            window_s=240.0, keywords=("hospital", "grandmother"),
+        ),
+        _gt(
+            Event(id="tornado_watch_tri_county_peak_risk_tonight", kind="alert", sim_time=500.0,
+                  content="National Weather Service tornado watch issued for your tri-county area through 11pm tonight: rotation-supported supercells moving east-northeast at 55 mph with hail to two-inch diameter; peak tornado risk window 4pm to 9pm. A watch is not yet a warning, but conditions strongly favor tornado development — review your shelter plan, charge devices, and monitor radio for upgrades."),
+            window_s=300.0, keywords=("tornado", "watch"),
+        ),
+        _gt(
+            Event(id="disk_space_critical_var_log_api_host_oom_90min", kind="alert", sim_time=720.0,
+                  content="PagerDuty P2 from infra-mon: disk space critical on api-prod-host-07 — /var/log is filling at roughly 200 MB per minute thanks to a runaway debug-log flag in the new release; current free space 1.4 GB on a 40 GB partition; projected OOM-style kill on the request handler within 90 minutes if not addressed. You are listed as primary on the storage-rotation runbook this week."),
+            window_s=150.0, keywords=("disk", "space"),
+        ),
+    ]
+    distractors = [
+        Event(id="ssl_monitor_weekly_digest_no_rotations_required", kind="email", sim_time=30.0,
+              content="Weekly SSL monitor digest: all 47 certificates across your managed properties are valid; the longest-lived expires in 84 days; no rotations are required this week; one scheduled renewal is queued for next Tuesday's automation window. No action items at this time. Configure digest cadence or recipients in the monitor console."),
+        Event(id="tea_club_monthly_subscriber_tasting_newsletter", kind="email", sim_time=160.0,
+              content="Steeped & Found Tea Club: your March subscriber edition is on its way — three single-estate Darjeeling first-flush samples, brewing notes from the head taster, and an interview with the harvest manager in Kurseong. The tracking number will arrive separately when your box ships. Manage cadence or pause shipments anytime from your account dashboard."),
+        Event(id="evening_briefing_no_pending_items_tomorrow_clear", kind="notification", sim_time=430.0,
+              content="End-of-day briefing: your inbox is down to 8 unread; tomorrow's calendar holds one 10:30 am 1:1 and otherwise the day's blocks are clear; outdoor air quality forecast is good across the metro; no items pending your action and nothing time-sensitive is flagged before tomorrow morning. Wind down well."),
+        Event(id="slack_frontend_weekly_community_invite", kind="email", sim_time=600.0,
+              content="You've been invited to join the Frontend Weekly Slack community — about 12,000 engineers swapping reviews, code samples, and meetup announcements across React, Vue, and Svelte. Membership is free; introductions thread runs on Mondays. Accept the invite link in the footer or simply ignore this message if it isn't relevant."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v24",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "Thursday morning at home. "
+            "The kid is at school today and I'm working from the home office, with our infrastructure on-call rotation handing the storage-runbook duty over to me at lunchtime. "
+            "Notifications are filtered to urgent: family-safety, hospital-family, severe-weather, and production-incident signals should break through, and routine digests, marketing, and casual invites can stack up for later."
+        ),
+        intents=(
+            "respond to genuine family-safety and family-medical signals immediately",
+            "cover the production storage-rotation duty through the rest of today",
+            "stay focused on the spec review draft due tomorrow",
+            "do not lose any hard-deadline items in the noise",
+            "let routine digests and promotional pings wait until the end of the day",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -1098,6 +1156,7 @@ def get_trace(name: str) -> Trace:
         "test_v21": test_trace_v21,
         "test_v22": test_trace_v22,
         "test_v23": test_trace_v23,
+        "test_v24": test_trace_v24,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")
