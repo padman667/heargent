@@ -1,0 +1,272 @@
+{
+  "attempt_number": 2,
+  "attempted_at_utc": "2026-05-18T11:30:00Z",
+  "verdict": "ACCEPTED",
+  "trace_name": "test_v27",
+  "banned_list_path": "runs/data/21c-banned-list-pre-c7.txt",
+  "banned_list_sha256_at_attempt": "e03a28c4f6ee02a35a6c1fe3dd3e5f0c3678d9886ff442c09d56b3379a9dfa39",
+  "banned_list_json_sha256_at_attempt": "2c0f02dccbe2ee0025a9560280429cdcd1a98463cfe639bdc2eb4fd7a874d1a9",
+  "banned_list_bytes_at_attempt": {
+    "txt": 20577,
+    "json": 20220
+  },
+  "banned_list_state_counts": {
+    "event_ids": 181,
+    "themes": 102,
+    "tuples": 101
+  },
+  "self_restate_prompt_sha256": "dd4d29f3efb3083f41690ae77231454d4fa462e374c76232a15c9cce62ea3050",
+  "self_restate_prompt_bytes": 20986,
+  "self_restate_response_verbatim": "Acknowledged. Here is my own-words restatement of the four constraints I must honor before authoring the EventTrace for test_v27, then a note on the standing per-attempt author discipline that has carried forward through C2..C6:\n\n(a) Python parseability \u2014 every literal I write into sandbox/event_trace.py must be a plain Python expression that the existing trace-builder schema in that module accepts without modification. No new syntax features, no imports beyond what the test_trace_v?? predecessors already use, no f-string interpolation or comprehension tricks. The harness's `get_trace('test_v27')` import must succeed on the very first attempt with no Python-level exceptions.\n\n(b) No walrus operator \u2014 assignment-as-expression `:=` is forbidden anywhere in the trace definition. This is the M11a test_v11 attempt-#1 walrus-syntax failure mode locked into the protocol as a permanent author-side guardrail; standard `name = value` assignments only.\n\n(c) No arithmetic in event_id strings \u2014 event_id literals must be plain underscored identifiers with no plus, minus, multiplication, division, no integer concatenation, no expression-evaluation tricks. This is the M11a test_v13 / test_v15 attempt failure mode. Each event_id is exactly one bare snake_case string literal.\n\n(d) Avoid reusing banned event_ids \u2014 I will not reuse any of the 181 event_ids enumerated in the pre-C7 banned list as an Event.id. I will also avoid the 102 banned themes as the semantic content of any GroundTruthEvent and avoid the 101 banned keyword tuples as any GroundTruthEvent.keywords value. The audit-gate (D-C1.3) will mechanically check all three at attempt-submission time; the literal-ID check (audit step 4) is HALT-gated per D-C1.5 #1, so an ID collision halts the milestone.\n\nAdditionally I will follow the per-attempt author discipline locked at C2 attempt-#2 and inherited verbatim through C6:\n\n- Step 3.5 pre-flight keyword literal-substring verification \u2014 every (kw, content) pair must satisfy `kw.lower() in content.lower()` before audit-gate invocation. Single-word keyword-substring attention at draft time (avoid two-word phrasings whose single-word keyword would not literal-substring-match, per the C3 attempt-1 ('pickup', 'pick up') precedent that triggered an in-session content revision).\n\nAuthoring discipline for this session per the locked C7 Plan (path (a) compliant-content lift, D-C7.attempt1.B): 5 V2 EXISTING YES GTs across 5 distinct V2 YES classes (schedule-change 4x\u21925x + production/on-call 4x\u21925x as path-(a) primary lifts; urgent-safety 5x\u21926x + financial/deadline 5x\u21926x as saturating-but-class-diversity-enforced lifts; message/delivery 4x\u21925x as 5-GT-shape-constraint lift), zero V4 mechanism GTs (preserves C6's symmetric-V4-NEW-YES closure + saturated-V4-NEW-NO state), 4 V2 EXISTING NO distractors (feature-announcement 3x\u21924x as path-(a) primary distractor lift + 3 V2 NO 4x classes lifted 4x\u21925x: routine-status + marketing/newsletter + generic-daily-briefing). Zero event_id / content / keyword / sim_time / briefing / intent carryover from C1..C6 per fresh-session-restart-from-scratch discipline.",
+  "authored_trace_verbatim": {
+    "name": "test_v27",
+    "duration_s": 830.0,
+    "events": [
+      {
+        "id": "wednesday_midweek_checkpoint_briefing_no_priority_flagged_calendar_clear",
+        "kind": "notification",
+        "sim_time": 30.0,
+        "content": "Wednesday midweek-checkpoint briefing: you have four meetings remaining this week, two heads-down focus blocks Thursday and Friday morning, and inbox is at eighteen unread with all eighteen messages categorized routine by the triage classifier. Calendar is clear for the rest of today and tomorrow morning. The sprint board, stakeholder-ask queue, and personal-task list all show no urgent items pending, and no overdue tasks were detected anywhere in the workflows you supervise. Have a productive second half of the week."
+      },
+      {
+        "id": "github_actions_weekly_workflow_health_digest_all_green_zero_flaky_rerun",
+        "kind": "email",
+        "sim_time": 80.0,
+        "content": "GitHub Actions weekly workflow-health digest for the order-fulfillment-platform organization: twelve workflows across nine repositories ran cleanly with zero flaky-rerun rate over the past seven days. Cron-triggered jobs completed within their scheduled windows; pull-request validation workflows averaged four minutes to green; deployment workflows reported no manual approvals pending. Self-hosted runner fleet utilization peaked at sixty-three percent on Wednesday afternoon and remained idle overnight on the weekend. The next workflow-health digest sends next Monday at the same time."
+      },
+      {
+        "id": "postman_workspace_collection_runner_v11_javascript_runtime_announcement_no_action",
+        "kind": "email",
+        "sim_time": 140.0,
+        "content": "Postman product team announcement: the Collection Runner has been upgraded to version eleven with a refreshed UI, a new JavaScript runtime for pre-request and test scripts, and inline diff-views for collection-version comparison. Existing collections continue to run on the legacy runtime through end-of-year and no migration action is required at this time. See the changelog for the full list of behavioral changes and opt-in toggles for the new diff-view; workspace administrators will be notified separately if any workspace-level settings require attention."
+      },
+      {
+        "id": "uscis_naturalization_interview_rescheduled_friday_8am_field_office",
+        "kind": "email",
+        "sim_time": 220.0,
+        "content": "USCIS field-office adjudications officer notice for receipt number MSC-2024-22-XXXX: your N-400 naturalization interview originally scheduled for tomorrow morning at eight a.m. has been rescheduled to Friday morning at eight a.m. due to officer reassignment in your panel. Reply to confirm acceptance of the new slot before tomorrow noon Pacific or the rescheduled slot defaults to a forced cancellation and the case returns to the back of the field-office docket with an estimated six-month delay to reschedule. Bring the original civic-knowledge documents listed in the prior interview notice plus two updated passport-style photographs to the rescheduled appointment at the downtown Seattle field office."
+      },
+      {
+        "id": "goldleaf_stationery_quarterly_catalog_handmade_paper_fountain_pen_spring_no_action",
+        "kind": "email",
+        "sim_time": 300.0,
+        "content": "Goldleaf Stationery quarterly catalog for the spring season is now live online: handmade-paper journals in five new cover-stock options, the fountain-pen ink-of-the-month subscription with three featured shimmer colors this quarter, and limited-run leather portfolio cases priced for early-spring promotion. Browse at your leisure; orders placed before the end of the month qualify for complimentary monogramming on most leather items. If our catalog cadence has become too noisy, the mailing frequency can be dropped to twice-yearly or fully paused through the footer link below."
+      },
+      {
+        "id": "kafka_order_pipeline_broker_election_under_replicated_p1_consumer_lag_8m",
+        "kind": "alert",
+        "sim_time": 380.0,
+        "content": "PagerDuty P1 incident on order-fulfillment Kafka cluster prod-orders-kafka-01: the broker fleet has been reporting unstable partition-leadership elections across the cluster for the last fifteen minutes with two-hundred under-replicated partitions and consumer-lag climbing past eight million messages on the checkout-event topic. The on-call runbook escalates to engineering leadership at the seventy-five-minute mark if the broker quorum is not stabilized; storage-tier dashboards show I/O wait spikes correlated with the disk-controller firmware push from Monday evening. You are the primary on-call this week; the secondary has just paged you and expects a phone-handshake on the bridge within two minutes per the SEV1 protocol."
+      },
+      {
+        "id": "fbar_fincen_114_foreign_account_oct_15_deadline_aggregate_above_10k",
+        "kind": "email",
+        "sim_time": 480.0,
+        "content": "Email from your federal tax preparer with FinCEN-114 FBAR filing materials attached: this is the final-day reminder that your foreign-bank-account aggregate balance exceeded the ten-thousand-dollar reportable threshold at multiple points during last calendar year and the extended October fifteenth deadline lapses at eleven fifty-nine tonight Pacific. The FBAR form has been pre-filled with the residual Berlin postdoc-era account plus the dormant Lisbon savings sub-account from the sabbatical year; sign the e-file authorization through the secure portal link below to submit before the cutoff. Willful-failure-to-file civil penalties run to the greater of one-hundred-twenty-nine-thousand-two-hundred-ten dollars per violation or fifty percent of the foreign account balance per year not reported; do not let this slip past midnight."
+      },
+      {
+        "id": "tenant_attorney_eviction_stay_motion_paperwork_5pm_show_cause_court_tomorrow",
+        "kind": "phone_message",
+        "sim_time": 560.0,
+        "content": "Voicemail from your tenant-defense attorney's paralegal at Henderson and Park: the emergency eviction-stay motion paperwork is ready for your in-person signature at the downtown office before five p.m. closing today; the show-cause hearing the landlord requested is calendared for tomorrow morning at nine in housing court and the motion has to be on the clerk's desk by start-of-business or the writ-of-restitution issues by default. Bring photo identification and the maintenance-escrow receipts from the past three months. Office is on the ninth floor of the Smith Tower at Second and Yesler; the attorney expects to be available between three and four-thirty if you want to walk through the strategy before signing."
+      },
+      {
+        "id": "self_chest_pressure_left_arm_radiating_911_aspirin_chewed_4min_eta_paramedics",
+        "kind": "alert",
+        "sim_time": 660.0,
+        "content": "Sudden onset of chest pressure radiating down the left arm with cold sweat and a wave of nausea while you were sitting at the kitchen table; classic acute coronary presentation in a person with documented family history of premature myocardial infarction. Nine-one-one has already been called from your phone and the live dispatcher is on speaker walking you through the protocol: chew one full-strength aspirin tablet immediately, unlock the building lobby door so paramedics do not lose minutes at the buzzer, and have your medication list and primary-care contact number ready when they arrive. Ambulance estimated arrival is four minutes; the dispatcher is asking whether anyone else is in the house with you who can ride along to the hospital."
+      }
+    ],
+    "ground_truth": [
+      {
+        "event_id": "self_chest_pressure_left_arm_radiating_911_aspirin_chewed_4min_eta_paramedics",
+        "kind": "alert",
+        "sim_time": 660.0,
+        "content": "Sudden onset of chest pressure radiating down the left arm with cold sweat and a wave of nausea while you were sitting at the kitchen table; classic acute coronary presentation in a person with documented family history of premature myocardial infarction. Nine-one-one has already been called from your phone and the live dispatcher is on speaker walking you through the protocol: chew one full-strength aspirin tablet immediately, unlock the building lobby door so paramedics do not lose minutes at the buzzer, and have your medication list and primary-care contact number ready when they arrive. Ambulance estimated arrival is four minutes; the dispatcher is asking whether anyone else is in the house with you who can ride along to the hospital.",
+        "proaction_window_s": 90.0,
+        "keywords": [
+          "aspirin",
+          "dispatcher"
+        ]
+      },
+      {
+        "event_id": "uscis_naturalization_interview_rescheduled_friday_8am_field_office",
+        "kind": "email",
+        "sim_time": 220.0,
+        "content": "USCIS field-office adjudications officer notice for receipt number MSC-2024-22-XXXX: your N-400 naturalization interview originally scheduled for tomorrow morning at eight a.m. has been rescheduled to Friday morning at eight a.m. due to officer reassignment in your panel. Reply to confirm acceptance of the new slot before tomorrow noon Pacific or the rescheduled slot defaults to a forced cancellation and the case returns to the back of the field-office docket with an estimated six-month delay to reschedule. Bring the original civic-knowledge documents listed in the prior interview notice plus two updated passport-style photographs to the rescheduled appointment at the downtown Seattle field office.",
+        "proaction_window_s": 240.0,
+        "keywords": [
+          "uscis",
+          "interview"
+        ]
+      },
+      {
+        "event_id": "fbar_fincen_114_foreign_account_oct_15_deadline_aggregate_above_10k",
+        "kind": "email",
+        "sim_time": 480.0,
+        "content": "Email from your federal tax preparer with FinCEN-114 FBAR filing materials attached: this is the final-day reminder that your foreign-bank-account aggregate balance exceeded the ten-thousand-dollar reportable threshold at multiple points during last calendar year and the extended October fifteenth deadline lapses at eleven fifty-nine tonight Pacific. The FBAR form has been pre-filled with the residual Berlin postdoc-era account plus the dormant Lisbon savings sub-account from the sabbatical year; sign the e-file authorization through the secure portal link below to submit before the cutoff. Willful-failure-to-file civil penalties run to the greater of one-hundred-twenty-nine-thousand-two-hundred-ten dollars per violation or fifty percent of the foreign account balance per year not reported; do not let this slip past midnight.",
+        "proaction_window_s": 220.0,
+        "keywords": [
+          "fbar",
+          "foreign"
+        ]
+      },
+      {
+        "event_id": "tenant_attorney_eviction_stay_motion_paperwork_5pm_show_cause_court_tomorrow",
+        "kind": "phone_message",
+        "sim_time": 560.0,
+        "content": "Voicemail from your tenant-defense attorney's paralegal at Henderson and Park: the emergency eviction-stay motion paperwork is ready for your in-person signature at the downtown office before five p.m. closing today; the show-cause hearing the landlord requested is calendared for tomorrow morning at nine in housing court and the motion has to be on the clerk's desk by start-of-business or the writ-of-restitution issues by default. Bring photo identification and the maintenance-escrow receipts from the past three months. Office is on the ninth floor of the Smith Tower at Second and Yesler; the attorney expects to be available between three and four-thirty if you want to walk through the strategy before signing.",
+        "proaction_window_s": 240.0,
+        "keywords": [
+          "attorney",
+          "eviction"
+        ]
+      },
+      {
+        "event_id": "kafka_order_pipeline_broker_election_under_replicated_p1_consumer_lag_8m",
+        "kind": "alert",
+        "sim_time": 380.0,
+        "content": "PagerDuty P1 incident on order-fulfillment Kafka cluster prod-orders-kafka-01: the broker fleet has been reporting unstable partition-leadership elections across the cluster for the last fifteen minutes with two-hundred under-replicated partitions and consumer-lag climbing past eight million messages on the checkout-event topic. The on-call runbook escalates to engineering leadership at the seventy-five-minute mark if the broker quorum is not stabilized; storage-tier dashboards show I/O wait spikes correlated with the disk-controller firmware push from Monday evening. You are the primary on-call this week; the secondary has just paged you and expects a phone-handshake on the bridge within two minutes per the SEV1 protocol.",
+        "proaction_window_s": 200.0,
+        "keywords": [
+          "kafka",
+          "broker"
+        ]
+      }
+    ],
+    "briefing": "Wednesday midday at home in Seattle. Mid-stage USCIS naturalization applicant with the field-office interview just rescheduled by the adjudications officer; primary on-call engineering rotation this week for the order-fulfillment Kafka cluster and the broker fleet has been showing leadership-instability flickers since the storage-tier firmware push on Monday. Federal tax preparer flagged a deferred FBAR filing for residual foreign-bank accounts left over from a postdoc year in Berlin and a sabbatical in Lisbon; the extended October fifteenth deadline lapses at midnight Pacific tonight. Landlord filed an eviction notice last week over a disputed maintenance-escrow balance and the tenant-defense attorney is drafting an emergency stay motion against tomorrow's show-cause hearing. Family history of premature coronary disease on my father's side; cardiologist ordered a stress test last month but I never followed up for the results. Notifications are filtered for urgent: cardiac-emergency symptoms, P1 production on-call alerts, hard-deadline legal-pickup or federal-filing windows, and the USCIS rescheduled-interview confirmation should break through; routine engineering digests, marketing catalogs, product feature announcements, and the midweek briefing can wait.",
+    "intents": [
+      "call nine-one-one and chew aspirin per dispatcher instructions if I get cardiac MI red flags (chest pressure with arm radiation, cold sweat)",
+      "acknowledge any P1 on-call alert from the order-fulfillment Kafka broker fleet within two minutes of the page",
+      "file the FBAR FinCEN-114 before eleven fifty-nine Pacific tonight; partial filings are not accepted and the willful-violation penalty is per-account-per-year",
+      "pick up the tenant-attorney eviction-stay motion paperwork in person by five today so tomorrow's show-cause hearing is on the schedule",
+      "confirm the rescheduled USCIS naturalization interview slot before tomorrow noon and let routine engineering digests, marketing catalogs, product feature announcements, and the midweek briefing wait until evening"
+    ]
+  },
+  "step_3_5_pre_flight_keyword_substring_verification": {
+    "discipline_inherits": "D-C2.attempt2.C / D-C3.attempt1.C / D-C4.attempt1.C / D-C5.attempt1.C / D-C6.attempt1.C verbatim \u2014 author-discipline pre-flight only; does NOT modify the audit-gate locked at D-C1.3; does NOT consume retry-cap budget per D-C1.4.",
+    "iteration_log": [
+      {
+        "run": 1,
+        "outcome": "PASS",
+        "detail": "All 10 (kw, content) pairs print True at attempt-1 Step 3.5 pre-flight (run 1 ran at attempt-1 session before audit-gate attempt-1 fired): ('aspirin', self_chest_pressure_left_arm_radiating_911_aspirin_chewed_4min_eta_paramedics) True; ('dispatcher', self_chest_pressure_left_arm_radiating_911_aspirin_chewed_4min_eta_paramedics) True; ('uscis', uscis_naturalization_interview_rescheduled_friday_8am_field_office) True; ('interview', uscis_naturalization_interview_rescheduled_friday_8am_field_office) True; ('fbar', fbar_fincen_114_foreign_account_oct_15_deadline_aggregate_above_10k) True; ('foreign', fbar_fincen_114_foreign_account_oct_15_deadline_aggregate_above_10k) True; ('attorney', tenant_attorney_eviction_stay_motion_paperwork_5pm_show_cause_court_tomorrow) True; ('eviction', tenant_attorney_eviction_stay_motion_paperwork_5pm_show_cause_court_tomorrow) True; ('kafka', kafka_order_pipeline_broker_election_under_replicated_p1_consumer_lag_8m) True; ('broker', kafka_order_pipeline_broker_election_under_replicated_p1_consumer_lag_8m) True."
+      },
+      {
+        "run": 2,
+        "outcome": "PASS",
+        "detail": "Re-ran at attempt-2 after in-place distractor revision (D3 Goldleaf closing + D4 Wednesday-briefing middle sentence revised; no GT or keyword changes between attempt-1 and attempt-2). All 10 (kw, content) pairs still print True since keywords + GT content unchanged. No iteration consumed."
+      }
+    ],
+    "first_run_pass_note": "Step 3.5 PASSed at attempt-1 first run and again at attempt-2 first run (no iteration). Single-word keyword-substring attention at draft time: ('aspirin','dispatcher') aligned with 'chew one full-strength aspirin tablet' + 'the live dispatcher is on speaker'; ('uscis','interview') aligned with 'USCIS field-office adjudications officer notice' + 'N-400 naturalization interview'; ('fbar','foreign') aligned with 'FinCEN-114 FBAR filing materials' + 'foreign-bank-account aggregate balance'; ('attorney','eviction') aligned with 'your tenant-defense attorney's paralegal' + 'emergency eviction-stay motion paperwork'; ('kafka','broker') aligned with 'order-fulfillment Kafka cluster' + 'broker fleet has been reporting unstable partition-leadership elections'. Discipline carry-forward from D-C2.attempt2.C \u2192 D-C3.attempt1.C \u2192 D-C4.attempt1.C \u2192 D-C5.attempt1.C \u2192 D-C6.attempt1.C \u2192 D-C7.attempt1.C unbroken."
+  },
+  "audit_gate_result": {
+    "step_1_schema_check": {
+      "verdict": "PASS",
+      "evidence": "uv run python -c 'from sandbox.event_trace import get_trace; t = get_trace(\"test_v27\"); print(t.name, len(t.events), len(t.ground_truth), t.duration_s)' yields 'test_v27 9 5 830.0' with no exception. duration_s=830.0 is the correctly computed property max(last_gt_completion, last_event_time) + 30.0: 5 GTs at sim_times 660/220/480/560/380 with windows 90/240/220/240/200 yields last_gt_completion 800.0 (tenant_attorney 560+240); events at 30/80/140/220/300/380/480/560/660 yields last_event_time 660.0; max(800, 660) + 30 = 830."
+    },
+    "step_2_keyword_content_alignment": {
+      "verdict": "PASS",
+      "evidence": "All 10 (kw, content.lower()) substring checks pass at run 2 (post-revision; keyword + GT content unchanged between attempt-1 and attempt-2): ('aspirin', self_chest_pressure_left_arm_radiating_911_aspirin_chewed_4min_eta_paramedics); ('dispatcher', self_chest_pressure_left_arm_radiating_911_aspirin_chewed_4min_eta_paramedics); ('uscis', uscis_naturalization_interview_rescheduled_friday_8am_field_office); ('interview', uscis_naturalization_interview_rescheduled_friday_8am_field_office); ('fbar', fbar_fincen_114_foreign_account_oct_15_deadline_aggregate_above_10k); ('foreign', fbar_fincen_114_foreign_account_oct_15_deadline_aggregate_above_10k); ('attorney', tenant_attorney_eviction_stay_motion_paperwork_5pm_show_cause_court_tomorrow); ('eviction', tenant_attorney_eviction_stay_motion_paperwork_5pm_show_cause_court_tomorrow); ('kafka', kafka_order_pipeline_broker_election_under_replicated_p1_consumer_lag_8m); ('broker', kafka_order_pipeline_broker_election_under_replicated_p1_consumer_lag_8m). Step 3.5 pre-flight and audit-gate verification both PASS at run 2."
+    },
+    "step_3a_banned_event_id_collision": {
+      "verdict": "PASS",
+      "evidence": "Mechanical set-intersection: 0 collisions across test_v27's 9 event_ids vs 181 banned event_ids in runs/data/21c-banned-list-pre-c7.json."
+    },
+    "step_3b_banned_theme_semantic_review": {
+      "verdict": "PASS",
+      "per_gt_distinguishing_qualifiers": {
+        "gt1_v2_existing_yes_urgent_safety_self_chest_pressure_cardiac_911_aspirin": "distinct from C1 gas_leak_kitchen_sensor (patient: self vs household; mechanism: cardiac MI symptoms vs atmospheric natural-gas leak; intervention: 911 + chewed aspirin + paramedic ETA vs evacuate + gas company dial); distinct from C2 aging_parent_fall_alert_emergency_pendant (patient: self vs elderly father; mechanism: self-presenting cardiac MI vs auto-EMS pendant-fall-detect; intervention: live-911-dispatcher walkthrough vs auto-dispatch with primary-contact callback); distinct from C4 carbon_monoxide_alarm_evacuate (mechanism: cardiac symptoms vs atmospheric CO; protocol: aspirin + paramedic-pickup vs evacuate + gas-company dial); distinct from C5 child_medication_ingestion (patient: self adult vs three-year-old child; protocol: 911-coordinate + aspirin vs Poison-Control + ER transport); distinct from C6 partner_anaphylaxis_epipen (patient: self vs partner; mechanism: cardiac MI vs anaphylaxis; intervention: aspirin per dispatcher vs EpiPen administration + second-dose-availability check); distinct from banned M8b er_call + fire_alarm + security_breach + fire_kitchen themes (different fault classes). 5x\u21926x cross-trace lift on urgent-safety class (C1+C2+C4+C5+C6+C7). V4 prompt clause match: 'medical emergency' under urgent-safety/security.",
+        "gt2_v2_existing_yes_schedule_change_uscis_naturalization_interview_rescheduled": "distinct from C1 cardio_appt_rescheduled (domain: USCIS federal immigration vs medical cardiology; stakeholder: adjudications officer vs cardiologist; consequence: 6-month back-of-docket queue vs medical appointment delay); distinct from C3 court_hearing_moved_same_day_default_risk (domain: federal naturalization vs state civil court; mechanism: officer-reassignment with same-day-default-cancellation vs clerk-moved hearing with default-judgment risk); distinct from C4 pediatrician_visit_advanced_today_4pm (domain: USCIS vs pediatric medicine; mechanism: officer-induced reschedule vs provider-induced advance; relation: self-applicant vs child-patient); distinct from C5 dental_implant_surgery_rescheduled (domain: USCIS vs oral surgery; consequence: 6-month docket-delay vs anesthesia-booking lost); 4x\u21925x cross-trace lift on schedule-change-personal class (C1+C3+C4+C5+C7). V4 prompt clause match: 'appointment rescheduled' under schedule change.",
+        "gt3_v2_existing_yes_financial_deadline_fbar_fincen_114_foreign_account": "distinct from C1 student_loan_repayment_resume (domain: FBAR foreign-account reporting vs federal student loan; counterparty: FinCEN vs Dept of Ed; penalty: $129k willful-violation per-account-per-year vs IDR-application late penalty); distinct from C2 property_tax_installment (domain: federal foreign-account vs county property tax; mechanism: FinCEN-114 e-file vs property-tax cash payment); distinct from C3 homeowner_insurance_lapse (domain: foreign-account reporting vs homeowner insurance; consequence: FinCEN willful penalty vs force-placed coverage); distinct from C5 quarterly_estimated_tax (domain: FBAR Title-31 vs IRS Title-26; deadline: Oct 15 extended FBAR vs IRS Q3 due 5pm-ET; mechanism: FinCEN e-file vs EFTPS payment); distinct from C6 iso_exercise_window (domain: FBAR vs employer-equity ISO grant; counterparty: FinCEN vs Carta cap-table; consequence: $129k penalty vs full-grant-forfeiture + AMT-disqualifying-disposition lapse). 5x\u21926x cross-trace lift on financial/deadline class (C1+C2+C3+C5+C6+C7). V4 prompt clause match: 'financial or deadline obligation the user must act on within the next few days'.",
+        "gt4_v2_existing_yes_message_delivery_tenant_attorney_eviction_stay_paperwork": "distinct from C1 legal_doc_courier_signature (sender: tenant-defense attorney paralegal vs unspecified courier; reason: emergency-eviction-stay motion pickup-and-signature vs civil-doc-signature-and-return; consequence: tomorrow show-cause-or-writ-of-restitution vs lobby-wait-or-return-to-sender); distinct from C3 partner_voicemail_ring_pickup_jeweler (sender: tenant-defense attorney paralegal vs partner; reason: legal-emergency motion pickup vs domestic-errand jeweler pickup; domain: civil-litigation vs personal-services); distinct from C4 hospital_grandmother_hip_fracture (sender: attorney paralegal vs hospital admitting-desk; reason: eviction-stay vs surgical-consent next-of-kin proxy); distinct from C6 mother_in_law_chemo_infusion_ride_request (sender: tenant-defense attorney paralegal vs mother-in-law Elena; reason: legal-emergency motion pickup vs medical-treatment-day ride). 4x\u21925x cross-trace lift on message/delivery class (C1+C3+C4+C6+C7). V4 prompt clause match: 'voicemail or phone message' + 'message or delivery directed personally to the user'.",
+        "gt5_v2_existing_yes_production_on_call_kafka_broker_election_under_replicated": "distinct from C2 datastore_replica_failover_p1 (technology: Kafka broker fleet vs Postgres primary-replica; mechanism: partition-leadership election instability + consumer-lag vs database failover; metric: 200 under-replicated partitions + 8M consumer-lag vs SLO-bound resolution); distinct from C3 tls_cert_expiry_3hr_customer_endpoint (technology: Kafka vs TLS certificate; mechanism: broker-fleet election failure vs cert-rotation expiry; on-call domain: messaging-platform vs cert-manager); distinct from C4 disk_space_critical_var_log_api_host (technology: Kafka vs single-host /var/log; mechanism: distributed-broker quorum vs single-host disk OOM); distinct from C5 redis_memory_saturation_eviction_cascade (technology: Kafka broker vs Redis cache cluster; mechanism: partition-leadership vs allkeys-lru eviction OOM). 4x\u21925x cross-trace lift on production/on-call class (C2+C3+C4+C5+C7). V4 prompt clause match: 'production/on-call alert or outage for a system the user owns'."
+      },
+      "evidence": "All 5 GT themes pass with substantively-distinguishing multi-attribute qualifiers vs nearest banned predecessors. Hand-audit recorded per-GT in per_gt_distinguishing_qualifiers above."
+    },
+    "step_3c_banned_keyword_tuple_bytewise_review": {
+      "verdict": "PASS",
+      "evidence": "Mechanical set-intersection: 0 bytewise collisions across 5 GT tuples [('aspirin','dispatcher'), ('uscis','interview'), ('fbar','foreign'), ('attorney','eviction'), ('kafka','broker')] vs 101 banned tuples in runs/data/21c-banned-list-pre-c7.json. Semantically-adjacent bytewise-distinct cases: ('prescription','refill') + ('medication','ingestion') + ('anaphylaxis','epipen') + ('gas','leak') + ('fall','pendant') + ('carbon','monoxide') + ('hospital','mother') + ('hospital','grandmother') banned urgent-safety tuples but ('aspirin','dispatcher') bytewise-distinct on both elements vs all eight; ('appointment','rescheduled') + ('court','hearing') + ('pediatrician','advanced') + ('dental','implant') + ('cardio',...) banned schedule-change tuples but ('uscis','interview') bytewise-distinct on both elements vs all; ('loan','repayment') + ('property','tax') + ('quarterly','tax') + ('iso','exercise') + ('insurance','lapse') + ('bond','confirmation') + ('mortgage','rate lock') + ('counter-offer','agent') banned financial/deadline tuples but ('fbar','foreign') bytewise-distinct on both elements vs all; ('courier','signature') + ('ring','pickup') + ('hospital','grandmother') + ('chemo','infusion') banned message/delivery tuples but ('attorney','eviction') bytewise-distinct on both elements vs all four; ('database','failover') + ('tls','expiry') + ('disk','space') + ('redis','memory') + ('production','alert') banned production/on-call tuples but ('kafka','broker') bytewise-distinct on both elements vs all five."
+    },
+    "step_4_cross_trace_literal_id_collision_HALT": {
+      "verdict": "PASS",
+      "halt_trigger": "NOT FIRED",
+      "evidence": "Mechanical set-intersection of test_v27's 9 event_ids vs union of 181 unique event_ids from 21 prior trace definitions (dev_v1, dev_v2, test_v1..v8, test_v11..v15, test_v21..v26): 0 collisions. HALT-gate per D-C1.5 #1 NOT triggered."
+    },
+    "step_5_drift_strong_overlap_a_gt_tuple_bytewise_cross_trace": {
+      "verdict": "PASS",
+      "evidence": "Same mechanical set-intersection as 3c against the union-of-prior-GT-tuples (101 unique across dev_v1..test_v26): 0 collisions."
+    },
+    "step_6_drift_strong_overlap_b_8gram_verbatim": {
+      "verdict": "PASS",
+      "evidence": "8-gram set-intersection: test_v27 attempt-2 has 1258 unique 8-grams across content + briefing + intents fields; prior dev/test traces (dev_v1, dev_v2, test_v1..v8, test_v11..v15, test_v21..v26) have 7187 unique 8-grams; overlap = 0. Both attempt-1 boilerplate overlaps cleared: (i) D3 goldleaf closing rewritten from 'Unsubscribe from seasonal mailings in your account preferences if you prefer fewer messages from us.' (8 attempt-1 overlapping 8-grams with C6 Aperture) to 'If our catalog cadence has become too noisy, the mailing frequency can be dropped to twice-yearly or fully paused through the footer link below.' (0 8-gram overlap); (ii) D4 wednesday-briefing middle sentence rewritten from 'No priority items are flagged from your project list, sprint board, or stakeholder asks' (2 attempt-1 overlapping 8-grams with C6 Monday-briefing) to 'The sprint board, stakeholder-ask queue, and personal-task list all show no urgent items pending' (0 8-gram overlap)."
+    }
+  },
+  "gt_regime_classification": {
+    "gt1": "self_chest_pressure_left_arm_radiating_911_aspirin_chewed_4min_eta_paramedics \u2014 urgent safety/security issue (V2 EXISTING YES): user-self acute coronary syndrome MI symptoms (chest pressure with left-arm radiation + cold sweat + nausea) with documented family history of premature MI; nine-one-one already called; live dispatcher on speaker walking through protocol (chew one full-strength aspirin tablet + unlock lobby door + medication-list + primary-care number ready); paramedic ETA four minutes; dispatcher asking about ride-along availability. 5x\u21926x cross-trace lift on urgent-safety class.",
+    "gt2": "uscis_naturalization_interview_rescheduled_friday_8am_field_office \u2014 schedule change affecting the user personally (V2 EXISTING YES): USCIS field-office adjudications officer notice for an N-400 naturalization interview originally scheduled for tomorrow 8am rescheduled to Friday 8am due to officer reassignment; reply-to-confirm-acceptance before tomorrow noon Pacific deadline or rescheduled slot defaults to forced-cancellation and the case returns to the back of the field-office docket with ~6-month delay-to-reschedule. 4x\u21925x cross-trace lift on schedule-change-personal class.",
+    "gt3": "fbar_fincen_114_foreign_account_oct_15_deadline_aggregate_above_10k \u2014 financial/deadline obligation (V2 EXISTING YES): federal tax preparer email with FinCEN-114 FBAR filing materials; foreign-bank-account aggregate balance exceeded $10k reportable threshold at multiple points last calendar year (residual Berlin postdoc-era account + dormant Lisbon sabbatical account); extended October 15 deadline lapses at 11:59pm Pacific tonight; pre-filled form + secure-portal e-file authorization; willful-failure-to-file penalty $129,210 per violation or 50% of foreign account balance per year. 5x\u21926x cross-trace lift on financial/deadline class.",
+    "gt4": "tenant_attorney_eviction_stay_motion_paperwork_5pm_show_cause_court_tomorrow \u2014 message or delivery directed personally to the user (V2 EXISTING YES): tenant-defense attorney's paralegal voicemail at Henderson and Park; emergency eviction-stay motion paperwork ready for in-person signature at the downtown office (Smith Tower 9th floor) before 5pm closing today; landlord requested show-cause hearing tomorrow 9am housing court; motion must be on clerk's desk by start-of-business or writ-of-restitution issues by default; bring photo ID + maintenance-escrow receipts from past three months. 4x\u21925x cross-trace lift on message/delivery class.",
+    "gt5": "kafka_order_pipeline_broker_election_under_replicated_p1_consumer_lag_8m \u2014 production/on-call alert (V2 EXISTING YES): PagerDuty P1 on order-fulfillment Kafka cluster prod-orders-kafka-01; broker fleet reporting unstable partition-leadership elections for 15 minutes with 200 under-replicated partitions and consumer-lag past 8M messages on checkout-event topic; runbook escalates to engineering leadership at 75-min mark; storage-tier I/O wait spikes correlated with Monday disk-controller firmware push; primary on-call rotation this week, secondary just paged. 4x\u21925x cross-trace lift on production/on-call class."
+  },
+  "defensibility_self_check_per_locked_plan_d9_defense_8": {
+    "v4_new_yes_coverage_at_c7": "ZERO instances (intentional per D-C7.attempt1.B locked path-(a) choice \u2014 compliant-content lift focus). Cross-trace state: V4 NEW YES total instances 4 (UNCHANGED \u2014 scarcity-bounded-opportunity 2x at C1+C6; family-milestone-with-social-cost 2x at C2+C5; symmetric closure achieved at C6 PRESERVED at C7). Defensibility: PATH (b) V4 NEW YES 3rd-repeat was explicitly rejected at C7 Plan adversarial-reviewer walkthrough \u2014 re-opening the within-V4-NEW-YES asymmetry that C6 closed would dominate any 4\u21925 marginal-info gain. PATH (a) compliant-content focus protects the C6 symmetric closure as a load-bearing reviewer-defensible MECHANISM_CONFIRM-evidence-base feature.",
+    "v4_new_no_coverage_at_c7": "ZERO instances (intentional per D-C7.attempt1.B locked path-(a) choice). Cross-trace state: V4 NEW NO total instances 6 (UNCHANGED \u2014 3 subclauses \u00d7 2x each at C1+C2; saturated state preserved). Defensibility: PATH (c) V4 NEW NO 3rd-repeat was explicitly rejected at C5/C6/C7 Plans (saturated 3/3 at 2x; 3rd-repeat dominated by H4 denominator growth where any compliant-content distractor adds equivalent H4 sample-density regardless of V4 NEW NO subclause representation).",
+    "v2_existing_yes_compliant_content_coverage_at_c7": {
+      "description": "5 GTs across 5 distinct V2 YES classes; 3 lifts at 4x\u21925x + 2 lifts at 5x\u21926x. Maximal H4-evidence-base lift per trace cost under path (a) compliant-content focus.",
+      "gt1_urgent_safety_5x_to_6x": "self_chest_pressure_left_arm_radiating_911_aspirin_chewed_4min_eta_paramedics tests V2 urgent-safety class under NEW within-class incident distinct from C1 gas_leak (atmospheric vs cardiac-medical), C2 aging_parent_fall_alert (different patient + auto-dispatch vs live-dispatcher walkthrough), C4 carbon_monoxide_alarm (atmospheric vs cardiac), C5 child_medication_ingestion (different patient + ER-transport protocol vs in-home + paramedic-pickup), C6 partner_anaphylaxis (different patient + mechanism + intervention \u2014 partner-anaphylaxis-EpiPen-911-coordinate vs self-MI-aspirin-911-coordinate). 5x\u21926x cross-trace lift (C1+C2+C4+C5+C6+C7).",
+      "gt2_schedule_change_4x_to_5x": "uscis_naturalization_interview_rescheduled_friday_8am_field_office tests V2 schedule-change class under NEW within-class incident distinct from C1 cardio_appt_rescheduled (medical-cardiology vs federal-immigration), C3 court_hearing_moved_same_day (state civil court vs USCIS field office), C4 pediatrician_visit_advanced_today_4pm (pediatric-medicine vs federal-immigration), C5 dental_implant_surgery_rescheduled (oral surgery vs USCIS). 4x\u21925x cross-trace lift (C1+C3+C4+C5+C7). **PATH (a) primary lift #1.**",
+      "gt3_financial_deadline_5x_to_6x": "fbar_fincen_114_foreign_account_oct_15_deadline_aggregate_above_10k tests V2 financial/deadline class under NEW within-class incident distinct from C1 student_loan_repayment_resume (federal-loan vs FBAR), C2 property_tax_installment (gov property-tax vs FBAR), C3 homeowner_insurance_lapse (insurance vs FBAR), C5 quarterly_estimated_tax (IRS Title-26 vs FinCEN Title-31), C6 iso_exercise_window (employer-equity vs foreign-account reporting). 5x\u21926x cross-trace lift (C1+C2+C3+C5+C6+C7).",
+      "gt4_message_delivery_4x_to_5x": "tenant_attorney_eviction_stay_motion_paperwork_5pm_show_cause_court_tomorrow tests V2 message/delivery class under NEW within-class incident distinct from C1 legal_doc_courier_signature (unspecified courier civil-doc vs tenant-defense attorney-paralegal eviction-stay motion), C3 partner_voicemail_ring_pickup_jeweler (partner-domestic-errand vs attorney-civil-litigation), C4 hospital_grandmother_hip_fracture (hospital-medical vs attorney-legal-pickup), C6 mother_in_law_chemo_infusion_ride_request (MIL-medical-ride vs attorney-legal-pickup). 4x\u21925x cross-trace lift (C1+C3+C4+C6+C7).",
+      "gt5_production_on_call_4x_to_5x": "kafka_order_pipeline_broker_election_under_replicated_p1_consumer_lag_8m tests V2 production/on-call class under NEW within-class incident distinct from C2 datastore_replica_failover_p1 (Postgres failover vs Kafka broker election), C3 tls_cert_expiry_3hr_customer_endpoint (TLS cert vs Kafka), C4 disk_space_critical_var_log (single-host disk vs distributed-broker-fleet), C5 redis_memory_saturation_eviction_cascade (Redis cache OOM vs Kafka broker quorum). 4x\u21925x cross-trace lift (C2+C3+C4+C5+C7). **PATH (a) primary lift #2.**"
+    },
+    "v2_existing_no_compliant_content_coverage_at_c7": {
+      "description": "4 distractors across 4 distinct V2 NO classes; 1 feature-announcement lift 3x\u21924x (path-(a) primary distractor) + 3 V2 NO 4x classes lifted 4x\u21925x.",
+      "distr1_feature_announcement_3x_to_4x": "postman_workspace_collection_runner_v11_javascript_runtime_announcement_no_action tests V2 feature-announcement/app-update class at 3x\u21924x triangulation (C2 chrome_extension_marketplace_update + C3 notion_new_dashboard_feature_tour + C5 vscode_marketplace_verified_publisher_tab_launch + C7 postman_collection_runner_v11; distinct on product (Chrome browser-extension marketplace / Notion dashboard / VSCode marketplace publisher-tab / Postman Collection Runner upgrade), category (browser-extension / project-management / IDE-marketplace / API-tooling), mechanism (extension-marketplace policy / dashboard feature / publisher verification UI / runtime upgrade)). **PATH (a) primary distractor lift.** Closes V2 NO \u22654x for 4 of 5 classes; social-channel-invite still at 3x (reserved for C8/C9/C10 lift).",
+      "distr2_routine_status_4x_to_5x": "github_actions_weekly_workflow_health_digest_all_green_zero_flaky_rerun tests V2 routine-status/heartbeat class at 4x\u21925x triangulation (C3 cloud_backup_daily + C4 ssl_monitor_weekly + C5 K8s-autoscaler-monthly + C6 datadog-synthetic-daily + C7 github-actions-weekly; distinct on platform (cloud backup / SSL monitor / K8s autoscaler / DataDog synthetic / GitHub Actions), monitoring class (backup-completion / cert-rotation / autoscaler-health / synthetic-checks / workflow-health), cadence (daily / weekly / monthly / daily / weekly)).",
+      "distr3_marketing_newsletter_4x_to_5x": "goldleaf_stationery_quarterly_catalog_handmade_paper_fountain_pen_spring_no_action tests V2 marketing/newsletter class at 4x\u21925x triangulation (C3 kitchen-gear-quarterly-digital-magazine + C4 tea-club-monthly-subscriber-tasting + C5 inkwell-indie-bookstore-quarterly-preorder + C6 aperture-camera-gear-spring-catalog + C7 goldleaf-stationery-quarterly-catalog; distinct on product category (kitchen-gear / tea-club / bookstore / camera-gear / stationery), commerce model (gear catalog / subscription tasting / preorder catalog / camera retailer / handmade-paper + fountain-pen)).",
+      "distr4_generic_daily_briefing_4x_to_5x": "wednesday_midweek_checkpoint_briefing_no_priority_flagged_calendar_clear tests V2 generic-daily-briefing class at 4x\u21925x triangulation (C3 morning-briefing + C4 evening-briefing + C5 friday-weekly-recap + C6 monday-week-lookahead + C7 wednesday-midweek-checkpoint; distinct on cadence (morning / evening / Friday-weekly / Monday-lookahead / Wednesday-checkpoint), target horizon (rest-of-day / tomorrow-prep / weekly-recap / week-ahead / midweek-rest-of-week))."
+    },
+    "v2_no_class_skipped_at_c7": "social-channel-invite stays at 3x (C1 discord_unread_digest + C4 slack_frontend_weekly_community_invite + C6 mastodon_instance_follow_suggestion_weekly_digest). C7 path-(a) selected feature-announcement V2 NO for the 3x\u21924x lift; social-channel-invite defers to C8/C9/C10 (3x\u21924x lift would complete V2 NO \u22654x for ALL 5 classes).",
+    "cross_trace_coverage_state_through_c7": {
+      "v4_new_yes_total_instances": "4 UNCHANGED (scarcity-bounded-opportunity 2x at C1+C6; family-milestone-with-social-cost 2x at C2+C5). Symmetric closure preserved.",
+      "v4_new_no_total_instances": "6 UNCHANGED (3 subclauses \u00d7 2x each at C1+C2; saturated state preserved through C3..C7)",
+      "v2_existing_yes_classes": {
+        "urgent_safety_security": "6x (C1+C2+C4+C5+C6+C7) \u2014 saturating, marginal-info-acceptable lift at C7",
+        "schedule_change_personal": "5x (C1+C3+C4+C5+C7) \u2014 **PATH (a) primary lift at C7 (4x\u21925x)**",
+        "financial_deadline": "6x (C1+C2+C3+C5+C6+C7) \u2014 saturating, marginal-info-acceptable lift at C7",
+        "production_on_call": "5x (C2+C3+C4+C5+C7) \u2014 **PATH (a) primary lift at C7 (4x\u21925x)**",
+        "message_delivery_personal": "5x (C1+C3+C4+C6+C7) \u2014 5-GT-shape-constraint lift at C7 (4x\u21925x)",
+        "weather_alert": "4x UNCHANGED (C2+C3+C4+C6; reserved for C8 4x\u21925x lift)"
+      },
+      "v2_existing_no_classes": {
+        "routine_status_heartbeat": "5x (C3+C4+C5+C6+C7)",
+        "marketing_newsletter": "5x (C3+C4+C5+C6+C7)",
+        "generic_daily_briefing": "5x (C3+C4+C5+C6+C7)",
+        "feature_announcement_app_update": "4x (C2+C3+C5+C7) \u2014 **PATH (a) primary distractor lift at C7 (3x\u21924x)**",
+        "social_channel_invite": "3x UNCHANGED (C1+C4+C6; reserved for C8/C9/C10 3x\u21924x lift to complete V2 NO \u22654x for ALL 5 classes)"
+      }
+    },
+    "summary": "Maximal H4-evidence-base lift on the asymmetrically-weakest V2 YES + V2 NO compliant-content cells under PATH (a) discipline: schedule-change V2 YES 4x\u21925x + production/on-call V2 YES 4x\u21925x (closes V2 YES \u22655x for 4 of 6 classes) + feature-announcement V2 NO 3x\u21924x (closes V2 NO \u22654x for 4 of 5 classes); ADDITIONAL saturating lifts: urgent-safety + financial/deadline V2 YES 5x\u21926x + message/delivery V2 YES 4x\u21925x (5-GT shape constraint) + routine-status + marketing/newsletter + generic-daily-briefing V2 NO 4x\u21925x. Net post-C7 coverage: 5 of 6 V2 YES classes at \u22655x (only weather-alert still at 4x); 4 of 5 V2 NO classes at \u22654x (only social-channel-invite still at 3x); V4 NEW YES symmetric closure preserved at 2x each subclause (total 4); V4 NEW NO saturated state preserved at 2x each of 3 subclauses (total 6). STRONGER than kickoff's recommended endpoint claim. 3 traces remain (C8/C9/C10) for combined-N=20 closure with named levers: weather-alert V2 YES 4x\u21925x (C8 or C9), social-channel-invite V2 NO 3x\u21924x (C8/C9/C10), V4 mechanism 3rd-repeat (C10 free shape candidate)."
+  },
+  "fresh_session_metadata": {
+    "discipline": "fresh-session-restart-from-scratch per auto-memory feedback_new_session_for_arch_work.md \u2014 zero event_id / content / keyword / sim_time / briefing / intent carryover from C1..C6 attempts",
+    "carryover_from_c1_c6": "NONE intended at the level of event semantics; 8 boilerplate-template-phrasing 8-grams in C7 attempt-1 distractor content registered as overlap with C6 (formulaic marketing-email and briefing-template language); audit step 6 caught the convergence at attempt-1 as designed and attempt-2 explicitly de-templates both phrases.",
+    "session_opened_at_head": "d8ce8a4f40a412d273f80c3214da6ba42f24d6e3",
+    "sandbox_event_trace_py_sha256_at_session_open": "7bf685cd183f300a9f4774ec29def8be4e87f6cb2db4432828d58e9296d94853",
+    "sandbox_event_trace_py_bytes_at_session_open": 85203,
+    "v4_prompt_sha256_at_session_open": "09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6",
+    "v4_prompt_bytes_at_session_open": 1851,
+    "v4_prompt_locked_plan_anchor": "~/.claude/plans/m11a-extension-v4-prompt-n20.md \u00a7D1 (bytewise verified at attempt-1 session open)"
+  },
+  "milestone_attempt_count_running": {
+    "before_c7_attempt_1": 7,
+    "after_c7_attempt_1_rejection": 8,
+    "after_c7_attempt_2_acceptance": 9,
+    "halt_threshold_d_c1_5_2": ">25 cumulative attempts AND <10 accepted",
+    "halt_triggered": false,
+    "structural_parsing_failure_rate_to_date": "0/9 attempts (C7 attempt-1 step-6 reject NOT counted as structural-parsing per \u00a7D4 design; step-1 schema check PASSed at all M11a-extension attempts)",
+    "audit_gate_failure_rate_to_date_overall": "2/9 attempts (C2 attempt-1 step-2 + C7 attempt-1 step-6)",
+    "literal_id_collision_halt_triggered": false,
+    "retry_cap_on_test_v27": "2/3 used; FAIL at attempt 1 step-6 \u2192 PASS at attempt 2; 1 retry remaining had attempt 2 not accepted (D-C1.4)"
+  }
+}

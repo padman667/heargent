@@ -1253,6 +1253,67 @@ def test_trace_v26() -> Trace:
     )
 
 
+def test_trace_v27() -> Trace:
+    gts = [
+        _gt(
+            Event(id="self_chest_pressure_left_arm_radiating_911_aspirin_chewed_4min_eta_paramedics", kind="alert", sim_time=660.0,
+                  content="Sudden onset of chest pressure radiating down the left arm with cold sweat and a wave of nausea while you were sitting at the kitchen table; classic acute coronary presentation in a person with documented family history of premature myocardial infarction. Nine-one-one has already been called from your phone and the live dispatcher is on speaker walking you through the protocol: chew one full-strength aspirin tablet immediately, unlock the building lobby door so paramedics do not lose minutes at the buzzer, and have your medication list and primary-care contact number ready when they arrive. Ambulance estimated arrival is four minutes; the dispatcher is asking whether anyone else is in the house with you who can ride along to the hospital."),
+            window_s=90.0, keywords=("aspirin", "dispatcher"),
+        ),
+        _gt(
+            Event(id="uscis_naturalization_interview_rescheduled_friday_8am_field_office", kind="email", sim_time=220.0,
+                  content="USCIS field-office adjudications officer notice for receipt number MSC-2024-22-XXXX: your N-400 naturalization interview originally scheduled for tomorrow morning at eight a.m. has been rescheduled to Friday morning at eight a.m. due to officer reassignment in your panel. Reply to confirm acceptance of the new slot before tomorrow noon Pacific or the rescheduled slot defaults to a forced cancellation and the case returns to the back of the field-office docket with an estimated six-month delay to reschedule. Bring the original civic-knowledge documents listed in the prior interview notice plus two updated passport-style photographs to the rescheduled appointment at the downtown Seattle field office."),
+            window_s=240.0, keywords=("uscis", "interview"),
+        ),
+        _gt(
+            Event(id="fbar_fincen_114_foreign_account_oct_15_deadline_aggregate_above_10k", kind="email", sim_time=480.0,
+                  content="Email from your federal tax preparer with FinCEN-114 FBAR filing materials attached: this is the final-day reminder that your foreign-bank-account aggregate balance exceeded the ten-thousand-dollar reportable threshold at multiple points during last calendar year and the extended October fifteenth deadline lapses at eleven fifty-nine tonight Pacific. The FBAR form has been pre-filled with the residual Berlin postdoc-era account plus the dormant Lisbon savings sub-account from the sabbatical year; sign the e-file authorization through the secure portal link below to submit before the cutoff. Willful-failure-to-file civil penalties run to the greater of one-hundred-twenty-nine-thousand-two-hundred-ten dollars per violation or fifty percent of the foreign account balance per year not reported; do not let this slip past midnight."),
+            window_s=220.0, keywords=("fbar", "foreign"),
+        ),
+        _gt(
+            Event(id="tenant_attorney_eviction_stay_motion_paperwork_5pm_show_cause_court_tomorrow", kind="phone_message", sim_time=560.0,
+                  content="Voicemail from your tenant-defense attorney's paralegal at Henderson and Park: the emergency eviction-stay motion paperwork is ready for your in-person signature at the downtown office before five p.m. closing today; the show-cause hearing the landlord requested is calendared for tomorrow morning at nine in housing court and the motion has to be on the clerk's desk by start-of-business or the writ-of-restitution issues by default. Bring photo identification and the maintenance-escrow receipts from the past three months. Office is on the ninth floor of the Smith Tower at Second and Yesler; the attorney expects to be available between three and four-thirty if you want to walk through the strategy before signing."),
+            window_s=240.0, keywords=("attorney", "eviction"),
+        ),
+        _gt(
+            Event(id="kafka_order_pipeline_broker_election_under_replicated_p1_consumer_lag_8m", kind="alert", sim_time=380.0,
+                  content="PagerDuty P1 incident on order-fulfillment Kafka cluster prod-orders-kafka-01: the broker fleet has been reporting unstable partition-leadership elections across the cluster for the last fifteen minutes with two-hundred under-replicated partitions and consumer-lag climbing past eight million messages on the checkout-event topic. The on-call runbook escalates to engineering leadership at the seventy-five-minute mark if the broker quorum is not stabilized; storage-tier dashboards show I/O wait spikes correlated with the disk-controller firmware push from Monday evening. You are the primary on-call this week; the secondary has just paged you and expects a phone-handshake on the bridge within two minutes per the SEV1 protocol."),
+            window_s=200.0, keywords=("kafka", "broker"),
+        ),
+    ]
+    distractors = [
+        Event(id="wednesday_midweek_checkpoint_briefing_no_priority_flagged_calendar_clear", kind="notification", sim_time=30.0,
+              content="Wednesday midweek-checkpoint briefing: you have four meetings remaining this week, two heads-down focus blocks Thursday and Friday morning, and inbox is at eighteen unread with all eighteen messages categorized routine by the triage classifier. Calendar is clear for the rest of today and tomorrow morning. The sprint board, stakeholder-ask queue, and personal-task list all show no urgent items pending, and no overdue tasks were detected anywhere in the workflows you supervise. Have a productive second half of the week."),
+        Event(id="github_actions_weekly_workflow_health_digest_all_green_zero_flaky_rerun", kind="email", sim_time=80.0,
+              content="GitHub Actions weekly workflow-health digest for the order-fulfillment-platform organization: twelve workflows across nine repositories ran cleanly with zero flaky-rerun rate over the past seven days. Cron-triggered jobs completed within their scheduled windows; pull-request validation workflows averaged four minutes to green; deployment workflows reported no manual approvals pending. Self-hosted runner fleet utilization peaked at sixty-three percent on Wednesday afternoon and remained idle overnight on the weekend. The next workflow-health digest sends next Monday at the same time."),
+        Event(id="postman_workspace_collection_runner_v11_javascript_runtime_announcement_no_action", kind="email", sim_time=140.0,
+              content="Postman product team announcement: the Collection Runner has been upgraded to version eleven with a refreshed UI, a new JavaScript runtime for pre-request and test scripts, and inline diff-views for collection-version comparison. Existing collections continue to run on the legacy runtime through end-of-year and no migration action is required at this time. See the changelog for the full list of behavioral changes and opt-in toggles for the new diff-view; workspace administrators will be notified separately if any workspace-level settings require attention."),
+        Event(id="goldleaf_stationery_quarterly_catalog_handmade_paper_fountain_pen_spring_no_action", kind="email", sim_time=300.0,
+              content="Goldleaf Stationery quarterly catalog for the spring season is now live online: handmade-paper journals in five new cover-stock options, the fountain-pen ink-of-the-month subscription with three featured shimmer colors this quarter, and limited-run leather portfolio cases priced for early-spring promotion. Browse at your leisure; orders placed before the end of the month qualify for complimentary monogramming on most leather items. If our catalog cadence has become too noisy, the mailing frequency can be dropped to twice-yearly or fully paused through the footer link below."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v27",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "Wednesday midday at home in Seattle. "
+            "Mid-stage USCIS naturalization applicant with the field-office interview just rescheduled by the adjudications officer; primary on-call engineering rotation this week for the order-fulfillment Kafka cluster and the broker fleet has been showing leadership-instability flickers since the storage-tier firmware push on Monday. "
+            "Federal tax preparer flagged a deferred FBAR filing for residual foreign-bank accounts left over from a postdoc year in Berlin and a sabbatical in Lisbon; the extended October fifteenth deadline lapses at midnight Pacific tonight. "
+            "Landlord filed an eviction notice last week over a disputed maintenance-escrow balance and the tenant-defense attorney is drafting an emergency stay motion against tomorrow's show-cause hearing. "
+            "Family history of premature coronary disease on my father's side; cardiologist ordered a stress test last month but I never followed up for the results. "
+            "Notifications are filtered for urgent: cardiac-emergency symptoms, P1 production on-call alerts, hard-deadline legal-pickup or federal-filing windows, and the USCIS rescheduled-interview confirmation should break through; routine engineering digests, marketing catalogs, product feature announcements, and the midweek briefing can wait."
+        ),
+        intents=(
+            "call nine-one-one and chew aspirin per dispatcher instructions if I get cardiac MI red flags (chest pressure with arm radiation, cold sweat)",
+            "acknowledge any P1 on-call alert from the order-fulfillment Kafka broker fleet within two minutes of the page",
+            "file the FBAR FinCEN-114 before eleven fifty-nine Pacific tonight; partial filings are not accepted and the willful-violation penalty is per-account-per-year",
+            "pick up the tenant-attorney eviction-stay motion paperwork in person by five today so tomorrow's show-cause hearing is on the schedule",
+            "confirm the rescheduled USCIS naturalization interview slot before tomorrow noon and let routine engineering digests, marketing catalogs, product feature announcements, and the midweek briefing wait until evening",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -1276,6 +1337,7 @@ def get_trace(name: str) -> Trace:
         "test_v24": test_trace_v24,
         "test_v25": test_trace_v25,
         "test_v26": test_trace_v26,
+        "test_v27": test_trace_v27,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")
