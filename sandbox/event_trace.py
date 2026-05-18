@@ -1314,6 +1314,67 @@ def test_trace_v27() -> Trace:
     )
 
 
+def test_trace_v28() -> Trace:
+    gts = [
+        _gt(
+            Event(id="noaa_ice_storm_warning_freezing_rain_quarter_inch_glaze_36hr_outage_no_travel", kind="alert", sim_time=640.0,
+                  content="National Weather Service has upgraded the overnight freezing-rain advisory to a full ice-storm warning for the metro area through tomorrow afternoon. The latest convective-model run shows an extended overrunning event laying down between one-quarter and three-quarter inch of glaze on every untreated surface across the urban core and the foothill towns between two and seven in the morning. Utility planners are staging for a thirty-six-hour outage projection on the suburban distribution feeders once the glaze depth crosses the half-inch threshold; tree-limb-on-powerline incidents climb steeply above that mark. A no-unnecessary-travel advisory is now in effect statewide; emergency-room visits from falls on glazed sidewalks during the last comparable ice storm tripled within four hours of the first accretion. Charge phones, set indoor heat now, and stage candles and battery-lanterns inside the house tonight."),
+            window_s=90.0, keywords=("ice", "glaze"),
+        ),
+        _gt(
+            Event(id="mortgage_closing_rescheduled_friday_10am_underwriter_final_conditions_funding_delay", kind="email", sim_time=210.0,
+                  content="Mortgage-underwriting team email: the closing on the Westwood Avenue property originally on today's three-p.m. calendar has been rescheduled to Friday morning at ten a.m. at the title-company office downtown. Final underwriting conditions came in late from the appraisal-review desk last night and required an additional twenty-four-hour funding clearance through the warehouse line. Reply to confirm the Friday slot before noon today or the lender will release the rate-lock back into the pool with a two-business-day grace before re-pricing against current rate-sheet quotes. Bring the certified-funds cashier's check at the revised closing-cost-disclosure amount circulated this morning by the loan officer, the homeowners-policy declaration page from your insurance agent, plus a government-issued photo identification. The seller's attorney has been notified through the title-company portal and confirmed the slot is open on their calendar."),
+            window_s=200.0, keywords=("mortgage", "closing"),
+        ),
+        _gt(
+            Event(id="elasticsearch_index_status_red_primary_shard_unassigned_p1_search_outage_50min", kind="alert", sim_time=470.0,
+                  content="PagerDuty severity-one incident on the customer-facing search-platform Elasticsearch cluster prod-search-es-east-01 fired at fifteen-thirty-five UTC: index status flipped to RED with two primary shards on the catalog-search index marked unassigned and zero automatic shard-recovery progress logged in the last six minutes. Storefront search API five-xx error rate has climbed past forty percent; downstream recommendation and personalization services are degrading to cold-cache fallback paths. Engineering leadership receives a parallel page at the fifty-minute mark per the SEV-one playbook and the customer-experience PMO is notified separately if storefront-search latency SLO is breached for longer than ten consecutive minutes. You hold the secondary on-call pager this rotation; the primary just opened the war-room bridge link and asked for a phone-handshake confirmation within ninety seconds. The shard-allocation explain output is pointing at a disk-high-watermark trigger on three hot-tier nodes — quorum re-balancing may require manual cluster.reroute steps once the watermark threshold clears."),
+            window_s=220.0, keywords=("elasticsearch", "shard"),
+        ),
+        _gt(
+            Event(id="older_sister_executor_father_estate_safe_deposit_box_appraiser_tomorrow_9am_callback", kind="phone_message", sim_time=540.0,
+                  content="Voicemail from your older sister Tess, who is the named executor of your late father's estate: the certified appraiser engaged through the probate court for the safe-deposit-box contents at the downtown First National branch is only able to do the inventory tomorrow at nine in the morning before he leaves town for the holiday weekend. Both surviving siblings need to be present per the probate court order — the box holds the original signed will, the wedding-band collection, and the two gold coins the estate's interim valuation has not been able to confirm without in-person inspection by a certified appraiser. Tess asked for a callback before this evening if you can be at the branch by nine; otherwise she will reschedule the appraiser into next week and the estate-distribution timeline pushes a full month due to probate-court calendar congestion. Bring a photo identification that matches the named-beneficiary list on file and a black ballpoint pen for the chain-of-custody log."),
+            window_s=240.0, keywords=("executor", "appraiser"),
+        ),
+        _gt(
+            Event(id="heloc_draw_period_expires_friday_5pm_conversion_amortization_terms_lock_decision_lender_email", kind="email", sim_time=370.0,
+                  content="Notice from your home-equity-line-of-credit lender: the HELOC draw period on the 2014-originated line expires at five p.m. Friday and the line will automatically convert to a fifteen-year amortization schedule at the variable prime-plus-one-point-five rate currently quoted. Election of the alternative two-step product — a fifteen-year fixed-rate term lock at six-point-eight-five percent on the current outstanding balance with no further draws permitted — must be submitted through the secure-message portal before the same five-p.m. deadline. The unused portion of the original draw cap reverts to the bank at conversion and cannot be reinstated without a fresh application and an updated home appraisal. Outstanding balance at the time of conversion becomes the basis for the new amortization-payment recalculation; current balance is on the bank-attached account statement; signed acceptance of either path must be returned through the portal before the deadline or the default amortization terms apply automatically."),
+            window_s=240.0, keywords=("heloc", "draw"),
+        ),
+    ]
+    distractors = [
+        Event(id="terraform_state_drift_weekly_scan_zero_resources_modified_clean_all_workspaces", kind="notification", sim_time=30.0,
+              content="Terraform Cloud weekly state-drift scan summary for the platform-infrastructure organization: fourteen workspaces scanned across the dev, staging, and prod environments. Zero resources reported as drifted in any workspace this week; provider plans returned plans-no-changes on every successful run. The drift-detection cron is scheduled to fire again at the start of next week and no operator action is required from this report. Average plan time held at two minutes ten seconds across the prod workspaces and four minutes flat across the staging workspaces."),
+        Event(id="bluesky_starter_pack_invite_curator_recommended_follow_data_journalism_circle", kind="notification", sim_time=75.0,
+              content="A college friend named Anna shared a Bluesky starter-pack she curated for the data-journalism circle — twelve recommended-follow accounts including two former colleagues from your data-team days. Joining the starter-pack auto-follows the bundled accounts in one tap; the bundle can be un-followed individually later or skipped as a whole. There is no time pressure attached to this invite; Bluesky surfaces these as evergreen recommendations and the share-link does not expire on any fixed deadline."),
+        Event(id="meridian_games_summer_catalog_strategy_titles_2026_no_action_required", kind="email", sim_time=140.0,
+              content="The Meridian Games summer-season catalog has just been published online: three new strategy titles in the eighteen-and-up release window, two reprint runs of the deeper Eurogame backlog that sold through last winter, and a second-edition rules update for the long-out-of-print heritage co-op title that fans have been asking after for several years. Browse the lineup at your own pace; pre-orders placed during catalog week qualify for a discounted shipping rate on the full Eurogame line. The summer catalog is the second of three planned for this calendar year — the fall and holiday catalogs follow on the established Meridian publishing cadence. Replies and product questions can be directed to the catalog-mailbox alias maintained by the customer-support team."),
+        Event(id="thursday_pre_weekend_wrap_briefing_no_overdue_items_focus_blocks_clear_tomorrow_light", kind="notification", sim_time=600.0,
+              content="Thursday pre-weekend wrap briefing: three remaining meetings tomorrow all carry an opt-in flag from the team — none are mandatory and each has a written summary pre-circulated in the team channel. Your engineering one-to-one and the architecture-review walkthrough have been auto-pre-read into the inbox. The two heads-down focus blocks on Friday afternoon are unblocked and the sprint board reflects only items that auto-advance over the weekend without any human intervention. Nothing on the personal-task list or the stakeholder backlog requires a response before next Monday's standup. Plan for a low-touch end-of-week — earned, well."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v28",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "Late Thursday afternoon at home; rolling end-of-week with the mortgage closing schedule and the estate-administration timeline both moving at once. "
+            "Mid-stage homebuyer with the underwriter's late conditions just pushing the closing into Friday morning; the home-equity-line of credit on the current property hits its scheduled draw-period expiry the same Friday afternoon. "
+            "Father passed last spring and the older sister is acting as named executor; the certified appraiser for the safe-deposit-box inventory is tomorrow morning and both surviving siblings need to be present per the probate court order. "
+            "Holding the secondary on-call rotation for the customer-facing storefront search platform this week; the Elasticsearch cluster has been showing index-status hiccups since the disk-tier capacity push last Friday. "
+            "Local forecast just upgraded the overnight freezing-rain advisory to a full ice-storm warning that runs through tomorrow afternoon. "
+            "Notifications are filtered for urgent: ice-storm warning impact on tomorrow's mortgage-closing-and-sibling-appraiser commute, severity-one production on-call pages on the search platform, hard-deadline financial elections on the HELOC draw-period conversion, lender confirmation on the rescheduled closing slot, and the estate-executor callback to the older sister; routine state-drift scans, social-platform starter-pack invites, board-game catalog releases, and Thursday wrap-up briefings can wait."
+        ),
+        intents=(
+            "answer the storefront-search SEV-one bridge within ninety seconds of the next page from the Elasticsearch primary on-call",
+            "confirm the rescheduled mortgage-closing slot with the underwriter team before noon today or lose the rate-lock to the re-pricing pool",
+            "return the older sister's voicemail before tonight so the estate-executor appraiser can keep the nine-a.m. safe-deposit-box inventory tomorrow",
+            "submit the HELOC draw-period election (default amortization or fixed-rate term-lock conversion) through the lender's secure-message portal before five p.m. Friday",
+            "shelter in place tomorrow as the ice-storm glaze accretion crosses the half-inch threshold per the NWS warning; otherwise the routine terraform-state-drift digest, the Bluesky starter-pack invite, the Meridian Games summer catalog, and the Thursday pre-weekend wrap briefing can all wait",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -1338,6 +1399,7 @@ def get_trace(name: str) -> Trace:
         "test_v25": test_trace_v25,
         "test_v26": test_trace_v26,
         "test_v27": test_trace_v27,
+        "test_v28": test_trace_v28,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")

@@ -1,0 +1,340 @@
+{
+  "attempt_number": 1,
+  "attempted_at_utc": "2026-05-18T18:30:00Z",
+  "verdict": "ACCEPTED",
+  "trace_name": "test_v28",
+  "banned_list_path": "runs/data/21c-banned-list-pre-c8.txt",
+  "banned_list_sha256_at_attempt": "12e385aba23486d5d075687dd765d21b18498f5ab8c0e8df1b5ae6cb09ca115f",
+  "banned_list_json_sha256_at_attempt": "e1c10669e68d4be99f061359a8f97da4e09db52dd8db64a99eaa53cda58d59f6",
+  "banned_list_bytes_at_attempt": {
+    "txt": 22614,
+    "json": 22022
+  },
+  "banned_list_state_counts": {
+    "event_ids": 190,
+    "themes": 107,
+    "tuples": 106
+  },
+  "self_restate_prompt_sha256": "5384c2a517cd0edf9620a552225325d487bf353a1959331b3c871a36e04981d5",
+  "self_restate_prompt_bytes": 23023,
+  "self_restate_response_verbatim": "Acknowledged. Here is my own-words restatement of the four constraints I must honor before authoring test_v28:\n\n(a) The trace must be expressible entirely in plain Python literals and constructors that the existing sandbox/event_trace.py module can already import without help — no language features that the historical test_v4..test_v27 definitions don't already exemplify. In practice that means dataclass-like Event() and Trace() constructor calls, the _gt() helper for ground-truth events, simple string and float literals, and a sorted(...) call to assemble events in sim_time order.\n\n(b) I will not use walrus assignment expressions (the := operator) anywhere in the trace, since the M11a per-attempt protocol logged 33% structural-parsing failures historically and the walrus syntax was one of the specific patterns implicated; the test_v4..test_v27 corpus does not use walrus and I will follow that precedent.\n\n(c) No arithmetic operations may be embedded inside any Event.id string value. Each event_id is a static string literal — names plus descriptors only, no numeric sub-expressions, no f-string evaluation, no concatenation operators. Where numeric context is necessary I encode it lexically (e.g., 8m for eight million messages, 4hr for four hours, 36hr for thirty-six hours, 50min for fifty minutes) rather than computing it.\n\n(d) I will avoid every entry in the iteratively-extended banned list provided at the top of this prompt — 190 banned event_ids checked literally, 107 banned semantic themes checked through hand-comparison with explicit distinguishing qualifiers, and 106 banned (kw, kw) tuples checked bytewise. The test_v28 trace must contribute exactly 9 fresh event_ids, 5 fresh GT themes, and 5 fresh keyword tuples whose union with the pre-C8 list contains no duplicates.\n\nIn addition to (a)-(d), I carry forward two standing per-attempt author disciplines that have been added in prior C-attempts but are not part of the explicit (a)-(d) constraint set:\n\nStep 3.5 pre-flight (D-C2.attempt2.C carry-forward): Before invoking the audit-gate I will mechanically check that every keyword listed in each GroundTruthEvent.keywords tuple appears as a case-insensitive substring of the corresponding Event.content string. This was added at C2 attempt-#2 after the C2 attempt-#1 step-2 M8b rejection on 2 of 10 keyword/content alignment pairs, and has been used at every subsequent attempt.\n\nBoilerplate-template paraphrase discipline (D-C8.attempt1.C; added at C8 in response to the C7-attempt-1-step-6 rejection): For V2 NO distractor content — particularly the marketing/newsletter and generic-daily-briefing classes — I will paraphrase any closing sentence or template middle sentence that would read the same regardless of which trace I am authoring. The C7 attempt-1 rejection caught two such templates: the unsubscribe-from-seasonal-mailings-in-account-preferences marketing-email closer (six 8-grams overlapping with C6 Aperture) and the no-priority-items-are-flagged-from-project-list briefing template (two 8-grams overlapping with C6 Monday-briefing). Audit-gate step 6 catches verbatim 8-gram convergence mechanically, but I will pre-flight these phrasings at draft time so the audit-gate's role at step 6 is verification, not iteration.\n\nFor test_v28 specifically I am authoring under D-C8.attempt1.B PATH (a) compliant-content lift continuation: the trace shape is 5 V2 EXISTING YES GTs (weather-alert as path-(a) primary lift #1 closing V2 YES at-least-five-times for all 6 V2 YES classes, plus schedule-change, production/on-call, message/delivery, and financial/deadline at saturating lifts) and 4 V2 EXISTING NO distractors (social-channel-invite as path-(a) primary distractor lift closing V2 NO at-least-four-times for all 5 V2 NO classes, plus routine-status, marketing/newsletter, and generic-daily-briefing at saturating lifts). Zero V4 NEW YES and zero V4 NEW NO GTs at this trace, preserving C6's symmetric V4 NEW YES closure at 2x per subclause and the C1+C2 V4 NEW NO saturated state at 2x per subclause across 3 subclauses.",
+  "authored_trace_verbatim": {
+    "name": "test_v28",
+    "duration_s": 810.0,
+    "events": [
+      {
+        "id": "terraform_state_drift_weekly_scan_zero_resources_modified_clean_all_workspaces",
+        "kind": "notification",
+        "sim_time": 30.0,
+        "content": "Terraform Cloud weekly state-drift scan summary for the platform-infrastructure organization: fourteen workspaces scanned across the dev, staging, and prod environments. Zero resources reported as drifted in any workspace this week; provider plans returned plans-no-changes on every successful run. The drift-detection cron is scheduled to fire again at the start of next week and no operator action is required from this report. Average plan time held at two minutes ten seconds across the prod workspaces and four minutes flat across the staging workspaces."
+      },
+      {
+        "id": "bluesky_starter_pack_invite_curator_recommended_follow_data_journalism_circle",
+        "kind": "notification",
+        "sim_time": 75.0,
+        "content": "A college friend named Anna shared a Bluesky starter-pack she curated for the data-journalism circle — twelve recommended-follow accounts including two former colleagues from your data-team days. Joining the starter-pack auto-follows the bundled accounts in one tap; the bundle can be un-followed individually later or skipped as a whole. There is no time pressure attached to this invite; Bluesky surfaces these as evergreen recommendations and the share-link does not expire on any fixed deadline."
+      },
+      {
+        "id": "meridian_games_summer_catalog_strategy_titles_2026_no_action_required",
+        "kind": "email",
+        "sim_time": 140.0,
+        "content": "The Meridian Games summer-season catalog has just been published online: three new strategy titles in the eighteen-and-up release window, two reprint runs of the deeper Eurogame backlog that sold through last winter, and a second-edition rules update for the long-out-of-print heritage co-op title that fans have been asking after for several years. Browse the lineup at your own pace; pre-orders placed during catalog week qualify for a discounted shipping rate on the full Eurogame line. The summer catalog is the second of three planned for this calendar year — the fall and holiday catalogs follow on the established Meridian publishing cadence. Replies and product questions can be directed to the catalog-mailbox alias maintained by the customer-support team."
+      },
+      {
+        "id": "mortgage_closing_rescheduled_friday_10am_underwriter_final_conditions_funding_delay",
+        "kind": "email",
+        "sim_time": 210.0,
+        "content": "Mortgage-underwriting team email: the closing on the Westwood Avenue property originally on today's three-p.m. calendar has been rescheduled to Friday morning at ten a.m. at the title-company office downtown. Final underwriting conditions came in late from the appraisal-review desk last night and required an additional twenty-four-hour funding clearance through the warehouse line. Reply to confirm the Friday slot before noon today or the lender will release the rate-lock back into the pool with a two-business-day grace before re-pricing against current rate-sheet quotes. Bring the certified-funds cashier's check at the revised closing-cost-disclosure amount circulated this morning by the loan officer, the homeowners-policy declaration page from your insurance agent, plus a government-issued photo identification. The seller's attorney has been notified through the title-company portal and confirmed the slot is open on their calendar."
+      },
+      {
+        "id": "heloc_draw_period_expires_friday_5pm_conversion_amortization_terms_lock_decision_lender_email",
+        "kind": "email",
+        "sim_time": 370.0,
+        "content": "Notice from your home-equity-line-of-credit lender: the HELOC draw period on the 2014-originated line expires at five p.m. Friday and the line will automatically convert to a fifteen-year amortization schedule at the variable prime-plus-one-point-five rate currently quoted. Election of the alternative two-step product — a fifteen-year fixed-rate term lock at six-point-eight-five percent on the current outstanding balance with no further draws permitted — must be submitted through the secure-message portal before the same five-p.m. deadline. The unused portion of the original draw cap reverts to the bank at conversion and cannot be reinstated without a fresh application and an updated home appraisal. Outstanding balance at the time of conversion becomes the basis for the new amortization-payment recalculation; current balance is on the bank-attached account statement; signed acceptance of either path must be returned through the portal before the deadline or the default amortization terms apply automatically."
+      },
+      {
+        "id": "elasticsearch_index_status_red_primary_shard_unassigned_p1_search_outage_50min",
+        "kind": "alert",
+        "sim_time": 470.0,
+        "content": "PagerDuty severity-one incident on the customer-facing search-platform Elasticsearch cluster prod-search-es-east-01 fired at fifteen-thirty-five UTC: index status flipped to RED with two primary shards on the catalog-search index marked unassigned and zero automatic shard-recovery progress logged in the last six minutes. Storefront search API five-xx error rate has climbed past forty percent; downstream recommendation and personalization services are degrading to cold-cache fallback paths. Engineering leadership receives a parallel page at the fifty-minute mark per the SEV-one playbook and the customer-experience PMO is notified separately if storefront-search latency SLO is breached for longer than ten consecutive minutes. You hold the secondary on-call pager this rotation; the primary just opened the war-room bridge link and asked for a phone-handshake confirmation within ninety seconds. The shard-allocation explain output is pointing at a disk-high-watermark trigger on three hot-tier nodes — quorum re-balancing may require manual cluster.reroute steps once the watermark threshold clears."
+      },
+      {
+        "id": "older_sister_executor_father_estate_safe_deposit_box_appraiser_tomorrow_9am_callback",
+        "kind": "phone_message",
+        "sim_time": 540.0,
+        "content": "Voicemail from your older sister Tess, who is the named executor of your late father's estate: the certified appraiser engaged through the probate court for the safe-deposit-box contents at the downtown First National branch is only able to do the inventory tomorrow at nine in the morning before he leaves town for the holiday weekend. Both surviving siblings need to be present per the probate court order — the box holds the original signed will, the wedding-band collection, and the two gold coins the estate's interim valuation has not been able to confirm without in-person inspection by a certified appraiser. Tess asked for a callback before this evening if you can be at the branch by nine; otherwise she will reschedule the appraiser into next week and the estate-distribution timeline pushes a full month due to probate-court calendar congestion. Bring a photo identification that matches the named-beneficiary list on file and a black ballpoint pen for the chain-of-custody log."
+      },
+      {
+        "id": "thursday_pre_weekend_wrap_briefing_no_overdue_items_focus_blocks_clear_tomorrow_light",
+        "kind": "notification",
+        "sim_time": 600.0,
+        "content": "Thursday pre-weekend wrap briefing: three remaining meetings tomorrow all carry an opt-in flag from the team — none are mandatory and each has a written summary pre-circulated in the team channel. Your engineering one-to-one and the architecture-review walkthrough have been auto-pre-read into the inbox. The two heads-down focus blocks on Friday afternoon are unblocked and the sprint board reflects only items that auto-advance over the weekend without any human intervention. Nothing on the personal-task list or the stakeholder backlog requires a response before next Monday's standup. Plan for a low-touch end-of-week — earned, well."
+      },
+      {
+        "id": "noaa_ice_storm_warning_freezing_rain_quarter_inch_glaze_36hr_outage_no_travel",
+        "kind": "alert",
+        "sim_time": 640.0,
+        "content": "National Weather Service has upgraded the overnight freezing-rain advisory to a full ice-storm warning for the metro area through tomorrow afternoon. The latest convective-model run shows an extended overrunning event laying down between one-quarter and three-quarter inch of glaze on every untreated surface across the urban core and the foothill towns between two and seven in the morning. Utility planners are staging for a thirty-six-hour outage projection on the suburban distribution feeders once the glaze depth crosses the half-inch threshold; tree-limb-on-powerline incidents climb steeply above that mark. A no-unnecessary-travel advisory is now in effect statewide; emergency-room visits from falls on glazed sidewalks during the last comparable ice storm tripled within four hours of the first accretion. Charge phones, set indoor heat now, and stage candles and battery-lanterns inside the house tonight."
+      }
+    ],
+    "ground_truth": [
+      {
+        "event_id": "noaa_ice_storm_warning_freezing_rain_quarter_inch_glaze_36hr_outage_no_travel",
+        "proaction_window_s": 90.0,
+        "keywords": [
+          "ice",
+          "glaze"
+        ]
+      },
+      {
+        "event_id": "mortgage_closing_rescheduled_friday_10am_underwriter_final_conditions_funding_delay",
+        "proaction_window_s": 200.0,
+        "keywords": [
+          "mortgage",
+          "closing"
+        ]
+      },
+      {
+        "event_id": "elasticsearch_index_status_red_primary_shard_unassigned_p1_search_outage_50min",
+        "proaction_window_s": 220.0,
+        "keywords": [
+          "elasticsearch",
+          "shard"
+        ]
+      },
+      {
+        "event_id": "older_sister_executor_father_estate_safe_deposit_box_appraiser_tomorrow_9am_callback",
+        "proaction_window_s": 240.0,
+        "keywords": [
+          "executor",
+          "appraiser"
+        ]
+      },
+      {
+        "event_id": "heloc_draw_period_expires_friday_5pm_conversion_amortization_terms_lock_decision_lender_email",
+        "proaction_window_s": 240.0,
+        "keywords": [
+          "heloc",
+          "draw"
+        ]
+      }
+    ],
+    "briefing": "Late Thursday afternoon at home; rolling end-of-week with the mortgage closing schedule and the estate-administration timeline both moving at once. Mid-stage homebuyer with the underwriter's late conditions just pushing the closing into Friday morning; the home-equity-line of credit on the current property hits its scheduled draw-period expiry the same Friday afternoon. Father passed last spring and the older sister is acting as named executor; the certified appraiser for the safe-deposit-box inventory is tomorrow morning and both surviving siblings need to be present per the probate court order. Holding the secondary on-call rotation for the customer-facing storefront search platform this week; the Elasticsearch cluster has been showing index-status hiccups since the disk-tier capacity push last Friday. Local forecast just upgraded the overnight freezing-rain advisory to a full ice-storm warning that runs through tomorrow afternoon. Notifications are filtered for urgent: ice-storm warning impact on tomorrow's mortgage-closing-and-sibling-appraiser commute, severity-one production on-call pages on the search platform, hard-deadline financial elections on the HELOC draw-period conversion, lender confirmation on the rescheduled closing slot, and the estate-executor callback to the older sister; routine state-drift scans, social-platform starter-pack invites, board-game catalog releases, and Thursday wrap-up briefings can wait.",
+    "intents": [
+      "answer the storefront-search SEV-one bridge within ninety seconds of the next page from the Elasticsearch primary on-call",
+      "confirm the rescheduled mortgage-closing slot with the underwriter team before noon today or lose the rate-lock to the re-pricing pool",
+      "return the older sister's voicemail before tonight so the estate-executor appraiser can keep the nine-a.m. safe-deposit-box inventory tomorrow",
+      "submit the HELOC draw-period election (default amortization or fixed-rate term-lock conversion) through the lender's secure-message portal before five p.m. Friday",
+      "shelter in place tomorrow as the ice-storm glaze accretion crosses the half-inch threshold per the NWS warning; otherwise the routine terraform-state-drift digest, the Bluesky starter-pack invite, the Meridian Games summer catalog, and the Thursday pre-weekend wrap briefing can all wait"
+    ]
+  },
+  "step_3_5_pre_flight_keyword_substring_verification": {
+    "discipline_inherits": "D-C2.attempt2.C / D-C3.attempt1.C / D-C4.attempt1.C / D-C5.attempt1.C / D-C6.attempt1.C / D-C7.attempt1.C — verbatim carry-forward + D-C8.attempt1.C boilerplate-paraphrase author-discipline reminder added at C8 draft time per C7 step-6 rejection precedent (pre-flight authoring discipline only; NOT a C-protocol governance change; the audit-gate locked at D-C1.3 is unmodified)",
+    "iteration_log": [
+      {
+        "run": 1,
+        "command": "uv run python -c \"from sandbox.event_trace import get_trace; t = get_trace('test_v28'); [print(f'{kw!r} in {g.event.id}: {kw.lower() in g.event.content.lower()}') for g in t.ground_truth for kw in g.keywords]\"",
+        "outcome": "PASS — all 10 (kw, content.lower()) substring pairs print True at first run; no in-session iteration required (mirrors C4 + C5 + C6 + C7-attempt-1 first-run-PASS precedents)",
+        "per_pair_results": [
+          {
+            "kw": "ice",
+            "event_id": "noaa_ice_storm_warning_freezing_rain_quarter_inch_glaze_36hr_outage_no_travel",
+            "substring_match": true,
+            "alignment_phrase": "'ice-storm warning' / 'last comparable ice storm'"
+          },
+          {
+            "kw": "glaze",
+            "event_id": "noaa_ice_storm_warning_freezing_rain_quarter_inch_glaze_36hr_outage_no_travel",
+            "substring_match": true,
+            "alignment_phrase": "'three-quarter inch of glaze' / 'glaze depth crosses the half-inch threshold' / 'glazed sidewalks'"
+          },
+          {
+            "kw": "mortgage",
+            "event_id": "mortgage_closing_rescheduled_friday_10am_underwriter_final_conditions_funding_delay",
+            "substring_match": true,
+            "alignment_phrase": "'Mortgage-underwriting team email'"
+          },
+          {
+            "kw": "closing",
+            "event_id": "mortgage_closing_rescheduled_friday_10am_underwriter_final_conditions_funding_delay",
+            "substring_match": true,
+            "alignment_phrase": "'the closing on the Westwood Avenue property' / 'closing-cost-disclosure amount'"
+          },
+          {
+            "kw": "elasticsearch",
+            "event_id": "elasticsearch_index_status_red_primary_shard_unassigned_p1_search_outage_50min",
+            "substring_match": true,
+            "alignment_phrase": "'customer-facing search-platform Elasticsearch cluster prod-search-es-east-01'"
+          },
+          {
+            "kw": "shard",
+            "event_id": "elasticsearch_index_status_red_primary_shard_unassigned_p1_search_outage_50min",
+            "substring_match": true,
+            "alignment_phrase": "'two primary shards on the catalog-search index marked unassigned' / 'shard-allocation explain output'"
+          },
+          {
+            "kw": "executor",
+            "event_id": "older_sister_executor_father_estate_safe_deposit_box_appraiser_tomorrow_9am_callback",
+            "substring_match": true,
+            "alignment_phrase": "'the named executor of your late father's estate' / 'estate-executor callback'"
+          },
+          {
+            "kw": "appraiser",
+            "event_id": "older_sister_executor_father_estate_safe_deposit_box_appraiser_tomorrow_9am_callback",
+            "substring_match": true,
+            "alignment_phrase": "'the certified appraiser engaged through the probate court' / 'reschedule the appraiser into next week'"
+          },
+          {
+            "kw": "heloc",
+            "event_id": "heloc_draw_period_expires_friday_5pm_conversion_amortization_terms_lock_decision_lender_email",
+            "substring_match": true,
+            "alignment_phrase": "'home-equity-line-of-credit lender: the HELOC draw period'"
+          },
+          {
+            "kw": "draw",
+            "event_id": "heloc_draw_period_expires_friday_5pm_conversion_amortization_terms_lock_decision_lender_email",
+            "substring_match": true,
+            "alignment_phrase": "'the HELOC draw period on the 2014-originated line' / 'original draw cap reverts to the bank'"
+          }
+        ]
+      }
+    ],
+    "first_run_pass_note": "Content authored with explicit single-word keyword-substring attention at draft time: ('ice', 'glaze') aligned with 'ice-storm warning' + 'three-quarter inch of glaze' + 'glazed sidewalks'; ('mortgage', 'closing') aligned with 'Mortgage-underwriting team email: the closing on the Westwood Avenue property'; ('elasticsearch', 'shard') aligned with 'customer-facing search-platform Elasticsearch cluster' + 'two primary shards on the catalog-search index marked unassigned'; ('executor', 'appraiser') aligned with 'the named executor of your late father's estate' + 'the certified appraiser engaged through the probate court'; ('heloc', 'draw') aligned with 'home-equity-line-of-credit lender: the HELOC draw period on the 2014-originated line'. Discipline carry-forward from D-C2.attempt2.C through D-C8.attempt1.C unbroken; first-run PASS continues the C4/C5/C6/C7-attempt-1 pattern."
+  },
+  "audit_gate_result": {
+    "step_1_schema_check": {
+      "verdict": "PASS",
+      "evidence": "uv run python -c \"from sandbox.event_trace import get_trace; t = get_trace('test_v28'); print(t.name, len(t.events), len(t.ground_truth), t.duration_s)\" yields 'test_v28 9 5 810.0' with no exception. duration_s=810.0 is the correctly computed Trace.duration_s property max(last_gt_completion, last_event_time) + 30.0 for the test_v28 sim_time + window distribution (5 GTs at 210/370/470/540/640 with windows 200/240/220/240/90 yields last_gt_completion 780.0 [older_sister_executor at 540+240]; events at 30/75/140/210/370/470/540/600/640 yields last_event_time 640.0; max(780, 640) + 30 = 810)."
+    },
+    "step_2_keyword_content_alignment": {
+      "verdict": "PASS",
+      "evidence": "All 10 (kw, content.lower()) substring checks pass at Step 3.5 pre-flight first run + audit-gate verification both PASS at the single run. Pairs: (ice, noaa_ice_storm_warning_...); (glaze, noaa_ice_storm_warning_...); (mortgage, mortgage_closing_...); (closing, mortgage_closing_...); (elasticsearch, elasticsearch_index_status_...); (shard, elasticsearch_index_status_...); (executor, older_sister_executor_...); (appraiser, older_sister_executor_...); (heloc, heloc_draw_period_...); (draw, heloc_draw_period_...)."
+    },
+    "step_3a_banned_event_id_collision": {
+      "verdict": "PASS",
+      "evidence": "Mechanical set-intersection: 0 collisions across test_v28's 9 event_ids vs 190 banned IDs in pre-C8 banned-list."
+    },
+    "step_3b_banned_theme_semantic_review": {
+      "verdict": "PASS",
+      "per_gt_distinguishing_qualifiers": {
+        "gt1_weather_alert_ice_storm": "Distinct from C2 flash_flood (precipitation), C3 dust_storm (mineral wind-driven dust), C4 tornado_watch (convective-supercell rotation), C6 wildfire_smoke (PM2.5 air-quality plume) on hazard mechanism (ice-storm freezing-rain glaze accretion) + metric (one-quarter to three-quarter inch glaze) + mitigation (no-unnecessary-travel + 36-hour outage projection on tree-limb-on-powerline incidents) + window (overnight through tomorrow afternoon) + issuing authority (NWS ice-storm warning upgrade from freezing-rain advisory). Distinct from M10b earthquake_local (tectonic) and M11a boil_water_zip (utility microbial). Distinguishing qualifier: glaze accretion threshold-and-outage mechanism unique to ice-storm class.",
+        "gt2_schedule_change_mortgage_closing": "Distinct from C1 cardio_appt_rescheduled (cardiology medical-specialty), C3 court_hearing_moved_same_day (state civil-court), C4 pediatrician_visit_advanced (pediatric medicine), C5 dental_implant_surgery_rescheduled (oral surgery), C7 uscis_naturalization_interview_rescheduled (federal immigration). New domain: real-estate-financing closing rescheduling with mortgage-underwriting + title-company + warehouse-line clearance + rate-lock-grace-period mechanics. Distinguishing qualifier: lender-driven funding-clearance reschedule with rate-lock release as the cost-of-default.",
+        "gt3_production_on_call_elasticsearch": "Distinct from C2 datastore_replica_failover_p1 (Postgres RDBMS failover), C3 tls_cert_expiry (cert-manager rotation), C4 disk_space_critical_var_log (single-host disk-space critical), C5 redis_memory_saturation (Redis cache OOM eviction cascade), C7 kafka_order_pipeline_broker_election (Kafka broker fleet partition-leadership). New technology: Elasticsearch customer-facing search platform with RED index status + 2 primary shards unassigned + disk-high-watermark trigger on hot-tier nodes. Distinguishing qualifier: search-platform shard-allocation watermark mechanism distinct from RDBMS / cert / storage / cache / event-stream mechanisms.",
+        "gt4_message_delivery_older_sister_executor": "Distinct from C1 legal_doc_courier_signature (courier civil-doc), C3 partner_voicemail_ring_pickup_jeweler (partner-domestic-errand), C4 hospital_grandmother_hip_fracture (hospital admitting-desk re grandmother), C6 mother_in_law_chemo_infusion (MIL-medical-ride request), C7 tenant_attorney_eviction_stay_motion (tenant-defense-attorney paralegal). Also distinct from M10b sister_pickup (airport-pickup window) and M10b photographer_voicemail_jen (photographer engagement). New sender + relation + reason: older sister acting as named executor of late father's estate calling about a probate-court-ordered safe-deposit-box appraiser appointment requiring both surviving siblings present. Distinguishing qualifier: estate-administration-callback mechanism distinct from courier / partner / hospital / MIL / attorney / airport-pickup / photographer-engagement reasons in prior message/delivery cells.",
+        "gt5_financial_deadline_heloc_draw_period": "Distinct from C1 student_loan_repayment_resume (federal-loan auto-debit + IDR plan), C2 property_tax_installment_due_today (county property-tax), C3 homeowner_insurance_lapse (insurance auto-debit fail + force-placed-coverage risk), C5 quarterly_estimated_tax (IRS Q3 EFTPS), C6 iso_exercise_window (employer-equity post-termination ISO exercise), C7 fbar_fincen_114_foreign_account (FBAR FinCEN-114 foreign-bank-account reporting). New domain: home-equity-line-of-credit draw-period expiry with conversion-to-amortization vs alternative fixed-rate-term-lock product election. Distinguishing qualifier: HELOC draw-period conversion-election mechanism distinct from federal-loan / property-tax / insurance / IRS-quarterly / employer-equity-grant / FBAR-Title-31 mechanisms in prior financial/deadline cells."
+      }
+    },
+    "step_3c_banned_keyword_tuple_bytewise_review": {
+      "verdict": "PASS",
+      "evidence": "Mechanical set-intersection: 0 bytewise collisions across 5 GT tuples [(ice, glaze), (mortgage, closing), (elasticsearch, shard), (executor, appraiser), (heloc, draw)] vs 106 banned tuples in pre-C8 banned-list. Note semantically-adjacent bytewise-distinct cases: (weather, rain) + (flood, warning) + (dust, storm) + (tornado, watch) + (wildfire, smoke) banned in weather class — my (ice, glaze) bytewise-distinct on both elements; (mortgage, 'rate lock') banned in M10b test_v7 schedule-change/financial — my (mortgage, closing) bytewise-distinct on second element ('closing' vs 'rate lock'); (database, failover) + (tls, expiry) + (disk, space) + (redis, memory) + (kafka, broker) banned production tuples — my (elasticsearch, shard) bytewise-distinct on both elements vs all; (sister, airport) + (hospital, grandmother) + (chemo, infusion) + (ring, pickup) + (courier, signature) banned message/delivery tuples — my (executor, appraiser) bytewise-distinct on both elements; (loan, repayment) + (property, tax) + (insurance, lapse) + (quarterly, tax) + (iso, exercise) + (fbar, foreign) banned financial tuples — my (heloc, draw) bytewise-distinct on both elements vs all."
+    },
+    "step_4_cross_trace_literal_id_collision_HALT": {
+      "verdict": "PASS — HALT NOT triggered",
+      "evidence": "Mechanical set-intersection of test_v28's 9 event_ids vs union of dev_v1/dev_v2/test_v1..v8/v11..v15/v21..v27 event_ids: 0 collisions against 190 prior event_ids across 22 prior trace definitions. HALT-trigger NOT fired."
+    },
+    "step_5_drift_strong_overlap_a_gt_tuple_bytewise_cross_trace": {
+      "verdict": "PASS",
+      "evidence": "Mechanical set-intersection identical to step 3c against the union-of-prior-GT-tuples (106 unique across dev_v1..test_v27): 0 collisions."
+    },
+    "step_6_drift_strong_overlap_b_8gram_verbatim": {
+      "verdict": "PASS",
+      "evidence": "8-gram set-intersection: test_v28 has 1370 unique 8-grams across content+briefing+intents fields (lowercased, word-token regex [\\w'-]+ tokenization); prior dev/test traces (dev_v1+dev_v2+test_v1..v8+test_v11..v15+test_v21..v27) have 7937 unique 8-grams total; overlap = 0. D-C8.attempt1.C boilerplate-paraphrase author-discipline prevented C7-attempt-1-class step-6 rejection at draft time: D3 Meridian Games closing rewritten without 'unsubscribe...seasonal mailings...account preferences' template; D4 Thursday-pre-weekend-wrap middle sentence rewritten without 'no priority items are flagged from your project list, sprint board, or stakeholder asks' template. Step 6 catches verbatim 8-gram convergence; first-run PASS at attempt-1 with 0 overlaps demonstrates draft-time discipline effective."
+    }
+  },
+  "gt_regime_classification": {
+    "gt1": {
+      "event_id": "noaa_ice_storm_warning_freezing_rain_quarter_inch_glaze_36hr_outage_no_travel",
+      "regime": "weather alert (V2 EXISTING YES)",
+      "specifics": "NWS upgraded the overnight freezing-rain advisory to a full ice-storm warning for the metro area through tomorrow afternoon; one-quarter to three-quarter inch glaze accretion across the urban core and foothill towns between two and seven in the morning; thirty-six-hour outage projection on suburban distribution feeders once glaze depth crosses the half-inch threshold; no-unnecessary-travel advisory in effect; emergency-room visits from falls on glazed sidewalks during the last comparable storm tripled within four hours of first accretion.",
+      "cross_trace_lift": "4x→5x cross-trace lift (C2+C3+C4+C6+C8 — newly closed). PATH (a) primary lift #1; closes V2 YES ≥5x for ALL 6 V2 YES classes."
+    },
+    "gt2": {
+      "event_id": "mortgage_closing_rescheduled_friday_10am_underwriter_final_conditions_funding_delay",
+      "regime": "schedule change affecting the user personally (V2 EXISTING YES)",
+      "specifics": "Mortgage-underwriting team email: closing on the Westwood Avenue property rescheduled from today three p.m. to Friday morning ten a.m. at the title-company office downtown; final underwriting conditions came in late from the appraisal-review desk and required an additional twenty-four-hour funding clearance through the warehouse line; noon-today reply-or-lose-rate-lock-grace-period deadline; certified-funds cashier's check + homeowners-policy declaration page + government-issued photo identification required at closing.",
+      "cross_trace_lift": "5x→6x cross-trace lift (C1+C3+C4+C5+C7+C8) — saturating lift."
+    },
+    "gt3": {
+      "event_id": "elasticsearch_index_status_red_primary_shard_unassigned_p1_search_outage_50min",
+      "regime": "production/on-call alert (V2 EXISTING YES)",
+      "specifics": "PagerDuty severity-one incident on customer-facing search-platform Elasticsearch cluster prod-search-es-east-01 at fifteen-thirty-five UTC; index status flipped to RED with two primary shards on catalog-search index marked unassigned + zero automatic shard-recovery progress logged in six minutes; storefront search API five-xx error rate past forty percent + downstream recommendation/personalization cold-cache fallback; engineering leadership pages out at fifty-minute mark per SEV-one playbook; secondary on-call pager held this rotation; shard-allocation explain output pointing at disk-high-watermark trigger on three hot-tier nodes.",
+      "cross_trace_lift": "5x→6x cross-trace lift (C2+C3+C4+C5+C7+C8) — saturating lift."
+    },
+    "gt4": {
+      "event_id": "older_sister_executor_father_estate_safe_deposit_box_appraiser_tomorrow_9am_callback",
+      "regime": "message or delivery directed personally to the user (V2 EXISTING YES)",
+      "specifics": "Voicemail from older sister Tess (named executor of late father's estate): certified appraiser engaged through probate court for safe-deposit-box contents at downtown First National branch can only do inventory tomorrow nine a.m. before he leaves town for holiday weekend; both surviving siblings required present per probate-court order; box holds original signed will + wedding-band collection + two gold coins the estate's interim valuation cannot confirm without in-person inspection; callback before this evening required or appraiser reschedules to next week + estate-distribution timeline pushes one full month due to probate-court calendar congestion.",
+      "cross_trace_lift": "5x→6x cross-trace lift (C1+C3+C4+C6+C7+C8) — saturating lift."
+    },
+    "gt5": {
+      "event_id": "heloc_draw_period_expires_friday_5pm_conversion_amortization_terms_lock_decision_lender_email",
+      "regime": "financial/deadline obligation (V2 EXISTING YES)",
+      "specifics": "Notice from home-equity-line-of-credit lender: HELOC draw period on the 2014-originated line expires five p.m. Friday and line automatically converts to a fifteen-year amortization schedule at variable prime-plus-one-point-five rate currently quoted; alternative two-step product — fifteen-year fixed-rate term lock at six-point-eight-five percent on current outstanding balance with no further draws permitted — must be submitted through secure-message portal before the same five-p.m. deadline; unused portion of original draw cap reverts to the bank at conversion + cannot be reinstated without fresh application and updated home appraisal.",
+      "cross_trace_lift": "6x→7x cross-trace lift (C1+C2+C3+C5+C6+C7+C8) — saturating lift."
+    }
+  },
+  "defensibility_self_check_per_locked_plan_d9_defense_8": {
+    "v4_new_yes_coverage_at_c8": "ZERO instances (intentional per D-C8.attempt1.B locked PATH (a) compliant-content focus). Cross-trace state: V4 NEW YES total instances 4 (UNCHANGED) — scarcity-bounded 2x at C1+C6; family-milestone 2x at C2+C5; symmetric closure preserved through C7+C8. Defensibility: PATH (b) V4 NEW YES 3rd-repeat REJECTED at C8 Plan adversarial-reviewer walkthrough — re-opening within-V4-NEW-YES symmetric-closure post-C6 would dominate any 4→5 marginal-info gain on cross-V4-mechanism asymmetry (vs V4 NEW NO 6 total); PATH (a) compliant-content lift is dominant for the LAST remaining 4x V2 YES (weather-alert) AND the LAST remaining 3x V2 NO (social-channel-invite) classes — single-trace simultaneous closure delivers strongest reviewer-defensible endpoint achievable.",
+    "v4_new_no_coverage_at_c8": "ZERO instances (intentional per D-C8.attempt1.B path-(a) lock). Cross-trace state: V4 NEW NO total instances 6 (UNCHANGED) — 3 subclauses × 2x each at C1+C2; saturated state preserved through C3..C8. Defensibility: PATH (c) V4 NEW NO 3rd-repeat REJECTED at C8 per D-C5/C6/C7 precedent — saturated state dominated by H4 denominator growth: any compliant-content distractor adds equivalent H4 sample-density regardless of V4 NEW NO subclause representation at 3rd repeat.",
+    "v2_existing_yes_compliant_content_coverage_at_c8": [
+      "GT weather-alert ice-storm 4x→5x (C2+C3+C4+C6+C8) — PATH (a) primary lift #1; closes V2 YES ≥5x for ALL 6 V2 YES classes",
+      "GT schedule-change mortgage-closing 5x→6x (C1+C3+C4+C5+C7+C8) — saturating lift",
+      "GT production/on-call elasticsearch 5x→6x (C2+C3+C4+C5+C7+C8) — saturating lift",
+      "GT message/delivery older-sister-executor 5x→6x (C1+C3+C4+C6+C7+C8) — saturating lift",
+      "GT financial/deadline HELOC-draw 6x→7x (C1+C2+C3+C5+C6+C7+C8) — saturating lift"
+    ],
+    "v2_existing_no_compliant_content_coverage_at_c8": [
+      "D bluesky social-channel-invite 3x→4x (C1+C4+C6+C8) — PATH (a) primary distractor lift; closes V2 NO ≥4x for ALL 5 V2 NO classes",
+      "D terraform routine-status 5x→6x (C3+C4+C5+C6+C7+C8) — saturating lift",
+      "D meridian-games marketing/newsletter 5x→6x (C3+C4+C5+C6+C7+C8) — saturating lift (D-C8.attempt1.C boilerplate-paraphrase discipline applied: NOT the 'unsubscribe…seasonal mailings…account preferences' template)",
+      "D thursday-pre-weekend-wrap generic-daily-briefing 5x→6x (C3+C4+C5+C6+C7+C8) — saturating lift (D-C8.attempt1.C boilerplate-paraphrase discipline applied: NOT the 'no priority items are flagged from your project list, sprint board, or stakeholder asks' template)"
+    ],
+    "v2_no_class_skipped_at_c8": "feature-announcement V2 NO stays at 4x (C2+C3+C5+C7) — already ≥4x post-C7; no additional lift needed at C8 path-(a) saturating coverage. Net feature-announcement coverage matches V2 NO ≥4x bar.",
+    "cross_trace_coverage_state_through_c8": {
+      "v4_new_yes": "4 total instances UNCHANGED (scarcity-bounded 2x at C1+C6; family-milestone 2x at C2+C5 — symmetric closure preserved)",
+      "v4_new_no": "6 total instances UNCHANGED (3 subclauses × 2x each at C1+C2 — saturated state preserved)",
+      "v2_existing_yes_classes": {
+        "urgent_safety": "6x (C1+C2+C4+C5+C6+C7)",
+        "schedule_change": "6x (C1+C3+C4+C5+C7+C8)",
+        "financial_deadline": "7x (C1+C2+C3+C5+C6+C7+C8)",
+        "production_on_call": "6x (C2+C3+C4+C5+C7+C8)",
+        "message_delivery": "6x (C1+C3+C4+C6+C7+C8)",
+        "weather_alert": "5x (C2+C3+C4+C6+C8) — NEWLY CLOSED at C8 path-(a) primary lift #1"
+      },
+      "v2_existing_no_classes": {
+        "routine_status": "6x (C3+C4+C5+C6+C7+C8)",
+        "marketing_newsletter": "6x (C3+C4+C5+C6+C7+C8)",
+        "generic_daily_briefing": "6x (C3+C4+C5+C6+C7+C8)",
+        "feature_announcement": "4x UNCHANGED (C2+C3+C5+C7)",
+        "social_channel_invite": "4x (C1+C4+C6+C8) — NEWLY CLOSED at C8 path-(a) primary distractor lift"
+      }
+    },
+    "summary": "Net post-C8 reviewer-defensible endpoint claim: V2 YES 6 of 6 classes at ≥5x AND V2 NO 5 of 5 classes at ≥4x + V4 NEW YES symmetric closure preserved at 2x each subclause + V4 NEW NO saturated state preserved at 2x each of 3 subclauses. STRONGEST achievable single-trace compliant-content endpoint per D-C8.attempt1.B PATH (a) lock; matches kickoff's anticipated path-(a) endpoint exactly. 2 traces remain for combined-N=20 closure (test_v29 + test_v30); C9 + C10 freed to pursue (1) V4 NEW YES 3rd-repeat under deliberate cross-V4-mechanism asymmetry lift framing (now defensible after path-(a) compliant-content saturation complete at C8), (2) V4 NEW NO 3rd-repeat only if H4 denominator-growth argument is paired with mechanism-evidence asymmetry argument, or (3) higher-order GT-shape changes only if H4 evidence-base saturation warrants — defended at each subsequent C-Plan."
+  },
+  "fresh_session_metadata": {
+    "discipline": "fresh-session-restart-from-scratch per locked plan §D13 + D-C1.6 + auto-memory feedback_new_session_for_arch_work.md; zero event_id / content / keyword / sim_time / briefing / intent carryover from C1..C7",
+    "carryover_from_c1_c7": "none (verified mechanically via audit steps 3a + 3c + 4 + 5 + 6 all PASS with 0 collisions; semantic distinguishing qualifiers archived at step 3b)",
+    "session_opened_at_head": "3d1b1ad2b4c19a228b69785a0adb47e04c6ab592 (M11a-extension Commit C7)",
+    "sandbox_event_trace_py_sha256_at_session_open": "77e319f37d04c891098a76421890ba5719386dfa04a9c43b5bf29e3dfca2f59d",
+    "sandbox_event_trace_py_bytes_at_session_open": 95595,
+    "sandbox_event_trace_py_sha256_post_test_v28_append": "2c16923ca26b9fb81141840aaecdcda88498dffa9b41d4211b9174e9f224db78",
+    "sandbox_event_trace_py_bytes_post_test_v28_append": 107787,
+    "v4_prompt_sha256_at_session_open": "09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6",
+    "v4_prompt_bytes_at_session_open": 1851,
+    "v4_prompt_locked_plan_anchor": "~/.claude/plans/m11a-extension-v4-prompt-n20.md §D1 (1851 bytes; sha256 09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6); bytewise-identical since Commit B adc1cba"
+  },
+  "milestone_attempt_count_running": {
+    "before_c8_attempt_1": "9/25 (C1 attempt-1 + C2 attempt-1 + C2 attempt-2 + C3 attempt-1 + C4 attempt-1 + C5 attempt-1 + C6 attempt-1 + C7 attempt-1 + C7 attempt-2)",
+    "after_c8_attempt_1_acceptance": "10/25",
+    "halt_threshold_d_c1_5_2": 25,
+    "halt_triggered": false,
+    "structural_parsing_failure_rate_to_date": "0/10 attempts (M11a baseline 3/9 = 33% — M11a-extension carries forward unbroken at 0%; self-restate gate per §D4 still 100% effective at audit step 1 territory; C2 attempt-1 step-2 M8b + C7 attempt-1 step-6 drift-overlap rejections NOT counted as structural-parsing-failure per §D4 design)",
+    "audit_gate_failure_rate_to_date_overall": "2/10 attempts (C2 attempt-1 step-2; C7 attempt-1 step-6 — both audit-gate working as designed at the catching steps)",
+    "literal_id_collision_halt_triggered": false
+  },
+  "retry_cap_status_per_d_c1_5_3": {
+    "test_v28_retries_used": "1/3 (attempt 1 ACCEPTED)",
+    "remaining_budget": "2 retries available had attempt 1 not accepted"
+  },
+  "frozen_artifacts_at_attempt": "Verified at attempt-1 open: agent/loop.py / agent/llm.py / agent/predictor.py / agent/surprise.py / agent/arbiter.py / eval/run_trace.py / eval/author_trace.py / baselines/ / pyproject.toml / uv.lock — all bytewise-identical to HEAD 3d1b1ad. sandbox/event_trace.py test_v4..test_v15 + test_v21..test_v27 definitions bytewise-identical to HEAD; only NEW test_trace_v28 function + registry line 'test_v28': test_trace_v28, appended (62-line append-only diff; verified via git diff --stat = 1 file, 62 insertions, 0 deletions). runs/data/21c-banned-list-pre-c{1,2,3,4,5,6,7}.{txt,json} + runs/data/21c-author-test_v{21,22,23,24,25,26,27}-*.json all bytewise-identical to HEAD."
+}
