@@ -1,0 +1,265 @@
+{
+  "attempt_number": 1,
+  "attempted_at_utc": "2026-05-18T00:00:00Z",
+  "verdict": "ACCEPTED",
+  "trace_name": "test_v26",
+  "banned_list_path": "runs/data/21c-banned-list-pre-c6.txt",
+  "banned_list_sha256_at_attempt": "c1b782d0745599c1b40c7880f0beacca62d9d253d57209b32321533835c4e3f6",
+  "banned_list_json_sha256_at_attempt": "a411ad0a19356205121fec7ccb6b7801f8a4c79044a180e37fa24cb0151f1ad4",
+  "banned_list_bytes_at_attempt": {
+    "txt": 18275,
+    "json": 17993
+  },
+  "banned_list_state_counts": {
+    "event_ids": 172,
+    "themes": 97,
+    "tuples": 96
+  },
+  "self_restate_prompt_sha256": "ad0ac2d312f784b052fb71919767458fa3ed0d94ef68d0cd3dd3ef9d409f7de9",
+  "self_restate_prompt_bytes": 18684,
+  "self_restate_response_verbatim": "Acknowledged. Here is my own-words restatement of the four constraints I must honor before authoring the EventTrace:\n\n(a) Python parseability \u2014 every literal I write into sandbox/event_trace.py must be a plain Python expression that the existing schema in that file accepts without modification. No new syntax features, no imports outside what the trace builder already uses, no f-strings or comprehension tricks that exercise the harness in unexpected ways. The harness's get_trace('test_v26') import must succeed on the very first attempt.\n\n(b) No walrus operator \u2014 assignment-as-expression (:=) is forbidden anywhere in the trace definition. This is the M11a test_v11 attempt-#1 failure mode locked into the protocol as a permanent author-side guardrail. Standard assignments (name = value) only.\n\n(c) No arithmetic in event_id strings \u2014 event_id literals must be plain underscored identifiers with no plus, minus, multiplication, division, no integer concatenation, no expression-evaluation tricks. This is the M11a test_v13 / test_v15 attempt failure mode. Each event_id is exactly one bare snake_case string literal.\n\n(d) Avoid reusing banned event_ids \u2014 I will not reuse any of the 172 event_ids enumerated in the pre-C6 banned list as an Event.id. I will also avoid the 97 banned themes as the semantic content of any GroundTruthEvent and avoid the 96 banned keyword tuples as any GroundTruthEvent.keywords value. The audit-gate (D-C1.3) will mechanically check all three at attempt-submission time; the literal-ID check (audit step 4) is HALT-gated per D-C1.5 #1, so an ID collision halts the milestone.\n\nAdditionally I will follow the per-attempt author discipline locked at the C2 attempt-#2 Plan and inherited verbatim through C5:\n\n- Step 3.5 pre-flight keyword literal-substring verification: every (kw, content) pair must satisfy kw.lower() in content.lower() before audit-gate invocation. Authoring with single-word keyword-substring attention at draft time (avoid two-word phrasings whose single-word keyword would not literal-substring-match, per the C3 attempt-1 ('pickup', 'pick up') precedent that triggered an in-session content revision).\n\nAuthoring discipline for this session per the C6 Plan path-lock decision: one V4 NEW YES GT under the scarcity-bounded-opportunity subclause (lifts cross-trace 1x->2x; closes the within-V4-NEW-YES asymmetry C5 opened) + four V2 EXISTING YES GTs (message/delivery 3x->4x; weather-alert 3x->4x; two of the 4x V2 YES classes 4x->5x) + four V2 EXISTING NO distractors (social-channel-invite 2x->3x to complete the V2 NO triangulation table at >=3x for all five V2 NO classes; three of the 3x V2 NO classes 3x->4x). Zero event_id / content / keyword / sim_time / briefing / intent carryover from C1..C5 per fresh-session-restart-from-scratch discipline.",
+  "authored_trace_verbatim": {
+    "name": "test_v26",
+    "duration_s": 770.0,
+    "events": [
+      {
+        "id": "monday_week_lookahead_briefing_no_priority_items_flagged",
+        "kind": "notification",
+        "sim_time": 30.0,
+        "content": "Monday morning week-look-ahead briefing: you have nine meetings scheduled this week, down from thirteen last week, three of them recurring one-on-ones and two cross-team syncs already on the books. Calendar shows three two-hour heads-down blocks Tuesday through Thursday. Inbox is at twelve unread with all twelve categorized routine. No priority items are flagged from your project list, OKR scorecards, or stakeholder asks. Have a focused week."
+      },
+      {
+        "id": "datadog_synthetic_monitoring_daily_heartbeat_all_pass_digest",
+        "kind": "email",
+        "sim_time": 75.0,
+        "content": "Daily DataDog synthetic-monitoring digest for prod-monitoring-pipeline: two-hundred-and-forty-seven synthetic browser checks completed in the last twenty-four hours with two-hundred-and-forty-seven of two-hundred-and-forty-seven passing on first attempt across all geographic regions, including us-east, us-west, eu-central, and ap-southeast. API endpoint checks: one-thousand-eight-hundred-twenty-four of one-thousand-eight-hundred-twenty-four returned expected status codes within the p95 latency budget. No alerts triggered. The next synthetic-monitoring digest sends tomorrow at the same time."
+      },
+      {
+        "id": "mastodon_instance_follow_suggestion_weekly_digest_kind_strangers",
+        "kind": "notification",
+        "sim_time": 110.0,
+        "content": "Your Mastodon instance hachyderm.io weekly digest: based on the accounts you already follow and your reading patterns, we suggest following these eight accounts this week \u2014 three software-engineering generalists from federated instances, two technical writers, two systems-engineering folks, and one cybersecurity researcher. Click through to preview each account's last fifty posts; no auto-follow happens. The digest sends every Sunday and you can mute the suggestion stream in notification preferences if you find it noisy."
+      },
+      {
+        "id": "lagavulin_single_cask_allocation_38min_window_distillery",
+        "kind": "email",
+        "sim_time": 210.0,
+        "content": "Lagavulin distillery cask-share allocation notice for registered members: the 2002 vintage single-cask special release has just opened a thirty-eight minute allocation window. Exactly three hundred and twelve bottles were produced, one bottle per member, with claim-or-release rolling at sixty-second intervals once the queue advances. You are currently at position forty-seven and your hold expires in roughly thirty-eight minutes if you do not claim; once the window closes the remaining bottles route to the trade-only secondary list and are not offered back to the member queue."
+      },
+      {
+        "id": "aperture_camera_gear_spring_catalog_email_no_action_required",
+        "kind": "email",
+        "sim_time": 290.0,
+        "content": "Aperture Photo Supply spring catalog is now available \u2014 explore sixty-four new releases from Fujifilm, Sony, and Sigma, plus seasonal accessory bundles featuring rebated lighting kits and entry-level tripod packages. The catalog includes detailed lens-comparison charts, sample image galleries, and a community-contributed buying-guide for first-time mirrorless purchasers. Browse at your leisure; unsubscribe from seasonal mailings in your account preferences if you prefer fewer messages."
+      },
+      {
+        "id": "wildfire_smoke_advisory_aqi_421_hazardous_4hr_shelter",
+        "kind": "alert",
+        "sim_time": 360.0,
+        "content": "NWS AirNow advisory for your zip code: particulate-matter readings from the Hazelnut Ridge wildfire smoke plume have pushed the regional Air Quality Index from two-forty up to four-twenty-one over the last hour, well into the hazardous tier above the very-unhealthy band. All outdoor activity is discouraged for the next four hours minimum; close exterior windows, run HVAC on recirculate with HEPA filtration if available, and N95 masks are recommended for any unavoidable outdoor exposure. Sensitive groups, infants, and anyone with cardiac or respiratory conditions should shelter indoors until the AQI drops back below one-fifty."
+      },
+      {
+        "id": "mother_in_law_chemo_infusion_ride_request_voicemail_6pm",
+        "kind": "phone_message",
+        "sim_time": 440.0,
+        "content": "Voicemail from your mother-in-law Elena: hi sweetie, I hate to ask but my regular ride to oncology fell through and the chemo infusion is at eight in the morning tomorrow at Memorial. The protocol is roughly four hours in the chair, so I need someone who can stay through and drive me home because I am too groggy to do it on my own afterward. Please call back tonight before six if you can take me; otherwise I need to call the patient-transport line and they cut off bookings at seven sharp."
+      },
+      {
+        "id": "iso_exercise_window_expires_tomorrow_5pm_2400_shares_disqualifying",
+        "kind": "email",
+        "sim_time": 520.0,
+        "content": "Email from Carta equity admin: your incentive stock option grant from your March separation has its post-termination ISO exercise window expiring tomorrow at five in the afternoon Pacific. The remaining grant balance is twenty-four hundred shares at a strike price of fourteen dollars and twenty cents per share; partial exercise is allowed in lots of one hundred shares with same-day funded clearing. Failure to exercise by the deadline forfeits the entire remaining balance and the disqualifying-disposition treatment for current-tax-year ISO conversions will not apply to the lapsed shares. Wire instructions are in the attached one-page PDF."
+      },
+      {
+        "id": "partner_anaphylaxis_epipen_911_dispatched_second_dose_needed",
+        "kind": "alert",
+        "sim_time": 620.0,
+        "content": "Your partner just collapsed at the kitchen counter after eating from a takeout container labeled pad thai with peanuts; visible facial swelling and severe wheezing within ninety seconds, classic anaphylaxis presentation. EpiPen administered to the outer thigh; nine-one-one dispatched and confirmed paramedics six minutes out. The home kit has only one EpiPen and the live nine-one-one dispatcher is asking on speaker whether you have a second dose somewhere in the house because symptoms are not responding to the first injection within the expected three-minute window."
+      }
+    ],
+    "ground_truth": [
+      {
+        "event_id": "lagavulin_single_cask_allocation_38min_window_distillery",
+        "kind": "email",
+        "sim_time": 210.0,
+        "content": "Lagavulin distillery cask-share allocation notice for registered members: the 2002 vintage single-cask special release has just opened a thirty-eight minute allocation window. Exactly three hundred and twelve bottles were produced, one bottle per member, with claim-or-release rolling at sixty-second intervals once the queue advances. You are currently at position forty-seven and your hold expires in roughly thirty-eight minutes if you do not claim; once the window closes the remaining bottles route to the trade-only secondary list and are not offered back to the member queue.",
+        "proaction_window_s": 240.0,
+        "keywords": [
+          "lagavulin",
+          "allocation"
+        ]
+      },
+      {
+        "event_id": "mother_in_law_chemo_infusion_ride_request_voicemail_6pm",
+        "kind": "phone_message",
+        "sim_time": 440.0,
+        "content": "Voicemail from your mother-in-law Elena: hi sweetie, I hate to ask but my regular ride to oncology fell through and the chemo infusion is at eight in the morning tomorrow at Memorial. The protocol is roughly four hours in the chair, so I need someone who can stay through and drive me home because I am too groggy to do it on my own afterward. Please call back tonight before six if you can take me; otherwise I need to call the patient-transport line and they cut off bookings at seven sharp.",
+        "proaction_window_s": 200.0,
+        "keywords": [
+          "chemo",
+          "infusion"
+        ]
+      },
+      {
+        "event_id": "wildfire_smoke_advisory_aqi_421_hazardous_4hr_shelter",
+        "kind": "alert",
+        "sim_time": 360.0,
+        "content": "NWS AirNow advisory for your zip code: particulate-matter readings from the Hazelnut Ridge wildfire smoke plume have pushed the regional Air Quality Index from two-forty up to four-twenty-one over the last hour, well into the hazardous tier above the very-unhealthy band. All outdoor activity is discouraged for the next four hours minimum; close exterior windows, run HVAC on recirculate with HEPA filtration if available, and N95 masks are recommended for any unavoidable outdoor exposure. Sensitive groups, infants, and anyone with cardiac or respiratory conditions should shelter indoors until the AQI drops back below one-fifty.",
+        "proaction_window_s": 240.0,
+        "keywords": [
+          "wildfire",
+          "smoke"
+        ]
+      },
+      {
+        "event_id": "iso_exercise_window_expires_tomorrow_5pm_2400_shares_disqualifying",
+        "kind": "email",
+        "sim_time": 520.0,
+        "content": "Email from Carta equity admin: your incentive stock option grant from your March separation has its post-termination ISO exercise window expiring tomorrow at five in the afternoon Pacific. The remaining grant balance is twenty-four hundred shares at a strike price of fourteen dollars and twenty cents per share; partial exercise is allowed in lots of one hundred shares with same-day funded clearing. Failure to exercise by the deadline forfeits the entire remaining balance and the disqualifying-disposition treatment for current-tax-year ISO conversions will not apply to the lapsed shares. Wire instructions are in the attached one-page PDF.",
+        "proaction_window_s": 220.0,
+        "keywords": [
+          "iso",
+          "exercise"
+        ]
+      },
+      {
+        "event_id": "partner_anaphylaxis_epipen_911_dispatched_second_dose_needed",
+        "kind": "alert",
+        "sim_time": 620.0,
+        "content": "Your partner just collapsed at the kitchen counter after eating from a takeout container labeled pad thai with peanuts; visible facial swelling and severe wheezing within ninety seconds, classic anaphylaxis presentation. EpiPen administered to the outer thigh; nine-one-one dispatched and confirmed paramedics six minutes out. The home kit has only one EpiPen and the live nine-one-one dispatcher is asking on speaker whether you have a second dose somewhere in the house because symptoms are not responding to the first injection within the expected three-minute window.",
+        "proaction_window_s": 90.0,
+        "keywords": [
+          "anaphylaxis",
+          "epipen"
+        ]
+      }
+    ],
+    "briefing": "Monday morning at home in Bend, Oregon. Recently separated from my prior startup employer in March, navigating the post-termination ISO exercise window and a parallel cap-table cleanup; my partner with a documented peanut allergy lives with me and we keep a stocked EpiPen kit in the kitchen. The Hazelnut Ridge fire complex is burning thirty miles west and the air-quality has been roller-coastering all week. My mother-in-law in Portland started a new chemo protocol last month and her transport options are unreliable. Notifications are filtered for urgent: medical-emergency, hard-deadline financial, weather alerts that change my plans, and personal voicemails from family should break through; routine status pings, marketing emails, social-channel digests, and the daily briefing can wait.",
+    "intents": [
+      "respond instantly to any medical-emergency involving my partner with the EpiPen kit and 911 coordination",
+      "do not let the ISO exercise window expire \u2014 partial-exercise lots are funded but the deadline is firm",
+      "act on any AQI hazardous-tier wildfire-smoke alert with indoor shelter and HEPA HVAC",
+      "take any family-elder voicemail in time to respond before tonight's cutoff",
+      "let routine status, social-channel digests, marketing catalogs, and the briefing wait until evening"
+    ]
+  },
+  "step_3_5_pre_flight_keyword_substring_verification": {
+    "discipline_inherits": "D-C2.attempt2.C / D-C3.attempt1.C / D-C4.attempt1.C / D-C5.attempt1.C verbatim \u2014 author-discipline pre-flight only; does NOT modify the audit-gate locked at D-C1.3; does NOT consume retry-cap budget per D-C1.4.",
+    "iteration_log": [
+      {
+        "run": 1,
+        "outcome": "PASS",
+        "detail": "All 10 (kw, content) pairs print True: ('lagavulin', lagavulin_single_cask_allocation_38min_window_distillery) True; ('allocation', lagavulin_single_cask_allocation_38min_window_distillery) True; ('chemo', mother_in_law_chemo_infusion_ride_request_voicemail_6pm) True; ('infusion', mother_in_law_chemo_infusion_ride_request_voicemail_6pm) True; ('wildfire', wildfire_smoke_advisory_aqi_421_hazardous_4hr_shelter) True; ('smoke', wildfire_smoke_advisory_aqi_421_hazardous_4hr_shelter) True; ('iso', iso_exercise_window_expires_tomorrow_5pm_2400_shares_disqualifying) True; ('exercise', iso_exercise_window_expires_tomorrow_5pm_2400_shares_disqualifying) True; ('anaphylaxis', partner_anaphylaxis_epipen_911_dispatched_second_dose_needed) True; ('epipen', partner_anaphylaxis_epipen_911_dispatched_second_dose_needed) True. No in-session iteration required."
+      }
+    ],
+    "first_run_pass_note": "Mirrors C4 attempt-1 + C5 attempt-1 first-run-PASS precedent. Content authored with explicit single-word keyword-substring attention at draft time: (\"lagavulin\",\"allocation\") aligned with \"Lagavulin distillery cask-share allocation notice\"; (\"chemo\",\"infusion\") aligned with \"chemo infusion is at eight in the morning\"; (\"wildfire\",\"smoke\") aligned with \"Hazelnut Ridge wildfire smoke plume\"; (\"iso\",\"exercise\") aligned with \"ISO exercise window expiring tomorrow\"; (\"anaphylaxis\",\"epipen\") aligned with \"classic anaphylaxis presentation. EpiPen administered\". Discipline carry-forward from D-C2.attempt2.C -> D-C3.attempt1.C -> D-C4.attempt1.C -> D-C5.attempt1.C -> D-C6.attempt1.C remains mechanically self-improving."
+  },
+  "audit_gate_result": {
+    "step_1_schema_check": {
+      "verdict": "PASS",
+      "evidence": "uv run python -c \"from sandbox.event_trace import get_trace; t = get_trace('test_v26'); print(t.name, len(t.events), len(t.ground_truth), t.duration_s)\" yields 'test_v26 9 5 770.0' with no exception. duration_s=770.0 is the correctly computed property max(last_gt_completion, last_event_time) + 30.0 for the test_v26 sim_time + window distribution (5 GTs at 210/440/360/520/620 with windows 240/200/240/220/90 yields last_gt_completion 740.0; events at 30/75/110/210/290/360/440/520/620 yields last_event_time 620.0; max(740, 620) + 30 = 770)."
+    },
+    "step_2_keyword_content_alignment": {
+      "verdict": "PASS",
+      "evidence": "All 10 (kw, content.lower()) substring checks pass at the single run. Pairs: ('lagavulin', lagavulin_single_cask_allocation_38min_window_distillery); ('allocation', lagavulin_single_cask_allocation_38min_window_distillery); ('chemo', mother_in_law_chemo_infusion_ride_request_voicemail_6pm); ('infusion', mother_in_law_chemo_infusion_ride_request_voicemail_6pm); ('wildfire', wildfire_smoke_advisory_aqi_421_hazardous_4hr_shelter); ('smoke', wildfire_smoke_advisory_aqi_421_hazardous_4hr_shelter); ('iso', iso_exercise_window_expires_tomorrow_5pm_2400_shares_disqualifying); ('exercise', iso_exercise_window_expires_tomorrow_5pm_2400_shares_disqualifying); ('anaphylaxis', partner_anaphylaxis_epipen_911_dispatched_second_dose_needed); ('epipen', partner_anaphylaxis_epipen_911_dispatched_second_dose_needed). Step 3.5 pre-flight and audit-gate verification both PASS at the single run."
+    },
+    "step_3a_banned_event_id_collision": {
+      "verdict": "PASS",
+      "evidence": "Mechanical set-intersection: 0 collisions across test_v26 9 event_ids vs 172 banned IDs in runs/data/21c-banned-list-pre-c6.json."
+    },
+    "step_3b_banned_theme_semantic_review": {
+      "verdict": "PASS",
+      "per_gt_distinguishing_qualifiers": {
+        "gt1_v4_new_yes_scarcity_bounded_opportunity_lagavulin_allocation": "distinct from M11a-extension C1 vinyl_drop_press_today (scarcity-bounded-opportunity 1st instance) on product class (single-malt Scotch cask-share allocation vs music vinyl press), mechanism (distillery-direct member-allocation queue with rolling claim-or-release at 60-sec intervals vs limited-run pressing), scarcity (312 bottles + one-per-member + position 47 in queue vs typical music-drop count), constituency (registered distillery members vs general public), and settlement (cask-share allocation routes remainder to trade-only secondary list vs vinyl press goes to retail allocations); distinct from banned M10b test_v8 bridgers_presale_window on product (whisky vs concert tickets), mechanism (cask-share allocation vs ticket presale with access code), and category (consumer-goods drop vs entertainment-ticket release); distinct from banned M10b test_v6 auction_ending on mechanism (queue allocation vs bidding war) and structure (member-only-queue vs open-auction-top-bidder). Within-V4-NEW-YES asymmetry that C5 opened (family-milestone 2x vs scarcity-bounded 1x) closed by this 1x->2x lift on the scarcity-bounded-opportunity subclause; both V4 NEW YES subclauses now sit at 2x each.",
+        "gt2_v2_existing_yes_message_delivery_mil_chemo_voicemail": "distinct from C1 legal_doc_courier_signature (mechanism: voicemail-callback vs in-person-courier-lobby-wait; reason: chemo-ride vs legal-doc-signature); distinct from C3 partner_voicemail_ring_pickup_jeweler (sender: mother-in-law vs partner; reason: chemo-treatment-day-ride vs jeweler-pickup errand; decision: tonight-before-6pm-take-her vs same-day-jeweler-closes-5pm); distinct from C4 hospital_grandmother_hip_fracture (sender: MIL voicemail vs hospital admitting-desk; reason: ride to outpatient chemo infusion vs hip-fracture surgical-consent; decision: tonight-before-6pm callback vs surgical-consent-by-8pm-rounds; relation: mother-in-law vs grandmother); distinct from M10b sister_pickup (sender: MIL vs sister; reason: chemo-ride vs airport-pickup; window: tomorrow-morning-with-tonight-callback vs 15-min-airport-window); distinct from M10b photographer_voicemail_jen (sender: family elder vs wedding photographer; reason: medical-context family-elder ride vs engagement-photo turnaround). Cross-trace lift 3x->4x on message/delivery class. V4 prompt clause match: 'voicemail or phone message' and the broader 'message or delivery directed personally to the user' class.",
+        "gt3_v2_existing_yes_weather_alert_wildfire_smoke_aqi_421": "distinct from C2 flash_flood_warning_overnight (hazard mechanism: PM2.5 particulate from active wildfire vs precipitation flood; metric: AQI vs rainfall inches; mitigation: indoor shelter + HEPA HVAC + N95 masks vs flood-route-avoid); distinct from C3 dust_storm_warning_freeway_visibility (mechanism: wildfire-smoke organic combustion particulate vs mineral wind-driven dust; metric: AQI 421 hazardous-tier vs gust mph + visibility; mitigation: indoor-shelter + sensitive-groups vs freeway-zero-visibility avoid); distinct from C4 tornado_watch_tri_county_peak_risk_tonight (mechanism: smoke-plume PM2.5 vs convective-supercell rotation; metric: AQI vs supercell rotation + hail); distinct from M10b test_v8 earthquake_local (mechanism: smoke vs tectonic shaking; issuing authority: NWS AirNow vs USGS); distinct from M11a test_v14 boil_water_zip (mechanism: smoke atmospheric vs water utility microbial; mitigation: indoor air vs boil-water-tap; institution: NWS AirNow vs municipal water utility). Cross-trace lift 3x->4x on weather-alert class. V4 prompt clause match: 'a weather alert or external condition that would plausibly change the user's planned day.'",
+        "gt4_v2_existing_yes_urgent_safety_partner_anaphylaxis": "distinct from C1 gas_leak_kitchen_sensor (patient: partner-anaphylaxis vs household-evacuation; fault: allergen-ingestion-medical vs atmospheric-gas-leak; protocol: EpiPen + 911 in-home coordination vs evacuate + gas company dial); distinct from C2 aging_parent_fall_alert_emergency_pendant (patient: live-in partner vs elderly father; mechanism: anaphylaxis facial-swelling + wheezing vs pendant-fall-detect; response: in-home EpiPen self-administer + live 911 dispatcher vs auto-EMS-dispatch + primary-contact callback); distinct from C4 carbon_monoxide_alarm_evacuate (patient: partner-medical-emergency vs household-collectively-evacuate; fault: anaphylaxis ingestion vs CO atmospheric; protocol: EpiPen + 911 vs evacuate + gas company); distinct from C5 child_medication_ingestion (patient: adult partner vs three-year-old child; fault: peanut-allergen-anaphylaxis vs medication ingestion; protocol: in-home EpiPen + 911-coordinate + second-dose-availability-check vs Poison-Control directive + ER transport + medication-bottle handoff); distinct from banned M10b vet_emergency (patient: human partner vs pet); distinct from M8b fire_alarm + er_call + security_breach themes (different fault classes). Cross-trace lift 4x->5x on urgent-safety class. V4 prompt clause match: 'medical emergency' under urgent-safety/security.",
+        "gt5_v2_existing_yes_financial_deadline_iso_exercise_2400_shares": "distinct from C1 student_loan_repayment_resume (obligation: post-termination ISO exercise vs consumer-debt auto-debit resume; counterparty: Carta equity admin vs Dept of Ed); distinct from C2 property_tax_installment (obligation: employer-stock-grant exercise vs gov property-tax; mechanism: forfeit-or-exercise vs late-penalty); distinct from C3 homeowner_insurance_lapse (obligation: stock-grant-exercise vs insurance-auto-debit-recovery; consequence: full-grant-forfeiture vs force-placed-coverage); distinct from C5 quarterly_estimated_tax (obligation: one-time ISO exercise vs ongoing quarterly federal income tax; counterparty: Carta vs IRS; penalty: grant-cancellation + AMT-disqualifying-disposition lapse vs underpayment-calc + 0.5%/mo); distinct from M11a test_v15 visa_autopay_low_balance (obligation: ISO exercise vs credit-card autopay funding); distinct from M11a test_v14 bond_purchase_confirm (mechanism: exercise vs purchase confirmation; institution: Carta cap-table service vs Treasury Direct); distinct from M11a test_v13 counter_offer (mechanism: stock-grant exercise vs real-estate counter-offer accept); distinct from M11a test_v12 hoa_assessment_vote (obligation: equity exercise vs HOA assessment vote). Cross-trace lift 4x->5x on financial/deadline class. V4 prompt clause match: 'a financial or deadline obligation the user must act on within the next few days.'"
+      },
+      "evidence": "All 5 GT themes pass with substantively-distinguishing multi-attribute qualifiers vs nearest banned predecessors. Hand-audit recorded per-GT in per_gt_distinguishing_qualifiers above."
+    },
+    "step_3c_banned_keyword_tuple_bytewise_review": {
+      "verdict": "PASS",
+      "evidence": "Mechanical set-intersection: 0 bytewise collisions across 5 GT tuples [('lagavulin','allocation'), ('chemo','infusion'), ('wildfire','smoke'), ('iso','exercise'), ('anaphylaxis','epipen')] vs 96 banned tuples in runs/data/21c-banned-list-pre-c6.json. Semantically-adjacent bytewise-distinct cases: ('vinyl','drop') banned (scarcity-bounded-opportunity sister-tuple) but ('lagavulin','allocation') bytewise-distinct on both elements; ('mother','birthday') + ('grandpa','birthday') banned but ('chemo','infusion') bytewise-distinct on both; ('weather','rain') + ('flood','warning') + ('dust','storm') + ('tornado','watch') banned weather tuples but ('wildfire','smoke') bytewise-distinct on both elements vs all four; ('loan','repayment') + ('property','tax') + ('quarterly','tax') + ('tax','expires') + ('deadline','quarterly') + ('insurance','lapse') + ('mortgage','rate lock') + ('counter-offer','agent') + ('hoa','vote') + ('auto-payment','balance') + ('approve','brake') + ('bond','confirmation') + ('warranty','registered') banned financial/deadline tuples but ('iso','exercise') bytewise-distinct from all; ('prescription','refill') + ('medication','ingestion') + ('hospital','mother') + ('hospital','grandmother') + ('carbon','monoxide') + ('gas','leak') + ('fall','pendant') + ('fire','alarm') + ('fire','kitchen') banned urgent-safety tuples but ('anaphylaxis','epipen') bytewise-distinct on both elements vs all."
+    },
+    "step_4_cross_trace_literal_id_collision_HALT": {
+      "verdict": "PASS",
+      "halt_trigger": "NOT FIRED",
+      "evidence": "Mechanical grep of 9 event_ids vs union of dev_v1/dev_v2/test_v1..v8/v11..v15/v21..v25 event_ids: 0 collisions against 172 prior event_ids across 20 prior trace definitions. HALT-gate per D-C1.5 #1 not triggered."
+    },
+    "step_5_drift_strong_overlap_a_gt_tuple_bytewise_cross_trace": {
+      "verdict": "PASS",
+      "evidence": "Same mechanical set-intersection as 3c against the union-of-prior-GT-tuples (96 unique across dev_v1..test_v25): 0 collisions."
+    },
+    "step_6_drift_strong_overlap_b_8gram_verbatim": {
+      "verdict": "PASS",
+      "evidence": "8-gram set-intersection: test_v26 has 898 unique 8-grams across content + briefing + intents fields; prior dev/test traces (dev_v1, dev_v2, test_v1..v8, v11..v15, v21..v25) have 5877 unique 8-grams; overlap = 0."
+    }
+  },
+  "gt_regime_classification": {
+    "gt1": "lagavulin_single_cask_allocation_38min_window_distillery \u2014 discretionary-deadline obligation (V4 NEW YES, scarcity-bounded-opportunity subclass): Lagavulin distillery member cask-share allocation for the 2002 vintage single-cask special release with a thirty-eight-minute window + 312-bottle one-per-member limit + queue position 47 + sixty-second rolling claim-or-release + secondary-list trade-only fallback. Lifts scarcity-bounded subclause cross-trace 1x->2x; lifts total V4 NEW YES instances 3->4; closes the within-V4-NEW-YES asymmetry C5 opened (both subclauses now at 2x each).",
+    "gt2": "mother_in_law_chemo_infusion_ride_request_voicemail_6pm \u2014 message or delivery directed personally to the user (V2 EXISTING YES): mother-in-law Elena voicemail asking the user to drive her to and stay through tomorrow morning's chemo infusion at Memorial (four-hour-in-chair protocol + too-groggy-to-drive-home) with before-six-tonight callback or she falls back to the patient-transport line that cuts bookings at seven sharp. 3x->4x cross-trace lift on message/delivery class.",
+    "gt3": "wildfire_smoke_advisory_aqi_421_hazardous_4hr_shelter \u2014 weather alert (V2 EXISTING YES): NWS AirNow advisory for the zip code with PM2.5 from the Hazelnut Ridge wildfire smoke plume lifting the regional AQI from 240 to 421 over an hour (hazardous tier above very-unhealthy) + four-hour-minimum indoor-shelter recommendation + HEPA HVAC on recirculate + N95 masks for unavoidable exposure + sensitive-groups (infants + cardiac + respiratory) shelter-until-AQI-below-150. 3x->4x cross-trace lift on weather-alert class.",
+    "gt4": "iso_exercise_window_expires_tomorrow_5pm_2400_shares_disqualifying \u2014 financial/deadline obligation (V2 EXISTING YES): Carta equity admin email notifying that the post-termination ISO exercise window for 2,400 shares from the March separation expires tomorrow at 5pm Pacific with $14.20 strike price + partial-exercise lots of 100 + full-grant-balance forfeiture on miss + AMT-disqualifying-disposition treatment for current-tax-year ISO conversions lapses on the unexercised shares. 4x->5x cross-trace lift on financial/deadline class.",
+    "gt5": "partner_anaphylaxis_epipen_911_dispatched_second_dose_needed \u2014 urgent safety/security issue (V2 EXISTING YES): partner anaphylaxis from peanut allergen in pad thai takeout container with visible facial swelling + severe wheezing within ninety seconds + EpiPen administered to the outer thigh + 911 dispatched + paramedics six minutes out + live dispatcher asking on speaker about second-dose availability since first injection not responding within expected three-minute window. 4x->5x cross-trace lift on urgent-safety class."
+  },
+  "defensibility_self_check_per_locked_plan_d9_defense_8": {
+    "v4_new_yes_coverage_at_c6": "1 instance under scarcity-bounded-opportunity subclause (lagavulin_single_cask_allocation_38min_window_distillery). Lifts that subclause cross-trace coverage 1x->2x (C1 vinyl_drop_press_today + C6 lagavulin_single_cask_allocation); lifts total V4 NEW YES cross-trace instance count from 3 to 4. Defensibility: V4 NEW YES had a new within-subclass asymmetry at C5 end (family-milestone 2x at C2+C5 vs scarcity-bounded 1x at C1 only) opened by C5 picking family-milestone for the asymmetric-weakness-closure lift. PATH (c) at C6 closes that within-V4-NEW-YES asymmetry by 1x->2x lift on the scarcity-bounded-opportunity subclause; both V4 NEW YES subclauses now sit at 2x each. Yields strongest reviewer-defensible MECHANISM_CONFIRM evidence-base claim: all V4 NEW YES subclauses tested >=2x cross-trace AND total V4 NEW YES instances at 4. MECHANISM_CONFIRM is the PRIMARY outcome predicate (D7 row identification depends on it strict-5/5 per D14-H3); strengthening evidence for the primary outcome dominates strengthening evidence for the secondary outcome (COMPLIANT_NO_REGRESSION). Scarcity-bounded subclause picked at C6 because the within-V4-NEW-YES asymmetry is the new asymmetrically-weakest mechanism-evidence cell at C5 end; symmetric closure at 2x each maximizes mechanism-coverage defensibility per trace cost.",
+    "v4_new_no_coverage_at_c6": "NONE (intentional per D-C6.attempt1.B locked path-(c) choice). All 3 V4 NEW NO subclauses already 2x each at C1+C2; total 6 V4 NEW NO instances cross-trace post-C2. 3rd-repeat lift dominated by H4 denominator growth (each compliant-content distractor added is a +1 H4 sample whose information density is preserved regardless of which V4 NEW NO subclause it represents at 3rd repeat); path (b) explicitly rejected at C6 Plan.",
+    "v2_existing_yes_compliant_content_coverage_at_c6": {
+      "description": "4 GTs across 4 distinct V2 YES classes; 2 lifts at 3x->4x + 2 lifts at 4x->5x",
+      "gt2_message_delivery_3x_to_4x": "mother_in_law_chemo_infusion_ride_request_voicemail_6pm tests V2 message/delivery class under NEW within-class incident distinct from C1 legal_doc_courier_signature (different mechanism: voicemail-callback vs courier-lobby-wait), C3 partner_voicemail_ring_pickup_jeweler (different sender + reason + decision class), C4 hospital_grandmother_hip_fracture (different sender + reason + relation), M10b sister_pickup (different relation + reason + window), and M10b photographer_voicemail_jen (different sender + reason). 3x->4x cross-trace lift (C1+C3+C4+C6).",
+      "gt3_weather_alert_3x_to_4x": "wildfire_smoke_advisory_aqi_421_hazardous_4hr_shelter tests V2 weather-alert class under NEW within-class incident distinct from C2 flash_flood (precipitation), C3 dust_storm (mineral dust), C4 tornado_watch (convective rotation), M10b earthquake_local (tectonic), M11a boil_water_zip (utility). 3x->4x cross-trace lift (C2+C3+C4+C6).",
+      "gt4_urgent_safety_4x_to_5x": "partner_anaphylaxis_epipen_911_dispatched_second_dose_needed tests V2 urgent-safety class under NEW within-class incident distinct from C1 gas_leak (atmospheric vs medical-emergency), C2 aging_parent_fall_alert (different patient + auto-dispatch mechanism), C4 carbon_monoxide_alarm (atmospheric), C5 child_medication_ingestion (different patient + ER-transport protocol vs in-home EpiPen + 911-coordinate). 4x->5x cross-trace lift (C1+C2+C4+C5+C6).",
+      "gt5_financial_deadline_4x_to_5x": "iso_exercise_window_expires_tomorrow_5pm_2400_shares_disqualifying tests V2 financial/deadline class under NEW within-class incident distinct from C1 student_loan_repayment_resume (consumer-debt vs employer-equity grant), C2 property_tax_installment (gov tax vs employer-equity), C3 homeowner_insurance_lapse (insurance vs equity-grant), C5 quarterly_estimated_tax (federal tax vs equity-grant). 4x->5x cross-trace lift (C1+C2+C3+C5+C6)."
+    },
+    "v2_existing_no_compliant_content_coverage_at_c6": {
+      "description": "4 distractors across 4 distinct V2 NO classes; 1 social-channel-invite lift 2x->3x to complete V2 NO triangulation table + 3 distractors at 3x->4x triangulation",
+      "distr1_social_channel_invite_2x_to_3x": "mastodon_instance_follow_suggestion_weekly_digest_kind_strangers tests V2 social-channel-invite class at 2x->3x triangulation (C1 discord_unread_digest + C4 slack_frontend_weekly_community_invite + C6 mastodon-instance-weekly-digest; distinct on platform Discord/Slack/Mastodon, federation model centralized vs centralized vs federated, channel type unread vs frontend-channel vs follow-suggestion). Completes the V2 NO triangulation table at >=3x for ALL 5 V2 NO classes post-C6.",
+      "distr2_routine_status_3x_to_4x": "datadog_synthetic_monitoring_daily_heartbeat_all_pass_digest tests V2 routine-status/heartbeat class at 3x->4x triangulation (C3 cloud_backup_daily + C4 ssl_monitor_weekly + C5 K8s-autoscaler-monthly + C6 DataDog-synthetic-daily; distinct on platform/tool, monitoring class, cadence, infra-domain).",
+      "distr3_marketing_newsletter_3x_to_4x": "aperture_camera_gear_spring_catalog_email_no_action_required tests V2 marketing/newsletter class at 3x->4x triangulation (C3 kitchen-gear-quarterly-digital-magazine + C4 tea-club-monthly-subscriber + C5 indie-bookstore-quarterly-preorder + C6 camera-gear-spring-catalog; distinct on product category, commerce model, cadence).",
+      "distr4_generic_daily_briefing_3x_to_4x": "monday_week_lookahead_briefing_no_priority_items_flagged tests V2 generic-daily-briefing class at 3x->4x triangulation (C3 morning-briefing + C4 evening-briefing + C5 friday-weekly-recap + C6 Monday-week-lookahead; distinct on cadence, target horizon)."
+    },
+    "v2_no_class_skipped_at_c6": "feature-announcement/app-update stays at 3x (C2 chrome_extension_marketplace_update + C3 notion_new_dashboard_feature_tour + C5 vscode_marketplace_verified_publisher_tab). C6 path-(c) selected 3 of the 4 V2 NO 3x-classes for the 3x->4x lift + 1 V2 NO 2x-class (social-channel-invite) for the 2x->3x lift; feature-announcement defers to C7+.",
+    "cross_trace_coverage_state_through_c6": {
+      "v4_new_yes_total_instances": "4 (scarcity-bounded-opportunity 2x at C1+C6; family-milestone-with-social-cost 2x at C2+C5). Both subclauses now at 2x each \u2014 within-V4-NEW-YES asymmetry closed.",
+      "v4_new_no_total_instances": "6 (3 subclauses x 2x each at C1+C2; unchanged through C3..C6)",
+      "v2_existing_yes_classes": {
+        "urgent_safety_security": "5x (C1+C2+C4+C5+C6)",
+        "schedule_change_personal": "4x (C1+C3+C4+C5)",
+        "financial_deadline": "5x (C1+C2+C3+C5+C6)",
+        "production_on_call": "4x (C2+C3+C4+C5)",
+        "message_delivery_personal": "4x (C1+C3+C4+C6)",
+        "weather_alert": "4x (C2+C3+C4+C6)",
+        "discretionary_deadline_v4_yes_at_v2_aggregate_only": "2x (C1+C2; C5 family-milestone + C6 scarcity-bounded both counted directly under V4 NEW YES subclasses, not under this aggregate)"
+      },
+      "v2_existing_no_classes": {
+        "routine_status_heartbeat": "4x (C3+C4+C5+C6)",
+        "marketing_newsletter": "4x (C3+C4+C5+C6)",
+        "generic_daily_briefing": "4x (C3+C4+C5+C6)",
+        "feature_announcement_app_update": "3x (C2+C3+C5)",
+        "social_channel_invite": "3x (C1+C4+C6) \u2014 V2 NO triangulation table now complete at >=3x for ALL 5 V2 NO classes"
+      }
+    },
+    "summary": "Maximal MECHANISM_CONFIRM evidence-base lift on the asymmetrically-weakest V4 mechanism cell (within-V4-NEW-YES asymmetry: scarcity-bounded-opportunity subclause 1x->2x; total V4 NEW YES 3->4; both V4 NEW YES subclauses now symmetrically at 2x each) + 2 V2 EXISTING YES classes lifted 3x->4x (message/delivery + weather-alert; closes V2 YES 3x->4x gap on the 2 remaining 3x classes) + 2 V2 EXISTING YES classes lifted 4x->5x (urgent-safety + financial/deadline) + 4 V2 EXISTING NO classes lifted (social-channel-invite 2x->3x completes V2 NO table at >=3x for ALL 5 classes; routine-status + marketing-newsletter + generic-daily-briefing 3x->4x). 4 traces remain for combined-N=20 closure; C7..C10 may continue compliant-content discipline at remaining 3x classes (feature-announcement V2 NO + schedule-change/production-on-call V2 YES) OR lift schedule-change + production-on-call V2 YES 4x->5x OR add 3rd-repeat V4 NEW YES (after this symmetric closure that is now done) OR consider Path-(d)-style within-V2-class 5-GT triangulation only if H4 evidence-base saturation warrants it (currently not flagged)."
+  },
+  "fresh_session_metadata": {
+    "discipline": "fresh-session-restart-from-scratch per auto-memory feedback_new_session_for_arch_work.md \u2014 zero event_id / content / keyword / sim_time / briefing / intent carryover from C1..C5 attempts",
+    "carryover_from_c1_c2_c3_c4_c5": "NONE",
+    "session_opened_at_head": "b349b236b4f059e11e99289476d0826276d41d93",
+    "sandbox_event_trace_py_sha256_at_session_open": "624efc600058782d7950ab72033283c39ab86b24de1b9d7292f5260a05a8efc9",
+    "sandbox_event_trace_py_bytes_at_session_open": 76743,
+    "v4_prompt_sha256_at_session_open": "09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6",
+    "v4_prompt_bytes_at_session_open": 1851,
+    "v4_prompt_locked_plan_anchor": "~/.claude/plans/m11a-extension-v4-prompt-n20.md \u00a7D1 (bytewise verified at attempt-#1 session open)"
+  },
+  "milestone_attempt_count_running": {
+    "before_c6_attempt_1": 6,
+    "after_c6_attempt_1_acceptance": 7,
+    "halt_threshold_d_c1_5_2": ">25 cumulative attempts AND <10 accepted",
+    "halt_triggered": false,
+    "structural_parsing_failure_rate_to_date": "0/7 attempts (C1 attempt-1 PASS + C2 attempt-1 step-2 M8b reject NOT counted as structural-parsing per \u00a7D4 design + C2 attempt-2 PASS + C3 attempt-1 PASS + C4 attempt-1 PASS + C5 attempt-1 PASS + C6 attempt-1 PASS)",
+    "literal_id_collision_halt_triggered": false,
+    "retry_cap_on_test_v26": "1/3 used; PASS at attempt 1; 2 retries remaining had attempt 1 not accepted (D-C1.4)"
+  }
+}

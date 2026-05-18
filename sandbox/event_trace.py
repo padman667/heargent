@@ -1194,6 +1194,65 @@ def test_trace_v25() -> Trace:
     )
 
 
+def test_trace_v26() -> Trace:
+    gts = [
+        _gt(
+            Event(id="lagavulin_single_cask_allocation_38min_window_distillery", kind="email", sim_time=210.0,
+                  content="Lagavulin distillery cask-share allocation notice for registered members: the 2002 vintage single-cask special release has just opened a thirty-eight minute allocation window. Exactly three hundred and twelve bottles were produced, one bottle per member, with claim-or-release rolling at sixty-second intervals once the queue advances. You are currently at position forty-seven and your hold expires in roughly thirty-eight minutes if you do not claim; once the window closes the remaining bottles route to the trade-only secondary list and are not offered back to the member queue."),
+            window_s=240.0, keywords=("lagavulin", "allocation"),
+        ),
+        _gt(
+            Event(id="mother_in_law_chemo_infusion_ride_request_voicemail_6pm", kind="phone_message", sim_time=440.0,
+                  content="Voicemail from your mother-in-law Elena: hi sweetie, I hate to ask but my regular ride to oncology fell through and the chemo infusion is at eight in the morning tomorrow at Memorial. The protocol is roughly four hours in the chair, so I need someone who can stay through and drive me home because I am too groggy to do it on my own afterward. Please call back tonight before six if you can take me; otherwise I need to call the patient-transport line and they cut off bookings at seven sharp."),
+            window_s=200.0, keywords=("chemo", "infusion"),
+        ),
+        _gt(
+            Event(id="wildfire_smoke_advisory_aqi_421_hazardous_4hr_shelter", kind="alert", sim_time=360.0,
+                  content="NWS AirNow advisory for your zip code: particulate-matter readings from the Hazelnut Ridge wildfire smoke plume have pushed the regional Air Quality Index from two-forty up to four-twenty-one over the last hour, well into the hazardous tier above the very-unhealthy band. All outdoor activity is discouraged for the next four hours minimum; close exterior windows, run HVAC on recirculate with HEPA filtration if available, and N95 masks are recommended for any unavoidable outdoor exposure. Sensitive groups, infants, and anyone with cardiac or respiratory conditions should shelter indoors until the AQI drops back below one-fifty."),
+            window_s=240.0, keywords=("wildfire", "smoke"),
+        ),
+        _gt(
+            Event(id="iso_exercise_window_expires_tomorrow_5pm_2400_shares_disqualifying", kind="email", sim_time=520.0,
+                  content="Email from Carta equity admin: your incentive stock option grant from your March separation has its post-termination ISO exercise window expiring tomorrow at five in the afternoon Pacific. The remaining grant balance is twenty-four hundred shares at a strike price of fourteen dollars and twenty cents per share; partial exercise is allowed in lots of one hundred shares with same-day funded clearing. Failure to exercise by the deadline forfeits the entire remaining balance and the disqualifying-disposition treatment for current-tax-year ISO conversions will not apply to the lapsed shares. Wire instructions are in the attached one-page PDF."),
+            window_s=220.0, keywords=("iso", "exercise"),
+        ),
+        _gt(
+            Event(id="partner_anaphylaxis_epipen_911_dispatched_second_dose_needed", kind="alert", sim_time=620.0,
+                  content="Your partner just collapsed at the kitchen counter after eating from a takeout container labeled pad thai with peanuts; visible facial swelling and severe wheezing within ninety seconds, classic anaphylaxis presentation. EpiPen administered to the outer thigh; nine-one-one dispatched and confirmed paramedics six minutes out. The home kit has only one EpiPen and the live nine-one-one dispatcher is asking on speaker whether you have a second dose somewhere in the house because symptoms are not responding to the first injection within the expected three-minute window."),
+            window_s=90.0, keywords=("anaphylaxis", "epipen"),
+        ),
+    ]
+    distractors = [
+        Event(id="monday_week_lookahead_briefing_no_priority_items_flagged", kind="notification", sim_time=30.0,
+              content="Monday morning week-look-ahead briefing: you have nine meetings scheduled this week, down from thirteen last week, three of them recurring one-on-ones and two cross-team syncs already on the books. Calendar shows three two-hour heads-down blocks Tuesday through Thursday. Inbox is at twelve unread with all twelve categorized routine. No priority items are flagged from your project list, OKR scorecards, or stakeholder asks. Have a focused week."),
+        Event(id="datadog_synthetic_monitoring_daily_heartbeat_all_pass_digest", kind="email", sim_time=75.0,
+              content="Daily DataDog synthetic-monitoring digest for prod-monitoring-pipeline: two-hundred-and-forty-seven synthetic browser checks completed in the last twenty-four hours with two-hundred-and-forty-seven of two-hundred-and-forty-seven passing on first attempt across all geographic regions, including us-east, us-west, eu-central, and ap-southeast. API endpoint checks: one-thousand-eight-hundred-twenty-four of one-thousand-eight-hundred-twenty-four returned expected status codes within the p95 latency budget. No alerts triggered. The next synthetic-monitoring digest sends tomorrow at the same time."),
+        Event(id="mastodon_instance_follow_suggestion_weekly_digest_kind_strangers", kind="notification", sim_time=110.0,
+              content="Your Mastodon instance hachyderm.io weekly digest: based on the accounts you already follow and your reading patterns, we suggest following these eight accounts this week — three software-engineering generalists from federated instances, two technical writers, two systems-engineering folks, and one cybersecurity researcher. Click through to preview each account's last fifty posts; no auto-follow happens. The digest sends every Sunday and you can mute the suggestion stream in notification preferences if you find it noisy."),
+        Event(id="aperture_camera_gear_spring_catalog_email_no_action_required", kind="email", sim_time=290.0,
+              content="Aperture Photo Supply spring catalog is now available — explore sixty-four new releases from Fujifilm, Sony, and Sigma, plus seasonal accessory bundles featuring rebated lighting kits and entry-level tripod packages. The catalog includes detailed lens-comparison charts, sample image galleries, and a community-contributed buying-guide for first-time mirrorless purchasers. Browse at your leisure; unsubscribe from seasonal mailings in your account preferences if you prefer fewer messages."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v26",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "Monday morning at home in Bend, Oregon. "
+            "Recently separated from my prior startup employer in March, navigating the post-termination ISO exercise window and a parallel cap-table cleanup; my partner with a documented peanut allergy lives with me and we keep a stocked EpiPen kit in the kitchen. "
+            "The Hazelnut Ridge fire complex is burning thirty miles west and the air-quality has been roller-coastering all week. My mother-in-law in Portland started a new chemo protocol last month and her transport options are unreliable. "
+            "Notifications are filtered for urgent: medical-emergency, hard-deadline financial, weather alerts that change my plans, and personal voicemails from family should break through; routine status pings, marketing emails, social-channel digests, and the daily briefing can wait."
+        ),
+        intents=(
+            "respond instantly to any medical-emergency involving my partner with the EpiPen kit and 911 coordination",
+            "do not let the ISO exercise window expire — partial-exercise lots are funded but the deadline is firm",
+            "act on any AQI hazardous-tier wildfire-smoke alert with indoor shelter and HEPA HVAC",
+            "take any family-elder voicemail in time to respond before tonight's cutoff",
+            "let routine status, social-channel digests, marketing catalogs, and the briefing wait until evening",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -1216,6 +1275,7 @@ def get_trace(name: str) -> Trace:
         "test_v23": test_trace_v23,
         "test_v24": test_trace_v24,
         "test_v25": test_trace_v25,
+        "test_v26": test_trace_v26,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")
