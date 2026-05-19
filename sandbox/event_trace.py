@@ -1375,6 +1375,66 @@ def test_trace_v28() -> Trace:
     )
 
 
+def test_trace_v29() -> Trace:
+    gts = [
+        _gt(
+            Event(id="nike_snkrs_zoom_kobe_5_protro_mamba_day_verified_buyer_sneaker_raffle_40min_180pair", kind="notification", sim_time=420.0,
+                  content="SNKRS app push for verified-buyer accounts only: the Mamba-Day commemorative Zoom Kobe 5 Protro sneaker raffle has just opened a forty-minute entry window and closes at eleven-fifty Pacific sharp. Total release across every available size is one hundred eighty pairs; the deepest inventory sits at sizes ten through eleven, while sizes eight and thirteen each hold four pairs and are expected to clear well before the timer expires. Size selection locks at raffle entry — no swap once the window closes — and confirmed winners receive a ninety-second push-and-email handshake with a ten-minute payment-confirm grace before the slot rolls to the runner-up queue. Any surface-released inventory after the final notify wave auto-routes to the trade-resale list and is not offered back to the verified-buyer raffle queue."),
+            window_s=240.0, keywords=("sneaker", "raffle"),
+        ),
+        _gt(
+            Event(id="partner_stroke_fast_protocol_facial_droop_speech_slur_911_dispatcher_tpa_3hr_window_speaker", kind="alert", sim_time=640.0,
+                  content="Your partner just slumped forward at the kitchen table — right-side facial droop, right arm hanging limp at her side, slurred speech when you asked her to repeat a short sentence — textbook fast-protocol stroke presentation, with symptom onset inside the last ninety seconds. You have her seated upright with her head supported and have dialed nine-one-one; the dispatcher is on speaker and confirmed paramedics are six minutes out. The dispatcher asked you to write down the exact symptom-onset timestamp because tPA — the tissue-plasminogen-activator clot-busting agent — has a three-hour eligibility window from onset for ischemic-stroke patients at the regional comprehensive stroke center. She is conscious and tracking your eyes. Do not give aspirin or any anticoagulant until paramedics on arrival image-confirm ischemic versus hemorrhagic; her documented prior TIA and family history of early-onset stroke are in the home medical binder on the counter."),
+            window_s=90.0, keywords=("stroke", "tpa"),
+        ),
+        _gt(
+            Event(id="orthopedist_knee_mri_consult_moved_up_730am_tomorrow_specialist_sabbatical_pre_op_meniscectomy", kind="email", sim_time=320.0,
+                  content="Email from the orthopedist's scheduling office at the Sutter Sports-Medicine clinic: Dr. Reyes had a same-day cancellation on tomorrow morning's seven-thirty slot and the clinic is offering you that opening to discuss the recent knee-MRI imaging and walk through the pre-op decision on the partial-meniscectomy arm versus the conservative-care arm. The original consult was on the books for next Tuesday afternoon; the seven-thirty opening is the only consult opportunity before Dr. Reyes leaves for a two-week medical-education sabbatical and the next available consult after the sabbatical is the third week of next month. Confirm by five-p.m. today through the patient-portal scheduling tab or the slot releases to the surgical-coordinator backup queue with no further reminders sent. The knee-MRI radiology report and the annotated image series have been auto-attached to the patient-portal medical-record entry so you can pre-read them tonight."),
+            window_s=220.0, keywords=("orthopedist", "mri"),
+        ),
+        _gt(
+            Event(id="roth_ira_conversion_election_5pm_deadline_year_end_recharacterization_no_longer_permitted_tcja", kind="email", sim_time=210.0,
+                  content="Year-end notice from your IRA custodian: today is the December-thirty-first calendar deadline for any Roth-conversion election to be applied to the current tax-year, and the secure-message portal cuts conversion-submission acceptance at five p.m. Pacific. Recharacterization-back-to-Traditional is no longer permitted under the 2017 federal tax-code revision once a Roth conversion is filed, so the election is functionally one-way once the five-p.m. timestamp lands; the corresponding tax liability flows onto the next-April-fifteen filing without any unwind option. A pro-forma worksheet from the custodian's tax-projection module is attached with the converted-balance tax-bracket impact and a safe-harbor estimated-quarterly adjustment for the current tax-year. The custodian-side conversion desk also suggests submitting before three p.m. to leave room for two resubmission attempts in case the portal returns a settlement-validation error on first pass; the conversion-submission queue runs noticeably slower on the year-end timestamp surge."),
+            window_s=240.0, keywords=("roth", "conversion"),
+        ),
+        _gt(
+            Event(id="vault_pki_secrets_engine_lease_renewal_cascade_failure_storefront_auth_outage_p1_75min_dns_zone_drift", kind="alert", sim_time=510.0,
+                  content="PagerDuty SEV-one incident on the platform-security HashiCorp Vault cluster vault-prod-us-east-1a at sixteen-twelve UTC: the PKI secrets-engine lease-renewal pipeline has dropped into a cascade-failure pattern across the regional service mesh — three thousand four hundred consumer-pod leases failed renewal in the last six minutes, and authentication-handshake fallback to the staging-tier replica is throwing certificate-trust errors because the primary intermediate CA's issuing-chain is partially expired in the failover zone. Storefront-API service-account authentication has climbed to twenty-six-percent failure rate and is still trending up; downstream order-processing and inventory-sync are queueing against the auth-fallback retry backoff. The seventy-five-minute runbook escalation auto-pages the security-platform incident commander if lease-renewal recovery has not stabilized inside the first thirty minutes. You hold the primary on-call this rotation; the secondary just opened the war-room bridge and the security-platform PM is monitoring on the storefront PagerDuty channel. Preliminary diagnosis points at a DNS-zone caching mismatch between the primary and standby clusters following last night's authoritative record-set update."),
+            window_s=220.0, keywords=("vault", "lease"),
+        ),
+    ]
+    distractors = [
+        Event(id="aws_config_compliance_daily_evaluation_digest_zero_drift_all_accounts_no_action_required", kind="notification", sim_time=30.0,
+              content="Daily AWS Config compliance-evaluation digest for the platform-org payer account: every managed rule across all forty-two member accounts evaluated COMPLIANT on the overnight run with zero drift events and zero remediation actions queued by the AWS Config rules engine. The s3-bucket-encryption rule cleared on every bucket; the iam-password-policy rule cleared on every member; the encrypted-volumes rule cleared on every EBS volume. The next compliance-evaluation cycle is on the calendar for the same overnight window and the report will land in this inbox at the same morning timestamp."),
+        Event(id="substack_notes_weekly_follow_recommendation_digest_writers_education_circle_no_time_pressure", kind="notification", sim_time=70.0,
+              content="Substack Notes sends you a weekly follow-recommendation bundle from a Notes-stack curator you already follow: nine writers in the education-and-policy circle, including two former colleagues from your earlier classroom-research years and one writer whose newsletter you have read on-and-off without subscribing. The follow-recommendation list can be browsed individually; nothing auto-follows and the bundle does not expire on any fixed deadline. Substack pushes the follow-recommendation digest every Sunday and the notification stream can be muted under the reader preferences if the digest cadence feels too noisy."),
+        Event(id="outdoor_voices_summer_apparel_quarterly_catalog_email_no_action_required_browse_at_pace", kind="email", sim_time=130.0,
+              content="The Outdoor Voices summer-season apparel catalog dropped on the brand site overnight: a refreshed everyday-running silhouette returns in three new colorways, the lightweight technical-shorts revival the community has been asking after since last fall is finally on the page, and the brand's heritage-pastel matching set is back in a second-edition cut. Pace the browsing however your week settles — the launch-window expedited-shipping perk runs across the full summer line for any order placed while the catalog sits in promotional rotation, with no fixed countdown timer attached. Two further seasonal catalogs are queued for later in the year under the brand's standard release rhythm, spanning the early-fall and the holiday-gifting horizon. Sizing questions, exchange requests, and customer-service follow-ups route through the help-center contact form linked from the brand site footer."),
+        Event(id="linear_app_cycles_2026_planning_view_launch_announcement_quarterly_release_notes_no_action", kind="email", sim_time=580.0,
+              content="Linear product-update email: the Cycles 2026 planning view is now available on every workspace and gives team leads a single-pane view of in-flight cycle progress, projected cycle-completion velocity, and carryover-issue density across the upcoming three cycles. The planning view is opt-in at the workspace level and can be toggled on under the workspace-settings cycle preferences; no migration step is needed and existing cycle data is preserved bytewise. The accompanying quarterly release notes cover four other smaller updates landing on the same release train, including the project-roadmap-export refresh and the issue-template-library expansion. The launch retrospective writeup is published on the Linear engineering blog under the Cycles 2026 launch-week tag."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v29",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "Wednesday morning at home in Oakland; rolling year-end retirement-account close and a knee-injury arc with the orthopedist after last month's MRI imaging. "
+            "Currently holding the primary on-call rotation for the storefront-platform security infrastructure; the Vault PKI cluster has been showing lease-renewal latency drift since last night's authoritative DNS-zone update. "
+            "Partner has a documented prior TIA and a family history of early-onset stroke on her father's side; the home medical binder with her anticoagulant-protocol notes is on the kitchen counter. "
+            "Signed up for the SNKRS verified-buyer raffle list last week ahead of the Mamba-Day commemorative drop. "
+            "Notifications are filtered for urgent: any fast-protocol stroke symptoms in my partner, severity-one Vault PKI on-call pages, hard-deadline financial elections on the year-end Roth conversion, same-day specialist consults from the orthopedist, and the SNKRS sneaker-raffle entry window inside its forty-minute timer; routine AWS-Config compliance digests, Outdoor Voices catalog releases, Linear product-launch announcements, and Substack Notes follow-recommendation digests can wait."
+        ),
+        intents=(
+            "respond instantly to any fast-protocol stroke symptoms in my partner — the tPA three-hour ischemic-stroke window is the critical clock and the dispatcher is already on speaker",
+            "answer the Vault PKI SEV-one bridge well inside the first thirty minutes before the seventy-five-minute runbook auto-pages the security-platform incident commander",
+            "confirm the seven-thirty orthopedist consult tomorrow before five p.m. today through the patient portal or the slot releases to the surgical-coordinator backup queue",
+            "submit the Roth IRA conversion election through the custodian's secure-message portal before five p.m. Pacific today; recharacterization-back-to-Traditional is no longer a permitted unwind path",
+            "enter the SNKRS verified-buyer sneaker raffle inside the forty-minute entry window before surface-released inventory auto-routes to the trade-resale list; otherwise the daily AWS Config digest, the Outdoor Voices summer catalog, the Linear Cycles 2026 announcement, and the Substack Notes follow-recommendation digest can all wait",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -1400,6 +1460,7 @@ def get_trace(name: str) -> Trace:
         "test_v26": test_trace_v26,
         "test_v27": test_trace_v27,
         "test_v28": test_trace_v28,
+        "test_v29": test_trace_v29,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")

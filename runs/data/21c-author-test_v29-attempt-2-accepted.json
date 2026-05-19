@@ -1,0 +1,333 @@
+{
+  "milestone": "M11a-extension",
+  "commit": "C9",
+  "trace_name": "test_v29",
+  "verdict": "ACCEPTED at attempt 2 of 2 total attempts (attempt 1 REJECTED at audit-gate step 6 due to 1 8-gram boilerplate-template overlap with C8 D3 Meridian Games marketing-newsletter closing)",
+  "attempt_count_total": 2,
+  "retry_cap_consumed_at_c9": 2,
+  "retry_cap_remaining": 1,
+  "cumulative_milestone_attempts_through_c9": 12,
+  "halt_conditions_status": {
+    "d_c1_5_1_literal_id_collision": "NOT TRIGGERED (audit step 4 PASS both attempts)",
+    "d_c1_5_2_saturation_25_attempts_under_10_accepted": "NOT TRIGGERED (12 < 25; 9 accepted toward target 10)",
+    "d_c1_5_3_retry_cap_3_per_trace": "NOT EXHAUSTED (2/3 used; 1 remaining)"
+  },
+  "self_restate_prompt_render": {
+    "command": "uv run python -m eval.author_trace --banned-list runs/data/21c-banned-list-pre-c9.txt",
+    "rendered_prompt_sha256": "499ec3651ca8afe61adf2e56036c55e520e7a5dfd491cf52739ec65a4523b63e",
+    "rendered_prompt_bytes": 25765,
+    "banned_list_counts": {
+      "event_ids": 199,
+      "themes": 112,
+      "tuples": 111
+    }
+  },
+  "self_restate_response_verbatim": "Restating the four protocol constraints from the rendered self-restate prompt in my own words at C9 attempt #1, fresh-session-restart-from-scratch, with no carryover from C1..C8 wording:\n\n(a) The Python module file at sandbox/event_trace.py is parsed by the Python interpreter that imports it; therefore every value I write in the new test_trace_v29() definition must be an expression Python 3.11+ can interpret without raising a SyntaxError or NameError. Concretely this means: all string literals are properly quoted (single, double, or triple quotes with the right escapes); all numeric literals are integer or float without unit suffixes; Event.id strings are pure literals (no f-strings, no concatenation, no .format() calls); the function returns a Trace(...) constructed from a list of GroundTruthEvent and Event instances using the existing helper _gt(event, window_s, keywords); the events= list is built by sort-by-sim_time on [g.event for g in gts] + distractors; the dataclass fields match the existing Trace + GroundTruthEvent + Event signatures bytewise. Any addition to the registry dict in get_trace() must use a string key matching the function-call key shape ('test_v29': test_trace_v29).\n\n(b) The walrus operator := is forbidden anywhere in the new function body, in any docstring, and in any string-content literal that could be re-parsed downstream. There is no legitimate reason to introduce a walrus in a Trace authoring function \u2014 the explicit variable-binding pattern that prior test_trace_v* functions use is the precedent shape and does not require walrus syntax to express anything I need at C9.\n\n(c) Event.id strings must not contain arithmetic expressions. The id is a pure string literal, not a computed expression. Numbers that happen to appear inside the id (such as '40min' or '730am' or '5pm' or '180pair') are literal characters concatenated into the id string at author time \u2014 they are not 40 * minutes / 730 % am / 5 / pm or any arithmetic computation. The id 'test_v9' is a pure character sequence test underscore v underscore 9; it is not 'test_v' + str(int_expression). M11a saw three structural-parsing failures (test_v11 attempt-1 walrus syntax; test_v13 attempt-2 arithmetic; test_v15 attempt-1 arithmetic) when this rule was violated \u2014 those failures are the reason this constraint is enforced here.\n\n(d) The provided iteratively-extended banned list at runs/data/21c-banned-list-pre-c9.txt contains 199 event_ids + 112 content-themes + 111 keyword tuples. I must not use any of those 199 strings as the Event.id field of any event in test_trace_v29 (mechanical set-intersection check). I must not author any GroundTruthEvent whose content falls within any of the 112 banned content themes (semantic similarity hand-audit). I must not use any of the 111 banned keyword tuples as the GroundTruthEvent.keywords field (mechanical bytewise check). The pre-C9 file ships at C9 commit time per D-C1.1 invariant; the pre-C8 file at runs/data/21c-banned-list-pre-c8.{txt,json} remains bit-identical and is not mutated.\n\nBeyond (a)-(d), the M11a-extension Commit C protocol adds the additional pre-flight discipline from D-C2.attempt2.C through D-C8.attempt1.C, carried forward as standing per-attempt author discipline at C9: after authoring the function but before submitting the trace through the audit-gate, run the Step 3.5 keyword literal-substring verification command and confirm all 10 (keyword, GT) pairs print True. Authoring discipline at draft time: every keyword string must appear as a case-insensitive substring of its GT event content. Additionally per D-C8.attempt1.C, for V2 NO distractor content \u2014 especially marketing/newsletter + generic-daily-briefing classes where formulaic closing-sentence and template middle-sentence phrasings are common \u2014 paraphrase any clause that would read the same regardless of which trace was being authored, to avoid the C7-attempt-1 step-6 8-gram drift overlap rejection mode at the audit-gate pre-submission gate.",
+  "step_3_5_pre_flight": {
+    "command": "uv run python -c \"from sandbox.event_trace import get_trace; t = get_trace('test_v29'); [print(f'{kw!r} in {g.event.id}: {kw.lower() in g.event.content.lower()}') for g in t.ground_truth for kw in g.keywords]\"",
+    "first_run_verdict": "PASS (all 10 pairs True; first-run-PASS at attempt-1 + re-PASS at attempt-2 since GT content unchanged between attempts)",
+    "pairs": [
+      {
+        "keyword": "sneaker",
+        "event_id": "nike_snkrs_zoom_kobe_5_protro_mamba_day_verified_buyer_sneaker_raffle_40min_180pair",
+        "match": true
+      },
+      {
+        "keyword": "raffle",
+        "event_id": "nike_snkrs_zoom_kobe_5_protro_mamba_day_verified_buyer_sneaker_raffle_40min_180pair",
+        "match": true
+      },
+      {
+        "keyword": "stroke",
+        "event_id": "partner_stroke_fast_protocol_facial_droop_speech_slur_911_dispatcher_tpa_3hr_window_speaker",
+        "match": true
+      },
+      {
+        "keyword": "tpa",
+        "event_id": "partner_stroke_fast_protocol_facial_droop_speech_slur_911_dispatcher_tpa_3hr_window_speaker",
+        "match": true
+      },
+      {
+        "keyword": "orthopedist",
+        "event_id": "orthopedist_knee_mri_consult_moved_up_730am_tomorrow_specialist_sabbatical_pre_op_meniscectomy",
+        "match": true
+      },
+      {
+        "keyword": "mri",
+        "event_id": "orthopedist_knee_mri_consult_moved_up_730am_tomorrow_specialist_sabbatical_pre_op_meniscectomy",
+        "match": true
+      },
+      {
+        "keyword": "roth",
+        "event_id": "roth_ira_conversion_election_5pm_deadline_year_end_recharacterization_no_longer_permitted_tcja",
+        "match": true
+      },
+      {
+        "keyword": "conversion",
+        "event_id": "roth_ira_conversion_election_5pm_deadline_year_end_recharacterization_no_longer_permitted_tcja",
+        "match": true
+      },
+      {
+        "keyword": "vault",
+        "event_id": "vault_pki_secrets_engine_lease_renewal_cascade_failure_storefront_auth_outage_p1_75min_dns_zone_drift",
+        "match": true
+      },
+      {
+        "keyword": "lease",
+        "event_id": "vault_pki_secrets_engine_lease_renewal_cascade_failure_storefront_auth_outage_p1_75min_dns_zone_drift",
+        "match": true
+      }
+    ],
+    "iteration_history": "no in-session iteration required; D-C2.attempt2.C / D-C3.attempt1.C / D-C4.attempt1.C / D-C5.attempt1.C / D-C6.attempt1.C / D-C7.attempt1.C / D-C8.attempt1.C carry-forward at C9 \u2014 content authored with explicit single-word keyword-substring attention at draft time"
+  },
+  "attempt_log": [
+    {
+      "attempt": 1,
+      "verdict": "REJECTED at audit-gate step 6 (drift overlap b \u22658-word verbatim phrase)",
+      "rejection_evidence": {
+        "step_6_overlap_count": 1,
+        "overlapping_8gram": "pre-orders placed during catalog week qualify for a",
+        "source_in_attempt1": "D2 Outdoor Voices summer-apparel catalog closing \u2014 'Browse the lineup whenever it suits your week; pre-orders placed during catalog week qualify for a complimentary shipping upgrade across the full summer collection.'",
+        "matching_prior_phrase": "C8 D3 Meridian Games summer-catalog \u2014 'Browse the lineup at your own pace; pre-orders placed during catalog week qualify for a discounted shipping rate on the full Eurogame line.'",
+        "rejection_mode": "boilerplate-template marketing-newsletter closing-sentence phrasing convergence; exact mode D-C8.attempt1.C paraphrase discipline was added to prevent (per C7-attempt-1-step-6 rejection precedent)",
+        "attribution": "Author missed the marketing-newsletter template-phrasing convergence at draft time; D-C8.attempt1.C discipline was designed to catch this at the pre-flight authoring stage but I did not apply it tightly enough to the 'pre-orders placed during catalog week qualify for a' clause. Audit step 6 caught it mechanically at the pre-submission gate exactly as designed."
+      },
+      "retry_cap_consumed": 1,
+      "remediation_pattern": "D-C7.attempt1.D in-line targeted distractor-text revision (rejection strictly localized to D2 Outdoor Voices marketing-newsletter content; 5 GT content + briefing + intents + the other 3 distractor events preserved bytewise between attempts)"
+    },
+    {
+      "attempt": 2,
+      "verdict": "ACCEPTED at audit-gate 8/8 PASS",
+      "revision_scope": "Targeted in-line revision of D2 outdoor_voices Event.content only. Replaced the 'pre-orders placed during catalog week qualify for a' boilerplate-template clause with per-trace paraphrased wording: 'Pace the browsing however your week settles \u2014 the launch-window expedited-shipping perk runs across the full summer line for any order placed while the catalog sits in promotional rotation, with no fixed countdown timer attached.' Also paraphrased the closing customer-service sentence as a defensive measure against template-phrasing convergence. All other Event.content fields, GT keywords/windows, briefing, intents bytewise unchanged between attempts.",
+      "retry_cap_consumed": 1,
+      "retry_cap_status_post_attempt": "2/3 used; 1 retry remaining had attempt #2 not accepted"
+    }
+  ],
+  "audit_gate_result": {
+    "step_1_schema_check": {
+      "verdict": "PASS",
+      "evidence": "get_trace('test_v29') returns Trace with name='test_v29', len(events)=9, len(ground_truth)=5, duration_s=760.0. No exception raised on import or call. duration_s=760.0 is the correctly computed max(last_gt_completion=730 [partner_stroke 640+90 + vault_pki 510+220], last_event_time=640) + 30.0 per Trace.duration_s property."
+    },
+    "step_2_keyword_content_alignment": {
+      "verdict": "PASS",
+      "pairs_total": 10,
+      "pairs_true": 10,
+      "all_pairs": [
+        {
+          "keyword": "sneaker",
+          "event_id": "nike_snkrs_zoom_kobe_5_protro_mamba_day_verified_buyer_sneaker_raffle_40min_180pair",
+          "match": true
+        },
+        {
+          "keyword": "raffle",
+          "event_id": "nike_snkrs_zoom_kobe_5_protro_mamba_day_verified_buyer_sneaker_raffle_40min_180pair",
+          "match": true
+        },
+        {
+          "keyword": "stroke",
+          "event_id": "partner_stroke_fast_protocol_facial_droop_speech_slur_911_dispatcher_tpa_3hr_window_speaker",
+          "match": true
+        },
+        {
+          "keyword": "tpa",
+          "event_id": "partner_stroke_fast_protocol_facial_droop_speech_slur_911_dispatcher_tpa_3hr_window_speaker",
+          "match": true
+        },
+        {
+          "keyword": "orthopedist",
+          "event_id": "orthopedist_knee_mri_consult_moved_up_730am_tomorrow_specialist_sabbatical_pre_op_meniscectomy",
+          "match": true
+        },
+        {
+          "keyword": "mri",
+          "event_id": "orthopedist_knee_mri_consult_moved_up_730am_tomorrow_specialist_sabbatical_pre_op_meniscectomy",
+          "match": true
+        },
+        {
+          "keyword": "roth",
+          "event_id": "roth_ira_conversion_election_5pm_deadline_year_end_recharacterization_no_longer_permitted_tcja",
+          "match": true
+        },
+        {
+          "keyword": "conversion",
+          "event_id": "roth_ira_conversion_election_5pm_deadline_year_end_recharacterization_no_longer_permitted_tcja",
+          "match": true
+        },
+        {
+          "keyword": "vault",
+          "event_id": "vault_pki_secrets_engine_lease_renewal_cascade_failure_storefront_auth_outage_p1_75min_dns_zone_drift",
+          "match": true
+        },
+        {
+          "keyword": "lease",
+          "event_id": "vault_pki_secrets_engine_lease_renewal_cascade_failure_storefront_auth_outage_p1_75min_dns_zone_drift",
+          "match": true
+        }
+      ]
+    },
+    "step_3a_banned_event_id_literal_review": {
+      "verdict": "PASS",
+      "banned_count": 199,
+      "v29_event_ids": [
+        "aws_config_compliance_daily_evaluation_digest_zero_drift_all_accounts_no_action_required",
+        "linear_app_cycles_2026_planning_view_launch_announcement_quarterly_release_notes_no_action",
+        "nike_snkrs_zoom_kobe_5_protro_mamba_day_verified_buyer_sneaker_raffle_40min_180pair",
+        "orthopedist_knee_mri_consult_moved_up_730am_tomorrow_specialist_sabbatical_pre_op_meniscectomy",
+        "outdoor_voices_summer_apparel_quarterly_catalog_email_no_action_required_browse_at_pace",
+        "partner_stroke_fast_protocol_facial_droop_speech_slur_911_dispatcher_tpa_3hr_window_speaker",
+        "roth_ira_conversion_election_5pm_deadline_year_end_recharacterization_no_longer_permitted_tcja",
+        "substack_notes_weekly_follow_recommendation_digest_writers_education_circle_no_time_pressure",
+        "vault_pki_secrets_engine_lease_renewal_cascade_failure_storefront_auth_outage_p1_75min_dns_zone_drift"
+      ],
+      "collisions": []
+    },
+    "step_3b_banned_theme_semantic_review": {
+      "verdict": "PASS",
+      "per_gt_distinguishing_qualifiers": [
+        {
+          "event_id": "nike_snkrs_zoom_kobe_5_protro_mamba_day_verified_buyer_sneaker_raffle_40min_180pair",
+          "v4_regime_class": "discretionary-deadline obligation (V4 NEW YES, scarcity-bounded-opportunity subclass)",
+          "distinguishing_qualifiers": "Distinct from C1 vinyl_drop_press_today on domain (footwear/streetwear retail vs music vinyl pressing), mechanism (verified-buyer raffle with size-locked random-draw entry vs first-come-first-served queue), product class (Nike Zoom Kobe 5 Protro Mamba-Day commemorative sneaker vs Sault 'Earth' double-LP first pressing), quantity-cap shape (180 pairs across size sub-caps vs 250 copies single-cap), window mechanism (40-min entry window with ten-minute payment-confirm grace vs 30-min purchase queue). Distinct from C6 lagavulin_single_cask_allocation on domain (footwear/streetwear vs alcohol/spirits), mechanism (verified-buyer raffle vs member-allocation rolling claim-or-release queue), product class (sneakers vs single-cask whisky bottles), member-tier vs buyer-tier (SNKRS verified-buyer list vs Lagavulin distillers-club member). Distinct from M10b test_v8 bridgers_presale_window on mechanism (raffle entry vs presale window with access code) + product class (sneakers vs concert tickets). Satisfies V4 prompt extended-YES clause requirements: (i) explicit ticket-limit / quantity cap (180 pairs); (ii) explicit window under one hour (40 minutes); (iii) queue offer mechanism (verified-buyer raffle queue with hard timer)."
+        },
+        {
+          "event_id": "partner_stroke_fast_protocol_facial_droop_speech_slur_911_dispatcher_tpa_3hr_window_speaker",
+          "v2_regime_class": "urgent safety/security issue (V2 EXISTING YES)",
+          "distinguishing_qualifiers": "Distinct from C1 gas_leak_kitchen_sensor on body-system (cerebrovascular ischemic stroke vs household natural-gas-leak), C2 aging_parent_fall_alert_emergency_pendant on patient + mechanism (partner-as-user-spouse acute neurology vs elderly-father-via-pendant fall-detection), C4 carbon_monoxide_alarm on body-system (medical neurology vs gas-poisoning), C5 child_medication_ingestion on patient + body-system (adult partner stroke vs toddler medication poisoning), C6 partner_anaphylaxis on body-system (cerebrovascular vs allergic-respiratory; same partner-patient but distinct medical pathology + drug protocol), C7 self_chest_pressure_acute_coronary_syndrome on body-system (cerebrovascular stroke vs coronary MI; both involve 911 dispatcher + clot-busting agent but distinct vasculature + agent: tPA tissue-plasminogen-activator vs chewed-aspirin). The tPA three-hour ischemic-stroke eligibility window + no-aspirin-pre-imaging directive + documented prior TIA + family-history of early-onset stroke are the V2 urgent-safety-class qualifiers distinct on neurology medical sub-class."
+        },
+        {
+          "event_id": "orthopedist_knee_mri_consult_moved_up_730am_tomorrow_specialist_sabbatical_pre_op_meniscectomy",
+          "v2_regime_class": "schedule change affecting the user personally (V2 EXISTING YES)",
+          "distinguishing_qualifiers": "Distinct from C1 cardio_appt_rescheduled on medical specialty (orthopedic sports-medicine vs cardiology), C3 court_hearing_moved on domain (medical specialty vs state civil-court), C4 pediatrician_visit_advanced on specialty (orthopedic adult vs pediatric primary-care), C5 dental_implant_surgery_rescheduled on specialty (orthopedic sports-medicine vs oral-surgery implant), C7 uscis_naturalization_interview on domain (medical vs federal-immigration), C8 mortgage_closing_rescheduled on domain (medical vs real-estate-financing). The pre-op decision arm (partial-meniscectomy vs conservative-care) + specialist-sabbatical-driven seven-thirty same-day cancellation slot + 5pm patient-portal confirm-or-lose deadline are the V2 schedule-change qualifiers distinct on orthopedic sports-medicine sub-specialty."
+        },
+        {
+          "event_id": "roth_ira_conversion_election_5pm_deadline_year_end_recharacterization_no_longer_permitted_tcja",
+          "v2_regime_class": "financial/deadline obligation (V2 EXISTING YES)",
+          "distinguishing_qualifiers": "Distinct from C1 student_loan_repayment_resume on financial-product class (qualified-retirement IRA-conversion vs federal student loan auto-debit), C2 property_tax_installment on class (retirement vs county property tax), C3 homeowner_insurance_lapse on class (retirement vs insurance auto-debit failure), C5 quarterly_estimated_tax_q3 on class (retirement Roth vs IRS-quarterly federal estimated), C6 iso_exercise_window on class (Roth IRA vs employer-equity ISO post-termination), C7 fbar_fincen_114 on regulatory regime (retirement IRS-IRA vs FinCEN-Title-31 foreign-account-reporting), C8 heloc_draw_period on class (qualified-retirement IRA vs home-equity-credit-line). The year-end December-thirty-first calendar deadline + recharacterization-back-to-Traditional no longer permitted under 2017 TCJA + custodian pro-forma worksheet + suggested pre-3pm submit headroom are the V2 financial/deadline qualifiers distinct on tax-advantaged retirement IRA-conversion sub-class."
+        },
+        {
+          "event_id": "vault_pki_secrets_engine_lease_renewal_cascade_failure_storefront_auth_outage_p1_75min_dns_zone_drift",
+          "v2_regime_class": "production/on-call alert (V2 EXISTING YES)",
+          "distinguishing_qualifiers": "Distinct from C2 datastore_replica_failover on technology (Vault PKI secrets-engine vs Postgres RDBMS failover), C3 tls_cert_expiry on scope + mechanism (service-mesh-wide lease-renewal cascade with thousands of consumer-pod leases vs single-endpoint billing-webhook cert nearing scheduled expiry; cert-manager rotation runbook vs DNS-zone caching mismatch driving cascade), C4 disk_space_critical on technology (secrets-mgmt vs storage OOM), C5 redis_memory_saturation on technology (secrets-mgmt vs cache-tier eviction), C7 kafka_order_pipeline_broker_election on technology (secrets-mgmt vs event-stream partition-leadership), C8 elasticsearch_index_status_red on technology (secrets-mgmt vs search-platform shard-allocation). The PKI secrets-engine lease-renewal pipeline cascade-failure + 3400 consumer-pod lease-renewal failures in 6 minutes + intermediate CA's issuing-chain partially expired in failover zone + 75-min runbook escalation + DNS-zone caching mismatch root cause are the V2 production/on-call qualifiers distinct on platform-security secrets-mgmt sub-class (vs RDBMS / cert / storage / cache / event-stream / search-platform technologies covered at C2..C8)."
+        }
+      ]
+    },
+    "step_3c_banned_keyword_tuple_bytewise_review": {
+      "verdict": "PASS",
+      "banned_count": 111,
+      "v29_tuples": [
+        "(orthopedist, mri)",
+        "(roth, conversion)",
+        "(sneaker, raffle)",
+        "(stroke, tpa)",
+        "(vault, lease)"
+      ],
+      "collisions": []
+    },
+    "step_4_cross_trace_literal_id_collision_HALT_gate": {
+      "verdict": "PASS",
+      "halt_trigger": "NOT FIRED",
+      "prior_trace_count": 23,
+      "prior_event_id_count": 199,
+      "collisions": []
+    },
+    "step_5_drift_overlap_a_gt_tuple_bytewise_cross_trace": {
+      "verdict": "PASS",
+      "prior_gt_tuple_count": 111,
+      "collisions": []
+    },
+    "step_6_drift_overlap_b_8gram_verbatim_phrase": {
+      "verdict": "PASS (attempt-2; attempt-1 FAILED with 1 overlap on 'pre-orders placed during catalog week qualify for a' boilerplate-template clause \u2014 see attempt_log[0])",
+      "v29_unique_8grams": 1297,
+      "prior_unique_8grams": 7285,
+      "overlap_count": 0,
+      "overlapping_8grams": [],
+      "note": "D-C8.attempt1.C boilerplate-paraphrase author-discipline + D-C9.attempt1.C inheritance: discipline applied at draft time to D1 AWS Config closing + D3 Substack Notes muting clause + D4 Linear release-notes clause. Discipline missed at attempt #1 for D2 Outdoor Voices catalog 'pre-orders placed during catalog week qualify for a [shipping descriptor]' phrasing; audit step 6 caught the boilerplate-template convergence mechanically at the pre-submission gate. Attempt #2 in-line revision replaced the offending clause + closing sentence; 0 overlaps in attempt-2 audit-gate re-run."
+    },
+    "step_7_gt_regime_classification": {
+      "verdict": "PASS",
+      "per_gt_regime": [
+        {
+          "event_id": "nike_snkrs_zoom_kobe_5_protro_mamba_day_verified_buyer_sneaker_raffle_40min_180pair",
+          "regime": "discretionary-deadline obligation (V4 NEW YES, scarcity-bounded-opportunity subclass)",
+          "cross_trace_lift": "2x -> 3x (C1 vinyl_drop_press_today + C6 lagavulin_single_cask_allocation + C9 nike_snkrs_mamba_day)",
+          "path_a_role": "V4 NEW YES 3rd-repeat scarcity-bounded subclass \u2014 PATH (a) primary mechanism lift",
+          "v4_clause_satisfaction": "explicit ticket-limit (180 pairs); explicit window under one hour (40 minutes); queue offer mechanism (verified-buyer raffle queue with size-lock and ten-minute payment-confirm grace)"
+        },
+        {
+          "event_id": "partner_stroke_fast_protocol_facial_droop_speech_slur_911_dispatcher_tpa_3hr_window_speaker",
+          "regime": "urgent safety/security issue (V2 EXISTING YES)",
+          "cross_trace_lift": "6x -> 7x (C1 gas-leak + C2 fall-pendant + C4 carbon-monoxide + C5 child-medication-ingestion + C6 partner-anaphylaxis + C7 self-MI + C9 partner-stroke) \u2014 saturating lift"
+        },
+        {
+          "event_id": "orthopedist_knee_mri_consult_moved_up_730am_tomorrow_specialist_sabbatical_pre_op_meniscectomy",
+          "regime": "schedule change affecting the user personally (V2 EXISTING YES)",
+          "cross_trace_lift": "6x -> 7x (C1 cardio + C3 court + C4 pediatrician + C5 dental-implant + C7 USCIS + C8 mortgage-closing + C9 orthopedist) \u2014 saturating lift"
+        },
+        {
+          "event_id": "roth_ira_conversion_election_5pm_deadline_year_end_recharacterization_no_longer_permitted_tcja",
+          "regime": "financial/deadline obligation (V2 EXISTING YES)",
+          "cross_trace_lift": "7x -> 8x (C1 student-loan + C2 property-tax + C3 homeowner-insurance + C5 IRS-quarterly + C6 ISO-exercise + C7 FBAR + C8 HELOC + C9 Roth-IRA) \u2014 saturating lift"
+        },
+        {
+          "event_id": "vault_pki_secrets_engine_lease_renewal_cascade_failure_storefront_auth_outage_p1_75min_dns_zone_drift",
+          "regime": "production/on-call alert (V2 EXISTING YES)",
+          "cross_trace_lift": "6x -> 7x (C2 Postgres-failover + C3 TLS-cert + C4 disk-space + C5 Redis-memory + C7 Kafka-broker + C8 Elasticsearch-shard + C9 Vault-PKI) \u2014 saturating lift"
+        }
+      ]
+    },
+    "step_8_defensibility_self_check_D9_defense_8": {
+      "verdict": "PASS",
+      "v4_new_yes_scarcity_bounded_3rd_repeat_path_a": "V4 NEW YES at C9 lifts scarcity-bounded-opportunity subclause from 2x (C1 vinyl + C6 whisky) to 3x (C1 + C6 + C9 SNKRS sneaker raffle). Bytewise + theme-distinct from both predecessors on domain (footwear/streetwear retail vs music vinyl vs alcohol/spirits) + mechanism (verified-buyer raffle with size-lock + payment-confirm grace vs first-come-first-served queue vs member-allocation rolling claim-or-release) + product class (commemorative limited-edition sneaker drop vs vinyl-record pressing vs single-cask whisky). All three V4 prompt extended-YES clause requirements (ticket-limit + sub-1hr window + queue offer mechanism) satisfied in content with explicit numeric values verbatim (180 pairs, 40-minute window, raffle queue with 10-min payment-confirm grace).",
+      "v4_new_no_at_c9": "ZERO instances (intentional per D-C9.attempt1.B locked PATH (a) compliant-content + V4-mechanism focus). Cross-trace state: V4 NEW NO total UNCHANGED at 6 (3 subclauses x 2x each at C1+C2; saturated state preserved through C3..C9). PATH (c) V4 NEW NO 3rd-repeat explicitly rejected at C9 Plan adversarial-reviewer walkthrough: saturated 3/3 at 2x already + 3rd-repeat would widen cross-V4-mechanism asymmetry V4 NEW NO 6 -> 7 + dominated by H4 denominator-growth.",
+      "v2_existing_yes_4_classes_lifted_at_c9": "4 V2 EXISTING YES GTs: urgent-safety 6x -> 7x (partner ischemic stroke, FAST protocol, tPA 3-hr window; distinct from all 6 prior V2 urgent-safety cells on neurology medical sub-class), schedule-change 6x -> 7x (orthopedic specialist MRI-consult moved up; distinct on medical sub-specialty), financial/deadline 7x -> 8x (Roth IRA conversion year-end with TCJA-no-recharacterization-unwind; distinct on retirement-product sub-class), production/on-call 6x -> 7x (Vault PKI secrets-engine lease-renewal cascade; distinct on platform-security secrets-mgmt technology sub-class). All 4 saturating lifts on already \u22656x classes. SKIPPED at C9: message/delivery (preserved at 6x) + weather-alert (preserved at 5x); both already \u22655x post-C8 + within-trace within-class bytewise-distinctness easier on the 4 chosen classes than on the 2 skipped classes.",
+      "v2_existing_no_4_classes_lifted_at_c9": "4 V2 EXISTING NO distractors: routine-status 6x -> 7x (AWS Config compliance-evaluation daily digest; distinct on tool from C3 cloud-backup + C4 ssl-monitor + C5 K8s-autoscaler + C6 datadog-synthetic + C7 github-actions + C8 terraform-state-drift), marketing-newsletter 6x -> 7x (Outdoor Voices summer apparel catalog; distinct on product category from C3 kitchen-gear + C4 tea-club + C5 inkwell-bookstore + C6 aperture-camera + C7 goldleaf-stationery + C8 meridian-games), feature-announcement 4x -> 5x (Linear Cycles 2026 planning view; distinct on tool from C2 chrome-ext + C3 notion + C5 vscode + C7 postman; closes V2 NO \u22655x for feature-announcement class), social-channel-invite 4x -> 5x (Substack Notes weekly follow-recommendation; distinct on platform from C1 discord + C4 slack + C6 mastodon + C8 bluesky; closes V2 NO \u22655x for social-channel-invite class). SKIPPED at C9: generic-daily-briefing (preserved at 6x). Per kickoff parity recommendation, lifting feature-announcement + social-channel-invite both to 5x at C9 preserves end-state V2 NO symmetry at 5x-7x range across all 5 classes.",
+      "cross_trace_coverage_state_through_c9": {
+        "v4_new_yes_total": "5 (scarcity-bounded 3x C1+C6+C9; family-milestone 2x C2+C5) \u2014 within-V4-NEW-YES asymmetry RE-OPENED 3x/2x by design; CLOSES at C10 with family-milestone 3rd-repeat",
+        "v4_new_no_total": "6 (UNCHANGED; saturated state preserved)",
+        "cross_v4_mechanism_asymmetry_delta": "V4 NEW YES 5 vs V4 NEW NO 6 = delta 1 (down from delta 2 at C8); CLOSES at delta 0 at C10",
+        "v2_existing_yes": {
+          "urgent_safety": "7x (C1+C2+C4+C5+C6+C7+C9)",
+          "schedule_change": "7x (C1+C3+C4+C5+C7+C8+C9)",
+          "financial_deadline": "8x (C1+C2+C3+C5+C6+C7+C8+C9)",
+          "production_on_call": "7x (C2+C3+C4+C5+C7+C8+C9)",
+          "message_delivery": "6x UNCHANGED (skipped at C9)",
+          "weather_alert": "5x UNCHANGED (skipped at C9)"
+        },
+        "v2_existing_no": {
+          "routine_status": "7x (C3+C4+C5+C6+C7+C8+C9)",
+          "marketing_newsletter": "7x (C3+C4+C5+C6+C7+C8+C9)",
+          "generic_daily_briefing": "6x UNCHANGED (skipped at C9)",
+          "feature_announcement": "5x (C2+C3+C5+C7+C9 \u2014 NEWLY CLOSED at C9)",
+          "social_channel_invite": "5x (C1+C4+C6+C8+C9 \u2014 NEWLY CLOSED at C9)"
+        }
+      },
+      "net_post_c9_reviewer_defensible_endpoint": "V4 NEW YES 5 instances (scarcity-bounded 3x + family-milestone 2x; within-V4-NEW-YES asymmetry RE-OPENED 3x/2x by design, closes at C10) + V4 NEW NO 6 saturated state preserved + V2 YES 4 of 6 classes lifted to 7x-8x at C9 (message/delivery + weather-alert preserved at 6x/5x; all 6 classes \u22655x) + V2 NO 4 of 5 classes lifted to 5x-7x at C9 (generic-daily-briefing preserved at 6x; all 5 classes \u22655x with feature-announcement + social-channel-invite newly closed at 5x). PATH (a) V4 NEW YES scarcity-bounded 3rd-repeat at C9 followed by PATH (b) V4 NEW YES family-milestone 3rd-repeat at C10 closes cross-V4-mechanism symmetry at V4 NEW YES 6 vs V4 NEW NO 6 AND within-V4-NEW-YES symmetry at scarcity-bounded 3x + family-milestone 3x at C10 \u2014 strongest reviewer-defensible MECHANISM_CONFIRM evidence-base claim achievable within the remaining 2-trace budget per D14-H3 strict-5/5 MECHANISM_CONFIRM threshold."
+    }
+  },
+  "authored_trace_verbatim": "def test_trace_v29() -> Trace:\n    gts = [\n        _gt(\n            Event(id=\"nike_snkrs_zoom_kobe_5_protro_mamba_day_verified_buyer_sneaker_raffle_40min_180pair\", kind=\"notification\", sim_time=420.0,\n                  content=\"SNKRS app push for verified-buyer accounts only: the Mamba-Day commemorative Zoom Kobe 5 Protro sneaker raffle has just opened a forty-minute entry window and closes at eleven-fifty Pacific sharp. Total release across every available size is one hundred eighty pairs; the deepest inventory sits at sizes ten through eleven, while sizes eight and thirteen each hold four pairs and are expected to clear well before the timer expires. Size selection locks at raffle entry \u2014 no swap once the window closes \u2014 and confirmed winners receive a ninety-second push-and-email handshake with a ten-minute payment-confirm grace before the slot rolls to the runner-up queue. Any surface-released inventory after the final notify wave auto-routes to the trade-resale list and is not offered back to the verified-buyer raffle queue.\"),\n            window_s=240.0, keywords=(\"sneaker\", \"raffle\"),\n        ),\n        _gt(\n            Event(id=\"partner_stroke_fast_protocol_facial_droop_speech_slur_911_dispatcher_tpa_3hr_window_speaker\", kind=\"alert\", sim_time=640.0,\n                  content=\"Your partner just slumped forward at the kitchen table \u2014 right-side facial droop, right arm hanging limp at her side, slurred speech when you asked her to repeat a short sentence \u2014 textbook fast-protocol stroke presentation, with symptom onset inside the last ninety seconds. You have her seated upright with her head supported and have dialed nine-one-one; the dispatcher is on speaker and confirmed paramedics are six minutes out. The dispatcher asked you to write down the exact symptom-onset timestamp because tPA \u2014 the tissue-plasminogen-activator clot-busting agent \u2014 has a three-hour eligibility window from onset for ischemic-stroke patients at the regional comprehensive stroke center. She is conscious and tracking your eyes. Do not give aspirin or any anticoagulant until paramedics on arrival image-confirm ischemic versus hemorrhagic; her documented prior TIA and family history of early-onset stroke are in the home medical binder on the counter.\"),\n            window_s=90.0, keywords=(\"stroke\", \"tpa\"),\n        ),\n        _gt(\n            Event(id=\"orthopedist_knee_mri_consult_moved_up_730am_tomorrow_specialist_sabbatical_pre_op_meniscectomy\", kind=\"email\", sim_time=320.0,\n                  content=\"Email from the orthopedist's scheduling office at the Sutter Sports-Medicine clinic: Dr. Reyes had a same-day cancellation on tomorrow morning's seven-thirty slot and the clinic is offering you that opening to discuss the recent knee-MRI imaging and walk through the pre-op decision on the partial-meniscectomy arm versus the conservative-care arm. The original consult was on the books for next Tuesday afternoon; the seven-thirty opening is the only consult opportunity before Dr. Reyes leaves for a two-week medical-education sabbatical and the next available consult after the sabbatical is the third week of next month. Confirm by five-p.m. today through the patient-portal scheduling tab or the slot releases to the surgical-coordinator backup queue with no further reminders sent. The knee-MRI radiology report and the annotated image series have been auto-attached to the patient-portal medical-record entry so you can pre-read them tonight.\"),\n            window_s=220.0, keywords=(\"orthopedist\", \"mri\"),\n        ),\n        _gt(\n            Event(id=\"roth_ira_conversion_election_5pm_deadline_year_end_recharacterization_no_longer_permitted_tcja\", kind=\"email\", sim_time=210.0,\n                  content=\"Year-end notice from your IRA custodian: today is the December-thirty-first calendar deadline for any Roth-conversion election to be applied to the current tax-year, and the secure-message portal cuts conversion-submission acceptance at five p.m. Pacific. Recharacterization-back-to-Traditional is no longer permitted under the 2017 federal tax-code revision once a Roth conversion is filed, so the election is functionally one-way once the five-p.m. timestamp lands; the corresponding tax liability flows onto the next-April-fifteen filing without any unwind option. A pro-forma worksheet from the custodian's tax-projection module is attached with the converted-balance tax-bracket impact and a safe-harbor estimated-quarterly adjustment for the current tax-year. The custodian-side conversion desk also suggests submitting before three p.m. to leave room for two resubmission attempts in case the portal returns a settlement-validation error on first pass; the conversion-submission queue runs noticeably slower on the year-end timestamp surge.\"),\n            window_s=240.0, keywords=(\"roth\", \"conversion\"),\n        ),\n        _gt(\n            Event(id=\"vault_pki_secrets_engine_lease_renewal_cascade_failure_storefront_auth_outage_p1_75min_dns_zone_drift\", kind=\"alert\", sim_time=510.0,\n                  content=\"PagerDuty SEV-one incident on the platform-security HashiCorp Vault cluster vault-prod-us-east-1a at sixteen-twelve UTC: the PKI secrets-engine lease-renewal pipeline has dropped into a cascade-failure pattern across the regional service mesh \u2014 three thousand four hundred consumer-pod leases failed renewal in the last six minutes, and authentication-handshake fallback to the staging-tier replica is throwing certificate-trust errors because the primary intermediate CA's issuing-chain is partially expired in the failover zone. Storefront-API service-account authentication has climbed to twenty-six-percent failure rate and is still trending up; downstream order-processing and inventory-sync are queueing against the auth-fallback retry backoff. The seventy-five-minute runbook escalation auto-pages the security-platform incident commander if lease-renewal recovery has not stabilized inside the first thirty minutes. You hold the primary on-call this rotation; the secondary just opened the war-room bridge and the security-platform PM is monitoring on the storefront PagerDuty channel. Preliminary diagnosis points at a DNS-zone caching mismatch between the primary and standby clusters following last night's authoritative record-set update.\"),\n            window_s=220.0, keywords=(\"vault\", \"lease\"),\n        ),\n    ]\n    distractors = [\n        Event(id=\"aws_config_compliance_daily_evaluation_digest_zero_drift_all_accounts_no_action_required\", kind=\"notification\", sim_time=30.0,\n              content=\"Daily AWS Config compliance-evaluation digest for the platform-org payer account: every managed rule across all forty-two member accounts evaluated COMPLIANT on the overnight run with zero drift events and zero remediation actions queued by the AWS Config rules engine. The s3-bucket-encryption rule cleared on every bucket; the iam-password-policy rule cleared on every member; the encrypted-volumes rule cleared on every EBS volume. The next compliance-evaluation cycle is on the calendar for the same overnight window and the report will land in this inbox at the same morning timestamp.\"),\n        Event(id=\"substack_notes_weekly_follow_recommendation_digest_writers_education_circle_no_time_pressure\", kind=\"notification\", sim_time=70.0,\n              content=\"Substack Notes sends you a weekly follow-recommendation bundle from a Notes-stack curator you already follow: nine writers in the education-and-policy circle, including two former colleagues from your earlier classroom-research years and one writer whose newsletter you have read on-and-off without subscribing. The follow-recommendation list can be browsed individually; nothing auto-follows and the bundle does not expire on any fixed deadline. Substack pushes the follow-recommendation digest every Sunday and the notification stream can be muted under the reader preferences if the digest cadence feels too noisy.\"),\n        Event(id=\"outdoor_voices_summer_apparel_quarterly_catalog_email_no_action_required_browse_at_pace\", kind=\"email\", sim_time=130.0,\n              content=\"The Outdoor Voices summer-season apparel catalog dropped on the brand site overnight: a refreshed everyday-running silhouette returns in three new colorways, the lightweight technical-shorts revival the community has been asking after since last fall is finally on the page, and the brand's heritage-pastel matching set is back in a second-edition cut. Pace the browsing however your week settles \u2014 the launch-window expedited-shipping perk runs across the full summer line for any order placed while the catalog sits in promotional rotation, with no fixed countdown timer attached. Two further seasonal catalogs are queued for later in the year under the brand's standard release rhythm, spanning the early-fall and the holiday-gifting horizon. Sizing questions, exchange requests, and customer-service follow-ups route through the help-center contact form linked from the brand site footer.\"),\n        Event(id=\"linear_app_cycles_2026_planning_view_launch_announcement_quarterly_release_notes_no_action\", kind=\"email\", sim_time=580.0,\n              content=\"Linear product-update email: the Cycles 2026 planning view is now available on every workspace and gives team leads a single-pane view of in-flight cycle progress, projected cycle-completion velocity, and carryover-issue density across the upcoming three cycles. The planning view is opt-in at the workspace level and can be toggled on under the workspace-settings cycle preferences; no migration step is needed and existing cycle data is preserved bytewise. The accompanying quarterly release notes cover four other smaller updates landing on the same release train, including the project-roadmap-export refresh and the issue-template-library expansion. The launch retrospective writeup is published on the Linear engineering blog under the Cycles 2026 launch-week tag.\"),\n    ]\n    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)\n    return Trace(\n        name=\"test_v29\",\n        events=events,\n        ground_truth=gts,\n        briefing=(\n            \"Wednesday morning at home in Oakland; rolling year-end retirement-account close and a knee-injury arc with the orthopedist after last month's MRI imaging. \"\n            \"Currently holding the primary on-call rotation for the storefront-platform security infrastructure; the Vault PKI cluster has been showing lease-renewal latency drift since last night's authoritative DNS-zone update. \"\n            \"Partner has a documented prior TIA and a family history of early-onset stroke on her father's side; the home medical binder with her anticoagulant-protocol notes is on the kitchen counter. \"\n            \"Signed up for the SNKRS verified-buyer raffle list last week ahead of the Mamba-Day commemorative drop. \"\n            \"Notifications are filtered for urgent: any fast-protocol stroke symptoms in my partner, severity-one Vault PKI on-call pages, hard-deadline financial elections on the year-end Roth conversion, same-day specialist consults from the orthopedist, and the SNKRS sneaker-raffle entry window inside its forty-minute timer; routine AWS-Config compliance digests, Outdoor Voices catalog releases, Linear product-launch announcements, and Substack Notes follow-recommendation digests can wait.\"\n        ),\n        intents=(\n            \"respond instantly to any fast-protocol stroke symptoms in my partner \u2014 the tPA three-hour ischemic-stroke window is the critical clock and the dispatcher is already on speaker\",\n            \"answer the Vault PKI SEV-one bridge well inside the first thirty minutes before the seventy-five-minute runbook auto-pages the security-platform incident commander\",\n            \"confirm the seven-thirty orthopedist consult tomorrow before five p.m. today through the patient portal or the slot releases to the surgical-coordinator backup queue\",\n            \"submit the Roth IRA conversion election through the custodian's secure-message portal before five p.m. Pacific today; recharacterization-back-to-Traditional is no longer a permitted unwind path\",\n            \"enter the SNKRS verified-buyer sneaker raffle inside the forty-minute entry window before surface-released inventory auto-routes to the trade-resale list; otherwise the daily AWS Config digest, the Outdoor Voices summer catalog, the Linear Cycles 2026 announcement, and the Substack Notes follow-recommendation digest can all wait\",\n        ),\n    )\n\n\n",
+  "fresh_session_restart_metadata": {
+    "session_origin": "fresh /clear session at C9 attempt #1 entry; zero carryover from C1..C8 author state",
+    "head_at_session_start": "0b9b290 (M11a-extension Commit C8)",
+    "working_tree_at_session_start": "clean (no untracked files)",
+    "sandbox_event_trace_sha256_at_session_start": "2c16923ca26b9fb81141840aaecdcda88498dffa9b41d4211b9174e9f224db78 (107787 bytes)",
+    "v4_prompt_sha256_at_session_start": "09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6 (1851 bytes)",
+    "pre_c8_banned_list_sha256_at_session_start": {
+      "txt": "12e385aba23486d5d075687dd765d21b18498f5ab8c0e8df1b5ae6cb09ca115f",
+      "json": "e1c10669e68d4be99f061359a8f97da4e09db52dd8db64a99eaa53cda58d59f6"
+    },
+    "pre_c9_banned_list_authored_at_step_1": {
+      "txt_sha256": "768a5c7aa19b956a5eda368e44f30ba68363fe22621573047e39fee63a9a249b",
+      "json_sha256": "3d9c0b339b711cfb0b8c3af608d1a6f122942e23203f03c2ac55ef0b3a379f68",
+      "counts": {
+        "event_ids": 199,
+        "themes": 112,
+        "tuples": 111
+      }
+    },
+    "sandbox_event_trace_sha256_post_attempt_2_accepted": "a661b3da7954f7a2214e4cd6eb6a7b0aa6ab7dde802f82587b2ef5c29aea64bb (120376 bytes; +12589 bytes vs pre-C9; APPEND-ONLY 61 lines +0 deletions per git diff --stat)",
+    "rendered_self_restate_prompt_sha256": "499ec3651ca8afe61adf2e56036c55e520e7a5dfd491cf52739ec65a4523b63e (25765 bytes)",
+    "cumulative_milestone_spend_pre_c9": "$0.7081 of $4 pre-reg budget (~18%)",
+    "c9_attempt_1_and_2_spend": "$0 (in-session author + local Python audit-gate at both attempts; self-restate gate rendered locally via uv run python -m eval.author_trace; no API calls fired at attempt 1 or attempt 2)",
+    "cumulative_milestone_spend_through_c9": "$0.7081 (unchanged; ~18% of $4 budget)"
+  }
+}
