@@ -1435,6 +1435,66 @@ def test_trace_v29() -> Trace:
     )
 
 
+def test_trace_v30() -> Trace:
+    gts = [
+        _gt(
+            Event(id="brother_phd_defense_doctoral_graduation_tomorrow_930am_committee_reception_family_toast_obligation", kind="email", sim_time=220.0,
+                  content="Email from your younger brother Marcus: his PhD defense at the Stanford Linguistics department is on the calendar for tomorrow morning at nine-thirty in the Margaret Jacks Hall seminar room, with advisor Dr. Petra Vasquez and the three-member dissertation committee presiding. The post-defense reception with the committee and the immediate family is set to follow at the department-lounge from eleven-thirty through the early afternoon, and the family has unanimously asked you, as the eldest sibling, to deliver the first toast as the designated family speaker. The PhD defense is the once-in-life closing chapter on six years of doctoral work and the only ceremony you and the parents can collectively attend; there is no make-up event in any future quarter and the department does not host a separate hooding ceremony for cross-program reasons. Marcus is asking for confirmation by end-of-day today so he can finalize the lounge-catering headcount and let the committee know which family members are attending. The toast runs three to four minutes in the family's expectations; Marcus would just like a heads-up tonight if you want him to forward any committee-context bio details that might help shape what you say about the dissertation arc."),
+            window_s=240.0, keywords=("phd", "toast"),
+        ),
+        _gt(
+            Event(id="adoption_agency_caseworker_placement_finalization_meeting_tomorrow_9am_both_parents_required_paperwork_signing", kind="notification", sim_time=340.0,
+                  content="Voicemail from Renee, your caseworker at the Bay Area Family Connections adoption agency: the placement-finalization meeting with the birth-mother and the agency-attorney has been scheduled for tomorrow morning at nine in the agency's downtown office, and both prospective adoptive parents are required to be present in person for the final paperwork signing and the birth-mother consent verification. The court-filing window for the placement order closes at the end of next week per the county family-court calendar, and rescheduling the meeting moves the placement into the next monthly court-filing cycle which adds a minimum of four additional weeks before the home-bringing date is set. Renee asked you to call back tonight to confirm both parents will attend; her direct caseworker line stays open until nine p.m. tonight and the on-call agency rotation covers any after-hours messages on the same number."),
+            window_s=220.0, keywords=("adoption", "placement"),
+        ),
+        _gt(
+            Event(id="brokerage_tax_loss_harvest_year_end_settle_t1_4pm_wash_sale_30day_lot_sale_deadline", kind="email", sim_time=430.0,
+                  content="Year-end tax-loss-harvest reminder from your Schwab portfolio advisor: today is the calendar deadline for any sale to settle within the current tax year under the T-plus-one settlement convention, which means the brokerage cuts harvest-eligible sell orders at four p.m. Eastern today regardless of after-hours queue depth. The current-year unrealized losses on the international-equity sleeve sit at roughly twenty-three thousand dollars across three specific tax-lot identifications eligible for a partial harvest; harvesting those losses against the year's realized short-term gains brings the net short-term capital-gains line down to roughly the three-thousand-dollar ordinary-income offset cap with the residual carrying forward to next year. The 30-day wash-sale clock applies to any substantially-identical replacement purchase, so the post-harvest re-entry plan needs either a non-substantially-identical proxy fund inside the wash-sale exclusion or a thirty-day wait before repurchase. The Schwab tax-advisor desk is staffed through six p.m. today if you want the harvest order routed through the advised-side rather than the self-directed portal; otherwise the self-directed trade-confirmation interface accepts specific-lot identification at order-placement time."),
+            window_s=240.0, keywords=("harvest", "wash"),
+        ),
+        _gt(
+            Event(id="nws_excessive_heat_warning_heat_dome_index_112f_3day_persistence_grid_load_shed_outdoor_risk", kind="alert", sim_time=520.0,
+                  content="NWS upgraded the prior heat-advisory to a full excessive-heat warning for the metro Sacramento valley through Sunday evening with a heat-dome ridge anchoring overhead and forecast heat-index readings hitting one-hundred-twelve Fahrenheit in the afternoon shade peaks across all three days. The CAISO grid-operator issued a parallel Flex Alert for the same window calling for voluntary conservation between four p.m. and nine p.m. each evening, and a rotating-load-shed event response is on standby if demand outpaces the available interchange-import margin. Elderly relatives in the cooling-vulnerable category and pets in non-air-conditioned spaces face the highest risk per the NWS HeatRisk tier-four guidance; outdoor-work and youth-sports practices should follow the hourly hydration cadence in the city heat-action playbook. The local cooling-center map at the city emergency-services portal lists nine air-conditioned public sites with extended evening hours for the duration of the warning."),
+            window_s=220.0, keywords=("heat", "index"),
+        ),
+        _gt(
+            Event(id="spouse_asthma_severe_exacerbation_rescue_inhaler_failing_peak_flow_below_50pct_status_asthmaticus_911_call", kind="alert", sim_time=650.0,
+                  content="Your spouse just used her albuterol rescue inhaler for the fourth time in twenty minutes and is still in audible respiratory distress at the kitchen sink — pursed-lip breathing, tripod posture, accessory-muscle retraction visible at the neck — with a peak-flow meter reading dropping from her normal three-eighty into the one-eighty range, well under the fifty-percent red-zone threshold on her written asthma-action plan. She has a prior status-asthmaticus admission from three winters ago that required intubation in the emergency department, and her pulmonologist's written instructions on the refrigerator door direct you to call nine-one-one rather than self-transport once the peak-flow reading crosses into the red zone with rescue-inhaler failure. The 911 dispatcher is on the line confirming paramedic transport eight minutes out and asking you to keep her seated upright on the floor against the cabinet wall, no oral medication or fluid administration, and to bring her current pulmonology medication list and the most recent spirometry printout from the home medical-binder when paramedics arrive."),
+            window_s=90.0, keywords=("asthma", "rescue"),
+        ),
+    ]
+    distractors = [
+        Event(id="aws_cloudtrail_weekly_log_delivery_health_report_zero_dropped_events_no_action_required", kind="notification", sim_time=35.0,
+              content="Weekly AWS CloudTrail log-delivery health report for the platform-org trail aggregation: across the rolling seven-day window, every multi-region trail delivered to the central audit-bucket without a single dropped event, the S3-delivery-failure metric stayed flat at zero, and the cross-account CloudWatch metric-filter delivery latency held inside the sub-minute SLO percentile band. The report includes the per-account event-count histogram and the management-event versus data-event breakdown for the platform-org member accounts as informational appendices. Audit-engineering owns the weekly cadence on this report; the CloudTrail-platform team rotates each Saturday's snapshot into the shared mailbox the audit-team compliance-evidence runbook reads from first thing Monday."),
+        Event(id="artisan_origins_coffee_quarterly_seasonal_roast_subscription_newsletter_summer_releases_no_action", kind="email", sim_time=80.0,
+              content="The Artisan Origins coffee roastery has dropped its summer seasonal-roast line for subscribers on the brand site: a Yirgacheffe natural-process single-origin returns under a refreshed lighter-roast curve, two Central-American washed-process blends rotate in for the warm-weather espresso menu, and a small-lot decaffeinated Brazilian arrives as a sample-size add-on for the home-tasting members. The subscription cadence stays on the same quarterly rhythm and any flavor-profile swap, grind-size change, or roast-darkness preference can be adjusted through the subscriber-account brewing-preferences panel any time before the next quarter's pre-ship cutoff. Coffee preference adjustments, shipping address changes, and tasting-note feedback all run through the subscriber-account messaging thread that the roastery customer-care team works through first thing in the Pacific morning."),
+        Event(id="saturday_weekend_prep_briefing_no_overdue_items_calendar_open_for_household_errands", kind="notification", sim_time=140.0,
+              content="Saturday morning weekend-prep briefing: the calendar through Sunday evening shows no scheduled meetings, no holds, and no time-sensitive obligations from any of the household project lists. The weekly retrospective ran clean — the personal task tracker rolled over with no overdue rows, the home-improvement punch list cleared yesterday afternoon, and the household project-board sits empty of any timing-dependent items through the weekend horizon. The weekend itself is fully open for household errands, the patio garden re-pot session you've been planning, and the optional Sunday-afternoon walk-and-coffee with the friend group, none of which carry hard timing dependencies. The next personal-calendar pulse reopens with the Monday-kickoff cadence after the weekend horizon clears."),
+        Event(id="figma_auto_layout_v3_launch_announcement_quarterly_product_update_no_action_required", kind="email", sim_time=595.0,
+              content="Figma product-update email: auto-layout version-three is now rolled out on every team workspace, bringing the long-requested grid-direction toggle, the per-row-and-per-column spacing override, and the nested-stack reflow improvements design teams have been asking for since the auto-layout-v2 release. The new behaviors are opt-in at the file-template level and any existing auto-layout-v2 file continues to render with the legacy spacing engine unchanged; migration to the v3 grid model is a per-component decision and the legacy renderer is not on any sunset path. Each of the four smaller landings on the same release train — the variables-import refresh, the dev-mode-comments threading update, the prototype-flow connector polish, and the file-history search refinement — has its own walkthrough on the Figma engineering blog, linked under the auto-layout-v3 changelog entry at the bottom of this announcement."),
+    ]
+    events = sorted([g.event for g in gts] + distractors, key=lambda e: e.sim_time)
+    return Trace(
+        name="test_v30",
+        events=events,
+        ground_truth=gts,
+        briefing=(
+            "Saturday morning at home in the Sacramento area; spouse has had a multi-day uptick in asthma symptom-frequency this week and her peak-flow meter has been trending down despite the daily-controller and rescue-inhaler regimen. "
+            "Younger brother Marcus is defending his Linguistics PhD at Stanford tomorrow morning and the family has asked the eldest sibling to deliver the first toast at the post-defense department-lounge reception. "
+            "In the middle of a year-end financial close — Schwab has the international-equity tax-loss-harvest window cutting at four p.m. Eastern today under T-plus-one settlement — and the adoption-agency placement-finalization meeting with the birth-mother is on the verge of being scheduled tomorrow with the agency-attorney. "
+            "NWS has been escalating a heat-dome ridge over the metro valley through the weekend and the CAISO grid-operator is signaling Flex-Alert conservation windows in the late-afternoon peak. "
+            "Notifications are filtered for urgent: any acute respiratory decompensation in my spouse with rescue-inhaler failure or peak-flow into the red zone, the PhD-defense ceremony-confirmation request from my brother, the year-end tax-loss-harvest brokerage cutoff, the adoption-agency placement-finalization callback, and the NWS excessive-heat warning that maps onto elderly-relative and outdoor-work risk; routine AWS CloudTrail delivery digests, Artisan Origins coffee seasonal-roast emails, the Saturday weekend-prep briefing, and the Figma auto-layout product-update announcement can wait."
+        ),
+        intents=(
+            "respond instantly to any acute respiratory decompensation in my spouse — rescue-inhaler failure plus peak-flow under fifty percent is the status-asthmaticus threshold and her prior intubation history means 911 over self-transport per the pulmonologist's written plan",
+            "confirm brother Marcus's PhD-defense reception attendance and family-speaker toast role by end-of-day tonight so he can finalize the department-lounge catering headcount before the once-in-life ceremony tomorrow morning",
+            "place the year-end tax-loss-harvest sell orders through the brokerage portal before the four-p.m. Eastern T-plus-one settlement cut, choosing specific-lot identification for the three international-equity lots inside the wash-sale exclusion plan",
+            "call the adoption agency back tonight before nine p.m. to confirm both prospective parents attend the placement-finalization meeting tomorrow nine a.m., since rescheduling pushes the court-filing into the next monthly cycle and adds four weeks to the home-bringing date",
+            "track the NWS excessive-heat warning through the weekend and the CAISO Flex-Alert windows; otherwise the weekly AWS CloudTrail delivery digest, the Artisan Origins seasonal-roast email, the Saturday weekend-prep briefing, and the Figma auto-layout-v3 product-update announcement can all wait",
+        ),
+    )
+
+
 def get_trace(name: str) -> Trace:
     traces = {
         "dev_v1": dev_trace_v1,
@@ -1461,6 +1521,7 @@ def get_trace(name: str) -> Trace:
         "test_v27": test_trace_v27,
         "test_v28": test_trace_v28,
         "test_v29": test_trace_v29,
+        "test_v30": test_trace_v30,
     }
     if name not in traces:
         raise ValueError(f"Unknown trace {name!r}; options: {sorted(traces)}")
