@@ -1,0 +1,160 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "vet_emergency",
+      "notification_sim_time": 50.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "concert_swap",
+      "notification_sim_time": 180.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "elevator_outage",
+      "notification_sim_time": 300.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "auction_ending",
+      "notification_sim_time": 420.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "wedding_rsvp",
+      "notification_sim_time": 600.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.012321,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 930.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 2840,
+    "completion_tokens": 166,
+    "total_duration_s": 17.036498294,
+    "arbiter_calls": 8,
+    "arbiter_yes_rate": 0.5,
+    "arbiter_input_tokens": 3947,
+    "arbiter_output_tokens": 32,
+    "arbiter_dispatched_model": "claude-sonnet-4-6"
+  },
+  "trace_name": "test_v6",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "sonnet",
+  "surprise_log": [
+    {
+      "sim_time": 30.0,
+      "event_id": "reddit_digest",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Your weekly r/woodworking digest is ready: 12 new top posts from the past week.",
+      "surprise": 0.47307389193815386,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 50.0,
+      "event_id": "vet_emergency",
+      "prediction": "Notification of weekly woodworking tips and tricks digest.",
+      "observation": "Dr. Patel from Bayside Vet called. Your dog Rufus needs emergency surgery and they need verbal authorization within 10 minutes before they can proceed \u2014 please call back.",
+      "surprise": 0.6058538224657691,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 180.0,
+      "event_id": "concert_swap",
+      "prediction": "Dr. Patel's urgent request for Rufus' surgery authorization expected to be made soon.",
+      "observation": "Hey \u2014 any chance we can swap our concert tickets for Saturday night? I have row C aisle, you have row M center. Need to know before 5pm so I can confirm with the resale buyer.",
+      "surprise": 0.45736892981197685,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 240.0,
+      "event_id": "steam_sale",
+      "prediction": "Dr. Patel from Bayside Vet needs immediate response for Rufus's emergency surgery authorization.",
+      "observation": "Steam Summer Sale starts Friday \u2014 wishlist items up to 80% off, plus free demos for select indie titles.",
+      "surprise": 0.4851018844054481,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 300.0,
+      "event_id": "elevator_outage",
+      "prediction": "Dr. Patel's call requiring immediate response for Rufus' emergency surgery deadline.",
+      "observation": "Building alert: the main elevator will be out of service for emergency cable repair starting at 16:00 today through tomorrow morning. Use the service elevator near the loading dock if you need to move anything heavy.",
+      "surprise": 0.3405212184617322,
+      "z": -2.800656410430668,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 420.0,
+      "event_id": "auction_ending",
+      "prediction": "Dr. Patel's urgent surgery request for Rufus requires immediate response before 5pm.",
+      "observation": "The online auction for the vintage Leica camera you've been watching is ending in 10 minutes; you are currently the top bidder at $340 with two competing bidders active.",
+      "surprise": 0.46888404077907553,
+      "z": -0.04148392047702517,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 480.0,
+      "event_id": "bank_statement",
+      "prediction": "Dr. Patel's emergency surgery authorization needed within 10 minutes for Rufus.",
+      "observation": "Your June checking statement (account ending 4567) is now available to view in the mobile app.",
+      "surprise": 0.45722802500329474,
+      "z": -0.1891858574192368,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 600.0,
+      "event_id": "wedding_rsvp",
+      "prediction": "Dr. Patel's emergency surgery call for Rufus requires immediate response within 10 minutes.",
+      "observation": "Final reminder: RSVP for Sara and Mark's wedding next month closes at midnight tonight. Please confirm attendance and meal selection (chicken, salmon, or vegetarian) through the link.",
+      "surprise": 0.4357176984530817,
+      "z": -0.4755659499110106,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 720.0,
+      "event_id": "twitter_followers",
+      "prediction": "Dr. Patel from Bayside Vet needs immediate verbal authorization for Rufus's emergency surgery before it's too late.",
+      "observation": "You have 4 new followers this week on X. Tap to see who followed you.",
+      "surprise": 0.520446858842494,
+      "z": 0.8106809502611957,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    }
+  ]
+}

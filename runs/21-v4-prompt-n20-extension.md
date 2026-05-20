@@ -1820,3 +1820,235 @@ Commit C10 spend: $0 at attempt #1 (in-session author + local Python audit-gate;
 **M11a-extension Commit C series is CLOSED at C10 acceptance** with combined-N=20 sample assembled. Per locked plan §D13: Commit D Phase 2 + 60-cell V4 harness matrix + Phase 3 + aggregate analysis execute in a future fresh session on the full N=20 sample (M10 test_v4/v5 + M10b test_v6/v7/v8 + M11a test_v11..v15 + M11a-extension test_v21..v30). Same §D12 triangulated drift smoke + §D7 6-row outcome identification + V4-mechanism + cross-tier-V4 branch identification logic applies. Pre-Commit-D fix discipline + transparent-correction-commit discipline carry forward unchanged. Cumulative M11a-extension spend through Commit C10 of $0.7081 leaves ~$3.29 of $4 pre-reg budget for Commit D harness execution.
 
 Commit D is deferred to a future fresh session per M10-shape protocol + auto-memory `feedback_new_session_for_arch_work.md`.
+
+---
+
+## Commit D — V4 N=20×3-tier harness + drift smoke + analysis (2026-05-20)
+
+**Headline verdict: Row 5 UNDERPOWERED. V4-mechanism branch V4-partial (1/5 correct, 1/5 fixed vs V2). Cross-tier-V4 branch CT-V4-confirm (bytewise-identical mechanism response across Opus/Sonnet/Haiku).** All three branches identified mechanically per §D7 first-match-wins precedence + §"V4-mechanism diagnostic" 3-branch + §"Cross-tier-V4 consistency diagnostic" 3-branch on combined N=20 sample (M10 test_v4/v5 + M10b test_v6/v7/v8 + M11a test_v11..v15 + M11a-extension test_v21..v30). 60-cell V4 harness + 12-cell §D12 drift smoke + 10-cell V2-Opus extension on test_v21..v30 (Commit D infrastructure addition — see "Authoring-oversight note" below) executed and archived as `runs/data/21d-*.json`. Pre-Commit-D fix discipline triggered zero corrections; no aggregation errors surfaced. Cumulative milestone spend post-Commit-D: **$2.8193 of $4 budget** (~70%).
+
+### State at Commit D start
+
+- **HEAD pre-Commit-D:** `cd188f3` (M11a-extension Commit C10); working tree clean.
+- **V4 prompt sha gate:** PRE-Phase-2 + post-harness re-verification — `agent/arbiter.py::ARBITER_SYSTEM_PROMPT_V4` sha256 `09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6` (1851 bytes; bytewise-identical to §D1 lock; unchanged since Commit B `adc1cba`).
+- **Sandbox sha gate:** `sandbox/event_trace.py` sha256 `6417b20d7e7a08f3f44e7f1e4658e77afe42cb96f086d908fa5c9ec954441599` (134626 bytes; bit-identical post-C10).
+- **Phase 1 baseline references on disk:** `runs/data/21b-baseline-content-{sonnet,haiku}-v4-{dev_v2,test_v1,test_v2}.json` (6 files, Commit B).
+- **V2 carry-forward references on disk:** `runs/data/21b-belt-content-{opus,sonnet,haiku}-v2-test_v{4..15}.json` (30 files; Commit B belt-and-suspenders bit-identical-PASSed vs M11b carry-forward).
+- **Halt conditions:** all NOT triggered.
+
+### Authoring-oversight note (resolved transparently at Commit D)
+
+Locked plan §D10 cost framework budgets "V2-Opus N=20 ($0.45)" — but §D13's Commit D row enumerates only (1) Phase 2 drift smoke (6 cells); (2) 60-cell V4 harness; (3) Phase 3 drift smoke (6 cells); (4) aggregate analysis. The V2-Opus extension on test_v21..v30 (10 cells) needed for DELTA_PE = V4-Opus − V2-Opus at N=20 combined-scope was implicit in §D10's "N=20" cost budgeting but NOT explicitly enumerated in §D13's Commit D execution row. The Commit B 30-cell belt-and-suspenders re-run scope was strictly N=10 (test_v4..v15; per §D13 Commit B row "M11a-extension new traces do not exist yet at Commit B"). Resolved transparently at Commit D execution time: 10-cell V2-Opus extension on test_v21..v30 executed alongside the 60-cell V4 harness; archived as `runs/data/21d-content-opus-v2-test_v{21..30}.json`. Actual cost $0.5023 (vs §D10 budgeted incremental $0.225 over the N=10 belt-and-suspenders already paid at Commit B). NOT scope creep — required infrastructure for the locked §D7 DELTA_PE predicate computation; surfaced and resolved at Commit D per pre-Commit-D fix discipline.
+
+### Per-tier failure-rate metrics + 95% CIs + cost
+
+| Cell | N | fails | rate | CP 95% CI | CP width | Bootstrap 95% CI (seed=42, 2000 resamples) | total cost | hits | $/hit |
+|---|---|---|---|---|---|---|---|---|---|
+| **V4-Opus**   | 20 | 6 | **30.0%** | **[11.9%, 54.3%]** | **42.4pp** | [10.0%, 50.0%] | $1.2922 | 14 | $0.0923 |
+| V4-Sonnet     | 20 | 6 | 30.0% | [11.9%, 54.3%] | 42.4pp | [10.0%, 50.0%] | $0.1870 | 14 | $0.0134 |
+| V4-Haiku      | 20 | 6 | 30.0% | [11.9%, 54.3%] | 42.4pp | [10.0%, 50.0%] | $0.0622 | 14 | $0.0044 |
+| **V2-Opus**   | 20 | 7 | **35.0%** | **[15.4%, 59.2%]** | **43.8pp** | [15.0%, 55.0%] | $0.9510 (note 1) | 13 | $0.0732 |
+| V2-Sonnet     | 10 | 3 | 30.0% | [6.7%, 65.2%] | 58.6pp | [0.0%, 60.0%] | $0.0659 | 7 | $0.0094 |
+| V2-Haiku      | 10 | 4 | 40.0% | [12.2%, 73.8%] | 61.6pp | [10.0%, 70.0%] | $0.0219 | 6 | $0.0037 |
+
+(note 1) V2-Opus N=20 cost includes the Commit B belt-and-suspenders portion ($0.4487 on test_v4..v15 paid at Commit B) + the Commit D extension portion ($0.5023 on test_v21..v30 paid at Commit D). Commit D incremental V2-Opus spend = $0.5023.
+
+Joint-bar metric (per M11a line 224): trace fails if `hit < 0.80 OR false/h > 5.0/h`.
+
+### Predicate computation (§D7)
+
+| Predicate | Value | Verdict |
+|---|---|---|
+| V4-Opus failure rate | 6/20 = 30.0% | |
+| V2-Opus failure rate | 7/20 = 35.0% | |
+| **DELTA_PE** | **−5.0pp** | NEUTRAL (\|·\| ≤ 10pp) |
+| IMPROVEMENT (DELTA_PE < −10pp) | False | |
+| **NEUTRAL** (\|DELTA_PE\| ≤ 10pp) | **True** | |
+| REGRESSION (DELTA_PE > +10pp) | False | |
+| V4-Opus CP CI width | 42.4pp | |
+| **WIDE_CI** (width > 30pp) | **True** | |
+| MECHANISM_CONFIRM (strict 5/5 per D14-H3) | False | |
+| **MECHANISM_PARTIAL** (1-4/5 correct) | **True** (1/5 correct on V4-Opus state-check; 1/5 fixed vs V2-Opus baseline) | |
+| MECHANISM_FALSIFY (0/5 correct) | False | |
+| **COMPLIANT_NO_REGRESSION** (strict +0 per D14-H4) | **True** (V4-Opus compliant fails 5, V2-Opus compliant fails 5; V4 ≤ V2) | |
+
+### §D7 outcome row identification (first-match-wins precedence)
+
+| Order | Row | Predicate | Matches? |
+|---|---|---|---|
+| 1 | Row 6 BACKFIRE | REGRESSION | No (DELTA_PE NEUTRAL, not REGRESSION) |
+| 2 | **Row 5 UNDERPOWERED** | NEUTRAL ∧ WIDE_CI | **YES — FIRES** |
+| 3 | Row 1 STRICT SUCCESS | IMPROVEMENT ∧ MECHANISM_CONFIRM ∧ COMPLIANT_NO_REGRESSION | No (no IMPROVEMENT) |
+| 4 | Row 3 PARTIAL SUCCESS — REDUCTION ONLY | IMPROVEMENT ∧ (¬MECHANISM_CONFIRM ∨ ¬COMPLIANT_NO_REGRESSION) | No (no IMPROVEMENT) |
+| 5 | Row 2 MECHANISM-ONLY, NET NEUTRAL | NEUTRAL ∧ ¬WIDE_CI ∧ (MECHANISM_CONFIRM ∨ MECHANISM_PARTIAL) | (would match on MECHANISM_PARTIAL, but ¬WIDE_CI fails — Row 5 fires first) |
+| 6 | Row 4 NO IMPROVEMENT | NEUTRAL ∧ ¬WIDE_CI ∧ MECHANISM_FALSIFY | (¬WIDE_CI fails) |
+
+**Identified outcome: Row 5 UNDERPOWERED.**
+
+### Per-trace V4-Opus vs V2-Opus joint-bar (combined N=20)
+
+| trace | V4-Opus hit | V4-Opus false/h | V4 verdict | V2-Opus hit | V2-Opus false/h | V2 verdict | flagged | V4-vs-V2 delta |
+|---|---|---|---|---|---|---|---|---|
+| test_v4 | 0.80 | 7.129 | **FAIL** | 0.80 | 7.129 | **FAIL** | | tied fail |
+| test_v5 | 1.00 | 0.000 | pass | 1.00 | 0.000 | pass | | tied pass |
+| test_v6 | 1.00 | 0.000 | pass | 1.00 | 0.000 | pass | | tied pass |
+| test_v7 | 1.00 | 0.000 | pass | 1.00 | 0.000 | pass | | tied pass |
+| **test_v8** | **0.80** | 0.000 | **pass** | **0.60** | 0.000 | **FAIL** | ✓ test_v8 | **V4 wins (V4 fixes V2 fail)** |
+| **test_v11** | 0.80 | 3.711 | pass | 1.00 | 3.711 | pass | ✓ test_v11 | tied pass (V4 hit 0.80 = boundary) |
+| **test_v12** | 1.00 | 7.742 | **FAIL** | 1.00 | 7.742 | **FAIL** | ✓ test_v12 | tied fail |
+| test_v13 | 1.00 | 0.000 | pass | 1.00 | 0.000 | pass | | tied pass |
+| test_v14 | 1.00 | 0.000 | pass | 1.00 | 0.000 | pass | | tied pass |
+| test_v15 | 1.00 | 0.000 | pass | 1.00 | 0.000 | pass | | tied pass |
+| test_v21 | 0.60 | 0.000 | **FAIL** | 0.60 | 0.000 | **FAIL** | | tied fail |
+| test_v22 | 0.60 | 4.045 | **FAIL** | 0.60 | 4.045 | **FAIL** | | tied fail |
+| test_v23 | 0.80 | 4.045 | pass | 0.80 | 4.045 | pass | | tied pass |
+| test_v24 | 1.00 | 4.000 | pass | 1.00 | 4.000 | pass | | tied pass |
+| test_v25 | 0.80 | 0.000 | pass | 0.80 | 0.000 | pass | | tied pass |
+| test_v26 | 0.60 | 0.000 | **FAIL** | 0.40 | 0.000 | **FAIL** | | tied fail (V4 hit 0.60 > V2 hit 0.40 but both below 0.80 threshold) |
+| test_v27 | 0.80 | 0.000 | pass | 0.80 | 0.000 | pass | | tied pass |
+| test_v28 | 0.80 | 4.444 | pass | 0.80 | 4.444 | pass | | tied pass |
+| test_v29 | 0.80 | 0.000 | pass | 0.80 | 0.000 | pass | | tied pass |
+| test_v30 | 0.60 | 0.000 | **FAIL** | 0.60 | 0.000 | **FAIL** | | tied fail |
+| **TOTAL** | | | **6 fail** | | | **7 fail** | | **V4 wins 1 trace (test_v8)** |
+
+### MECHANISM check on 5 flagged events (per §D7 + V4-mechanism diagnostic)
+
+| Event | Trace | Intended outcome | V2-Opus surfaced? | V2 path | V4-Opus surfaced? | V4 path | V2 correct? | V4 correct? | V4 corrected V2? |
+|---|---|---|---|---|---|---|---|---|---|
+| trivia_league_round | test_v11 | NO (distractor) | YES | z<-1 auto-surface | YES | z<-1 auto-surface | ✗ | ✗ | — |
+| grocer_back_in_stock | test_v12 | NO (distractor) | YES | z<-1 auto-surface | YES | z<-1 auto-surface | ✗ | ✗ | — |
+| calendar_yoga_suggest | test_v12 | NO (distractor) | YES | z<-1 auto-surface | YES | z<-1 auto-surface | ✗ | ✗ | — |
+| mom_birthday_heads_up | test_v8 | YES (discretionary-deadline obligation with social cost) | NO | surprise gate skip (arbiter never consulted) | NO | surprise gate skip (arbiter never consulted) | ✗ | ✗ | — |
+| **bridgers_presale_window** | test_v8 | YES (discretionary-deadline obligation with social cost) | **NO** | **arbiter classified NO** | **YES** | **arbiter classified YES** | ✗ | **✓** | **✓ V4 corrected** |
+
+**V4-Opus correctly handles: 1/5 (only bridgers_presale_window). V4-Opus fixes V2-Opus errors: 1/5 (same one). MECHANISM_CONFIRM strict 5/5 threshold not met → MECHANISM_PARTIAL fires.**
+
+### Cross-tier-V4 diagnostic on 5 flagged events
+
+| Event | Trace | V4-Opus | V4-Sonnet | V4-Haiku | Sonnet diff vs Opus | Haiku diff vs Opus |
+|---|---|---|---|---|---|---|
+| trivia_league_round | test_v11 | surfaced | surfaced | surfaced | — | — |
+| grocer_back_in_stock | test_v12 | surfaced | surfaced | surfaced | — | — |
+| calendar_yoga_suggest | test_v12 | surfaced | surfaced | surfaced | — | — |
+| mom_birthday_heads_up | test_v8 | not surfaced | not surfaced | not surfaced | — | — |
+| bridgers_presale_window | test_v8 | surfaced | surfaced | surfaced | — | — |
+
+**V4-Sonnet differs from V4-Opus on 0/5 flagged events. V4-Haiku differs from V4-Opus on 0/5 flagged events. CT-V4-confirm fires — full cross-tier mechanism bytewise-replication.**
+
+### §D12 drift smoke verdict (Phase 2 + Phase 3 vs Phase 1; Phase 2 vs Phase 3)
+
+Phase 1 baselines (Commit B `adc1cba`): `runs/data/21b-baseline-content-{sonnet,haiku}-v4-{dev_v2,test_v1,test_v2}.json`.
+Phase 2 (pre-harness, Commit D): `runs/data/21d-smoke-preharness-content-{sonnet,haiku}-v4-{dev_v2,test_v1,test_v2}.json`.
+Phase 3 (post-harness, Commit D): `runs/data/21d-smoke-postharness-content-{sonnet,haiku}-v4-{dev_v2,test_v1,test_v2}.json`.
+
+| Cell | Phase 2 vs Phase 1 | Phase 3 vs Phase 1 | Phase 2 vs Phase 3 | Per-field deltas (Phase 1 → Phase 2/3) |
+|---|---|---|---|---|
+| sonnet/dev_v2 | PASS | PASS | PASS | — |
+| sonnet/test_v1 | **FAIL** | **FAIL** | PASS | hit_rate 1.0→0.8; arb_calls 8→7; yes_rate 0.625→0.571; input_tok 3811→3334; output_tok 32→28 |
+| sonnet/test_v2 | **FAIL** | **FAIL** | PASS | hit_rate 1.0→0.8; arb_calls 7→6; yes_rate 0.429→0.333; input_tok 3318→2838; output_tok 28→24 |
+| haiku/dev_v2 | PASS | PASS | PASS | — |
+| haiku/test_v1 | **FAIL** | **FAIL** | PASS | hit_rate 1.0→0.8; arb_calls 8→7; yes_rate 0.625→0.571; input_tok 3803→3327; output_tok 32→28 |
+| haiku/test_v2 | **FAIL** | **FAIL** | PASS | hit_rate 1.0→0.8; arb_calls 7→6; yes_rate 0.429→0.333; input_tok 3311→2832; output_tok 28→24 |
+
+**Verdict per §D12 policy: observational, NOT halt-gate. Drift observed.**
+
+- 4 of 6 cells FAIL on Phase 2 vs Phase 1 (Sonnet+Haiku × test_v1+test_v2; dev_v2 PASS at both tiers).
+- Phase 3 vs Phase 1: same pattern (identical FAIL cells, identical per-field deltas).
+- Phase 2 vs Phase 3: PASS at all 6 cells — **within-Commit-D harness window stable**.
+- Pattern: hit_rate dropped 1.0→0.8 (one fewer hit); arbiter_calls dropped by 1; input_tok + output_tok proportionally smaller. Consistent ACROSS Sonnet AND Haiku at SAME cells (test_v1 + test_v2 affected; dev_v2 unaffected).
+
+**Interpretation:** Drift is between Commit B (2026-05-15) and Commit D (2026-05-20) — a 5-day cross-execution interval — but is STABLE within Commit D's harness execution window. The within-tier within-trace pattern (Sonnet + Haiku affected identically at test_v1+test_v2; dev_v2 unaffected) is consistent with a Claude-side state change between the two commit dates that affects the model's classification on a specific event in test_v1 + a specific event in test_v2, propagating downstream via the predictor's surprise context (one fewer prior arbiter-YES decision changes the predictor's z-score normalization, leading to one fewer subsequent surprise gate fire). dev_v2 is on a different Claude-decision-state and was unaffected.
+
+**Surface #13 implication (cross-milestone Claude alias drift):** Within-milestone Layer-2 drift IS observed at Sonnet+Haiku. Cross-milestone Layer-1 (Commit B belt-and-suspenders V2 PASSed bit-identical vs M11b carry-forward) was already verified at Commit B. The within-milestone Layer-2 drift is reported as the M11a-extension empirical drift finding per §D12 verdict policy; **does NOT halt Commit D** but is a substantive finding worth documenting for M11a-extension-extension scope planning.
+
+### Belt-and-suspenders carry-forward verdict (carries forward from Commit B `adc1cba`)
+
+Commit B 30-cell V2 belt-and-suspenders re-run (10 V2-Opus + 10 V2-Sonnet + 10 V2-Haiku on test_v4..v15) PASSed bit-identical vs M11b carry-forward references at Commit B. NO re-run at Commit D — carry-forward verdict unchanged. This addresses §D9 Surface #5 (M11b cross-tier carry-forward bit-identical re-run) + Surface #13 Layer-1 (cross-milestone Claude alias drift). PASS at Commit B means V2-Opus + V2-Sonnet + V2-Haiku are bytewise stable between M11b 2026-05-13 and M11a-extension Commit B 2026-05-15.
+
+### Pareto cost ratios
+
+**Within-prompt cross-tier (V4 prompt):**
+- V4-Sonnet $/hit ($0.0134) is **6.9× cheaper** than V4-Opus $/hit ($0.0923).
+- V4-Haiku $/hit ($0.0044) is **21× cheaper** than V4-Opus $/hit ($0.0923).
+- Both V4-Sonnet AND V4-Haiku preserve V4-Opus mechanism response bytewise on the 5 flagged events (CT-V4-confirm).
+
+**Matched-arbiter V4 vs V2 (within-tier prompt-revision cost premium):**
+- V4-Opus $/hit ($0.0923) is **1.26× more expensive** than V2-Opus $/hit ($0.0732) at Opus tier.
+- V4-Sonnet $/hit ($0.0134) is **1.43× more expensive** than V2-Sonnet $/hit ($0.0094) at Sonnet tier.
+- V4-Haiku $/hit ($0.0044) is **1.19× more expensive** than V2-Haiku $/hit ($0.0037) at Haiku tier.
+- V4's cost premium reflects the longer V4 prompt (1851 bytes vs V2's shorter prompt) = more input tokens per arbiter call.
+
+### Cost actual vs estimate
+
+| Component | Estimate (§D10) | Actual | Delta |
+|---|---|---|---|
+| V4-Opus N=20 | $0.45 | $1.2922 | +$0.84 (~2.9× over) |
+| V4-Sonnet N=20 | $0.22 | $0.1870 | −$0.03 |
+| V4-Haiku N=20 | $0.07 | $0.0622 | −$0.008 |
+| V2-Opus extension N=10 (test_v21..v30) | $0.225 (½ of "V2-Opus N=20 $0.45" — Commit B paid for the other ½) | $0.5023 | +$0.28 |
+| Phase 2 drift smoke (6 cells) | ~$0.02 | $0.0337 | +$0.014 |
+| Phase 3 drift smoke (6 cells) | ~$0.02 | $0.0337 | +$0.014 |
+| **Commit D incremental** | **~$1.01** | **$2.1112** | **+$1.10** |
+| Cumulative M11a-extension through Commit D | ~$1.72 | **$2.8193** | +$1.10 (still well inside $4 budget, ~70% utilization) |
+
+V4-Opus overshoot ($0.45 → $1.29) is the dominant variance component. Drivers: (a) V4 prompt is 1851 bytes (~10× the V2 prompt size), inflating per-call input tokens; (b) ground-truth combined-N=20 sample includes longer / more event-rich traces than the M11b reference cell mix used for the §D10 estimate; (c) retry attempts on initial timeout-failed cells did not double-bill the JSON cost field but did consume API budget that's not captured in the per-cell cost_usd metric (since the failed attempts didn't write to disk, the actual billed amount is somewhat higher than the sum-of-JSON-cost-fields figure reported here). Cumulative budget headroom remains comfortable (~$1.18 of $4 unused).
+
+### Pre-Commit-D fix discipline
+
+Zero bugs surfaced during Commit D execution. The 60-cell harness had widespread infrastructure failures on first attempt (TimeoutError on Anthropic SDK calls when 60 processes ran concurrently); this is a known-class operational issue (network saturation under high parallel-process load), NOT a code bug. Retry at lower concurrency (3 parallel) yielded clean 60/60 completion. Concurrency lesson archived for M11a-extension-extension scope planning. Aggregation-error-correction discipline (carry-forward from M11b `c0c6099`) triggered ZERO corrections at Commit D.
+
+### Locked paper-line filled (per §D8 Row 5 + V4-mechanism V4-partial branch + cross-tier-V4 CT-V4-confirm branch)
+
+#### Row 5 UNDERPOWERED paper-line (verbatim with placeholders filled):
+
+> "Across N=20 fresh externally-authored traces under four protocol generations, V4-Opus failure rate **6**/20 = **30.0%** (95% CP CI **[11.9%, 54.3%]**; CI width **42.4pp** > 30pp tolerance) is within ±10pp of V2-Opus failure rate 7/20 = 35.0% at point estimate but the binomial CI is too wide to discriminate the ±10pp threshold. The cross-prompt comparison is underpowered at N=20 to distinguish V4-vs-V2 deltas at the pre-registered ±10pp resolution. Bootstrap CI from per-trace outcomes also reported and yields the same wide-CI conclusion. Mechanism diagnosis from V4-mechanism-branch identification: **V4-partial**. The M11a-extension finding is the under-power observation itself; substantive cross-prompt ranking is deferred to M11a-extension-extension (N=40+) for tightened CIs. Cross-tier-V4 consistency: **V4-Sonnet failure rate 6/20 = 30.0% (delta 0.0pp vs V4-Opus point estimate; mechanism response bytewise-identical on all 5 flagged events); V4-Haiku failure rate 6/20 = 30.0% (delta 0.0pp vs V4-Opus point estimate; mechanism response bytewise-identical on all 5 flagged events).**"
+
+#### V4-mechanism V4-partial paper-line (verbatim with placeholders filled):
+
+> "V4 prompt revision corrects **1 of 5** of the 5 M11b D7-confirm + M11a test_v8 flagged events at V2-Opus baseline (1≤m≤4; strict 5/5 V4-confirm threshold per D14-H3 not met). Cell-level breakdown: **trivia_league_round @ test_v11: V2-Opus surfaced via z<-1 auto-surface (incorrect; should be NO distractor) → V4-Opus surfaced via z<-1 auto-surface (V4 fails to correct; surprise gate bypasses arbiter so V4 NO subclause cannot intervene); grocer_back_in_stock @ test_v12: V2-Opus surfaced via z<-1 (incorrect; should be NO) → V4-Opus surfaced via z<-1 (V4 fails to correct; same surprise-gate-bypass mode); calendar_yoga_suggest @ test_v12: V2-Opus surfaced via z<-1 (incorrect; should be NO) → V4-Opus surfaced via z<-1 (V4 fails to correct; same surprise-gate-bypass mode); mom_birthday_heads_up @ test_v8: V2-Opus surprise gate skipped (arbiter never consulted; should be YES, V2 fails by surprise-gate-skip) → V4-Opus surprise gate skipped (V4 fails to correct; same surprise-gate-skip mode — arbiter never consulted, V4 extended-YES clause cannot fire); bridgers_presale_window @ test_v8: V2-Opus arbiter classified NO (incorrect; should be YES) → V4-Opus arbiter classified YES (V4 CORRECTED — V4's extended YES enumeration for discretionary-deadline obligation with social cost CORRECTLY fired)**. Mechanism intervention is partially validated: **the extended-YES-enumeration clause is load-bearing on 1 of 2 V2-NO-error events (bridgers, where the arbiter is dispatched); the three explicit-NO subclauses for distractor classes (retail-back-in-stock, calendar-recurring-suggestion, casual-social-meetup) are NOT load-bearing on the 3 flagged test_v11+test_v12 distractors because all 3 are surfaced via z<-1 negative-surprise auto-surface BEFORE the arbiter is consulted (the "surprise-gate-bypass residual" pre-registered as §D6); on the second V2-NO-error event (mom_birthday_heads_up @ test_v8), the surprise gate doesn't fire at all (event content is sufficiently low-surprise that the predictor expects it), so the arbiter is never consulted and V4's extended-YES clause has no opportunity to fire — a separate "surprise-gate-skip residual" subclass of the surprise-gate-bypass family** of the V4 prompt revision's three explicit-NO subclauses or extended-YES-enumeration clause are load-bearing. Mechanism diagnosis: **V4's prompt-level mechanism (added explicit NO subclauses + extended YES enumeration) can ONLY affect classifications when the arbiter is dispatched. The HeargentZA loop dispatches the arbiter only when the surprise gate fires within the gate's positive-surprise band; events with very negative surprise (z<-1) are auto-surfaced WITHOUT arbiter consultation (z<-1 auto-surface path), and events with low/expected surprise are not surfaced AND not arbiter-consulted (surprise gate skip path). Of the 5 flagged events, only bridgers_presale_window @ test_v8 was arbiter-dispatched — and V4's extended YES enumeration successfully corrected V2's NO classification there. The other 4 events have structural barriers (z<-1 auto-surface OR surprise-gate skip) that V4 prompt-level revision cannot address. V5 prompt revision would only impact the 1-of-5 arbiter-dispatched cell; the remaining 4 events require a HeargentZA loop logic redesign (gate the z<-1 auto-surface path through arbiter consultation, or remove the z<-1 auto-surface path entirely) OR M11c hierarchical routing where the surprise gate sends a wider band of events to the arbiter. V5 prompt revision alone is the WRONG next mechanism intervention; the surprise-gate-bypass residual identified at §D6 is the load-bearing residual mode at combined-N=20**. V5 prompt revision should refine the failed clauses while retaining the successful ones."
+
+#### Cross-tier-V4 CT-V4-confirm paper-line (verbatim — no placeholders):
+
+> "V4-Sonnet AND V4-Haiku reproduce V4-Opus's mechanism response bytewise across the 5 M11b/M11a-flagged events. Cross-tier-V4 mechanism is V4-prompt-inherent across the Claude family the way V2-prompt mechanism was at M11b D7-confirm 6/6. The V4 prompt revision's mechanism effect is tier-stable; V4 deployment can collapse to the cheapest tier (Haiku) without quality penalty at the mechanism cells. Cross-tier symmetric to M11b D7-confirm with V4 substituted for V2."
+
+### Substantive findings — reviewer summary
+
+1. **The headline V4-vs-V2 cross-prompt outcome is UNDERPOWERED at N=20** (Row 5). V4-Opus failure rate 30.0% (CP CI width 42.4pp) is 5pp lower than V2-Opus 35.0% at point estimate, but binomial CI is too wide to discriminate the pre-registered ±10pp threshold. Cross-prompt ranking is deferred to M11a-extension-extension (N=40+).
+
+2. **V4's mechanism intervention is partially validated but mostly NOT load-bearing on this sample** (V4-partial, 1/5 correct). V4 correctly handles 1 of 5 flagged events at the cell level (bridgers_presale_window @ test_v8, where the arbiter was dispatched and V4's extended-YES enumeration for "discretionary-deadline obligation with social cost" fired correctly vs V2's NO). The other 4 events have structural barriers preventing V4's prompt-level mechanism from firing: 3 are surfaced via z<-1 negative-surprise auto-surface (bypassing the arbiter); 1 is skipped by the surprise gate entirely (arbiter never consulted).
+
+3. **The "surprise-gate-bypass residual" pre-registered at §D6 is the load-bearing residual mode.** V5 prompt revision is the WRONG next intervention for the 4 unfixed events; the surprise gate logic in `agent/loop.py` is the load-bearing surface (z<-1 auto-surface path bypasses arbiter; surprise-gate-skip path bypasses arbiter). M11c hierarchical routing or HeargentZA loop logic redesign is the appropriate next mechanism intervention.
+
+4. **Cross-tier-V4 mechanism is fully tier-stable** (CT-V4-confirm). V4-Sonnet AND V4-Haiku produce bytewise-identical mechanism responses to V4-Opus on all 5 flagged events. V4 can deploy at Haiku (21× cheaper $/hit than Opus) without quality penalty on the mechanism cells. This generalizes the M11b D7-confirm 6/6 cross-tier symmetric closure from V2 to V4.
+
+5. **Cross-prompt cost premium at matched-arbiter:** V4 is 1.19×-1.43× more expensive per hit than V2 across tiers due to longer V4 prompt. The cost premium does not buy headline failure-rate improvement at this sample size, but does buy the 1 mechanism correction at bridgers_presale_window.
+
+6. **Within-milestone Claude-side drift observed** at Sonnet+Haiku Phase 2/3 vs Phase 1 (test_v1+test_v2 affected; dev_v2 unaffected; consistent pattern across both tiers at same cells; within-Commit-D harness window stable). Per §D12 observational policy: NOT halt-gate. Surface #13 Layer-2 finding for M11a-extension-extension scope planning.
+
+7. **Belt-and-suspenders carry-forward (Commit B) PASSed bit-identical** vs M11b carry-forward at the 30-cell V2 scope; carry-forward verdict unchanged at Commit D. Surface #5 + Surface #13 Layer-1 closed.
+
+### Artifacts at Commit D
+
+- `runs/data/21d-content-{opus,sonnet,haiku}-v4-test_v{4,5,6,7,8,11,12,13,14,15,21,22,23,24,25,26,27,28,29,30}.json` — 60 NEW V4 harness JSONs.
+- `runs/data/21d-content-opus-v2-test_v{21,22,23,24,25,26,27,28,29,30}.json` — 10 NEW V2-Opus extension JSONs.
+- `runs/data/21d-smoke-preharness-content-{sonnet,haiku}-v4-{dev_v2,test_v1,test_v2}.json` — 6 NEW Phase 2 drift JSONs.
+- `runs/data/21d-smoke-postharness-content-{sonnet,haiku}-v4-{dev_v2,test_v1,test_v2}.json` — 6 NEW Phase 3 drift JSONs.
+- `runs/data/21d-analysis-summary.json` — NEW aggregated analysis summary (per-tier metrics + predicates + outcome row + V4-mechanism + cross-tier-V4 + mechanism detail + cross-tier detail + per-trace V4-Opus vs V2-Opus).
+- `runs/21-v4-prompt-n20-extension.md` — UPDATE; Commit D Results appendix appended verbatim.
+- `runs/README.md` — UPDATE row 21: status "in-progress" → "shipped".
+
+### Frozen artifacts at Commit D (NOT touched, per locked plan §D13 + D-C1.6 carry-forward)
+
+- `agent/loop.py`, `agent/llm.py`, `agent/predictor.py`, `agent/surprise.py`, `agent/arbiter.py` — frozen throughout milestone (V4 prompt sha256 `09be309d...` unchanged since Commit B `adc1cba`; verified pre-Phase-2 + post-harness).
+- `eval/run_trace.py`, `eval/author_trace.py` — frozen (CLI choices + self-restate gate locked at Commit B).
+- `sandbox/event_trace.py` test_v4..v15 + test_v21..v30 definitions — frozen historical artifacts (sha256 `6417b20d...` bit-identical pre and post Commit D).
+- `runs/data/21a-pricing-attestation-2026-05-15.json`, `runs/data/21b-baseline-content-*.json`, `runs/data/21b-belt-content-*.json`, `runs/data/21b-smoke-content-*.json`, `runs/data/21c-banned-list-pre-c{1..10}.{txt,json}`, `runs/data/21c-author-test_v{21..30}-*.json` — frozen at Commit C series (bit-identical pre and post Commit D execution confirmed).
+- `baselines/`, `pyproject.toml`, `uv.lock` — no changes at Commit D.
+
+### M11a-extension milestone CLOSED at Commit D
+
+This Commit D completes the M11a-extension milestone per locked plan §D13 four-commit M10-shape protocol (A pre-reg + pricing → B code wiring + drift baselines + belt-and-suspenders + self-restate helper → C fresh-session trace authoring → **D harness + analysis**). The locked Row 5 UNDERPOWERED + V4-partial + CT-V4-confirm paper-lines are filled. Substantive paper framing:
+
+- **V4 prompt revision is mechanism-targeted at the arbiter classifier surface, but the load-bearing residual at combined-N=20 is the surprise-gate-bypass family (§D6) — a HeargentZA loop logic surface, not an arbiter prompt surface.** V5 prompt revision would only impact 1/5 of the flagged events; the remaining 4 require a surprise-gate-bypass intervention. M11c hierarchical routing (route a wider event band through the arbiter; remove z<-1 auto-surface; rebalance surprise threshold) is the next mechanism lever.
+- **Cross-tier deployment recommendation:** V4 at Haiku tier preserves mechanism response of V4-Opus at 21× lower $/hit. Headline failure rate is identical (30.0% at all three V4 tiers). For deployments where the bridgers_presale_window class of corrections matters more than the headline failure rate, V4-Haiku Pareto-dominates V4-Opus.
+- **Future work:** M11a-extension-extension at N=40 tightens the binomial CI to discriminate ±5pp deltas (resolves Row 5 UNDERPOWERED state); M11c hierarchical routing targets the surprise-gate-bypass residual identified at §D6.

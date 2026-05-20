@@ -1,0 +1,157 @@
+{
+  "hit_rate": 0.8,
+  "false_initiation_rate_per_hour": 4.044943820224719,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "court_hearing_moved_same_day_default_risk",
+      "notification_sim_time": 120.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "homeowner_insurance_lapse_72h_notice",
+      "notification_sim_time": 260.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "partner_voicemail_ring_pickup_jeweler",
+      "notification_sim_time": 380.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "dust_storm_warning_freeway_visibility",
+      "notification_sim_time": 540.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "tls_cert_expiry_3hr_customer_endpoint"
+  ],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.002218,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 890.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 4460,
+    "completion_tokens": 209,
+    "total_duration_s": 24.328918624,
+    "arbiter_calls": 4,
+    "arbiter_yes_rate": 0.5,
+    "arbiter_input_tokens": 2138,
+    "arbiter_output_tokens": 16,
+    "arbiter_dispatched_model": "claude-haiku-4-5-20251001"
+  },
+  "trace_name": "test_v23",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "haiku",
+  "surprise_log": [
+    {
+      "sim_time": 60.0,
+      "event_id": "cloud_backup_daily_success_digest",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Daily backup digest from CloudStash: yesterday's incremental snapshot completed successfully \u2014 2.3 GB across 14,820 files; zero errors; next snapshot tonight at 2am. All systems normal. Manage notification preferences in your account settings.",
+      "surprise": 0.4423454693447585,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 120.0,
+      "event_id": "court_hearing_moved_same_day_default_risk",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Court clerk email: your small-claims hearing #SC-24-3812 (Acme Plumbing vs. you, $4,200) originally scheduled for today 2pm has been moved to today 11am on Judge Calderon's reassigned docket. Confirm appearance by 10am via the eFile portal or you will be in default; default judgment plus collection proceedings follow automatically.",
+      "surprise": 0.42826860397045685,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 180.0,
+      "event_id": "kitchen_gear_quarterly_digital_magazine",
+      "prediction": "Court clerk email alert about hearing rescheduling to earlier time today.",
+      "observation": "Fresh off the press: Kitchen Gear Quarterly Spring issue \u2014 28 pages on stand-mixer testing, knife sharpening across budget tiers, and a roundup of seasonal cookbook reviews. Read at your leisure online or download the PDF for offline browsing. Unsubscribe at any time from the footer link.",
+      "surprise": 0.43311863138253737,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 260.0,
+      "event_id": "homeowner_insurance_lapse_72h_notice",
+      "prediction": "Court hearing rescheduled to earlier today at 11am in Acme Plumbing's small-claims case.",
+      "observation": "Liberty Mutual insurance notice: your homeowner insurance auto-debit failed at last billing cycle (the linked checking transfer was returned NSF) and the policy will lapse in 72 hours unless payment of $2,470 clears via the carrier portal. After lapse, your mortgage lender is auto-notified and force-placed coverage begins at $300 per month above your prior premium.",
+      "surprise": 0.43778085598134164,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 380.0,
+      "event_id": "partner_voicemail_ring_pickup_jeweler",
+      "prediction": "Court hearing rescheduled from 2pm to 11am today for Acme Plumbing's small-claims case.",
+      "observation": "Voicemail from your partner Mira: please swing by Goldsmiths on Roosevelt Row this afternoon for the pickup of the resized wedding ring; her own 3pm meeting ran long. The shop closes at 5pm sharp with no weekend hours, so if the ring is not collected today it sits in the safe until next Friday. She asked you to call back to confirm.",
+      "surprise": 0.36288236015484865,
+      "z": -13.82648667420572,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 440.0,
+      "event_id": "morning_briefing_no_urgent_items_today",
+      "prediction": "Court hearing for small-claims case scheduled for today at 11am will require immediate confirmation or appearance by 10am via eFile portal.",
+      "observation": "Wednesday morning briefing: your calendar has 2 scheduled items (10am team standup, 3pm 1:1 with Sara); inbox sits at 47 unread; outdoor air quality moderate. No time-sensitive items flagged for today. Have a productive day.",
+      "surprise": 0.3437574860529673,
+      "z": -2.6254030886214834,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 540.0,
+      "event_id": "dust_storm_warning_freeway_visibility",
+      "prediction": "Liberty Mutual insurance lapse warning due in 72 hours unless payment is made.",
+      "observation": "NWS dust storm warning for Maricopa County through 8pm tonight: sustained 50+ mph wind gusts kicking up dense dust along I-10 between Phoenix and Tucson; visibility may drop below a quarter-mile. Driver advisory: pull off the freeway and turn lights off if caught in zero-visibility. Your afternoon drive to the Tucson conference passes through the warned corridor.",
+      "surprise": 0.38390798786606306,
+      "z": -0.6135454613934685,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 620.0,
+      "event_id": "notion_new_dashboard_feature_tour",
+      "prediction": "NWS dust storm warning for Maricopa County imminent, drivers advised to pull over and turn off lights on I-10.",
+      "observation": "Notion product announcement: our new analytics dashboard is rolling out to every workspace this month. Take the 2-minute interactive tour to explore the pivot views and AI-generated summaries. No action required on your end \u2014 the feature is opt-in via the workspace settings menu whenever you are ready.",
+      "surprise": 0.5122362996210261,
+      "z": 2.88171303440281,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 720.0,
+      "event_id": "tls_cert_expiry_3hr_customer_endpoint",
+      "prediction": "NWS dust storm warning for Maricopa County through 8pm tonight affecting afternoon commute to Tucson conference.",
+      "observation": "PagerDuty P2 from Datadog synthetic monitor: the TLS certificate for api.acmewidgets.com (your team's customer-facing billing-webhook endpoint) expires at 16:32 PST today; current time 13:14 PST leaves 3 hours 18 minutes to issue and deploy the renewal via cert-manager. Customer billing webhooks will return 502 on expiry; the rotation runbook lists you as primary.",
+      "surprise": 0.5379217667347205,
+      "z": 2.4030655051568433,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    }
+  ]
+}

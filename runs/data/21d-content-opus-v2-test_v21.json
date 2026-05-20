@@ -1,0 +1,153 @@
+{
+  "hit_rate": 0.6,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 3,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "gas_leak_kitchen_sensor",
+      "notification_sim_time": 15.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "cardio_appt_rescheduled",
+      "notification_sim_time": 100.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "legal_doc_courier_signature",
+      "notification_sim_time": 400.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "vinyl_drop_press_today",
+    "student_loan_repayment_resume"
+  ],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.053895,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 760.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 3295,
+    "completion_tokens": 133,
+    "total_duration_s": 17.089311709,
+    "arbiter_calls": 7,
+    "arbiter_yes_rate": 0.42857142857142855,
+    "arbiter_input_tokens": 3523,
+    "arbiter_output_tokens": 14,
+    "arbiter_dispatched_model": "claude-opus-4-7"
+  },
+  "trace_name": "test_v21",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v2",
+  "arbiter_model": "opus",
+  "surprise_log": [
+    {
+      "sim_time": 15.0,
+      "event_id": "gas_leak_kitchen_sensor",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Sensor in kitchen detected a natural-gas leak \u2014 concentration above safety threshold. Open windows; do NOT operate switches or appliances. Evacuate and call the gas company immediately.",
+      "surprise": 0.46498340747475764,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 50.0,
+      "event_id": "restock_camping_lantern",
+      "prediction": "Evacuation order issued due to confirmed gas leak in kitchen.",
+      "observation": "Good news \u2014 the Goal Zero Lighthouse Mini lantern you saved last fall is back in stock at Adventure Outfitters. We've replenished the stock; browse when ready. No purchase deadline or quantity limit at this time.",
+      "surprise": 0.4808109414024181,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 100.0,
+      "event_id": "cardio_appt_rescheduled",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Voicemail from Northwest Cardiology: your appointment with Dr. Park scheduled for Thursday 10am has been rescheduled to Friday 2pm. Please call back to confirm the new slot.",
+      "surprise": 0.3627615365636977,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 150.0,
+      "event_id": "calendar_running_club_recur",
+      "prediction": "Voicemail reminder about rescheduled Northwest Cardiology appointment will be played.",
+      "observation": "Calendar suggestion: I noticed you've gone running with Maya three Thursdays in a row. Add 'Thursday run with Maya' as a recurring weekly event? Suggestion only \u2014 dismiss or set up later.",
+      "surprise": 0.41983571007068377,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 200.0,
+      "event_id": "vinyl_drop_press_today",
+      "prediction": "Gas company technician en route to address kitchen natural gas leak.",
+      "observation": "Vinyl drop alert: Sault's 'Earth' double-LP first pressing \u2014 250 copies, dropping at 14:30 today. The shop's purchase queue is open for 30 minutes; first-come, first-served. Once gone, no second pressing.",
+      "surprise": 0.49358423928782225,
+      "z": 1.3407599138815907,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 250.0,
+      "event_id": "student_loan_repayment_resume",
+      "prediction": "Natural gas leak alert in kitchen requiring immediate attention and evacuation.",
+      "observation": "Your federal student loan auto-debit resumes in 48 hours after the COVID pause. Current minimum payment: $342/month. To request an income-driven repayment plan instead, you must apply at studentaid.gov within the next 48 hours.",
+      "surprise": 0.5633890193421558,
+      "z": 2.488043195996907,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 300.0,
+      "event_id": "arcade_meetup_kira",
+      "prediction": "Gas leak alert in kitchen; evacuate and call gas company immediately.",
+      "observation": "Kira's organizing a casual arcade night at Quarterworld this Saturday around 7pm. No commitment, no RSVP \u2014 show up if you're free.",
+      "surprise": 0.4922206750241479,
+      "z": 0.44982535282931363,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 400.0,
+      "event_id": "legal_doc_courier_signature",
+      "prediction": "Kira's casual arcade night at Quarterworld this Saturday around 7pm.",
+      "observation": "Courier from Whitfield & Holst delivering certified legal documents requiring your signature is at the lobby. They can only release to you in person and will wait 15 minutes before returning to sender.",
+      "surprise": 0.5187358118670303,
+      "z": 0.8642677902313572,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 700.0,
+      "event_id": "discord_unread_digest",
+      "prediction": "Courier from Whitfield & Holst with legal documents arrives at lobby, waiting for signature.",
+      "observation": "You have 12 unread messages across 3 Discord servers: #react-discussion (4), #portland-coffee (5), and #book-recs (3). Open the app to catch up when you have time.",
+      "surprise": 0.5105640073590179,
+      "z": 0.6302013656079992,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    }
+  ]
+}

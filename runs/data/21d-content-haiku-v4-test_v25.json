@@ -1,0 +1,157 @@
+{
+  "hit_rate": 0.8,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 4,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "parents_fiftieth_anniversary_dinner_tomorrow_toast_request",
+      "notification_sim_time": 120.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "child_medication_ingestion_poison_control_emergency_call",
+      "notification_sim_time": 320.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "dental_implant_surgery_rescheduled_tomorrow_8am_surgeon_emergency",
+      "notification_sim_time": 480.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "quarterly_estimated_tax_q3_payment_eod_irs_penalty_5pm",
+      "notification_sim_time": 620.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "redis_memory_saturation_eviction_cascade_120min_outage_risk"
+  ],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.003486,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1000.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 5699,
+    "completion_tokens": 135,
+    "total_duration_s": 302.06016925,
+    "arbiter_calls": 6,
+    "arbiter_yes_rate": 0.5,
+    "arbiter_input_tokens": 3366,
+    "arbiter_output_tokens": 24,
+    "arbiter_dispatched_model": "claude-haiku-4-5-20251001"
+  },
+  "trace_name": "test_v25",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "haiku",
+  "surprise_log": [
+    {
+      "sim_time": 60.0,
+      "event_id": "kubernetes_autoscaler_monthly_cluster_health_report_nominal",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Monthly cluster-health digest for prod-k8s-01: all 47 node groups stayed within HPA target bands; the cluster-autoscaler scaled up 8 times and down 12 times this period with no failed scaling events; spot-instance interrupt rate at 0.3%, inside the historical 0.2 to 0.4 percent band; control-plane API latency p99 at 84ms. No anomalies were detected this cycle. The next health digest is scheduled for the first of next month.",
+      "surprise": 0.45621035481609784,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 120.0,
+      "event_id": "parents_fiftieth_anniversary_dinner_tomorrow_toast_request",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Voicemail from your sister Diane: this is the final reminder about Mom and Dad's fiftieth wedding anniversary dinner tomorrow night at 7pm at Boulevard \u2014 you're the only one Mom's asked to give the family toast, Mark and Carol are both flying in from Seattle and Boston for this single evening and heading straight back Friday morning, and the only time the four of you will be together all year is between courses. Please confirm by tomorrow noon so the ma\u00eetre d' can finalize seating and Mom can stop worrying.",
+      "surprise": 0.43222826904924816,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 240.0,
+      "event_id": "inkwell_indie_bookstore_quarterly_preorder_catalog_winter",
+      "prediction": "Voicemail reminder from sister about family dinner tonight at 7pm",
+      "observation": "Inkwell Books winter preorder catalog is live: 23 forthcoming titles handpicked by our staff, including new releases from Marisa Crane and Tony Tulathimutte, plus exclusive signed bookplates for the first 50 preorders of each title. Shipping in late December or early January depending on the publisher schedule. Browse the catalog at your leisure and reply with any questions. Manage email cadence in your account preferences.",
+      "surprise": 0.5811072453647659,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 320.0,
+      "event_id": "child_medication_ingestion_poison_control_emergency_call",
+      "prediction": "Voicemail reminder from sister about Mom's wedding anniversary dinner tomorrow evening.",
+      "observation": "Found your three-year-old in the bathroom with the cap off your migraine antihistamines and at least four pills missing from the pack. Poison Control just called back: bring the child and the medication bottle to the emergency room right now \u2014 do not induce vomiting at home. Estimated ingestion under twenty minutes ago; ER triage is expecting you and the medication when you arrive, and is asking you to call back from the car with a weight estimate.",
+      "surprise": 0.5622661062158633,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 480.0,
+      "event_id": "dental_implant_surgery_rescheduled_tomorrow_8am_surgeon_emergency",
+      "prediction": "Child ingested adult antihistamines, requiring immediate medical attention.",
+      "observation": "Voicemail from Dr. Patel's oral surgery office: your dental implant procedure scheduled for tomorrow 8am must be pushed because the surgeon is being called into an emergency case this evening for another patient. The earliest slot we can offer is next Wednesday 7am or the following Thursday 11am \u2014 please call back by 6pm today to lock one in, otherwise we'll need to release the anesthesia booking and you'll be at the back of next month's queue.",
+      "surprise": 0.516860679344552,
+      "z": 0.13780588042255518,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 550.0,
+      "event_id": "friday_weekly_recap_briefing_no_outstanding_items",
+      "prediction": "ER visit required due to child ingesting adult medication.",
+      "observation": "Friday afternoon recap: this week you closed 14 tickets, attended 11 meetings averaging 38 minutes each, and sent 87 emails with a 92 percent reply rate within 24 hours. Inbox is at 4 unread; next week's calendar shows two heads-down blocks and one cross-team review on Wednesday. No outstanding items are flagged for your attention before Monday morning. Enjoy the weekend.",
+      "surprise": 0.5797332336141847,
+      "z": 1.2084388814829394,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 620.0,
+      "event_id": "quarterly_estimated_tax_q3_payment_eod_irs_penalty_5pm",
+      "prediction": "ER visit due to child ingesting adult medication at 6pm.",
+      "observation": "IRS reminder: your Q3 quarterly estimated tax payment is due by 5pm Eastern today via EFTPS for the 1040-ES installment covering July through September. Failing to pay by the 5pm cutoff triggers underpayment penalty calculation back to the April safe-harbor anchor plus a charge of roughly half a percent per month against the shortfall until the balance is paid. Bank ACH cutoff for next-day settlement is 8pm; the EFTPS receipt arrives within 24 hours of submission.",
+      "surprise": 0.4800829821393543,
+      "z": -0.7007471998590181,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 710.0,
+      "event_id": "vscode_marketplace_verified_publisher_tab_launch_announcement",
+      "prediction": "ER visit due to child ingesting adult antihistamines medication.",
+      "observation": "Visual Studio Code marketplace: we've launched a new Verified Publisher tab in the extensions sidebar \u2014 extensions from publishers with multi-factor account verification and signed publisher manifests now surface in a curated panel for easier discovery. Existing extension installation flows are unchanged and no migration is needed. The feature is on by default and can be toggled in the marketplace settings panel.",
+      "surprise": 0.5706055092568465,
+      "z": 0.9758449125720241,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 790.0,
+      "event_id": "redis_memory_saturation_eviction_cascade_120min_outage_risk",
+      "prediction": "ER visit due to child ingesting adult antihistamines medication at 8am tomorrow morning.",
+      "observation": "PagerDuty P1 from infra-mon: redis-prod-cluster-01 memory saturation alert \u2014 used memory at 13.4 GB on a 14 GB allocation; the allkeys-lru eviction policy is throwing OOM errors back to the API gateway at roughly 200 evictions per second; session-cache hit rate has collapsed from 98% to 41% over the last ten minutes and queue depth is climbing. You're listed as primary on the cache-tier runbook this week; full session outage projected if the working set hits the 14 GB hard cap within roughly 120 minutes at the current write rate.",
+      "surprise": 0.5999467088714249,
+      "z": 1.3879852700253772,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    }
+  ]
+}

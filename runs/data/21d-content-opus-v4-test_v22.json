@@ -1,0 +1,153 @@
+{
+  "hit_rate": 0.6,
+  "false_initiation_rate_per_hour": 4.044943820224719,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 4,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "grandpa_90th_birthday_tomorrow",
+      "notification_sim_time": 80.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "flash_flood_warning_overnight",
+      "notification_sim_time": 220.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "aging_parent_fall_alert_emergency_pendant",
+      "notification_sim_time": 480.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "datastore_replica_failover_p1",
+    "property_tax_installment_due_today"
+  ],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.04608,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 890.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 4328,
+    "completion_tokens": 179,
+    "total_duration_s": 17.263452083,
+    "arbiter_calls": 4,
+    "arbiter_yes_rate": 0.5,
+    "arbiter_input_tokens": 3032,
+    "arbiter_output_tokens": 8,
+    "arbiter_dispatched_model": "claude-opus-4-7"
+  },
+  "trace_name": "test_v22",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "opus",
+  "surprise_log": [
+    {
+      "sim_time": 20.0,
+      "event_id": "sneakers_wishlist_back_in_stock_email",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Good news from SneakerVault: your wishlist item, the Nike Air Max 90 (size 11, Triple White), is back in stock. We've restocked plenty of pairs; no rush, no quantity limit. Shop when you're ready \u2014 orders ship within 5-7 business days at standard prices.",
+      "surprise": 0.4399895026833698,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 80.0,
+      "event_id": "grandpa_90th_birthday_tomorrow",
+      "prediction": "Nike Air Max 90 back in stock, shoppers eagerly awaiting delivery updates.",
+      "observation": "Reminder pinned by Mom in the family chat: Grandpa Walter's 90th birthday party is tomorrow at 1pm at the Riverview Country Club ballroom. All five siblings and twelve cousins are flying or driving in; you signed up to give the toast at the cake-cutting. You haven't written it yet, and the rehearsal-dinner photos confirm everyone is expecting it.",
+      "surprise": 0.4195891197093946,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 140.0,
+      "event_id": "calendar_coffee_lisa_weekly_suggest",
+      "prediction": "Grandpa Walter's 90th birthday party toast preparation due tomorrow afternoon.",
+      "observation": "Google Calendar suggestion: We noticed you have met Lisa for coffee five Wednesdays in a row at 9am at Heart Coffee. Would you like to add 'Wednesday coffee with Lisa' as a recurring weekly event? Options: Add weekly / Add once / Dismiss. No deadline \u2014 suggestion only.",
+      "surprise": 0.4507138115127599,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 220.0,
+      "event_id": "flash_flood_warning_overnight",
+      "prediction": "Mom reminding Grandpa Walter's party is tomorrow at 1pm in the Riverview Country Club ballroom.",
+      "observation": "NWS flash flood warning issued for King County through 6am Friday: 4-6 inches of rain expected overnight; low-lying roads on the I-5 corridor expected to close; your morning commute route on Westlake Avenue is inside the warning zone. Local authorities advise the I-405 alternate.",
+      "surprise": 0.4244692311349162,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 300.0,
+      "event_id": "pickup_basketball_saturday_open",
+      "prediction": "NWS flash flood warning for King County's I-405 alternate route expected to impact morning commuters.",
+      "observation": "Text from Marco: hey, we're running pickup 5-on-5 at the Wallingford courts Saturday at 10am. Totally casual, no commitment \u2014 show up if you feel like it, ignore if you're busy. Same crew as last month.",
+      "surprise": 0.42504128787957873,
+      "z": -0.6984699007885966,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 380.0,
+      "event_id": "datastore_replica_failover_p1",
+      "prediction": "NWS flash flood warning for King County's I-5 corridor due to expected heavy rain overnight.",
+      "observation": "PagerDuty P1 [primary-postgres-001]: database failover triggered at 04:47 UTC; writes failing with SQLSTATE 08006; on-call rotation lists you as primary for the payments-data shard. Promotion ETA is 10 minutes; estimated customer-facing downtime ~12 minutes if not resolved by 04:57.",
+      "surprise": 0.4494231287593684,
+      "z": 1.504947014357372,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 480.0,
+      "event_id": "aging_parent_fall_alert_emergency_pendant",
+      "prediction": "Database failover alert triggers immediate on-call rotation for payments-data shard maintenance.",
+      "observation": "Medical-alert pendant for your father (Robert) triggered fall-detection at 6:42am; automatic EMS dispatch was confirmed; you are listed as the primary emergency contact. The pendant operator is on the line awaiting your callback to coordinate hospital handoff; ambulance ETA to his address is 8 minutes.",
+      "surprise": 0.3414336798681268,
+      "z": -7.515928345559127,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 560.0,
+      "event_id": "property_tax_installment_due_today",
+      "prediction": "Primary PostgreSQL failover scheduled at 04:57 UTC, requiring immediate attention.",
+      "observation": "King County Treasurer reminder: your property tax first-installment payment of $3,180 is due today by 5pm. Pay via the online portal at kingcounty.gov/treasury or in person at the courthouse cashier. Late-payment penalty of 10% applies if not paid by today's 5pm cutoff; certified collection notice mails on day 31.",
+      "surprise": 0.4612848344503403,
+      "z": 1.1471048040477325,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 680.0,
+      "event_id": "chrome_extension_marketplace_update",
+      "prediction": "Primary PostgreSQL failover scheduled at 4:57 UTC, requiring immediate attention.",
+      "observation": "Chrome announcement: we've updated the extension review system in the Chrome Web Store. Visit the marketplace homepage to browse newly featured extensions and read the updated reviewer guidelines. No action required.",
+      "surprise": 0.5187424558154725,
+      "z": 2.6365010721122992,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    }
+  ]
+}
