@@ -1,0 +1,160 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "counter_offer",
+      "notification_sim_time": 80.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "interview_confirm",
+      "notification_sim_time": 180.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "book_club_host",
+      "notification_sim_time": 310.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "figmaster_trial",
+      "notification_sim_time": 420.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "ryobi_warranty",
+      "notification_sim_time": 700.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.003021,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1030.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 2538,
+    "completion_tokens": 161,
+    "total_duration_s": 29.804073834,
+    "arbiter_calls": 6,
+    "arbiter_yes_rate": 0.3333333333333333,
+    "arbiter_input_tokens": 2901,
+    "arbiter_output_tokens": 24,
+    "arbiter_dispatched_model": "claude-haiku-4-5-20251001"
+  },
+  "trace_name": "test_v13",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "haiku",
+  "surprise_log": [
+    {
+      "sim_time": 50.0,
+      "event_id": "meditation_nudge",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Insight Timer: you haven't meditated in 3 days. Take 5 minutes now?",
+      "surprise": 0.4700112967171327,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 80.0,
+      "event_id": "counter_offer",
+      "prediction": "Notification alerting user to missed meditation session on Insight Timer.",
+      "observation": "Voicemail from agent Sara: seller submitted a counter-offer on the maple house \u2014 they want $12k more and need an answer by 5pm today.",
+      "surprise": 0.5354778709958644,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 180.0,
+      "event_id": "interview_confirm",
+      "prediction": "Agent Sara expects a quick response to her seller's counter-offer on the maple house by 5pm.",
+      "observation": "From Nora Patel (recruiter): confirming your onsite interview Thursday 9am. Please reply by end of day so we can release your slot if needed.",
+      "surprise": 0.41382346111223767,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 240.0,
+      "event_id": "cantina_review",
+      "prediction": "Voicemail from agent Sara about maple house counter-offer due soon.",
+      "observation": "How was Cantina Verde? Rate your meal from last Tuesday.",
+      "surprise": 0.5481915909590451,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 310.0,
+      "event_id": "book_club_host",
+      "prediction": "Agent Sara's counter-offer decision due today at 5pm impacts potential sale of maple house.",
+      "observation": "Book club at your place tomorrow 19:00 \u2014 you're host this round; folks expect snacks and you still owe the group a book selection.",
+      "surprise": 0.40834354280284557,
+      "z": -1.548303885958869,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 380.0,
+      "event_id": "phone_battery_low",
+      "prediction": "Voicemail from agent Sara about maple house counter-offer by 5pm today.",
+      "observation": "Battery at 20%. Plug in soon to keep notifications running.",
+      "surprise": 0.45717884556137056,
+      "z": -0.3065165299387985,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 420.0,
+      "event_id": "figmaster_trial",
+      "prediction": "Agent Sara's counter-offer on maple house submission deadline approaching by 5pm today.",
+      "observation": "Heads up: your Figmaster trial converts to paid in 25 minutes \u2014 switch to your team's Pro seat first so tomorrow's client mockups stay on the shared workspace.",
+      "surprise": 0.41760961346346714,
+      "z": -1.0104354993918017,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 700.0,
+      "event_id": "ryobi_warranty",
+      "prediction": "Voicemail from Sara about maple house counter-offer due by 5pm today.",
+      "observation": "Reminder from RyobiCare: warranty on your circular saw must be registered today at midnight to retain full coverage; otherwise it drops to base 90-day.",
+      "surprise": 0.3892146880412909,
+      "z": -1.4045232362904685,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 800.0,
+      "event_id": "calendar_week_digest",
+      "prediction": "Voicemail from agent Sara about counter-offer on maple house by 5pm today.",
+      "observation": "Your week ahead: 12 events between Wednesday and Sunday.",
+      "surprise": 0.4734910996384898,
+      "z": 0.33118161483421815,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "hit_rate": 0.8,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 4,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "vet_luna_tomorrow",
+      "notification_sim_time": 50.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "earthquake_local",
+      "notification_sim_time": 200.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "bridgers_presale_window",
+      "notification_sim_time": 500.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "photographer_voicemail_jen",
+      "notification_sim_time": 700.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "mom_birthday_heads_up"
+  ],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.06396,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 980.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 2681,
+    "completion_tokens": 131,
+    "total_duration_s": 39.76308746,
+    "arbiter_calls": 6,
+    "arbiter_yes_rate": 0.6666666666666666,
+    "arbiter_input_tokens": 4204,
+    "arbiter_output_tokens": 12,
+    "arbiter_dispatched_model": "claude-opus-4-7"
+  },
+  "trace_name": "test_v8",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "opus",
+  "surprise_log": [
+    {
+      "sim_time": 50.0,
+      "event_id": "vet_luna_tomorrow",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Reminder: Your vet appointment for Luna is tomorrow at 9:30 AM. Please bring her vaccination records and a stool sample.",
+      "surprise": 0.3871378889509478,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 80.0,
+      "event_id": "soundcloud_app_update",
+      "prediction": "Reminder to prepare for Luna's vet appointment with necessary documents.",
+      "observation": "SoundCloud 2026.5.1 is available. Tap to update at your convenience.",
+      "surprise": 0.4605457895378413,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 200.0,
+      "event_id": "earthquake_local",
+      "prediction": "SoundCloud update notification expected in the next minute.",
+      "observation": "Earthquake detected: M4.2, epicenter 12 miles north. Light shaking expected in your area within the next minute. Drop, cover, hold on.",
+      "surprise": 0.3669924011700664,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 250.0,
+      "event_id": "stitches_loyalty_statement",
+      "prediction": "Earthquake alert: Prepare to drop, cover, and hold on for light shaking.",
+      "observation": "Your monthly Stitches Coffee loyalty statement: 2,340 points total (140 earned this month). No expiring rewards. No action needed.",
+      "surprise": 0.4902120766561563,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 320.0,
+      "event_id": "mom_birthday_heads_up",
+      "prediction": "Earthquake expected with light shaking in area within the next minute.",
+      "observation": "Heads up: tomorrow is your mother's birthday. No card has been ordered, no call is on your calendar, and last year you forgot until the evening.",
+      "surprise": 0.5337504727571516,
+      "z": 2.1181377326497715,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 380.0,
+      "event_id": "strava_new_follower",
+      "prediction": "Earthquake expected to continue with light shaking in the area for a minute.",
+      "observation": "Marcus T. started following you on Strava. View profile.",
+      "surprise": 0.5427770556989286,
+      "z": 1.5197311630540136,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 500.0,
+      "event_id": "bridgers_presale_window",
+      "prediction": "Earthquake expected to continue with light shaking in the area for a few more minutes.",
+      "observation": "The presale window for Phoebe Bridgers tickets at the Greek Theatre opens in 10 minutes. Your saved access code: PBSALE2026. Two-ticket limit per account.",
+      "surprise": 0.5111249463621255,
+      "z": 0.707777271267094,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 700.0,
+      "event_id": "photographer_voicemail_jen",
+      "prediction": "Earthquake expected to continue with light shaking for another minute.",
+      "observation": "Voicemail from photographer Jen Cho: 'A client just dropped, so I have a Saturday morning slot open for your engagement shoot \u2014 I need to know by 6pm tonight or I'll offer it to someone else.'",
+      "surprise": 0.4687404655968339,
+      "z": -0.025196398895511517,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 850.0,
+      "event_id": "reading_streak_47",
+      "prediction": "Earthquake expected with light shaking in area within the next minute.",
+      "observation": "Nice \u2014 your reading streak just hit 47 days. Keep going to unlock the bookworm badge.",
+      "surprise": 0.5781371391135904,
+      "z": 1.7925392468271788,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    }
+  ]
+}

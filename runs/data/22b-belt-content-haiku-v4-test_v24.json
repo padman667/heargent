@@ -1,0 +1,160 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 4.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 6,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "carbon_monoxide_alarm_evacuate_call_gas_company",
+      "notification_sim_time": 80.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "pediatrician_visit_advanced_today_4pm",
+      "notification_sim_time": 210.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "hospital_grandmother_hip_fracture_next_of_kin_callback",
+      "notification_sim_time": 340.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "tornado_watch_tri_county_peak_risk_tonight",
+      "notification_sim_time": 500.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "disk_space_critical_var_log_api_host_oom_90min",
+      "notification_sim_time": 720.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.00338,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 900.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 4576,
+    "completion_tokens": 158,
+    "total_duration_s": 69.721654253,
+    "arbiter_calls": 6,
+    "arbiter_yes_rate": 0.6666666666666666,
+    "arbiter_input_tokens": 3260,
+    "arbiter_output_tokens": 24,
+    "arbiter_dispatched_model": "claude-haiku-4-5-20251001"
+  },
+  "trace_name": "test_v24",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "haiku",
+  "surprise_log": [
+    {
+      "sim_time": 30.0,
+      "event_id": "ssl_monitor_weekly_digest_no_rotations_required",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Weekly SSL monitor digest: all 47 certificates across your managed properties are valid; the longest-lived expires in 84 days; no rotations are required this week; one scheduled renewal is queued for next Tuesday's automation window. No action items at this time. Configure digest cadence or recipients in the monitor console.",
+      "surprise": 0.49508497737818136,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 80.0,
+      "event_id": "carbon_monoxide_alarm_evacuate_call_gas_company",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Indoor carbon monoxide alarm triggered in the basement utility room: sensor reads 95 ppm CO and climbing; the safe threshold is 9 ppm. Evacuate the house immediately with all family members and pets, leave doors open behind you, and dial the gas company emergency line from outside. Do not re-enter until first responders give the all-clear.",
+      "surprise": 0.509540276456629,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 160.0,
+      "event_id": "tea_club_monthly_subscriber_tasting_newsletter",
+      "prediction": "Indoor carbon monoxide alarm triggered; evacuate house immediately.",
+      "observation": "Steeped & Found Tea Club: your March subscriber edition is on its way \u2014 three single-estate Darjeeling first-flush samples, brewing notes from the head taster, and an interview with the harvest manager in Kurseong. The tracking number will arrive separately when your box ships. Manage cadence or pause shipments anytime from your account dashboard.",
+      "surprise": 0.5020908860948167,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 210.0,
+      "event_id": "pediatrician_visit_advanced_today_4pm",
+      "prediction": "Indoor carbon monoxide alarm triggered, evacuate house immediately.",
+      "observation": "Pediatrician's office: we've advanced your child's 4-year-old wellness visit from Tuesday next week to today at 4pm because Dr. Albright had a cancellation and wants to fit you in before her two-week leave begins tomorrow. Please confirm or call back to decline by 1pm so we can offer the open slot to another family on the waitlist.",
+      "surprise": 0.5006992345123785,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 340.0,
+      "event_id": "hospital_grandmother_hip_fracture_next_of_kin_callback",
+      "prediction": "Indoor carbon monoxide alarm triggered, evacuate house immediately due to dangerous levels.",
+      "observation": "Voicemail from St. Vincent's hospital admitting desk: your grandmother Eleanor was admitted through emergency in the last hour with a left hip fracture from a fall at home; she is stable but the chart lists you as next-of-kin proxy. Charge nurse Tanya asked that you call ward 4-North directly to discuss surgical consent and transfer logistics before evening rounds at 8pm.",
+      "surprise": 0.48378868959967736,
+      "z": -3.504526264927929,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 430.0,
+      "event_id": "evening_briefing_no_pending_items_tomorrow_clear",
+      "prediction": "Pediatrician's office email requires immediate action as child's wellness visit is today at 4pm.",
+      "observation": "End-of-day briefing: your inbox is down to 8 unread; tomorrow's calendar holds one 10:30 am 1:1 and otherwise the day's blocks are clear; outdoor air quality forecast is good across the metro; no items pending your action and nothing time-sensitive is flagged before tomorrow morning. Wind down well.",
+      "surprise": 0.358753526004843,
+      "z": -16.273051572623057,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 500.0,
+      "event_id": "tornado_watch_tri_county_peak_risk_tonight",
+      "prediction": "Pediatrician's office alert about child wellness visit scheduling change expected soon.",
+      "observation": "National Weather Service tornado watch issued for your tri-county area through 11pm tonight: rotation-supported supercells moving east-northeast at 55 mph with hail to two-inch diameter; peak tornado risk window 4pm to 9pm. A watch is not yet a warning, but conditions strongly favor tornado development \u2014 review your shelter plan, charge devices, and monitor radio for upgrades.",
+      "surprise": 0.45826098861324205,
+      "z": -0.3182825886428071,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 600.0,
+      "event_id": "slack_frontend_weekly_community_invite",
+      "prediction": "National Weather Service tornado watch issued through 11pm tonight with rotation-supported supercells moving east-northeast.",
+      "observation": "You've been invited to join the Frontend Weekly Slack community \u2014 about 12,000 engineers swapping reviews, code samples, and meetup announcements across React, Vue, and Svelte. Membership is free; introductions thread runs on Mondays. Accept the invite link in the footer or simply ignore this message if it isn't relevant.",
+      "surprise": 0.5443673696016176,
+      "z": 1.4639654908406392,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 720.0,
+      "event_id": "disk_space_critical_var_log_api_host_oom_90min",
+      "prediction": "National Weather Service tornado watch issued for tri-county area through tonight, peak risk 4pm-9pm.",
+      "observation": "PagerDuty P2 from infra-mon: disk space critical on api-prod-host-07 \u2014 /var/log is filling at roughly 200 MB per minute thanks to a runaway debug-log flag in the new release; current free space 1.4 GB on a 40 GB partition; projected OOM-style kill on the request handler within 90 minutes if not addressed. You are listed as primary on the storage-rotation runbook this week.",
+      "surprise": 0.5222535886353663,
+      "z": 0.7878763802350112,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    }
+  ]
+}

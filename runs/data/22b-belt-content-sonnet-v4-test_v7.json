@@ -1,0 +1,160 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "sister_pickup",
+      "notification_sim_time": 50.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "mortgage_rate_lock",
+      "notification_sim_time": 100.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "jury_duty",
+      "notification_sim_time": 200.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "airbnb_cancelled",
+      "notification_sim_time": 250.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "wedding_rehearsal",
+      "notification_sim_time": 400.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.007656,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 950.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 2607,
+    "completion_tokens": 159,
+    "total_duration_s": 39.774455708,
+    "arbiter_calls": 5,
+    "arbiter_yes_rate": 0.4,
+    "arbiter_input_tokens": 2452,
+    "arbiter_output_tokens": 20,
+    "arbiter_dispatched_model": "claude-sonnet-4-6"
+  },
+  "trace_name": "test_v7",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "sonnet",
+  "surprise_log": [
+    {
+      "sim_time": 20.0,
+      "event_id": "poll_civic_reminder",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Reminder: the city council's annual transit survey is open through the end of the month if you'd like to weigh in.",
+      "surprise": 0.5300403651267072,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 50.0,
+      "event_id": "sister_pickup",
+      "prediction": "Reminder for city residents to participate in the annual transit survey before it closes.",
+      "observation": "Voicemail from Maya (sister): she landed early at SFO and needs airport pickup by 22:00 tonight, no rideshare option.",
+      "surprise": 0.49331144709952557,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 100.0,
+      "event_id": "mortgage_rate_lock",
+      "prediction": "Maya's sister needs airport pickup by tonight at 22:00.",
+      "observation": "From the broker: your mortgage rate lock expires today at 17:00; final signed disclosures must be returned before then or the rate resets.",
+      "surprise": 0.5544544692484942,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 180.0,
+      "event_id": "recipe_app_tip",
+      "prediction": "Maya's airport pickup request due tonight by 22:00.",
+      "observation": "Tip of the week from your meal-planner app: try the new spring pasta collection we added on Monday.",
+      "surprise": 0.47952912144140747,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 200.0,
+      "event_id": "jury_duty",
+      "prediction": "Voicemail reminder to return mortgage disclosures by end-of-day today.",
+      "observation": "Superior Court: a jury duty summons has been issued for next Thursday; confirm or request postponement online by tomorrow noon.",
+      "surprise": 0.40466230123002356,
+      "z": -3.7024642960591674,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 250.0,
+      "event_id": "airbnb_cancelled",
+      "prediction": "Jury duty summons due confirmation before Thursday, as jury duty is scheduled to start next week.",
+      "observation": "Airbnb: your Lisbon host has cancelled your reservation for next weekend; refund issued and you'll need to rebook accommodations.",
+      "surprise": 0.4551335458547212,
+      "z": -0.7271652918487748,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 350.0,
+      "event_id": "loyalty_points_summary",
+      "prediction": "Superior Court jury duty summons due by tomorrow noon, missed could result in fines.",
+      "observation": "Your April loyalty account summary: 240 points earned, 1,820 total balance, no rewards changing status this period.",
+      "surprise": 0.5782328387691575,
+      "z": 1.886113792112741,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 400.0,
+      "event_id": "wedding_rehearsal",
+      "prediction": "Jury duty summons for next Thursday has been issued; confirm or request postponement online by noon today.",
+      "observation": "Hana's wedding rehearsal dinner has been rescheduled from Saturday 12:00 to Friday 18:00 at the same venue.",
+      "surprise": 0.3829426003088484,
+      "z": -2.0977281686165257,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 600.0,
+      "event_id": "podcast_episode_drop",
+      "prediction": "Jury duty summons for next Thursday approaching, confirm or request postponement online by noon.",
+      "observation": "New episode of 'In Our Time' available now; this week's topic is the Antikythera mechanism.",
+      "surprise": 0.48729307254948584,
+      "z": 0.03876131040524282,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    }
+  ]
+}

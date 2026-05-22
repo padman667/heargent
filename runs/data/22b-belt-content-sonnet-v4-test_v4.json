@@ -1,0 +1,157 @@
+{
+  "hit_rate": 0.8,
+  "false_initiation_rate_per_hour": 7.128712871287129,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 6,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "parking_meter_oak",
+      "notification_sim_time": 180.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "gym_class_cancelled",
+      "notification_sim_time": 380.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "library_hold_expiring",
+      "notification_sim_time": 520.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "protest_commute_route",
+      "notification_sim_time": 700.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "cover_standup_request"
+  ],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.007515,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 1010.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 2214,
+    "completion_tokens": 147,
+    "total_duration_s": 34.533817499,
+    "arbiter_calls": 5,
+    "arbiter_yes_rate": 0.4,
+    "arbiter_input_tokens": 2405,
+    "arbiter_output_tokens": 20,
+    "arbiter_dispatched_model": "claude-sonnet-4-6"
+  },
+  "trace_name": "test_v4",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "sonnet",
+  "surprise_log": [
+    {
+      "sim_time": 50.0,
+      "event_id": "linkedin_connections",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "You have 3 new LinkedIn connection requests pending this week.",
+      "surprise": 0.4262828030186028,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 180.0,
+      "event_id": "parking_meter_oak",
+      "prediction": "You receive your first LinkedIn connection request in the next minute.",
+      "observation": "Parking meter at Oak Street lot expires in 30 minutes. Enforcement active in zone.",
+      "surprise": 0.5509447970224455,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 240.0,
+      "event_id": "cover_standup_request",
+      "prediction": "Parking meter at Oak Street lot will expire soon, prompting potential enforcement action.",
+      "observation": "Heading out on vacation tomorrow - can you cover the 9am standup and post the sprint tracker update in my place?",
+      "surprise": 0.5231067826013035,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 310.0,
+      "event_id": "github_repo_star",
+      "prediction": "Parking meter at Oak Street lot will expire soon, prompting potential enforcement action.",
+      "observation": "alice-dev starred your repository 'toolkit-scripts'.",
+      "surprise": 0.6571110861658259,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 380.0,
+      "event_id": "gym_class_cancelled",
+      "prediction": "Parking meter at Oak Street lot will expire soon, prompting potential enforcement action.",
+      "observation": "Pine Street Gym is closing at 5pm tonight for equipment maintenance. Your 6pm spin class is cancelled.",
+      "surprise": 0.4002670665286472,
+      "z": -1.6914319481252669,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 440.0,
+      "event_id": "designgrid_renewal",
+      "prediction": "Parking meter expires and enforcement active in zone - driver needs to park immediately.",
+      "observation": "Your DesignGrid Pro subscription renewed for $12/month. Next charge April 2027.",
+      "surprise": 0.4526860616903624,
+      "z": -0.6381781566101687,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 520.0,
+      "event_id": "library_hold_expiring",
+      "prediction": "Parking meter at Oak Street lot will expire in 30 minutes and enforcement is active in zone.",
+      "observation": "Your library hold on 'The Signal and the Noise' expires at midnight tonight if not picked up today.",
+      "surprise": 0.3575441954288249,
+      "z": -1.6573316958275501,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 700.0,
+      "event_id": "protest_commute_route",
+      "prediction": "Parking meter at Oak Street lot will expire in 18 minutes, enforcement active.",
+      "observation": "Protest march planned 5-7pm along Market Street - significant detours expected on your usual commute home.",
+      "surprise": 0.4752807206869457,
+      "z": -0.06159141434001039,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 820.0,
+      "event_id": "calendar_feature_tip",
+      "prediction": "Protest march planned 5-7pm along Market Street with significant traffic disruptions.",
+      "observation": "Tip: enable working hours to auto-decline meetings scheduled outside 9am-6pm.",
+      "surprise": 0.36431824249431255,
+      "z": -1.305383544020898,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    }
+  ]
+}

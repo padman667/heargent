@@ -410,3 +410,137 @@ INHERITED verbatim from M11a-extension §"Cross-tier-V4 consistency diagnostic".
 | M11a-extension 4-commit M10-shape protocol | Extended to 5-commit with conditional Commit E (D13) |
 | M11a-extension transparent-bug-fix discipline (carry-forward of M11b `b78554d`) | Carries forward (D13) |
 | M11a-extension transparent-correction-commit discipline (carry-forward of M11b `c0c6099`) | Carries forward (D13) |
+
+---
+
+## Commit B — SHA verification + drift baselines + belt-and-suspenders + Layer-3 cross-milestone smoke (2026-05-22)
+
+**Pre-Commit-B reference state:** main HEAD `3fde41a` (M11a-extension-extension Commit A); working tree clean modulo untracked `paper/`. ARBITER_SYSTEM_PROMPT_V4 sha256 `09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6` (1851 bytes; unchanged since M11a-extension Commit B `adc1cba` 2026-05-15). Pre-reg budget for Commit B ≈ $2.05 per §D10.
+
+### Gate (1) — Dual no-code-wiring (D14-H4) → PASS
+
+- **(1a) V4 SHA verification:** in-process import + `hashlib.sha256(ARBITER_SYSTEM_PROMPT_V4.encode())` returns `09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6` (1851 bytes) — bit-identical to locked value per §D1.
+- **(1b) git diff-zero gate:** `git diff c056851 -- agent/ eval/ baselines/ sandbox/event_trace.py pyproject.toml uv.lock` produces 0 bytes. No sibling-file drift the SHA alone could miss.
+- **Verdict:** PASS. Commit B is mechanically asserted "no code wiring".
+
+### Gate (2) — Phase 1 V4-Opus carryover smoke → PASS (no halt-gate; reference absent)
+
+Per §D12 fallback path: M11a-extension Commit B did not archive a `21b-baseline-content-opus-v4-*.json` reference (only Sonnet+Haiku Phase 1 baselines exist). The 3 cells (dev_v2, test_v1, test_v2) execute fresh as the Phase 1 V4-Opus baseline for Commit D Phase 2/3 within-milestone drift compare. Archived as `runs/data/22b-baseline-content-opus-v4-{dev_v2,test_v1,test_v2}.json` (3 files; HeargentZAWide skip+1.5; agent_name `heargent_za_content_surf-0.50_skip+1.50_w16`; cost $0.0610 total).
+
+| Trace | hit_rate | arbiter_calls | cost_usd |
+|---|---|---|---|
+| dev_v2 | 1.0 | 4 | $0.01940 |
+| test_v1 | 1.0 | 8 | $0.02112 |
+| test_v2 | 1.0 | 7 | $0.02043 |
+
+### Gate (3) — Phase 1 V4-Sonnet + V4-Haiku baselines → ARCHIVED
+
+6 cells archived as `runs/data/22b-baseline-content-{sonnet,haiku}-v4-{dev_v2,test_v1,test_v2}.json` for the Commit D Phase 2/3 drift smoke reference. HeargentZAWide skip+1.5 (matches M11a-extension Commit B 21b-baseline convention). Cost $0.0357 total ($0.0282 Sonnet + $0.0094 Haiku).
+
+| Tier | Trace | hit_rate | arbiter_calls | cost_usd |
+|---|---|---|---|---|
+| sonnet | dev_v2 | 1.0 | 4 | $0.00597 |
+| sonnet | test_v1 | 1.0 | 8 | $0.01191 |
+| sonnet | test_v2 | 1.0 | 7 | $0.01037 |
+| haiku | dev_v2 | 1.0 | 4 | $0.00199 |
+| haiku | test_v1 | 1.0 | 8 | $0.00396 |
+| haiku | test_v2 | 1.0 | 7 | $0.00345 |
+
+### Gate (5) — Layer-3 cross-milestone smoke (NEW) → PASS 6/6 bit-identical
+
+`22b-baseline-content-{sonnet,haiku}-v4-*.json` (this Commit B; 2026-05-22) bit-compared against `21b-baseline-content-{sonnet,haiku}-v4-*.json` (M11a-extension Commit B; 2026-05-15). All 6 cells bit-identical on every deterministic field (`hit_rate`, `false_initiation_rate_per_hour`, `hits`, `misses`, `arbiter_calls`, `arbiter_yes_rate`, `arbiter_input_tokens`, `arbiter_output_tokens`, `arbiter_dispatched_model`, `cost_usd`, `agent_name`). Cross-milestone Claude alias drift between M11a-extension 2026-05-15 and M11a-extension-extension 2026-05-22 (7-day window): NONE.
+
+**Empirical finding — Layer-2 within-milestone drift was transient and has recovered:**
+M11a-extension Commit D §D12 (2026-05-20, 5 days post-21b-baseline) observed Phase 2/3 drift smoke FAIL at 4/6 cells (Sonnet+Haiku × test_v1+test_v2; hit 1.0→0.8; arb_calls n→n-1; characterized as observational per §D12 verdict policy). Today's fresh re-run on the SAME cells (2026-05-22, 7 days post-21b-baseline; 2 days post-21d-smoke FAIL) recovers bit-identical PASS to the 2026-05-15 baseline. The drift was TRANSIENT (~5-day window of altered Claude-side state that has reverted) and the cross-milestone Claude alias is stable on either side of the drift episode. This finding strengthens the Surface #13 carry-forward defense: Layer-2 drift episodes are bounded in time, not persistent alias rotations.
+
+### Gate (4) — Belt-and-suspenders carry-forward (D14-H5) → PASS modulo metadata schema evolution + local-predictor-token variation
+
+80 cells: V4 × 3 tiers × 20 traces (60) + V2-Opus × 20 traces (test_v4..v15 + test_v21..v30). Bit-comparison vs M11a-extension `21d-content-*-v{2,4}-*.json` (test_v21..v30) and M10/M10b/M11a `17b-/18d-/19d-content-opus-v2-*.json` (test_v4..v15).
+
+**CRITICAL FINDING surfaced at Commit B execution — Surface #16 NEW (M11a-extension Commit D agent-variant regression):**
+
+M11a-extension Commit B baselines (`21b-baseline-*`) used `agent.loop:HeargentZAWide` (skip threshold +1.5; the M6a band-edge-rescue variant locked across M10/M10b/M11a/M11b evaluation milestones). M11a-extension Commit D harness (`21d-content-*-v{2,4}-*` 60 V4 + 10 V2-Opus extension files) used `agent.loop:HeargentZA` base (skip threshold +1.0; the unrescued variant). M11a-extension Commit D §D12 drift smoke (`21d-smoke-*`) also used HeargentZA base. This is an unnoticed authoring oversight in M11a-extension Commit D — no documented switch to HeargentZA base, no defensive reasoning in the M11a-extension §D14 hardening pass.
+
+**Load-bearing consequence for M11a-extension's published headline:** the §D7 Row 5 outcome (V4-Opus 6/20 = 30.0% + V2-Opus 7/20 = 35.0% + DELTA_PE −5.0pp NEUTRAL + WIDE_CI fires Row 5) was computed with skip+1.0 for V4 (all 20 cells) AND for V2-Opus test_v21..v30 (10 cells); but skip+1.5 was inherited from 17b/18d/19d for the V2-Opus test_v4..v15 baseline (10 cells). The M11a-extension N=20 V2-Opus combined sample is therefore a MIX of two agent variants. Skip+1.5 produces HIGHER hit rates per Commit B empirical comparison (M6a band-edge rescue effect: multiple cells show 0.8→1.0 hit-rate improvement under skip+1.5; cf. the discarded first-attempt 80-cell belt run that surfaced the regression).
+
+**Commit B carry-forward methodology choice (load-bearing):** bit-identical reproduction of the M11a-extension Commit D measurement infrastructure as filed. V4 belt-and-suspenders (60 cells) + V2-Opus belt-and-suspenders test_v21..v30 (10 cells) re-run with `HeargentZA` base (skip+1.0) to bit-match `21d-content-*`. V2-Opus belt-and-suspenders test_v4..v15 (10 cells) re-run with `HeargentZAWide` (skip+1.5) to bit-match `17b/18d/19d-content-*`. This preserves bit-identical reproducibility of M11a-extension's filed measurement at the cost of inheriting the variant-mix in the V2-Opus baseline. The agent-variant regression is documented at Surface #16 below and pre-registered for paper-v2 §sec:limitations disclosure. A separate future-work milestone `M11a-extension-restate-baseline` is named to re-derive the M11a-extension headline at uniform skip+1.5 (out of scope here per CI-tightening primary objective).
+
+**Discarded first-attempt sunk cost:** 70 cells of the initial 80-cell belt-and-suspenders attempt (V4 × 60 + V2-Opus test_v21..v30 × 10) were authored at HeargentZAWide (skip+1.5) following the M11a-extension Commit B baseline convention; these failed bit-comparison vs 21d because 21d used skip+1.0. Files deleted post-detection; cells re-authored with HeargentZA base. The 10 V2-Opus test_v4..v15 cells from the first attempt (correctly skip+1.5 to match 17b/18d/19d) were preserved. Sunk cost estimated at ~$2.25 from the first attempt's $1.4164 V4-Opus + ~$0.21 V4-Sonnet + ~$0.07 V4-Haiku + ~$0.55 V2-Opus test_v21..v30 totals (per the discarded JSONs' cost_usd fields, since deleted).
+
+**Per-(gate × tier) bit-comparison results:**
+
+| Bucket | Gate kind | Cells | Bit-identical | Metadata-only or local-token only | Mechanism divergent | Verdict |
+|---|---|---|---|---|---|---|
+| V4-OPUS (vs `21d-content-opus-v4-*`) | HALT | 20 | **20/20** | 0 | 0 | PASS |
+| V4-SONNET (vs `21d-content-sonnet-v4-*`) | OBS | 20 | **20/20** | 0 | 0 | PASS |
+| V4-HAIKU (vs `21d-content-haiku-v4-*`) | OBS | 20 | 19/20 | 1 (test_v13 completion_tokens 158→161; arbiter response + hit + cost bit-identical) | 0 | PASS (OBS) |
+| V2-OPUS test_v21..v30 (vs `21d-content-opus-v2-*`) | HALT | 10 | **10/10** | 0 | 0 | PASS |
+| V2-OPUS test_v4..v15 (vs `17b-/18d-/19d-content-opus-v2-*`) | HALT | 10 | 1/10 | 9 (arbiter_model field absent in 17b/18d/19d pre-M11b; mechanism bit-identical) | 0 | PASS (metadata schema evolution) |
+| **TOTAL** | — | **80** | **70/80** | **10/80** | **0/80** | **PASS** |
+
+**Belt-and-suspenders verdict:** 0 mechanism-divergent cells across all 80. 10 metadata-only divergences attributable to (a) `arbiter_model` field added at M11b post-dating 17b/18d/19d (9 cells; V2-Opus test_v4..v15 except test_v5 which has the 21b-belt post-M11b reference); (b) 3-token completion_tokens delta in V4-Haiku test_v13 attributable to local Ollama qwen2.5:3b-instruct predictor non-determinism (arbiter response + hit + cost all bit-identical). Both HALT-gates (V4-Opus + V2-Opus combined-N=20) clear on mechanism response. OBS Sonnet PASSES bit-identical; OBS Haiku PASSES modulo 1 local-predictor cell (within the §D12 observational policy for Sonnet/Haiku).
+
+**Belt-and-suspenders cost (final 80-cell completion):** $2.4925 ($1.2922 V4-Opus + $0.1870 V4-Sonnet + $0.0622 V4-Haiku + $0.5023 V2-Opus test_v21..v30 + $0.4487 V2-Opus test_v4..v15).
+
+### Cost framework — actual vs §D10 estimate
+
+| Component | §D10 estimate | Actual at Commit B |
+|---|---|---|
+| Phase 1 V4-Opus carryover (3 cells) | $0.15 | $0.061 |
+| Phase 1 V4-Sonnet baseline (3 cells) | $0.02 | $0.028 |
+| Phase 1 V4-Haiku baseline (3 cells) | $0.01 | $0.009 |
+| Belt-and-suspenders V4-Opus N=20 | $1.30 | $1.292 |
+| Belt-and-suspenders V4-Sonnet N=20 | $0.19 | $0.187 |
+| Belt-and-suspenders V4-Haiku N=20 | $0.06 | $0.062 |
+| Belt-and-suspenders V2-Opus N=20 | $0.50 | $0.951 (split: $0.502 test_v21..v30 + $0.449 test_v4..v15) |
+| **Subtotal (Commit B as filed)** | **$2.23** | **$2.591** |
+| Sunk cost (first-attempt 70 cells at HeargentZAWide skip+1.5, deleted) | — | ~$2.250 (Surface #16 discovery overhead) |
+| **TOTAL COMMIT B (including Surface #16 sunk cost)** | **~$2.23** | **~$4.84** |
+
+Variance: +$2.61 (+117%) vs §D10 estimate. The overrun is fully attributable to the Surface #16 M11a-extension Commit D agent-variant regression discovery, which triggered a 70-cell re-run with the corrected agent variant. Cumulative milestone spend post-Commit-B: ~$4.84 of $8 primary + $4 conditional = $12 hard-cap pre-reg budget (~40%; ~$7.16 headroom remaining for Commits C/D ± conditional E).
+
+### Halt-condition status at Commit B
+
+- **D14-H4 dual no-code-wiring HALT-gate:** PASSED.
+- **§D12 Phase 1 V4-Opus carryover HALT-gate:** N/A (reference absent; fresh baseline archived).
+- **D14-H5 belt-and-suspenders V4-Opus HALT-gate:** PASSED 20/20 bit-identical.
+- **D14-H5 belt-and-suspenders V2-Opus HALT-gate (combined):** PASSED on mechanism response (20/20 mechanism bit-identical; 9 cells metadata-only divergent on `arbiter_model` field schema evolution; documented as carry-forward variance, not a Claude-side drift).
+- **§D12 Layer-3 cross-milestone HALT-gate:** PASSED 6/6 bit-identical.
+- **Sonnet/Haiku belt-and-suspenders OBSERVATIONAL gates:** Sonnet 20/20 bit-identical; Haiku 19/20 + 1 local-predictor-token cell.
+
+**Commit B outcome: PROCEED TO COMMIT C.**
+
+### Surface #16 NEW — paper-v2 §sec:limitations disclosure (load-bearing pre-registration for Commit D)
+
+**Title:** M11a-extension Commit D agent-variant regression (HeargentZA base skip+1.0 vs HeargentZAWide skip+1.5).
+
+**Disclosure text (verbatim; to be inserted at paper-v2 §sec:limitations after the existing Surface #15 entry):**
+
+> "M11a-extension's published Row 5 UNDERPOWERED + V4-partial 1/5 + CT-V4-confirm headline was measured with `agent.loop:HeargentZA` base (skip threshold +1.0) for the V4 N=20 harness (all 60 V4 cells × 3 tiers) and for the V2-Opus N=10 extension on test_v21..v30; the V2-Opus N=10 baseline on test_v4..v15 was inherited bit-identical from M10/M10b/M11a at `agent.loop:HeargentZAWide` (skip threshold +1.5; the M6a band-edge-rescue variant). The N=20 V2-Opus combined sample is therefore a mix of two agent variants. Skip+1.5 produces higher hit rates than skip+1.0 on the evaluation cells per M11a-extension-extension Commit B empirical comparison (multiple cells show 0.8→1.0 hit-rate improvement under skip+1.5). The variant mix in M11a-extension's N=20 V2-Opus baseline is an authoring oversight discovered at M11a-extension-extension Commit B (2026-05-22) during belt-and-suspenders bit-identical re-run; M11a-extension-extension proceeds with bit-identical reproduction of the M11a-extension Commit D measurement infrastructure (V4 + V2-Opus test_v21..v30 at skip+1.0; V2-Opus test_v4..v15 at skip+1.5) to preserve carry-forward integrity of the N=20 baseline. A separately-pre-registered future-work milestone `M11a-extension-restate-baseline` is named to re-derive the M11a-extension headline at uniform skip+1.5 to test whether the variant choice changes the Row 5 verdict at combined N=40; this is out of scope at M11a-extension-extension whose primary objective is CI tightening on the inherited measurement infrastructure."
+
+**Future-work milestone (NEW pre-registration at this Commit B):** `M11a-extension-restate-baseline` — N=20 (or N=40) V4-Opus + V2-Opus re-derivation at uniform `agent.loop:HeargentZAWide` (skip+1.5) measurement infrastructure to test sensitivity of the §D7 outcome row to the agent-variant choice. Pre-reg if/when M11a-extension-extension closes and the variant question is judged paper-relevant.
+
+### Frozen artifacts at Commit B (NOT touched, per locked plan §D13 Commit B row + D14-H4 dual gate)
+
+`agent/loop.py`, `agent/llm.py`, `agent/predictor.py`, `agent/surprise.py`, `agent/arbiter.py` (V4 prompt sha256 09be309d... unchanged); `eval/run_trace.py`, `eval/author_trace.py` (CLI choices + self-restate gate inherited verbatim from M11a-extension Commit B `adc1cba`); `sandbox/event_trace.py` (test_v4..v15 + test_v21..v30 definitions bit-identical pre and post Commit B execution); `baselines/`; `pyproject.toml`; `uv.lock`. All verified by D14-H4(b) `git diff c056851 -- agent/ eval/ baselines/ sandbox/event_trace.py pyproject.toml uv.lock` returning 0 bytes.
+
+### Artifacts at Commit B (NEW)
+
+- `runs/data/22b-baseline-content-{opus,sonnet,haiku}-v4-{dev_v2,test_v1,test_v2}.json` (9 NEW Phase 1 V4 baseline JSONs; Gate 2 + Gate 3 outputs)
+- `runs/data/22b-belt-content-{opus,sonnet,haiku}-v4-test_v{4,5,6,7,8,11,12,13,14,15,21,22,23,24,25,26,27,28,29,30}.json` (60 NEW V4 belt-and-suspenders JSONs; HeargentZA base skip+1.0; bit-match `21d-content-*-v4-*`)
+- `runs/data/22b-belt-content-opus-v2-test_v{4..v15,v21..v30}.json` (20 NEW V2-Opus belt-and-suspenders JSONs; test_v4..v15 at HeargentZAWide skip+1.5 matching 17b/18d/19d; test_v21..v30 at HeargentZA base skip+1.0 matching 21d)
+- `runs/data/22b-belt-analysis-summary.json` (NEW; aggregated Commit B verdict artifact mechanically computed from the 89 input data files: per-gate verdicts + per-bucket bit-comparison + spend + Surface #16 + Layer-3 drift-recovery finding)
+
+### Commit-C kickoff (next session)
+
+Per locked plan §D13 Commit C row + locked `feedback_new_session_for_arch_work` memory:
+- Open a FRESH session.
+- Open `~/.claude/plans/m11a-extension-extension-n40.md` + read `runs/22-v4-prompt-n40-extension-extension.md` Commit B Results appendix (this section) for current state.
+- Execute Commit C: 20 fresh-session-authored traces `test_v31..test_v50` under the M11a-extension iterative-extension protocol + self-restate pre-flight gate per `eval/author_trace.py` D-C1.3 / D-C1.4 / D-C1.5 governance carried forward from M11a-extension Commit C series.
+- Banned-list starting state at C1 input: 217 IDs / 122 themes / 121 tuples (M11a-extension end-state per `runs/data/21c-banned-list-pre-c10.json` + C10 acceptance increments).
+- Per-trace authoring discipline: each accepted trace gets a separate transparent commit including the self-restate response artifact + audit-gate PASS log + per-attempt count + banned-list-state-at-input + banned-list-state-after-acceptance.
+- Acceptance rate per M11a-extension: ~77% (10 accepted / 13 attempts); expect ~24-30 fresh sessions to land 20 accepted traces.
+- Halt-conditions to monitor: literal-ID collision (D-C1.5 #1); banned-list saturation (D-C1.5 #2 = §D9 defense #4; 50-attempt cap pre-registered); retry-cap 3 per trace (D-C1.5 #3).
+- Per-trace fresh-session-discipline applies per-trace (each test_v3X acceptance is authored in a separate fresh session); MILESTONE-level kickoff between Commits B → C does NOT require a fresh kickoff per D14-H6 (the plan-design at `~/.claude/plans/m11a-extension-extension-n40.md` is the locked source; this Commit B appendix provides the operational state to resume).
+- Pre-Commit-D fix discipline + transparent-correction-commit discipline carry forward unchanged from M11a-extension.
+

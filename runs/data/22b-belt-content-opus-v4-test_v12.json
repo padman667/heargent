@@ -1,0 +1,160 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 7.741935483870967,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 7,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "garage_open_overnight",
+      "notification_sim_time": 50.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "friend_hospitalized",
+      "notification_sim_time": 180.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "license_expires_today",
+      "notification_sim_time": 300.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "hoa_assessment_vote",
+      "notification_sim_time": 420.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "margin_account_warning",
+      "notification_sim_time": 550.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.06273,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 930.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 2493,
+    "completion_tokens": 132,
+    "total_duration_s": 29.711130501,
+    "arbiter_calls": 6,
+    "arbiter_yes_rate": 0.6666666666666666,
+    "arbiter_input_tokens": 4122,
+    "arbiter_output_tokens": 12,
+    "arbiter_dispatched_model": "claude-opus-4-7"
+  },
+  "trace_name": "test_v12",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "opus",
+  "surprise_log": [
+    {
+      "sim_time": 50.0,
+      "event_id": "garage_open_overnight",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Smart home alert: Your garage door has been open for 47 minutes after sunset.",
+      "surprise": 0.4449748505252029,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 110.0,
+      "event_id": "screen_time_report",
+      "prediction": "Smart home alert system triggers due to extended garage door opening hours.",
+      "observation": "Your weekly screen time report: 4h 12m daily average, down 8% from last week.",
+      "surprise": 0.5113083844753628,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 180.0,
+      "event_id": "friend_hospitalized",
+      "prediction": "Garage door alert triggers as daylight saving ends.",
+      "observation": "Voicemail from Sarah: Mike was hospitalized this morning with chest pains. He is stable at Memorial and she is calling close friends to update them.",
+      "surprise": 0.5267414050604242,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 240.0,
+      "event_id": "photo_backup_complete",
+      "prediction": "Voicemail updates continue as Sarah informs more friends about Mike's hospitalization status.",
+      "observation": "Cloud storage backup completed: 1,247 photos synced to album 'Family 2025'.",
+      "surprise": 0.48078611838613106,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 300.0,
+      "event_id": "license_expires_today",
+      "prediction": "Voicemail from Sarah updates on Mike's hospitalization status.",
+      "observation": "DMV reminder: Your driver's license expires today at midnight. Online renewal must be completed before then or you cannot legally drive tomorrow.",
+      "surprise": 0.445106580792921,
+      "z": -1.4659018562138746,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 360.0,
+      "event_id": "grocer_back_in_stock",
+      "prediction": "Voicemail from Sarah updates on Mike's hospitalization status remains a concern.",
+      "observation": "FreshGrocer: Your favorite item 'Avocado' is back in stock at your local store this week.",
+      "surprise": 0.45052408744488714,
+      "z": -0.934553442065241,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 420.0,
+      "event_id": "hoa_assessment_vote",
+      "prediction": "Mike's hospital update from Sarah via voicemail.",
+      "observation": "HOA emergency assessment vote closes today at 8pm: $3,400 special assessment per unit for foundation repair. Vote required from each owner.",
+      "surprise": 0.464679537931426,
+      "z": -0.36394325266129607,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 500.0,
+      "event_id": "calendar_yoga_suggest",
+      "prediction": "Mike's hospitalization update from Sarah via voicemail reminder.",
+      "observation": "Calendar suggestion: 'Yoga with Anna' on Tuesdays \u2014 would you like to add this as a recurring event?",
+      "surprise": 0.4341388905039346,
+      "z": -1.3337696591075479,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 550.0,
+      "event_id": "margin_account_warning",
+      "prediction": "Voicemail from Sarah updates about Mike's hospitalization status and upcoming family update.",
+      "observation": "Brokerage notice: Margin account requires a $4,200 deposit within 2 hours to avoid forced liquidation of held positions.",
+      "surprise": 0.4826501976081008,
+      "z": 0.40738396516092407,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    }
+  ]
+}

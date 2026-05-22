@@ -1,0 +1,157 @@
+{
+  "hit_rate": 0.8,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 4,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "self_chest_pressure_left_arm_radiating_911_aspirin_chewed_4min_eta_paramedics",
+      "notification_sim_time": 660.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "uscis_naturalization_interview_rescheduled_friday_8am_field_office",
+      "notification_sim_time": 220.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "tenant_attorney_eviction_stay_motion_paperwork_5pm_show_cause_court_tomorrow",
+      "notification_sim_time": 560.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "kafka_order_pipeline_broker_election_under_replicated_p1_consumer_lag_8m",
+      "notification_sim_time": 380.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "fbar_fincen_114_foreign_account_oct_15_deadline_aggregate_above_10k"
+  ],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.05907,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 830.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 6569,
+    "completion_tokens": 150,
+    "total_duration_s": 81.207163957,
+    "arbiter_calls": 6,
+    "arbiter_yes_rate": 0.5,
+    "arbiter_input_tokens": 3878,
+    "arbiter_output_tokens": 12,
+    "arbiter_dispatched_model": "claude-opus-4-7"
+  },
+  "trace_name": "test_v27",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v2",
+  "arbiter_model": "opus",
+  "surprise_log": [
+    {
+      "sim_time": 30.0,
+      "event_id": "wednesday_midweek_checkpoint_briefing_no_priority_flagged_calendar_clear",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Wednesday midweek-checkpoint briefing: you have four meetings remaining this week, two heads-down focus blocks Thursday and Friday morning, and inbox is at eighteen unread with all eighteen messages categorized routine by the triage classifier. Calendar is clear for the rest of today and tomorrow morning. The sprint board, stakeholder-ask queue, and personal-task list all show no urgent items pending, and no overdue tasks were detected anywhere in the workflows you supervise. Have a productive second half of the week.",
+      "surprise": 0.3935044000077019,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 80.0,
+      "event_id": "github_actions_weekly_workflow_health_digest_all_green_zero_flaky_rerun",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "GitHub Actions weekly workflow-health digest for the order-fulfillment-platform organization: twelve workflows across nine repositories ran cleanly with zero flaky-rerun rate over the past seven days. Cron-triggered jobs completed within their scheduled windows; pull-request validation workflows averaged four minutes to green; deployment workflows reported no manual approvals pending. Self-hosted runner fleet utilization peaked at sixty-three percent on Wednesday afternoon and remained idle overnight on the weekend. The next workflow-health digest sends next Monday at the same time.",
+      "surprise": 0.46262701267133644,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 140.0,
+      "event_id": "postman_workspace_collection_runner_v11_javascript_runtime_announcement_no_action",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Postman product team announcement: the Collection Runner has been upgraded to version eleven with a refreshed UI, a new JavaScript runtime for pre-request and test scripts, and inline diff-views for collection-version comparison. Existing collections continue to run on the legacy runtime through end-of-year and no migration action is required at this time. See the changelog for the full list of behavioral changes and opt-in toggles for the new diff-view; workspace administrators will be notified separately if any workspace-level settings require attention.",
+      "surprise": 0.47404679010094586,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 220.0,
+      "event_id": "uscis_naturalization_interview_rescheduled_friday_8am_field_office",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "USCIS field-office adjudications officer notice for receipt number MSC-2024-22-XXXX: your N-400 naturalization interview originally scheduled for tomorrow morning at eight a.m. has been rescheduled to Friday morning at eight a.m. due to officer reassignment in your panel. Reply to confirm acceptance of the new slot before tomorrow noon Pacific or the rescheduled slot defaults to a forced cancellation and the case returns to the back of the field-office docket with an estimated six-month delay to reschedule. Bring the original civic-knowledge documents listed in the prior interview notice plus two updated passport-style photographs to the rescheduled appointment at the downtown Seattle field office.",
+      "surprise": 0.4291861821785009,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 300.0,
+      "event_id": "goldleaf_stationery_quarterly_catalog_handmade_paper_fountain_pen_spring_no_action",
+      "prediction": "N-400 naturalization interview rescheduling for tomorrow morning confirmed.",
+      "observation": "Goldleaf Stationery quarterly catalog for the spring season is now live online: handmade-paper journals in five new cover-stock options, the fountain-pen ink-of-the-month subscription with three featured shimmer colors this quarter, and limited-run leather portfolio cases priced for early-spring promotion. Browse at your leisure; orders placed before the end of the month qualify for complimentary monogramming on most leather items. If our catalog cadence has become too noisy, the mailing frequency can be dropped to twice-yearly or fully paused through the footer link below.",
+      "surprise": 0.5339285993314596,
+      "z": 2.9941390280569844,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 380.0,
+      "event_id": "kafka_order_pipeline_broker_election_under_replicated_p1_consumer_lag_8m",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "PagerDuty P1 incident on order-fulfillment Kafka cluster prod-orders-kafka-01: the broker fleet has been reporting unstable partition-leadership elections across the cluster for the last fifteen minutes with two-hundred under-replicated partitions and consumer-lag climbing past eight million messages on the checkout-event topic. The on-call runbook escalates to engineering leadership at the seventy-five-minute mark if the broker quorum is not stabilized; storage-tier dashboards show I/O wait spikes correlated with the disk-controller firmware push from Monday evening. You are the primary on-call this week; the secondary has just paged you and expects a phone-handshake on the bridge within two minutes per the SEV1 protocol.",
+      "surprise": 0.44320755231527986,
+      "z": -0.3289420893113236,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 480.0,
+      "event_id": "fbar_fincen_114_foreign_account_oct_15_deadline_aggregate_above_10k",
+      "prediction": "Engineering leadership will be escalated to address the unstable Kafka cluster broker fleet issues.",
+      "observation": "Email from your federal tax preparer with FinCEN-114 FBAR filing materials attached: this is the final-day reminder that your foreign-bank-account aggregate balance exceeded the ten-thousand-dollar reportable threshold at multiple points during last calendar year and the extended October fifteenth deadline lapses at eleven fifty-nine tonight Pacific. The FBAR form has been pre-filled with the residual Berlin postdoc-era account plus the dormant Lisbon savings sub-account from the sabbatical year; sign the e-file authorization through the secure portal link below to submit before the cutoff. Willful-failure-to-file civil penalties run to the greater of one-hundred-twenty-nine-thousand-two-hundred-ten dollars per violation or fifty percent of the foreign account balance per year not reported; do not let this slip past midnight.",
+      "surprise": 0.5286142244341531,
+      "z": 1.676461562727528,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 560.0,
+      "event_id": "tenant_attorney_eviction_stay_motion_paperwork_5pm_show_cause_court_tomorrow",
+      "prediction": "PagerDuty P1 incident on order-fulfillment Kafka cluster prod-orders-kafka-01 escalates to engineering leadership in seventy-five minutes.",
+      "observation": "Voicemail from your tenant-defense attorney's paralegal at Henderson and Park: the emergency eviction-stay motion paperwork is ready for your in-person signature at the downtown office before five p.m. closing today; the show-cause hearing the landlord requested is calendared for tomorrow morning at nine in housing court and the motion has to be on the clerk's desk by start-of-business or the writ-of-restitution issues by default. Bring photo identification and the maintenance-escrow receipts from the past three months. Office is on the ninth floor of the Smith Tower at Second and Yesler; the attorney expects to be available between three and four-thirty if you want to walk through the strategy before signing.",
+      "surprise": 0.5118518131768298,
+      "z": 0.9575661787703166,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 660.0,
+      "event_id": "self_chest_pressure_left_arm_radiating_911_aspirin_chewed_4min_eta_paramedics",
+      "prediction": "PagerDuty P1 incident on order-fulfillment Kafka cluster prod-orders-kafka-01 escalating to engineering leadership in 2 minutes.",
+      "observation": "Sudden onset of chest pressure radiating down the left arm with cold sweat and a wave of nausea while you were sitting at the kitchen table; classic acute coronary presentation in a person with documented family history of premature myocardial infarction. Nine-one-one has already been called from your phone and the live dispatcher is on speaker walking you through the protocol: chew one full-strength aspirin tablet immediately, unlock the building lobby door so paramedics do not lose minutes at the buzzer, and have your medication list and primary-care contact number ready when they arrive. Ambulance estimated arrival is four minutes; the dispatcher is asking whether anyone else is in the house with you who can ride along to the hospital.",
+      "surprise": 0.4236790802674464,
+      "z": -1.034428346030805,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    }
+  ]
+}

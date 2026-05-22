@@ -1,0 +1,830 @@
+{
+  "milestone": "M11a-extension-extension",
+  "commit": "B",
+  "date": "2026-05-22",
+  "pre_reference_state": {
+    "main_HEAD_before_B": "3fde41a",
+    "V4_prompt_sha256": "09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6",
+    "V4_prompt_bytes": 1851
+  },
+  "gates": {
+    "1_dual_no_code_wiring": {
+      "policy": "D14-H4 HALT-gate",
+      "1a_V4_SHA": {
+        "verdict": "PASS",
+        "value": "09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6",
+        "match_locked_sha": true,
+        "bytes": 1851,
+        "match_locked_bytes": true
+      },
+      "1b_git_diff_zero": {
+        "verdict": "PASS",
+        "scope": "agent/ eval/ baselines/ sandbox/event_trace.py pyproject.toml uv.lock",
+        "vs_ref": "c056851 (M11a-extension Commit D HEAD)",
+        "diff_bytes": 0
+      },
+      "overall": "PASS"
+    },
+    "2_phase1_V4_opus_carryover": {
+      "policy": "HALT-gate on FAIL vs 21b-baseline-content-opus-v4-* (if present); fresh baseline otherwise",
+      "ref_exists": false,
+      "verdict": "PASS (no reference; fresh baseline archived)",
+      "cells": [
+        {
+          "trace": "dev_v2",
+          "model": "opus",
+          "prompt": "v4",
+          "agent": "heargent_za_content_surf-0.50_skip+1.50_w16",
+          "hit_rate": 1.0,
+          "arbiter_calls": 4,
+          "cost_usd": 0.04101
+        },
+        {
+          "trace": "test_v1",
+          "model": "opus",
+          "prompt": "v4",
+          "agent": "heargent_za_content_surf-0.50_skip+1.50_w16",
+          "hit_rate": 1.0,
+          "arbiter_calls": 8,
+          "cost_usd": 0.081555
+        },
+        {
+          "trace": "test_v2",
+          "model": "opus",
+          "prompt": "v4",
+          "agent": "heargent_za_content_surf-0.50_skip+1.50_w16",
+          "hit_rate": 1.0,
+          "arbiter_calls": 7,
+          "cost_usd": 0.07122
+        }
+      ]
+    },
+    "3_phase1_V4_sonnet_haiku_baselines": {
+      "policy": "Archive as Phase 1 reference for Commit D Phase 2/3 drift compare",
+      "verdict": "ARCHIVED",
+      "cells": {
+        "sonnet": [
+          {
+            "trace": "dev_v2",
+            "hit_rate": 1.0,
+            "arbiter_calls": 4,
+            "cost_usd": 0.005967
+          },
+          {
+            "trace": "test_v1",
+            "hit_rate": 1.0,
+            "arbiter_calls": 8,
+            "cost_usd": 0.011913
+          },
+          {
+            "trace": "test_v2",
+            "hit_rate": 1.0,
+            "arbiter_calls": 7,
+            "cost_usd": 0.010374
+          }
+        ],
+        "haiku": [
+          {
+            "trace": "dev_v2",
+            "hit_rate": 1.0,
+            "arbiter_calls": 4,
+            "cost_usd": 0.001985
+          },
+          {
+            "trace": "test_v1",
+            "hit_rate": 1.0,
+            "arbiter_calls": 8,
+            "cost_usd": 0.003963
+          },
+          {
+            "trace": "test_v2",
+            "hit_rate": 1.0,
+            "arbiter_calls": 7,
+            "cost_usd": 0.003451
+          }
+        ]
+      }
+    },
+    "4_belt_and_suspenders": {
+      "opus_v4": {
+        "gate_kind": "HALT",
+        "n_cells": 20,
+        "n_bit_identical": 20,
+        "n_metadata_only_or_local_token": 0,
+        "n_mechanism_divergent": 0,
+        "ref_template": "21d-content-*",
+        "cost_usd": 1.29222,
+        "rows": [
+          {
+            "trace": "test_v4",
+            "ref": "21d-content-opus-v4-test_v4.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v5",
+            "ref": "21d-content-opus-v4-test_v5.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v6",
+            "ref": "21d-content-opus-v4-test_v6.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v7",
+            "ref": "21d-content-opus-v4-test_v7.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v8",
+            "ref": "21d-content-opus-v4-test_v8.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v11",
+            "ref": "21d-content-opus-v4-test_v11.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v12",
+            "ref": "21d-content-opus-v4-test_v12.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v13",
+            "ref": "21d-content-opus-v4-test_v13.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v14",
+            "ref": "21d-content-opus-v4-test_v14.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v15",
+            "ref": "21d-content-opus-v4-test_v15.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v21",
+            "ref": "21d-content-opus-v4-test_v21.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v22",
+            "ref": "21d-content-opus-v4-test_v22.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v23",
+            "ref": "21d-content-opus-v4-test_v23.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v24",
+            "ref": "21d-content-opus-v4-test_v24.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v25",
+            "ref": "21d-content-opus-v4-test_v25.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v26",
+            "ref": "21d-content-opus-v4-test_v26.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v27",
+            "ref": "21d-content-opus-v4-test_v27.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v28",
+            "ref": "21d-content-opus-v4-test_v28.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v29",
+            "ref": "21d-content-opus-v4-test_v29.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v30",
+            "ref": "21d-content-opus-v4-test_v30.json",
+            "match": true,
+            "category": "PASS"
+          }
+        ]
+      },
+      "sonnet_v4": {
+        "gate_kind": "OBS",
+        "n_cells": 20,
+        "n_bit_identical": 20,
+        "n_metadata_only_or_local_token": 0,
+        "n_mechanism_divergent": 0,
+        "ref_template": "21d-content-*",
+        "cost_usd": 0.187032,
+        "rows": [
+          {
+            "trace": "test_v4",
+            "ref": "21d-content-sonnet-v4-test_v4.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v5",
+            "ref": "21d-content-sonnet-v4-test_v5.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v6",
+            "ref": "21d-content-sonnet-v4-test_v6.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v7",
+            "ref": "21d-content-sonnet-v4-test_v7.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v8",
+            "ref": "21d-content-sonnet-v4-test_v8.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v11",
+            "ref": "21d-content-sonnet-v4-test_v11.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v12",
+            "ref": "21d-content-sonnet-v4-test_v12.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v13",
+            "ref": "21d-content-sonnet-v4-test_v13.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v14",
+            "ref": "21d-content-sonnet-v4-test_v14.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v15",
+            "ref": "21d-content-sonnet-v4-test_v15.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v21",
+            "ref": "21d-content-sonnet-v4-test_v21.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v22",
+            "ref": "21d-content-sonnet-v4-test_v22.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v23",
+            "ref": "21d-content-sonnet-v4-test_v23.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v24",
+            "ref": "21d-content-sonnet-v4-test_v24.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v25",
+            "ref": "21d-content-sonnet-v4-test_v25.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v26",
+            "ref": "21d-content-sonnet-v4-test_v26.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v27",
+            "ref": "21d-content-sonnet-v4-test_v27.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v28",
+            "ref": "21d-content-sonnet-v4-test_v28.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v29",
+            "ref": "21d-content-sonnet-v4-test_v29.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v30",
+            "ref": "21d-content-sonnet-v4-test_v30.json",
+            "match": true,
+            "category": "PASS"
+          }
+        ]
+      },
+      "haiku_v4": {
+        "gate_kind": "OBS",
+        "n_cells": 20,
+        "n_bit_identical": 19,
+        "n_metadata_only_or_local_token": 1,
+        "n_mechanism_divergent": 0,
+        "ref_template": "21d-content-*",
+        "cost_usd": 0.06223100000000001,
+        "rows": [
+          {
+            "trace": "test_v4",
+            "ref": "21d-content-haiku-v4-test_v4.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v5",
+            "ref": "21d-content-haiku-v4-test_v5.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v6",
+            "ref": "21d-content-haiku-v4-test_v6.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v7",
+            "ref": "21d-content-haiku-v4-test_v7.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v8",
+            "ref": "21d-content-haiku-v4-test_v8.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v11",
+            "ref": "21d-content-haiku-v4-test_v11.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v12",
+            "ref": "21d-content-haiku-v4-test_v12.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v13",
+            "ref": "21d-content-haiku-v4-test_v13.json",
+            "match": false,
+            "category": "LOCAL_PREDICTOR_TOKENS_ONLY",
+            "diffs": [
+              "llm_stats.completion_tokens"
+            ],
+            "ref_hit": 1.0,
+            "fresh_hit": 1.0,
+            "ref_arb_calls": 6,
+            "fresh_arb_calls": 6
+          },
+          {
+            "trace": "test_v14",
+            "ref": "21d-content-haiku-v4-test_v14.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v15",
+            "ref": "21d-content-haiku-v4-test_v15.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v21",
+            "ref": "21d-content-haiku-v4-test_v21.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v22",
+            "ref": "21d-content-haiku-v4-test_v22.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v23",
+            "ref": "21d-content-haiku-v4-test_v23.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v24",
+            "ref": "21d-content-haiku-v4-test_v24.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v25",
+            "ref": "21d-content-haiku-v4-test_v25.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v26",
+            "ref": "21d-content-haiku-v4-test_v26.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v27",
+            "ref": "21d-content-haiku-v4-test_v27.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v28",
+            "ref": "21d-content-haiku-v4-test_v28.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v29",
+            "ref": "21d-content-haiku-v4-test_v29.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v30",
+            "ref": "21d-content-haiku-v4-test_v30.json",
+            "match": true,
+            "category": "PASS"
+          }
+        ]
+      },
+      "opus_v2_test_v21_v30": {
+        "gate_kind": "HALT",
+        "n_cells": 10,
+        "n_bit_identical": 10,
+        "n_metadata_only_or_local_token": 0,
+        "n_mechanism_divergent": 0,
+        "ref_template": "21d-content-*",
+        "cost_usd": 0.502335,
+        "rows": [
+          {
+            "trace": "test_v21",
+            "ref": "21d-content-opus-v2-test_v21.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v22",
+            "ref": "21d-content-opus-v2-test_v22.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v23",
+            "ref": "21d-content-opus-v2-test_v23.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v24",
+            "ref": "21d-content-opus-v2-test_v24.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v25",
+            "ref": "21d-content-opus-v2-test_v25.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v26",
+            "ref": "21d-content-opus-v2-test_v26.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v27",
+            "ref": "21d-content-opus-v2-test_v27.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v28",
+            "ref": "21d-content-opus-v2-test_v28.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v29",
+            "ref": "21d-content-opus-v2-test_v29.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v30",
+            "ref": "21d-content-opus-v2-test_v30.json",
+            "match": true,
+            "category": "PASS"
+          }
+        ]
+      },
+      "opus_v2_test_v4_v15": {
+        "gate_kind": "HALT",
+        "n_cells": 10,
+        "n_bit_identical": 1,
+        "n_metadata_only_or_local_token": 9,
+        "n_mechanism_divergent": 0,
+        "ref_template": "17b-/18d-/19d-content-opus-v2-* (M10/M10b/M11a; test_v5 vs 21b-belt M11a-extension)",
+        "cost_usd": 0.44867999999999997,
+        "rows": [
+          {
+            "trace": "test_v4",
+            "ref": "17b-content-opus-v2-test_v4.json",
+            "match": false,
+            "category": "METADATA_ONLY",
+            "diffs": [
+              "arbiter_model"
+            ],
+            "ref_hit": 0.8,
+            "fresh_hit": 0.8,
+            "ref_arb_calls": 5,
+            "fresh_arb_calls": 5
+          },
+          {
+            "trace": "test_v5",
+            "ref": "21b-belt-content-opus-v2-test_v5.json",
+            "match": true,
+            "category": "PASS"
+          },
+          {
+            "trace": "test_v6",
+            "ref": "18d-content-opus-v2-test_v6.json",
+            "match": false,
+            "category": "METADATA_ONLY",
+            "diffs": [
+              "arbiter_model"
+            ],
+            "ref_hit": 1.0,
+            "fresh_hit": 1.0,
+            "ref_arb_calls": 8,
+            "fresh_arb_calls": 8
+          },
+          {
+            "trace": "test_v7",
+            "ref": "18d-content-opus-v2-test_v7.json",
+            "match": false,
+            "category": "METADATA_ONLY",
+            "diffs": [
+              "arbiter_model"
+            ],
+            "ref_hit": 1.0,
+            "fresh_hit": 1.0,
+            "ref_arb_calls": 5,
+            "fresh_arb_calls": 5
+          },
+          {
+            "trace": "test_v8",
+            "ref": "18d-content-opus-v2-test_v8.json",
+            "match": false,
+            "category": "METADATA_ONLY",
+            "diffs": [
+              "arbiter_model"
+            ],
+            "ref_hit": 0.6,
+            "fresh_hit": 0.6,
+            "ref_arb_calls": 6,
+            "fresh_arb_calls": 6
+          },
+          {
+            "trace": "test_v11",
+            "ref": "19d-content-opus-v2-test_v11.json",
+            "match": false,
+            "category": "METADATA_ONLY",
+            "diffs": [
+              "arbiter_model"
+            ],
+            "ref_hit": 1.0,
+            "fresh_hit": 1.0,
+            "ref_arb_calls": 7,
+            "fresh_arb_calls": 7
+          },
+          {
+            "trace": "test_v12",
+            "ref": "19d-content-opus-v2-test_v12.json",
+            "match": false,
+            "category": "METADATA_ONLY",
+            "diffs": [
+              "arbiter_model"
+            ],
+            "ref_hit": 1.0,
+            "fresh_hit": 1.0,
+            "ref_arb_calls": 6,
+            "fresh_arb_calls": 6
+          },
+          {
+            "trace": "test_v13",
+            "ref": "19d-content-opus-v2-test_v13.json",
+            "match": false,
+            "category": "METADATA_ONLY",
+            "diffs": [
+              "arbiter_model"
+            ],
+            "ref_hit": 1.0,
+            "fresh_hit": 1.0,
+            "ref_arb_calls": 6,
+            "fresh_arb_calls": 6
+          },
+          {
+            "trace": "test_v14",
+            "ref": "19d-content-opus-v2-test_v14.json",
+            "match": false,
+            "category": "METADATA_ONLY",
+            "diffs": [
+              "arbiter_model"
+            ],
+            "ref_hit": 1.0,
+            "fresh_hit": 1.0,
+            "ref_arb_calls": 6,
+            "fresh_arb_calls": 6
+          },
+          {
+            "trace": "test_v15",
+            "ref": "19d-content-opus-v2-test_v15.json",
+            "match": false,
+            "category": "METADATA_ONLY",
+            "diffs": [
+              "arbiter_model"
+            ],
+            "ref_hit": 1.0,
+            "fresh_hit": 1.0,
+            "ref_arb_calls": 6,
+            "fresh_arb_calls": 6
+          }
+        ]
+      }
+    },
+    "4_belt_and_suspenders_overall": {
+      "overall_verdict": "PASS",
+      "n_mechanism_divergent_cells": 0,
+      "n_bit_identical_cells": 70,
+      "n_metadata_only_cells": 10,
+      "total_cells": 80
+    },
+    "5_layer3_cross_milestone_smoke": {
+      "policy": "NEW for this milestone. HALT-gate on FAIL.",
+      "ref_template": "21b-baseline-content-{sonnet,haiku}-v4-{dev_v2,test_v1,test_v2}.json (M11a-extension Commit B 2026-05-15)",
+      "verdict": "PASS",
+      "rows": [
+        {
+          "cell": "sonnet/dev_v2",
+          "match": true,
+          "ref_hit": 1.0,
+          "fresh_hit": 1.0,
+          "ref_arb_calls": 4,
+          "fresh_arb_calls": 4
+        },
+        {
+          "cell": "sonnet/test_v1",
+          "match": true,
+          "ref_hit": 1.0,
+          "fresh_hit": 1.0,
+          "ref_arb_calls": 8,
+          "fresh_arb_calls": 8
+        },
+        {
+          "cell": "sonnet/test_v2",
+          "match": true,
+          "ref_hit": 1.0,
+          "fresh_hit": 1.0,
+          "ref_arb_calls": 7,
+          "fresh_arb_calls": 7
+        },
+        {
+          "cell": "haiku/dev_v2",
+          "match": true,
+          "ref_hit": 1.0,
+          "fresh_hit": 1.0,
+          "ref_arb_calls": 4,
+          "fresh_arb_calls": 4
+        },
+        {
+          "cell": "haiku/test_v1",
+          "match": true,
+          "ref_hit": 1.0,
+          "fresh_hit": 1.0,
+          "ref_arb_calls": 8,
+          "fresh_arb_calls": 8
+        },
+        {
+          "cell": "haiku/test_v2",
+          "match": true,
+          "ref_hit": 1.0,
+          "fresh_hit": 1.0,
+          "ref_arb_calls": 7,
+          "fresh_arb_calls": 7
+        }
+      ]
+    }
+  },
+  "spend": {
+    "phase1_baselines_9_cells": 0.2314,
+    "belt_and_suspenders_final_80_cells": 2.4925,
+    "sunk_cost_first_70_cells_skip_plus_1_5_estimated": 2.25,
+    "total_commit_b_incl_sunk": 4.9739,
+    "pre_reg_budget_estimate": 2.05,
+    "variance_dollars": 2.9239,
+    "variance_pct": 142.6
+  },
+  "findings": [
+    {
+      "id": "SURFACE_16_NEW",
+      "title": "M11a-extension Commit D agent-variant regression discovered at this Commit B",
+      "description": "M11a-extension Commit B baselines (21b-baseline-*) used agent.loop:HeargentZAWide (skip+1.5; the M6a band-edge-rescue variant locked across M10/M10b/M11a/M11b evaluation milestones). M11a-extension Commit D harness (21d-content-*-v{2,4}-*) used agent.loop:HeargentZA base (skip+1.0; the unrescued variant). Appears to be an unnoticed authoring oversight in M11a-extension Commit D.",
+      "load_bearing_consequence": "M11a-extension's published headline (V4-Opus 6/20 = 30.0% + V2-Opus 7/20 = 35.0% + DELTA_PE -5.0pp NEUTRAL + Row 5 UNDERPOWERED) was computed with skip+1.0 for V4 (all 20 cells) AND V2-Opus test_v21..v30 (10 cells); skip+1.5 inherited from 17b/18d/19d for V2-Opus test_v4..v15 (10 cells). The N=20 V2-Opus combined sample is a MIX of variants. Skip+1.5 produces HIGHER hit rates per Commit B empirical comparison.",
+      "paper_v2_disclosure_required": true
+    },
+    {
+      "id": "LAYER_3_DRIFT_RECOVERY_2026_05_22",
+      "title": "M11a-extension Commit D within-milestone drift has REVERTED to bit-identical baseline at 2026-05-22",
+      "description": "M11a-extension Commit D \u00a7D12 Phase 2/3 drift smoke reported FAIL at 4/6 cells (Sonnet+Haiku \u00d7 test_v1+test_v2; hit 1.0->0.8). At M11a-extension-extension Commit B (7 days post-baseline) the cells revert to bit-identical PASS at all 6 cells. The drift was TRANSIENT (~5-day window of altered Claude-side state that has reverted; cross-milestone alias stable on either side of the drift episode)."
+    },
+    {
+      "id": "V2_OPUS_OLD_BELT_ARBITER_MODEL_METADATA",
+      "title": "V2-Opus test_v4..v15 belt-and-suspenders: arbiter_model metadata field absent in 17b/18d/19d (pre-M11b)",
+      "description": "9 of 10 V2-Opus test_v4..v15 cells diverge ONLY on arbiter_model (absent in 17b/18d/19d JSONs; present as 'opus' in fresh re-runs). All mechanism fields bit-identical. test_v5 PASSes bit-identical vs 21b-belt-content-opus-v2-test_v5 (post-M11b, includes field). Metadata schema evolution between M11a (2026-05-04) and M11b (2026-05-13). NOT a mechanism drift.",
+      "carry_forward_verdict": "PASS modulo metadata schema evolution"
+    },
+    {
+      "id": "V4_HAIKU_TEST_V13_LOCAL_PREDICTOR_3_TOKEN_DELTA",
+      "title": "V4-Haiku test_v13 belt: completion_tokens 158 -> 161 (3-token delta in local Ollama predictor)",
+      "description": "Only diff is llm_stats.completion_tokens. arbiter_output_tokens=24 both, hit=1.0, arbiter_calls=6, cost=$0.003021 bit-identical. Delta is in qwen2.5:3b-instruct LOCAL Ollama predictor (not Claude). M11a-extension \u00a7D12 verdict policy: OBSERVATIONAL for Sonnet/Haiku.",
+      "carry_forward_verdict": "OBSERVATIONAL only"
+    }
+  ],
+  "overall_verdict": {
+    "all_halt_gates_clear": true,
+    "halt_gates": {
+      "gate_1_dual_no_code_wiring": "PASS",
+      "gate_2_phase1_V4_opus_carryover": "PASS (no halt-gate; reference absent; fresh baseline archived)",
+      "gate_4_belt_V4_OPUS_HALT": "PASS 20/20 bit-identical",
+      "gate_4_belt_V2_OPUS_NEW_HALT": "PASS 10/10 bit-identical",
+      "gate_4_belt_V2_OPUS_OLD_HALT": "PASS modulo metadata (1/10 bit-identical; 9 metadata-only; 0 mechanism-divergent)",
+      "gate_5_layer3_cross_milestone": "PASS 6/6 bit-identical"
+    },
+    "observational_findings": {
+      "V4_SONNET_belt_OBS": "PASS 20/20 bit-identical",
+      "V4_HAIKU_belt_OBS": "PASS 19/20 bit-identical + 1 local-predictor-token cell",
+      "Layer_3_drift_recovery": "PASS bit-identical (M11a-extension Commit D drift was TRANSIENT)"
+    },
+    "commit_b_outcome": "PROCEED TO COMMIT C"
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "hit_rate": 0.6,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 3,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "lagavulin_single_cask_allocation_38min_window_distillery",
+      "notification_sim_time": 210.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "mother_in_law_chemo_infusion_ride_request_voicemail_6pm",
+      "notification_sim_time": 440.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "partner_anaphylaxis_epipen_911_dispatched_second_dose_needed",
+      "notification_sim_time": 620.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "wildfire_smoke_advisory_aqi_421_hazardous_4hr_shelter",
+    "iso_exercise_window_expires_tomorrow_5pm_2400_shares_disqualifying"
+  ],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.002984,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 770.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 6092,
+    "completion_tokens": 138,
+    "total_duration_s": 83.400626209,
+    "arbiter_calls": 5,
+    "arbiter_yes_rate": 0.4,
+    "arbiter_input_tokens": 2884,
+    "arbiter_output_tokens": 20,
+    "arbiter_dispatched_model": "claude-haiku-4-5-20251001"
+  },
+  "trace_name": "test_v26",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "haiku",
+  "surprise_log": [
+    {
+      "sim_time": 30.0,
+      "event_id": "monday_week_lookahead_briefing_no_priority_items_flagged",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Monday morning week-look-ahead briefing: you have nine meetings scheduled this week, down from thirteen last week, three of them recurring one-on-ones and two cross-team syncs already on the books. Calendar shows three two-hour heads-down blocks Tuesday through Thursday. Inbox is at twelve unread with all twelve categorized routine. No priority items are flagged from your project list, OKR scorecards, or stakeholder asks. Have a focused week.",
+      "surprise": 0.37899280994153794,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 75.0,
+      "event_id": "datadog_synthetic_monitoring_daily_heartbeat_all_pass_digest",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Daily DataDog synthetic-monitoring digest for prod-monitoring-pipeline: two-hundred-and-forty-seven synthetic browser checks completed in the last twenty-four hours with two-hundred-and-forty-seven of two-hundred-and-forty-seven passing on first attempt across all geographic regions, including us-east, us-west, eu-central, and ap-southeast. API endpoint checks: one-thousand-eight-hundred-twenty-four of one-thousand-eight-hundred-twenty-four returned expected status codes within the p95 latency budget. No alerts triggered. The next synthetic-monitoring digest sends tomorrow at the same time.",
+      "surprise": 0.43290700546553973,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 110.0,
+      "event_id": "mastodon_instance_follow_suggestion_weekly_digest_kind_strangers",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Your Mastodon instance hachyderm.io weekly digest: based on the accounts you already follow and your reading patterns, we suggest following these eight accounts this week \u2014 three software-engineering generalists from federated instances, two technical writers, two systems-engineering folks, and one cybersecurity researcher. Click through to preview each account's last fifty posts; no auto-follow happens. The digest sends every Sunday and you can mute the suggestion stream in notification preferences if you find it noisy.",
+      "surprise": 0.4886968917046507,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 210.0,
+      "event_id": "lagavulin_single_cask_allocation_38min_window_distillery",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Lagavulin distillery cask-share allocation notice for registered members: the 2002 vintage single-cask special release has just opened a thirty-eight minute allocation window. Exactly three hundred and twelve bottles were produced, one bottle per member, with claim-or-release rolling at sixty-second intervals once the queue advances. You are currently at position forty-seven and your hold expires in roughly thirty-eight minutes if you do not claim; once the window closes the remaining bottles route to the trade-only secondary list and are not offered back to the member queue.",
+      "surprise": 0.44877620853904776,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 290.0,
+      "event_id": "aperture_camera_gear_spring_catalog_email_no_action_required",
+      "prediction": "Lagavulin distillery cask-share allocation notice with thirty-eight minutes left for members to claim.",
+      "observation": "Aperture Photo Supply spring catalog is now available \u2014 explore sixty-four new releases from Fujifilm, Sony, and Sigma, plus seasonal accessory bundles featuring rebated lighting kits and entry-level tripod packages. The catalog includes detailed lens-comparison charts, sample image galleries, and a community-contributed buying-guide for first-time mirrorless purchasers. Browse at your leisure; unsubscribe from seasonal mailings in your account preferences if you prefer fewer messages.",
+      "surprise": 0.5042845792832058,
+      "z": 1.701360143939853,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 360.0,
+      "event_id": "wildfire_smoke_advisory_aqi_421_hazardous_4hr_shelter",
+      "prediction": "Lagavulin distillery allocation window closes, bottles rolling to trade list if not claimed.",
+      "observation": "NWS AirNow advisory for your zip code: particulate-matter readings from the Hazelnut Ridge wildfire smoke plume have pushed the regional Air Quality Index from two-forty up to four-twenty-one over the last hour, well into the hazardous tier above the very-unhealthy band. All outdoor activity is discouraged for the next four hours minimum; close exterior windows, run HVAC on recirculate with HEPA filtration if available, and N95 masks are recommended for any unavoidable outdoor exposure. Sensitive groups, infants, and anyone with cardiac or respiratory conditions should shelter indoors until the AQI drops back below one-fifty.",
+      "surprise": 0.5180905655452482,
+      "z": 1.5232530808630333,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 440.0,
+      "event_id": "mother_in_law_chemo_infusion_ride_request_voicemail_6pm",
+      "prediction": "NWS AirNow advisory suggests hazardous air quality persists for another four hours.",
+      "observation": "Voicemail from your mother-in-law Elena: hi sweetie, I hate to ask but my regular ride to oncology fell through and the chemo infusion is at eight in the morning tomorrow at Memorial. The protocol is roughly four hours in the chair, so I need someone who can stay through and drive me home because I am too groggy to do it on my own afterward. Please call back tonight before six if you can take me; otherwise I need to call the patient-transport line and they cut off bookings at seven sharp.",
+      "surprise": 0.45640786585281035,
+      "z": -0.11675541467053839,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 520.0,
+      "event_id": "iso_exercise_window_expires_tomorrow_5pm_2400_shares_disqualifying",
+      "prediction": "Mother-in-law's last-minute request for a ride to chemotherapy appointment tomorrow morning.",
+      "observation": "Email from Carta equity admin: your incentive stock option grant from your March separation has its post-termination ISO exercise window expiring tomorrow at five in the afternoon Pacific. The remaining grant balance is twenty-four hundred shares at a strike price of fourteen dollars and twenty cents per share; partial exercise is allowed in lots of one hundred shares with same-day funded clearing. Failure to exercise by the deadline forfeits the entire remaining balance and the disqualifying-disposition treatment for current-tax-year ISO conversions will not apply to the lapsed shares. Wire instructions are in the attached one-page PDF.",
+      "surprise": 0.5167531975590253,
+      "z": 1.261842796513176,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 620.0,
+      "event_id": "partner_anaphylaxis_epipen_911_dispatched_second_dose_needed",
+      "prediction": "Mother-in-law's last-minute request for a ride to chemotherapy appointment tomorrow morning.",
+      "observation": "Your partner just collapsed at the kitchen counter after eating from a takeout container labeled pad thai with peanuts; visible facial swelling and severe wheezing within ninety seconds, classic anaphylaxis presentation. EpiPen administered to the outer thigh; nine-one-one dispatched and confirmed paramedics six minutes out. The home kit has only one EpiPen and the live nine-one-one dispatcher is asking on speaker whether you have a second dose somewhere in the house because symptoms are not responding to the first injection within the expected three-minute window.",
+      "surprise": 0.4429755261265127,
+      "z": -0.5571051546526957,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    }
+  ]
+}
