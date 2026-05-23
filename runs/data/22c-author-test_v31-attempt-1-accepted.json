@@ -1,0 +1,229 @@
+{
+  "milestone": "M11a-extension-extension-C1",
+  "commit": "C1",
+  "trace_name": "test_v31",
+  "verdict": "ACCEPTED at attempt 1/3; audit-gate 8/8 PASS at the accepting attempt; first M11a-extension-extension Commit C trace toward combined-N=40 sample target",
+  "attempt_count_total": 1,
+  "cumulative_milestone_attempts_through_c1": 1,
+  "retry_cap_consumed_at_c1": 1,
+  "retry_cap_remaining": 2,
+  "fresh_session_restart_metadata": {
+    "session_protocol": "per-trace fresh-session discipline per D14-H6 (each test_v3X acceptance is authored in a fresh session); milestone-level Commit B → Commit C transition does NOT require new plan-kickoff session — THIS C1 fresh-session kickoff is itself that transition",
+    "prior_state_HEAD": "0cd70af (M11a-extension-extension Commit B; D14-H4 dual no-code-wiring gate PASS + Phase 1 V4 baselines + Layer-3 cross-milestone smoke PASS 6/6 bit-identical + belt-and-suspenders 80-cell PASS modulo Surface #16 discovery, 2026-05-22)",
+    "pre_c1_input_state": {
+      "banned_list_file_txt": "runs/data/22c-banned-list-pre-c1.txt",
+      "banned_list_file_json": "runs/data/22c-banned-list-pre-c1.json",
+      "banned_list_file_txt_sha256": "139c3522c4c804a830ba17cc9e6fea9c3e52a4dd566aef763dcbdce2dc4ff24d",
+      "banned_list_file_json_sha256": "02dcac8e951411968e3e4c70a8da25c3c6ed385bfdc4acc7d3ba29a8cf213592",
+      "banned_list_file_txt_bytes": 31637,
+      "banned_list_file_json_bytes": 31033,
+      "counts": {
+        "event_ids": 217,
+        "themes": 122,
+        "tuples": 121
+      }
+    },
+    "pre_c1_state_provenance": "M11a-extension Commit C10 end-state (post-test_v30 acceptance; runs/21 §\"Banned-list state delta at C10\"); carried forward verbatim into M11a-extension-extension Commit C1 per ~/.claude/plans/m11a-extension-extension-n40.md §D3 + §Appendix carry-forward; pre-C10 banned-list (sha256 21018af8... / 8fb6bf99...; 208/117/116) extended with C10 +9 IDs / +5 themes / +5 tuples (from test_v30 acceptance) → 217/122/121 at C1-input time",
+    "v4_prompt_sha256_at_c1": "09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6",
+    "v4_prompt_bytes_at_c1": 1851,
+    "v4_prompt_unchanged_since": "M11a-extension Commit B adc1cba (bytewise frozen across M11a-extension Commit B → C → D and through M11a-extension-extension Commit A → B; D14-H4 dual gate PASSed at M11a-extension-extension Commit B)",
+    "sandbox_event_trace_pre_c1_sha256": "6417b20d7e7a08f3f44e7f1e4658e77afe42cb96f086d908fa5c9ec954441599",
+    "sandbox_event_trace_pre_c1_bytes": 134626,
+    "sandbox_event_trace_post_c1_sha256": "a48721658b50c4a161de20b9c96aa42a08df0d1ef59eeaf9ba98ac2f72cfe2c4",
+    "sandbox_event_trace_post_c1_bytes": 150403,
+    "sandbox_event_trace_diff": "1 file changed, 61 insertions(+), 0 deletions(-) — APPEND-ONLY discipline verified via git diff --stat; new test_trace_v31 function (60 lines) + 1 new registry-dict entry; prefix lines 1..1495 (test_v4..test_v30 + helpers + dev_trace_v1/v2 + dataclasses + _gt helper) bytewise unchanged pre/post C1 per diff hunk @@ -1495,6 +1495,66 @@",
+    "plan_locked_at": "~/.claude/plans/m11a-extension-extension-n40.md (locked source plan; landed at M11a-extension-extension Commit A as runs/22-v4-prompt-n40-extension-extension.md)",
+    "current_date": "2026-05-23"
+  },
+  "self_restate_prompt_render": {
+    "command": "uv run python -m eval.author_trace --banned-list runs/data/22c-banned-list-pre-c1.txt > /tmp/m11a-ext-ext-c1-restate-prompt.txt",
+    "rendered_prompt_archive_path": "runs/data/22c-self-restate-rendered-pre-c1.txt",
+    "rendered_prompt_sha256": "e9d784d7ecff25b894287efa770249cf3995255cbe97decc62fe91866fd2f79a",
+    "rendered_prompt_bytes": 32046,
+    "rendered_prompt_lines": 374
+  },
+  "self_restate_response_verbatim": "Authoring exactly one new EventTrace named test_trace_v31 for the sandbox harness this session — the first M11a-extension-extension Commit C trace, opening the path toward the combined-N=40 sample target. Restating the four structural constraints in my own paraphrase below, distinct from any prior M11a-extension Commit C1..C10 self-restate response:\n\n(a) Static-only Python expressions. The trace block is a pure declarative literal — Trace(...) / Event(...) / GroundTruthEvent(...) / _gt(...) constructor calls whose kwargs all bind to int / float / str / list / tuple / dataclass values that resolve at module-import time. No runtime computation inside argument positions, no helper-function calls that depend on session-state, no dynamic list comprehensions that synthesize fields, nothing that requires interpreter-level evaluation beyond the standard frozen-dataclass instantiation that `sandbox/event_trace.py` performs on `get_trace('test_v31')`.\n\n(b) Zero walrus operator. The := token does not appear anywhere in the new test_trace_v31 block — every binding is plain `name = value` assignment. The M11a test_v11 attempt-1 walrus-syntax regression mode does not recur in this trace.\n\n(c) Event.id values are bytewise-frozen string literals. No string concatenation via '+', no f-string interpolation pulling numeric arithmetic, no inline derivation that emits a stringified integer or computed str(N*M) value. Each of test_trace_v31's nine Event.id fields is a fixed identifier authored once at draft time and never reconstructed.\n\n(d) Avoid the 217 prior banned event_ids, the 122 banned semantic themes, and the 121 banned keyword tuples enumerated in the prompt above. Stronger than literal-ID avoidance per the audit-gate locked at M11a-extension D-C1.3 and inherited verbatim into M11a-extension-extension: step 3a does mechanical set-intersection on banned IDs (0/217 collision required); step 3b does per-GT semantic theme hand-audit vs the 122 banned themes (each with distinguishing-qualifier defense); step 3c mechanical bytewise tuple intersection (0/121 collision required); step 4 cross-trace literal-ID HALT-gate against the 217-prior-ID union across 25 prior trace definitions (HALTs the entire milestone on any collision); step 5 cross-trace GT-tuple bytewise intersection; step 6 ≥8-word verbatim phrase set-intersection against the ~12000+ prior dev/test 8-grams across content + briefing + intents fields. The audit-step-6 8-gram check is the mechanical safety net for the boilerplate-template draft-time author-judgment failure mode (M11a-extension D-C7.attempt1.D / D-C8.attempt1.C / D-C9.attempt1.C / D-C10.attempt1.C boilerplate-paraphrase author-discipline carried forward; tightened at M11a-extension C10 to cover ALL formulaic clauses including launch-window perks, catalog-cadence, customer-service-closings, muting/unsubscribe instructions, and next-run-timing closings — discipline applied verbatim at draft time to all four V2 EXISTING NO distractors in test_v31).",
+  "step_3_5_pre_flight": {
+    "discipline_source": "D-C1.attempt1.C inheriting verbatim from M11a-extension D-C2.attempt2.C / D-C3.attempt1.C / D-C4.attempt1.C / D-C5.attempt1.C / D-C6.attempt1.C / D-C7.attempt1.C / D-C8.attempt1.C / D-C9.attempt1.C / D-C10.attempt1.C",
+    "command": "uv run python -c \"from sandbox.event_trace import get_trace; t = get_trace('test_v31'); [print(f'{kw!r} in {g.event.id}: {kw.lower() in g.event.content.lower()}') for g in t.ground_truth for kw in g.keywords]\"",
+    "iteration_log": [
+      {
+        "run": 1,
+        "outcome": "PASS — all 10 (keyword, content) pairs print True; no in-session iteration required",
+        "detail": "'dka' in child_type1_diabetes_dka_glucose_above_500_kussmaul_breathing_911_dispatched_glucagon_kit_administered_endocrinologist_callback: True; 'glucagon' in (same id): True; 'ivf' in ivf_egg_retrieval_procedure_moved_up_tomorrow_630am_reproductive_endocrinologist_follicle_peak_trigger_shot_8pm_confirm_cycle_cancel: True; 'trigger' in (same id): True; 'term' in term_life_insurance_convertibility_window_5pm_election_whole_life_permanent_no_medical_underwriting_age65_anniversary_lapse: True; 'convertibility' in (same id): True; 'funeral' in funeral_home_director_voicemail_father_remains_casket_cremation_election_tomorrow_viewing_service_signoff_5pm_paperwork_pickup: True; 'casket' in (same id): True; 'volcanic' in usgs_volcanic_ash_advisory_mount_baker_eruption_plume_cascadia_4county_n95_respiratory_outdoor_avoidance_48hr_projection_cone: True; 'ash' in (same id): True"
+      }
+    ],
+    "first_run_pass_precedents_inherited": "mirrors M11a-extension C4 + C5 + C6 + C7-attempt-1 + C8 + C9 + C10 first-run-PASS precedents; contrast M11a-extension C3-attempt-1 which iterated once on ('pickup', partner_voicemail_ring_pickup_jeweler) two-word/one-word misalignment",
+    "discipline_carry_forward": "single-word keyword choice + draft-time literal-substring attention applied at C1 author-time; chose distinctive single-token keywords (dka / glucagon / ivf / trigger / term / convertibility / funeral / casket / volcanic / ash) all of which appear as natural domain-vocabulary inside the matching event content"
+  },
+  "audit_gate_result": {
+    "step_1_schema_check": {
+      "verdict": "PASS",
+      "evidence": "get_trace('test_v31') returns Trace with name='test_v31', 9 events, 5 ground_truth, duration_s=785.0 (computed = max(last_gt_completion=755.0, last_event_time=665.0) + 30.0; GT completions at 235+240=475, 355+220=575, 445+240=685, 535+220=755, 665+90=755)"
+    },
+    "step_2_keyword_content_alignment": {
+      "verdict": "PASS",
+      "evidence": "all 10 (keyword, content.lower()) substring checks PASS — bytewise identical evidence to Step 3.5 pre-flight detail above"
+    },
+    "step_3a_banned_event_id_literal_review": {
+      "verdict": "PASS",
+      "evidence": "mechanical set-intersection: 0 collisions across test_v31's 9 event_ids vs 217 pre-C1 banned IDs"
+    },
+    "step_3b_banned_theme_semantic_review": {
+      "verdict": "PASS",
+      "per_gt_distinguishing_qualifiers": {
+        "GT1_child_t1d_dka_V2_urgent_safety_medical_emergency_8x_to_9x": "distinct from M11a-extension medical-emergency banned themes — C1 gas_leak_kitchen_sensor (chemical-environmental gas / hydrocarbon detection) + C2 aging_parent_fall_alert_emergency_pendant (musculoskeletal fall, elderly) + C4 carbon_monoxide_alarm_evacuate (chemical-environmental CO / asphyxiation) + C5 child_medication_ingestion_poison_control (pediatric toxicology, oral medication) + C6 partner_anaphylaxis_epipen_911 (allergic type-I hypersensitivity) + C7 self_chest_pressure_left_arm_radiating_aspirin (cardiology MI / acute coronary syndrome) + C9 partner_stroke_fast_protocol_tpa (cerebrovascular ischemic stroke) + C10 spouse_asthma_severe_exacerbation (respiratory bronchospasm / status asthmaticus). DISTINCT axis: pediatric endocrine/metabolic emergency in a Type-one-diabetes patient — DKA presentation with point-of-care glucose >500 + large urinary ketones + Kussmaul-pattern hyperventilation + pediatric glucagon-emergency-kit administration; body-system (endocrine/metabolic) + patient (pediatric T1D child) + mechanism (insulin-deficit ketogenesis, NOT toxic-ingestion / NOT allergic-cascade / NOT chemical-asphyxiation / NOT cardiology / NOT cerebrovascular / NOT respiratory-bronchospasm) all distinct vs C5 (pediatric toxic-ingestion is the closest cousin — distinguished by metabolic-deficit vs exogenous-toxin mechanism, glucagon-kit vs Poison-Control protocol, endocrinology callback vs ED admittance route).",
+        "GT2_ivf_egg_retrieval_V2_schedule_change_7x_to_8x": "distinct from M11a-extension schedule-change banned themes — C1 cardio_appt_rescheduled (cardiology specialty appointment) + C3 court_hearing_moved_same_day_default_risk (legal civic hearing) + C4 pediatrician_visit_advanced_today_4pm (pediatric wellness visit) + C5 dental_implant_surgery_rescheduled (oral surgery delayed) + C7 USCIS_naturalization_interview_rescheduled (immigration adjudication) + C8 mortgage_closing_rescheduled (real-estate underwriting closing) + C9 orthopedist_knee_mri_consult_moved_up_730am_specialist_sabbatical (orthopedics pre-op MRI consult). DISTINCT axes vs C9 (closest cousin in 'moved-up-at-provider-request' shape): IVF egg-retrieval PROCEDURE (NOT consult) + reproductive-endocrinology (NOT orthopedics) + trigger-shot-tied-to-36-hour-window (NOT pre-op MRI before sabbatical) + cycle-cancel-stakes-on-miss (NOT surgical-coordinator backup) + follicle-ultrasound-peak-maturity-driven (NOT specialist-sabbatical-driven); body-system (reproductive endocrinology) + procedure-stage (operative retrieval vs pre-op consultation) + decision-window mechanism (subcutaneous trigger-injection 36hr-pre-op-timing vs portal-confirm-cutoff).",
+        "GT3_term_life_convertibility_V2_financial_deadline_9x_to_10x": "distinct from M11a-extension financial/deadline banned themes — C1 student_loan_repayment_resume (federal student loan + IDR application) + C2 property_tax_installment (county property tax) + C3 homeowner_insurance_lapse (homeowner P&C insurance auto-debit failure) + C5 quarterly_estimated_tax_q3 (IRS quarterly estimated tax) + C6 iso_exercise_window (employer post-termination ISO equity grant) + C7 fbar_fincen_114 (FinCEN foreign bank account reporting) + C8 heloc_draw_period (HELOC draw-period amortization conversion) + C9 roth_ira_conversion (Roth IRA retirement election) + C10 brokerage_tax_loss_harvest (taxable-brokerage capital-loss tax-lot identification). DISTINCT axes: life-insurance carrier convertibility-window provision (insurance-policy-contractual-right, NOT loan / tax / equity-grant / retirement / banking / brokerage) + contractual right to convert term-life to whole-life permanent WITHOUT fresh medical underwriting (mechanism category entirely novel within the prior 9 financial/deadline themes) + age-anniversary-tied lapse (insurance carrier policyowner notice, NOT IRS deadline / employer grant / banking auto-debit) + portal-only submit channel explicitly excluded paper-mail/email by contract language (carrier-channel-restrictive, NOT generic financial-deadline). Entire instrument category (term-life insurance policy convertibility) is novel in the M11a-extension banned-themes list.",
+        "GT4_funeral_home_director_V2_message_delivery_7x_to_8x": "distinct from M11a-extension message/delivery banned themes — C1 legal_doc_courier_signature (certified legal-doc courier) + C3 partner_voicemail_ring_pickup_jeweler (partner-domestic + jewelry-pickup) + C4 hospital_grandmother_hip_fracture_next_of_kin_callback (hospital admitting-desk for grandparent admission) + C6 mother_in_law_chemo_infusion_ride_request_voicemail (MIL chemo-medical-ride request) + C7 tenant_attorney_eviction_stay_motion_paperwork (tenant-defense attorney paralegal eviction-paperwork pickup) + C8 older_sister_executor_father_estate_safe_deposit_box_appraiser (executor-sibling estate appraisal) + C10 adoption_agency_caseworker_placement_finalization (institutional adoption-services caseworker). DISTINCT axes: funeral-home director (mortuary-services institution sender, NOT legal-courier / partner-domestic / hospital-admitting / family-medical / attorney-paralegal / executor-sibling / adoption-agency) + decision substance (CASKET-VS-CREMATION election + remains-release authorization + service-program-printer + cemetery-plot grave-opening cascade + tomorrow-morning family-viewing logistics) + sender-relationship (death-care professional, NOT family/legal/medical) — entire institution category (funeral-home / mortuary services) is novel within the prior 7 message/delivery themes.",
+        "GT5_usgs_volcanic_ash_advisory_V2_weather_alert_6x_to_7x": "distinct from M11a-extension weather-alert banned themes — C2 flash_flood_warning_overnight (precipitation flooding) + C3 dust_storm_warning_freeway_visibility (mineral wind-driven low-visibility) + C4 tornado_watch_tri_county (convective supercell rotation) + C6 wildfire_smoke_advisory_aqi_421_hazardous (combustion PM2.5 air-quality from forest-fire smoke plume) + C8 noaa_ice_storm_warning_freezing_rain (icing precipitation glaze accretion) + C10 nws_excessive_heat_warning_heat_dome (heat-dome ridge persistence heat-index). DISTINCT axes vs C6 wildfire-smoke (closest cousin on respiratory advisory + plume-axis): volcanic-ash from phreatic-eruption (NOT combustion-pyrolysis) + USGS Cascades Volcano Observatory + Volcanic Ash Advisory Center coordination (NOT NWS AirNow / NOT EPA-PM2.5 framework) + FAA SIGMET airspace rerouting with jet-corridor-north-of-plume (NOT ground-only NWS air-quality) + coarse-ash deposition cone with ashfall at ground level (NOT PM2.5 smoke-plume drift) + livestock + greenhouse sheltering (NOT N95 indoor-shelter-by-AQI-tier); hazard mechanism (geophysical phreatic eruption ash deposition) is novel within the prior 6 weather-alert themes."
+      }
+    },
+    "step_3c_banned_keyword_tuple_bytewise_review": {
+      "verdict": "PASS",
+      "evidence": "mechanical set-intersection: 0 bytewise collisions across 5 GT tuples [(dka, glucagon), (ivf, trigger), (term, convertibility), (funeral, casket), (volcanic, ash)] vs 121 pre-C1 banned tuples"
+    },
+    "step_4_cross_trace_literal_id_collision_HALT_gate": {
+      "verdict": "PASS",
+      "evidence": "mechanical set-intersection of test_v31's 9 event_ids vs union of dev_v1/dev_v2/test_v1..v8/v11..v15/v21..v30 event_ids: 0 collisions against 217 prior event_ids across 25 prior trace definitions. HALT-trigger per ~/.claude/plans/m11a-extension-extension-n40.md §D9 Surface #1 (literal-ID collision halt inherited from M11a-extension D-C1.5 #1) NOT fired."
+    },
+    "step_5_drift_overlap_a_gt_tuple_bytewise_cross_trace": {
+      "verdict": "PASS",
+      "evidence": "mechanical set-intersection of test_v31's 5 GT tuples vs union-of-prior-GT-tuples (121 unique binary tuples across dev_v1/dev_v2/test_v1..v8/v11..v15/v21..v30): 0 collisions"
+    },
+    "step_6_drift_overlap_b_8gram_verbatim_phrase": {
+      "verdict": "PASS",
+      "evidence": "8-gram set-intersection: test_v31 has 1783 unique 8-grams across content+briefing+intents fields (lowercased, word-token regex [\\w'-]+ tokenization); prior dev/test traces have 12330 unique 8-grams (across 25 prior trace definitions); overlap = 0. D-C1.attempt1.C boilerplate-paraphrase author-discipline (inheriting M11a-extension C10 TIGHTENED scope: ALL formulaic clauses in distractor content + briefing + intents — closing sentences, opening sentences, template middle sentences, launch-window perks, catalog-cadence announcements, customer-service-closings, muting/unsubscribe instructions, next-run-timing closings) applied at draft time to all four V2 EXISTING NO distractor content fields. Step 6 first-run-PASS demonstrates draft-time discipline preventing the M11a-extension C7-attempt-1 + C9-attempt-1 boilerplate-template convergence rejection modes at the pre-submission gate."
+    },
+    "step_7_gt_regime_classification": {
+      "verdict": "PASS",
+      "per_gt_regime": {
+        "GT1_child_dka_t1d": "urgent safety/security issue (V2 EXISTING YES, medical-emergency sub-class) — pediatric Type-one-diabetes diabetic-ketoacidosis presentation with point-of-care glucose four-hundred-eighty-seven + dark-purple large-ketone urinary strip + Kussmaul-pattern hyperventilation + fruity acetone breath + sustained vomiting that crossed home-management threshold + pediatric glucagon emergency-kit dose administered lateral-thigh + 911 dispatcher on speakerphone + pediatric endocrinologist paging-back coordinating receiving-team ED handoff + bring closed-loop pump and CGM reader plus A1c reference card. 8× → 9× cross-trace lift (M10b test_v8 + M11a-extension C1+C2+C4+C5+C6+C7+C9+C10 + M11a-extension-extension C1).",
+        "GT2_ivf_egg_retrieval_moved_up": "schedule change affecting the user personally (V2 EXISTING YES) — Pacific Reproductive Endocrinology clinic moves IVF egg-retrieval procedure from next-week-Thursday morning to tomorrow 6:30am at reproductive-endocrinologist request based on morning follicle-ultrasound + serum-estradiol panel hitting peak follicular maturity twenty-four hours sooner than original retrieval-day model + trigger-shot subcutaneous injection has to land thirty-six hours before retrieval to time ovulation-cascade against surgical schedule + 8pm tonight confirm-or-cycle-cancel + medication-room pickup of pre-loaded syringe staffed until 7:30. 7× → 8× cross-trace lift (M11a-extension C1+C3+C4+C5+C7+C8+C9 + M11a-extension-extension C1).",
+        "GT3_term_life_convertibility_5pm": "financial/deadline obligation (V2 EXISTING YES) — Northwestern Mutual term-life-insurance carrier convertibility-window letter on the policyowner's 65th birthday anniversary + 5pm Pacific portal-only election deadline to convert $1M 20-year-term to whole-life permanent policy WITHOUT fresh medical re-underwriting + actuarial-table conversion premium calculation $9,400 annually + partial-conversion lots accepted in $250K increments at same rate-class anchor + paper-mail and email submissions explicitly excluded by contract language + carrier service desk staffed through 7pm Pacific on dedicated convertibility-window phone tree + freshly-underwritten whole-life policy quoted at twice the convertibility-window rate. 9× → 10× cross-trace lift (M11a-extension C1+C2+C3+C5+C6+C7+C8+C9+C10 + M11a-extension-extension C1).",
+        "GT4_funeral_home_director_casket_election": "message or delivery directed personally to the user (V2 EXISTING YES) — Daniel Brennan, funeral-home director at Brennan & Sons handling father's arrangements, voicemail with father's-remains release election decision by 5pm so embalming team can begin casket-side preparation tonight ahead of tomorrow morning's family viewing window 9-11am + casket-versus-cremation choice cascades through service-program printer cutoff 7pm + headstone-engraver order routing + cemetery-plot grave-opening schedule for tomorrow-afternoon interment + in-person 7:30pm front-desk-staff signed-paperwork countersign + after-hours line rolls to director's mobile + family-viewing head-count for tomorrow morning. 7× → 8× cross-trace lift (M11a-extension C1+C3+C4+C6+C7+C8+C10 + M11a-extension-extension C1).",
+        "GT5_usgs_volcanic_ash_mount_baker": "weather alert (V2 EXISTING YES) — USGS Cascades Volcano Observatory + Volcanic Ash Advisory Center four-county respiratory advisory after overnight phreatic explosion at Mount Baker pushed coarse-ash plume east-southeast over Whatcom/Skagit/Snohomish/northeast King counties + volcanic ash deposition cone mapped against prevailing jet-stream forecast for next 48 hours + measurable ashfall at ground level by mid-afternoon + N95-or-equivalent respiratory protection for outdoor activity + livestock and greenhouse sheltering + HEPA-recirculation for indoor air-handling systems near cone-axis + FAA parallel SIGMET rerouting Pacific-coast jet corridor north of plume + school-district outdoor-recess windows suspended through tomorrow per joint county-health-officer bulletin + cone-projection update every six hours. 6× → 7× cross-trace lift (M11a-extension C2+C3+C4+C6+C8+C10 + M11a-extension-extension C1)."
+      }
+    },
+    "step_8_defensibility_self_check_D9_defense_8": {
+      "verdict": "PASS",
+      "v4_new_yes_coverage_at_c1": {
+        "instances_at_c1": 0,
+        "cross_trace_total_post_c1": 6,
+        "within_v4_new_yes_breakdown_post_c1": {
+          "scarcity_bounded_opportunity": "3× (M11a-extension C1 vinyl_drop + C6 lagavulin + C9 SNKRS)",
+          "family_milestone_with_social_cost": "3× (M11a-extension C2 grandpa-birthday + C5 parents-anniversary + C10 brother-PhD)"
+        },
+        "within_v4_new_yes_symmetry_post_c1": "PRESERVED at 3×/3× (closed at M11a-extension C10 via PATH (a) brother-PhD family-milestone 3rd-repeat)",
+        "cross_v4_mechanism_delta_post_c1": "V4 NEW YES 6 vs V4 NEW NO 6 = delta 0 (PRESERVED at C1 via no-V4-NEW-touches design choice; aligns with milestone-scope §D1 + §D7 + Non-goal #1 — this is CI-tightening on the V4-vs-V2 headline, NOT mechanism extension)",
+        "defensibility": "Per ~/.claude/plans/m11a-extension-extension-n40.md §D7 + §D14-H1: M11a-extension-extension scope is CI-tightening on the V4-vs-V2 headline at the SAME 5-event mechanism reference (test_v8 × {mom_birthday, bridgers_presale}, test_v11 × trivia_league, test_v12 × {grocer_back_in_stock, calendar_yoga_suggest}); mechanism-residual closure is M11d-surprise-gate-retuning + V5 future-work scope (Non-goal #1 + #2). MECHANISM_CONFIRM at N=40 is deterministically inherited at PARTIAL = 1/5 from M11a-extension under expected Commit-B belt-and-suspenders PASS bit-identical (Surface #16 documented at M11a-extension-extension Commit B as resolved-belt-and-suspenders-modulo-Surface-16 verdict). Choosing no-V4-NEW-touches at C1 preserves the M11a-extension cross-V4-mechanism symmetric closure exactly; any V4-NEW additions at subsequent commits would shift the symmetry one way or another and need explicit Plan-level defense. The substantive new evidence at this milestone is binomial-CI tightening at the V4-Opus joint-bar-failure-rate observation cell, NOT new V4-mechanism evidence."
+      },
+      "v4_new_no_coverage_at_c1": {
+        "instances_at_c1": 0,
+        "cross_trace_total_post_c1": 6,
+        "subclause_breakdown_post_c1": "3 subclauses × 2× each (back-in-stock-without-scarcity 2× M11a-extension C1+C2; recurring-event-calendar-suggest 2× M11a-extension C1+C2; casual-social-meetup-without-time-pressure 2× M11a-extension C1+C2)",
+        "saturated_state_preserved": "yes — preserved unchanged through M11a-extension C3..C10 + carried bytewise into M11a-extension-extension C1",
+        "defensibility": "V4 NEW NO is saturated at the per-subclause 2× level from M11a-extension; adding a 3rd-repeat under any of the three subclauses would widen the cross-V4-mechanism asymmetry V4 NEW NO 6→7 against the just-closed cross-V4-mechanism symmetric closure at 6 vs 6. Preserved unchanged at C1."
+      },
+      "v2_existing_yes_coverage_at_c1": {
+        "gts_at_c1": 5,
+        "classes_lifted_at_c1": [
+          "urgent-safety 8×→9× (child-T1D-DKA-pediatric; saturating)",
+          "schedule-change 7×→8× (IVF-egg-retrieval-moved-up; saturating)",
+          "financial/deadline 9×→10× (term-life-convertibility-window; saturating)",
+          "message/delivery 7×→8× (funeral-home-director-casket-election; saturating)",
+          "weather-alert 6×→7× (USGS-volcanic-ash-advisory; saturating)"
+        ],
+        "classes_skipped_at_c1": [
+          "production/on-call (preserved at 7×; reserved for subsequent C2..C20 lifts)"
+        ],
+        "cross_trace_state_post_c1": {
+          "urgent-safety": "9× (M10b test_v8 + M11a-extension C1+C2+C4+C5+C6+C7+C9+C10 + M11a-extension-extension C1)",
+          "schedule-change": "8× (M11a-extension C1+C3+C4+C5+C7+C8+C9 + M11a-extension-extension C1)",
+          "financial/deadline": "10× (M11a-extension C1+C2+C3+C5+C6+C7+C8+C9+C10 + M11a-extension-extension C1)",
+          "production/on-call": "7× UNCHANGED (M11a-extension C2+C3+C4+C5+C7+C8+C9)",
+          "message/delivery": "8× (M11a-extension C1+C3+C4+C6+C7+C8+C10 + M11a-extension-extension C1)",
+          "weather-alert": "7× (M11a-extension C2+C3+C4+C6+C8+C10 + M11a-extension-extension C1)"
+        },
+        "all_six_v2_yes_classes_at_least_5x": "TRUE (6/6 classes ≥5×; the minimum production/on-call at 7× still inside the ≥5× envelope by 2 absolute)"
+      },
+      "v2_existing_no_coverage_at_c1": {
+        "distractors_at_c1": 4,
+        "classes_lifted_at_c1": [
+          "marketing/newsletter 8×→9× (Prairie-Pen-Company-handcrafted-fountain-pen-quarterly; saturating)",
+          "generic-daily-briefing 7×→8× (Sunday-quiet-evening-pre-Monday; saturating)",
+          "feature-announcement 6×→7× (Calendly-v6-round-robin-team-pools; saturating)",
+          "social-channel-invite 5×→6× (Threads-by-Meta-follow-suggestion-brand-design-curatorial-circle; saturating)"
+        ],
+        "classes_skipped_at_c1": [
+          "routine-status (preserved at 8×; tied for maximum among V2 NO classes at C1 entry)"
+        ],
+        "cross_trace_state_post_c1": {
+          "routine-status": "8× UNCHANGED (M11a-extension C3+C4+C5+C6+C7+C8+C9+C10)",
+          "marketing/newsletter": "9× (M11a-extension C3+C4+C5+C6+C7+C8+C9+C10 + M11a-extension-extension C1)",
+          "generic-daily-briefing": "8× (M11a-extension C3+C4+C5+C6+C7+C8+C10 + M11a-extension-extension C1)",
+          "feature-announcement": "7× (M11a-extension C2+C3+C5+C7+C9+C10 + M11a-extension-extension C1)",
+          "social-channel-invite": "6× (M11a-extension C1+C4+C6+C8+C9 + M11a-extension-extension C1)"
+        },
+        "all_five_v2_no_classes_at_least_5x": "TRUE (5/5 classes ≥5×; the minimum social-channel-invite at 6× still inside the ≥5× envelope)"
+      },
+      "boilerplate_paraphrase_discipline_application_at_c1": {
+        "discipline_source": "D-C1.attempt1.C inheriting verbatim from M11a-extension D-C7.attempt1.D + D-C8.attempt1.C + D-C9.attempt1.C + D-C10.attempt1.C (TIGHTENED scope: ALL formulaic clauses in distractor content + briefing + intents — closing sentences, opening sentences, template middle sentences, launch-window perks, catalog-cadence announcements, customer-service-closings, muting/unsubscribe instructions, next-run-timing closings)",
+        "application_audit_per_distractor": {
+          "D1_threads_by_meta_follow_suggestion_weekly_digest": "closing sentence paraphrased per-trace: 'Threads ships this digest on a rolling seven-day cadence and any of the listed accounts can be added or skipped without affecting the broader recommendation model — the listed picks are pre-filtered against the existing follow set and the muted-keyword list already configured on the account.' — distinct from M11a-extension social-channel-invite distractor closings (C1 discord_unread_digest + C4 slack_frontend_weekly + C6 mastodon_instance_follow_suggestion + C8 bluesky_starter_pack + C9 substack_notes) including avoidance of the 'every digest preserves your existing muted-keyword filters' / 'one-tap follow buttons inline' generic phrasings",
+          "D2_calendly_v6_round_robin_team_pools": "closing sentence paraphrased per-trace: 'The accompanying changelog covers the four secondary launches in this train, with the engineering deep-dive on the team-pool fairness algorithm running on the Calendly product blog from this morning.' — explicitly avoided the M11a-extension feature-announcement closing-template phrasings ('each detailed on the dedicated changelog page' from C10 Figma + 'walkthrough on the engineering blog linked under the changelog entry' from C10 Figma) by content-specific routing to fairness-algorithm-deep-dive and a different sentence shape",
+          "D3_sunday_quiet_evening_pre_monday_briefing": "middle sentence paraphrased per-trace: 'The weekly review-and-plan session from earlier in the day produced the focus-block schedule for the week ahead, with two ninety-minute deep-work pours blocked on the calendar Monday and Tuesday morning and the rest of the week left open for reactive scheduling.' — explicitly avoided the M11a-extension generic-daily-briefing template phrasings ('no priority items are flagged from your project list' / 'the personal task tracker rolled over with no overdue rows' from C7..C10) by introducing the focus-block-scheduling sub-frame and the deep-work-pour cadence detail",
+          "D4_prairie_pen_company_quarterly_seasonal_release": "closing sentence paraphrased per-trace: 'Order placement, grind preferences, and ink-channel-feed adjustments all run through the small-batch subscriber portal on the brand site; the team behind the workshop has the inbox open during the early morning Iowa window only and the auto-reply confirms receipt within the same business day.' — explicitly avoided the M11a-extension marketing/newsletter customer-service-closing templates (C10 Artisan Origins 'all run through the subscriber-account messaging thread that the roastery customer-care team works through first thing in the Pacific morning' / C9 Outdoor Voices 'sizing questions, exchange requests, and customer-service follow-ups route through the help-center contact form') by domain-specific routing to ink-channel-feed-adjustments and central-Iowa-time-window detail"
+        },
+        "audit_step_6_outcome": "first-run PASS at attempt #1 with 0 overlaps vs 12330 prior dev/test 8-grams — TIGHTENED draft-time discipline effective at preventing M11a-extension C7-attempt-1 + C9-attempt-1 boilerplate-template convergence rejection modes; mechanical safety net at step 6 never needed to catch a draft-time miss"
+      },
+      "net_endpoint_claim_post_c1": "V4 NEW YES 6 (scarcity-bounded 3× + family-milestone 3× — symmetric within-subclause closure preserved bytewise from M11a-extension C10) + V4 NEW NO 6 saturated preserved + V2 YES all 6 classes ≥7× (urgent-safety 9×, schedule-change 8×, financial/deadline 10×, production/on-call 7×, message/delivery 8×, weather-alert 7×) + V2 NO all 5 classes ≥6× (routine-status 8×, marketing/newsletter 9×, generic-daily-briefing 8×, feature-announcement 7×, social-channel-invite 6×) — first new trace toward combined-N=40 sample target; the cumulative V2-YES+V2-NO class-coverage ladder broadens with each C1..C20 acceptance, preserving the M11a-extension C10 cross-V4-mechanism symmetric closure throughout the milestone scope by design"
+    }
+  },
+  "attempt_log": [
+    {
+      "attempt": 1,
+      "verdict": "ACCEPTED at audit-gate 8/8 PASS on first run",
+      "revision_scope": "N/A — single-attempt acceptance with no in-session iteration on Step 3.5 (first-run-PASS) and no revision after audit-gate (first-run 8/8 PASS at all 8 steps)",
+      "steps_status_summary": "Step 1 (schema) PASS first-run; Step 2 (M8b kw/content) PASS first-run; Step 3a (banned ID literal) PASS 0 collisions; Step 3b (banned theme semantic) PASS per-GT distinguishing-qualifier audit; Step 3c (banned tuple bytewise) PASS 0 collisions; Step 4 (cross-trace HALT-gate) PASS 0 collisions vs 217 prior IDs; Step 5 (drift overlap a GT tuple bytewise) PASS 0 collisions; Step 6 (drift overlap b ≥8-word verbatim phrase) PASS 0 overlaps vs 12330 prior dev/test 8-grams; Step 7 (GT-regime classification) PASS per-GT regime assigned; Step 8 (defensibility self-check) PASS net post-C1 endpoint claim met"
+    }
+  ],
+  "halt_conditions_status": {
+    "literal_id_collision_halt": "NOT triggered (audit step 4 PASS at attempt #1 with 0 collisions vs 217 prior event_ids across 25 prior trace definitions)",
+    "banned_list_saturation_halt": "NOT triggered (1 cumulative milestone attempt < 50 threshold; 1 accepted trace at C1 of target combined-N=40 incremental-20-new path)",
+    "retry_cap_3_on_test_v31": "NOT exhausted (1/3 used; PASS at attempt #1 / 2 retries remaining if attempt #1 had not accepted)"
+  },
+  "post_c1_banned_list_increment_for_c2_input": {
+    "new_event_ids_added_post_c1": [
+      "child_type1_diabetes_dka_glucose_above_500_kussmaul_breathing_911_dispatched_glucagon_kit_administered_endocrinologist_callback",
+      "ivf_egg_retrieval_procedure_moved_up_tomorrow_630am_reproductive_endocrinologist_follicle_peak_trigger_shot_8pm_confirm_cycle_cancel",
+      "term_life_insurance_convertibility_window_5pm_election_whole_life_permanent_no_medical_underwriting_age65_anniversary_lapse",
+      "funeral_home_director_voicemail_father_remains_casket_cremation_election_tomorrow_viewing_service_signoff_5pm_paperwork_pickup",
+      "usgs_volcanic_ash_advisory_mount_baker_eruption_plume_cascadia_4county_n95_respiratory_outdoor_avoidance_48hr_projection_cone",
+      "threads_by_meta_follow_suggestion_weekly_digest_brand_design_curatorial_circle_no_time_pressure",
+      "calendly_v6_round_robin_team_pools_workflow_addons_quarterly_release_notes_launch_announcement_no_action",
+      "sunday_quiet_evening_pre_monday_briefing_no_overdue_items_calendar_clear_personal_focus_block_setup",
+      "prairie_pen_company_handcrafted_fountain_pen_quarterly_seasonal_release_newsletter_handmade_nibs_no_action"
+    ],
+    "new_themes_added_post_c1": [
+      "urgent safety/security issue (V2 EXISTING YES, medical-emergency sub-class) — pediatric Type-one-diabetes diabetic-ketoacidosis presentation with point-of-care glucose >450 + dark-purple large-ketone urinary strip + Kussmaul-pattern hyperventilation + pediatric glucagon-emergency-kit administration + 911 dispatcher on speakerphone + pediatric endocrinologist receiving-team coordination",
+      "schedule change affecting the user personally (V2 EXISTING YES) — reproductive-endocrinology clinic moves IVF egg-retrieval procedure 4 days forward at clinician request based on follicle-ultrasound + serum-estradiol peak-maturity reading with 8pm trigger-shot-timing 36hr-pre-op confirm-or-cycle-cancel deadline",
+      "financial/deadline obligation (V2 EXISTING YES) — life-insurance carrier convertibility-window provision letter with 5pm Pacific portal-only election to convert $1M term-life to whole-life permanent without fresh medical re-underwriting on the policyowner's 65th birthday anniversary",
+      "message or delivery directed personally to the user (V2 EXISTING YES) — funeral-home director voicemail with father's-remains release decision + casket-versus-cremation election + 5pm in-person signed-paperwork pickup at funeral-home office ahead of tomorrow-morning family-viewing window and tomorrow-afternoon interment",
+      "weather alert (V2 EXISTING YES) — USGS Cascades Volcano Observatory + Volcanic Ash Advisory Center four-county respiratory advisory after phreatic explosion at Mount Baker pushed coarse-ash deposition cone east-southeast over Whatcom/Skagit/Snohomish/northeast King counties + FAA parallel SIGMET airspace rerouting + 48-hour cone-projection update cadence"
+    ],
+    "new_tuples_added_post_c1": [
+      "(dka, glucagon)",
+      "(ivf, trigger)",
+      "(term, convertibility)",
+      "(funeral, casket)",
+      "(volcanic, ash)"
+    ],
+    "expected_pre_c2_banned_list_counts": {
+      "event_ids": 226,
+      "themes": 127,
+      "tuples": 126
+    }
+  },
+  "authored_trace_verbatim_reference": "see sandbox/event_trace.py def test_trace_v31() at lines 1498..1557 (post-edit); the trace block was authored in a single Edit and the full source is mechanically retrievable via `git show HEAD:sandbox/event_trace.py | sed -n '1498,1557p'` after this C1 acceptance commit lands"
+}
