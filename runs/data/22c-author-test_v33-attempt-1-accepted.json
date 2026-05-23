@@ -1,0 +1,149 @@
+{
+  "milestone": "M11a-extension-extension",
+  "commit": "C3",
+  "trace_name": "test_v33",
+  "verdict": "ACCEPTED",
+  "attempt_count_total": 1,
+  "cumulative_milestone_attempts_through_c3": 3,
+  "retry_cap_consumed_at_c3": 1,
+  "retry_cap_remaining": 2,
+  "fresh_session_restart_metadata": {
+    "discipline_source": "M11a-extension D14-H6 per-trace fresh-session discipline; this is the fresh-session per-trace kickoff for test_v33 acceptance under M11a-extension-extension Commit C3",
+    "milestone_kickoff_session": false,
+    "per_trace_kickoff_session": true,
+    "current_date": "2026-05-23",
+    "main_head_pre_c3": "10064e2 (M11a-extension-extension Commit C2 \u2014 test_v32 accepted attempt-1)",
+    "sandbox_event_trace_pre_c3_sha256": "f44fbe4f3ae3810c6034fdde71035450e78578fe92dbed9831a9627484505107",
+    "sandbox_event_trace_pre_c3_bytes": 167570
+  },
+  "self_restate_prompt_render": {
+    "command": "uv run python -m eval.author_trace --banned-list runs/data/22c-banned-list-pre-c3.txt > /tmp/m11a-ext-ext-c3-restate-prompt.txt",
+    "tmp_path": "/tmp/m11a-ext-ext-c3-restate-prompt.txt",
+    "tmp_lines": 417,
+    "banned_list_at_input": {
+      "event_ids": 235,
+      "themes": 132,
+      "tuples": 131
+    },
+    "banned_list_snapshot_artifact": "runs/data/22c-banned-list-pre-c3.{txt,json}"
+  },
+  "self_restate_response_verbatim": "Authoring exactly one new EventTrace named test_trace_v33 for the sandbox harness this session \u2014 the third M11a-extension-extension Commit C trace, advancing the path toward the combined-N=40 sample target after test_v31 (C1) and test_v32 (C2) acceptance. Restating the four structural constraints in my own paraphrase below, distinct from any prior M11a-extension Commit C1..C10 self-restate response and from the M11a-extension-extension C1 + C2 self-restate responses:\n\n(a) Top-of-module Python literal expression resolvable at the standard `from __future__ import annotations` + `from dataclasses import dataclass` import-time context active in sandbox/event_trace.py. Every position in the trace block \u2014 Event constructors, _gt helper calls, tuple literals, the briefing string, the intents tuple \u2014 binds to a value the interpreter can construct directly without referring back to a session-state side-channel, a closure-captured generator, or a sandbox.world subclass-registration step that must complete before `get_trace('test_v33')` returns.\n\n(b) Walrus assignment-expression `:=` token kept entirely out of the test_trace_v33 definition. The historical failure mode where a walrus inside a field-default position trapped a Python-3.8-syntax-error at import time does not recur in this trace.\n\n(c) Each of the nine Event.id strings inside test_trace_v33 is authored as a single static literal at draft time. No `+` concatenation operator at the id keyword, no f-string with an embedded arithmetic-evaluation that resolves to a numeric component, no `str()`-cast on a digit. The id strings are verified literal-substring-stable through the Step 3.5 pre-flight check before audit-gate evaluation.\n\n(d) Avoid the 235 prior banned event_ids, the 132 banned semantic themes, and the 131 banned keyword tuples enumerated in the iteratively-extended banned-list. The avoidance protocol the audit-gate inherits verbatim from M11a-extension D-C1.3 and threads through M11a-extension-extension C1 + C2 carries forward to C3: step 3a bytewise set-intersection on 235 banned IDs (0/235 required); step 3b per-GT semantic theme hand-audit vs the 132 banned themes with per-GT distinguishing-qualifier defense; step 3c bytewise tuple intersection (0/131 required); step 4 cross-trace literal-ID HALT-gate against the 235-prior-ID union across 27 prior trace definitions including test_v31 + test_v32 (HALTs the M11a-extension-extension milestone on any collision per \u00a7D9 Surface #1); step 5 cross-trace GT-tuple bytewise intersection across 27 prior trace GT tuples; step 6 \u22658-token verbatim phrase intersection against the ~13500+ prior dev/test 8-grams across content + briefing + intents fields including the newly-landed test_v31 + test_v32. The audit-step-6 8-gram check remains the mechanical safety net for the boilerplate-template draft-time author-judgment failure mode tightened at M11a-extension C10 and inherited verbatim into M11a-extension-extension C1 + C2 (boilerplate-paraphrase author-discipline applied at draft time to all 4 V2 EXISTING NO distractor closings + briefing/intents formulaic clauses).\n\nDesign choice at C3 per locked plan \u00a7D1 + \u00a7D7 + Non-goals #1 + #2: test_v33 ships 5 V2 EXISTING YES GTs + 4 V2 EXISTING NO distractors + 0 V4 NEW touches. V2 YES coverage at C3 entry was urgent-safety 10\u00d7 / schedule-change 9\u00d7 / financial/deadline 10\u00d7 (UNCHANGED at C2) / production/on-call 8\u00d7 / message/delivery 9\u00d7 / weather-alert 8\u00d7; lifts at C3 \u2192 financial/deadline 10\u00d7\u219211\u00d7 (was UNCHANGED-skipped at C2 \u2014 natural lift candidate restoring balance) + schedule-change 9\u00d7\u219210\u00d7 + production/on-call 8\u00d7\u21929\u00d7 + message/delivery 9\u00d7\u219210\u00d7 + weather-alert 8\u00d7\u21929\u00d7 + SKIP urgent-safety 10\u00d7 (UNCHANGED-at-C3 from tied-for-maximum, just-lifted-at-C2 default-preserve skip-the-highest pattern). V2 NO coverage at C3 entry was routine-status 9\u00d7 / marketing/newsletter 9\u00d7 (UNCHANGED at C2) / generic-daily-briefing 9\u00d7 / feature-announcement 8\u00d7 / social-channel-invite 7\u00d7; lifts at C3 \u2192 marketing/newsletter 9\u00d7\u219210\u00d7 (was UNCHANGED-skipped at C2 \u2014 natural lift candidate restoring balance) + routine-status 9\u00d7\u219210\u00d7 + feature-announcement 8\u00d7\u21929\u00d7 + social-channel-invite 7\u00d7\u21928\u00d7 + SKIP generic-daily-briefing 9\u00d7 (UNCHANGED-at-C3 from tied-for-maximum-among-V2-NO, lifted-at-C1+C2 default-preserve skip-the-highest pattern). Zero V4 NEW touches preserves M11a-extension C10 + M11a-extension-extension C1 + C2 cross-V4-mechanism symmetric closure at V4 NEW YES 6 vs V4 NEW NO 6 = delta 0 bytewise into C3 scope per \u00a7D7 + \u00a7D14-H1; mechanism-residual closure remains M11d-surprise-gate-retuning + V5 future-work scope per Non-goals #1 + #2.\n\nPer-GT distinguishing-qualifier hand-audit vs the 132 banned themes (Step 3b semantic): GT1 IRS \u00a71031 like-kind exchange identification window is real-estate-deferred-capital-gain mechanism + Internal Revenue Code section-ten-thirty-one + Qualified Intermediary IPX1031 portal + 45-day identification-window + Form 8824 reporting \u2014 entirely distinct from prior banned financial/deadline themes (mortgage rate-lock / Q3 estimated-tax / ISO exercise window / FBAR foreign-account / HELOC draw period / Roth IRA conversion / Schwab tax-loss harvest / Northwestern Mutual term-life convertibility-window); closest cousin is M11a-extension-extension C1 term_life_convertibility (insurance-contract-conversion vs real-estate-tax-deferral \u2014 distinct mechanism + entity + legal framework). GT2 UCLA Connie Frank kidney-transplant evaluation moved up is nephrology + transplant-medicine specialty + UNOS-waitlist-activation + living-donor sibling workup + eGFR-fourteen stage-five-CKD \u2014 entirely distinct from prior banned schedule-change themes (cardiology / court hearing / pediatric wellness / dental implant / USCIS interview / mortgage closing / orthopedist knee-MRI / IVF egg-retrieval / surgical-oncology breast-cancer); closest cousins are M11a-extension C9 orthopedist (knee MRI pre-op consult \u2014 orthopedics vs nephrology, surgical-versus-waitlist-decision) + M11a-extension-extension C2 surgical-oncology (breast-cancer staging-consult surgical-plan branch \u2014 surgical-oncology vs transplant-medicine). GT3 Snowflake compute-warehouse credit-burn is cloud-data-warehouse SaaS + cost-anomaly failure mode + auto-suspend policy + recursive-CTE cartesian-join + $40K/hour credit burn \u2014 entirely distinct from prior banned production/on-call themes (Postgres failover / TLS expiry / disk OOM / Redis eviction / Kafka broker election / Elasticsearch shard / Vault PKI / k8s ETCD-quorum); mechanistically distinct since Snowflake is compute-warehouse SaaS with credit-burn cost-anomaly NOT availability/latency failure. GT4 family-law attorney divorce mediation moved up is family-law / dissolution-of-marriage mediation + property-asset-disclosure Form FL-142 + QDRO pension-plan division + court-annex mediation suite \u2014 entirely distinct from prior banned message/delivery themes (legal-doc courier / jeweler pickup / hospital admitting / chemo ride / eviction-stay tenant attorney / estate executor / adoption placement / funeral-home director / police detective); closest cousins are M11a-extension C7 tenant_attorney (housing-law eviction-stay vs family-law dissolution mediation \u2014 different practice area + different paperwork) + M11a-extension-extension C1 funeral_home_director (death + interment paperwork-pickup vs divorce + property-settlement paperwork \u2014 different domain + different stakes). GT5 Pacific Tsunami Warning Center Alaska Aleutian-coast is seismic-induced ocean-wave hazard + 18-minute first-wave-ETA + magnitude-8.2 subduction-zone Shumagin Islands + Pacific Tsunami Warning Center Palmer + inundation-zone evacuation high-ground assembly \u2014 entirely distinct from prior banned weather-alert themes (flash flood / dust storm / tornado watch / wildfire smoke / ice storm glaze / heat dome / volcanic ash / hurricane storm-surge); closest cousins are M11a-extension-extension C2 hurricane storm-surge (atmospheric wind-driven coastal wave 36-hour mandatory-evacuation vs seismic-induced acute-onset 18-minute high-ground assembly \u2014 different mechanism + time-scale + protective protocol + source-agency) + M11a-extension-extension C1 volcanic-ash (airborne respiratory hazard sheltering vs hydrologic surge evacuation \u2014 different physical mechanism + protocol).\n\nBanned-tuple bytewise check (Step 3c): the five new tuples (1031, intermediary) + (transplant, unos) + (snowflake, credit) + (mediation, qdro) + (tsunami, evacuation) have zero overlap with the 131 banned tuples enumerated in the iteratively-extended banned list \u2014 verified via mechanical set-intersection.\n\nDistractor design (4 V2 EXISTING NO; boilerplate-paraphrase author-discipline carries forward verbatim M11a-extension C10 TIGHTENED scope applied at draft time): D1 Honeycomb production-observability weekly cardinality + query-performance digest (routine-status \u2014 distinct from prior banned routine-status themes including SSL monitor / k8s autoscaler / Datadog synthetic / GitHub Actions / Terraform / AWS Config / AWS CloudTrail / Sentry quarterly); D2 Lumi\u00e8re Atelier boutique-perfumery quarterly seasonal-fragrance release with single-origin botanical extracts (marketing/newsletter \u2014 distinct from prior banned marketing/newsletter themes including indie bookstore / camera-gear catalog / stationery catalog / games catalog / apparel catalog / coffee subscription / fountain-pen catalog); D3 JetBrains IntelliJ IDEA 2026.1 K2 Kotlin compiler stable + Multiplatform iOS-target preview launch (feature-announcement \u2014 distinct from prior banned feature-announcement themes including VSCode marketplace / Postman runner v11 / Linear cycles 2026 / Figma auto-layout v3 / Calendly v6 / AWS Step Functions distributed-map v2); D4 Pinterest weekly board-collaborator activity + follow-suggestion digest in design-aesthetics niche (social-channel-invite \u2014 distinct from prior banned social-channel-invite themes including Slack frontend / Mastodon follow / Bluesky starter-pack / Substack notes / Threads-by-Meta follow / Letterboxd friends-activity). All four distractor closings paraphrased uniquely at draft time to avoid the boilerplate-template draft-time author-judgment failure mode (no recycled launch-window-perks / pre-order-shipping / catalog-cadence / customer-service-closings / unsubscribe-instructions / next-run-timing closing patterns from prior distractor definitions).\n\nStep 3.5 pre-flight keyword literal-substring verification (M11a-extension D-C2.attempt2.C + M11a-extension-extension D-C1/D-C2/D-C3 inherited verbatim): first-run produced 9/10 PASS with one fail at ('qdro' in family_law_attorney_voicemail content) \u2014 content had spelled-out 'qualified-domestic-relations-order' but lacked the QDRO acronym substring. Single-token in-session iteration at Step 3.5 inserted the parenthetical acronym '(QDRO)' adjacent to the spelled-out form. Re-run produced 10/10 PASS. Logged transparently in step_3_5_pre_flight.iteration_log per the M11a-extension D-C2.attempt2.C in-session iteration precedent (NOT counted as rejection-and-retry).\n\nStep 6 8-gram drift overlap check (M11a-extension D-C1.3 + M11a-extension-extension C2 in-session single-clause revision precedent): first-run produced 1 inadvertent 8-gram overlap from test_v33 intent #1 ('election before five p.m. Pacific today \u2014 the') vs test_v31 intent #3 (Northwestern Mutual term-life convertibility-window submit-the-election framing). Single-clause in-session step-6 revision substituted intent #1 phrase 'election before five p.m. Pacific today \u2014 the three' \u2192 'election ahead of the five-p.m.-Pacific cutoff this afternoon \u2014 the three' which broke the 8-token sequence at the 'before/ahead/cutoff/afternoon' replacement points. Step 6 re-run PASSed with 0 8-gram overlaps vs 13503 prior dev/test 8-grams across 27 prior trace definitions; the substantive content of GT1 + briefing + intents #2..#5 + all 4 distractors stayed bytewise unchanged through the revision. Disclosed transparently for reviewer audit per M11a-extension-extension D-C2.attempt1.C in-session iteration precedent (NOT counted as rejection-and-retry \u2014 this is a single-clause substitution that broke the overlap with the substantive trace bytewise stable, NOT a multi-clause fresh-redraft per M11a-extension D-C7/C9 precedent).",
+  "step_3_5_pre_flight": {
+    "discipline_source": "D-C3.attempt1.C inheriting verbatim from M11a-extension D-C2.attempt2.C / D-C3.attempt1.C / D-C4.attempt1.C / D-C5.attempt1.C / D-C6.attempt1.C / D-C7.attempt1.C / D-C8.attempt1.C / D-C9.attempt1.C / D-C10.attempt1.C + M11a-extension-extension D-C1.attempt1.C / D-C2.attempt1.C",
+    "command": "uv run python -c \"from sandbox.event_trace import get_trace; t = get_trace('test_v33'); [print(f'{kw!r} in {g.event.id}: {kw.lower() in g.event.content.lower()}') for g in t.ground_truth for kw in g.keywords]\"",
+    "iteration_log": [
+      {
+        "run": 1,
+        "outcome": "FAIL \u2014 9/10 keyword-content pairs print True; one fail at 'qdro' in family_law_attorney_voicemail_divorce_mediation content (content used spelled-out 'qualified-domestic-relations-order' without the QDRO acronym substring)",
+        "detail": "'1031' True; 'intermediary' True; 'transplant' True; 'unos' True; 'snowflake' True; 'credit' True; 'mediation' True; 'qdro' FALSE (single-token fail); 'tsunami' True; 'evacuation' True"
+      },
+      {
+        "run": 2,
+        "outcome": "PASS \u2014 all 10 (keyword, content.lower()) substring checks print True after single-token in-session iteration inserting '(QDRO)' parenthetical acronym adjacent to spelled-out form 'qualified-domestic-relations-order' in GT4 content; no further iteration required at Step 3.5",
+        "detail": "'1031' in irs_1031_like_kind_exchange_45_day_identification_window_5pm_pacific_qualified_intermediary_three_property_designate_or_lose_capital_gains_deferral: True; 'intermediary' True; 'transplant' in kidney_transplant_evaluation_consult_moved_up_tomorrow_8am_ucla_connie_frank_transplant_coordinator_unos_waitlist_activation_living_donor_workup: True; 'unos' True; 'snowflake' in snowflake_compute_warehouse_runaway_query_credit_burn_spike_auto_suspend_disabled_sales_analytics_dashboard_outage_40k_per_hour_75min_runbook: True; 'credit' True; 'mediation' in family_law_attorney_voicemail_divorce_mediation_session_moved_up_tomorrow_9am_property_asset_disclosure_signature_qdro_pension_division_court_annex: True; 'qdro' True; 'tsunami' in pacific_tsunami_warning_center_alaska_aleutian_coast_subduction_magnitude_8_2_earthquake_first_wave_eta_18_minutes_coastal_evacuation_high_ground: True; 'evacuation' True"
+      }
+    ],
+    "verdict": "PASS after 1 in-session Step 3.5 single-token iteration",
+    "in_session_iteration_count": 1,
+    "rejection_and_retry_status": "NOT a rejection-and-retry (single-token in-session iteration per M11a-extension D-C2.attempt2.C precedent)"
+  },
+  "audit_gate_result": {
+    "step_1_schema_check": {
+      "verdict": "PASS",
+      "evidence": "get_trace('test_v33') returns Trace with name='test_v33', 9 events, 5 ground_truth, duration_s=785.0 (computed = max(last_gt_completion=750.0, last_event_time=660.0) + 30.0 dispatch tail; GT completions at 235+200=435, 355+220=575, 450+240=690, 535+220=755, 660+90=750)"
+    },
+    "step_2_keyword_content_alignment": {
+      "verdict": "PASS",
+      "evidence": "10/10 (keyword, content.lower()) substring checks PASS \u2014 bytewise identical evidence to Step 3.5 pre-flight run 2 detail (after the single-token in-session iteration on QDRO acronym)"
+    },
+    "step_3a_banned_event_id_literal_review": {
+      "verdict": "PASS",
+      "evidence": "mechanical set-intersection: 0 collisions across test_v33's 9 event_ids vs 235 pre-C3 banned IDs (verified via runs/data/22c-banned-list-pre-c3.json event_ids array)"
+    },
+    "step_3b_banned_theme_semantic_review": {
+      "verdict": "PASS",
+      "per_gt_distinguishing_qualifiers": {
+        "GT1_irs_1031_like_kind_exchange_V2_financial_deadline_10x_to_11x": "real-estate-deferred-capital-gain mechanism + Internal Revenue Code \u00a71031 + Qualified Intermediary IPX1031 portal + 45-day identification window + Form 8824 reporting; closest cousin M11a-extension-extension C1 term_life_convertibility \u2014 distinct mechanism (real-estate tax-deferral vs life-insurance policy-conversion) + distinct entity (IPX1031 vs Northwestern Mutual) + distinct legal framework (IRC \u00a71031 vs insurance-contract convertibility provision)",
+        "GT2_kidney_transplant_evaluation_V2_schedule_change_9x_to_10x": "nephrology + transplant-medicine specialty + UCLA Connie Frank program + UNOS-waitlist-activation + living-donor sibling workup + eGFR-14 stage-5 CKD trajectory; closest cousins M11a-extension C9 orthopedist (orthopedics knee-MRI pre-op vs nephrology transplant evaluation \u2014 surgical-versus-waitlist-decision) + M11a-extension-extension C2 surgical-oncology breast-cancer (surgical-oncology operative plan vs transplant-medicine pre-emptive evaluation)",
+        "GT3_snowflake_credit_burn_V2_production_oncall_8x_to_9x": "cloud-data-warehouse SaaS + Snowflake compute-warehouse + cost-anomaly failure mode (NOT availability/latency) + auto-suspend policy + recursive-CTE cartesian-join + 40K-per-hour credit burn; mechanistically distinct from all 8 prior production/on-call themes (DB failover / cert rotation / disk OOM / cache eviction / message-queue election / search-shard unassigned / secrets-engine cascade / k8s control-plane quorum-loss) \u2014 Snowflake compute-warehouse cost-anomaly is a unique class of operational failure not present in any prior banned theme",
+        "GT4_family_law_mediation_attorney_V2_message_delivery_9x_to_10x": "family-law / dissolution-of-marriage mediation + property-asset-disclosure Form FL-142 + QDRO pension-plan division + court-annex mediation suite; closest cousins M11a-extension C7 tenant_attorney (housing-law eviction-stay motion vs family-law dissolution mediation \u2014 different practice area + different paperwork) + M11a-extension-extension C1 funeral_home_director (death + interment paperwork-pickup vs divorce + property-settlement paperwork \u2014 different domain + different stakes)",
+        "GT5_pacific_tsunami_warning_alaska_V2_weather_alert_8x_to_9x": "seismic-induced ocean-wave hazard + 18-minute first-wave-ETA + magnitude-8.2 subduction-zone Shumagin Islands + Pacific Tsunami Warning Center Palmer + inundation-zone evacuation + high-ground assembly; closest cousins M11a-extension-extension C2 hurricane storm-surge (atmospheric wind-driven coastal wave 36-hour mandatory-evacuation vs seismic-induced acute-onset 18-minute high-ground assembly \u2014 different mechanism + time-scale + protective protocol + source-agency PTWC vs NHC) + M11a-extension-extension C1 volcanic-ash (airborne respiratory hazard sheltering vs hydrologic surge evacuation \u2014 different physical mechanism + protocol)"
+      }
+    },
+    "step_3c_banned_keyword_tuple_review": {
+      "verdict": "PASS",
+      "evidence": "mechanical bytewise set-intersection: 0 collisions across test_v33's 5 GT tuples [(1031, intermediary) + (transplant, unos) + (snowflake, credit) + (mediation, qdro) + (tsunami, evacuation)] vs 131 pre-C3 banned tuples"
+    },
+    "step_4_cross_trace_literal_id_collision": {
+      "verdict": "PASS",
+      "evidence": "mechanical cross-trace bytewise set-intersection: 0 collisions across test_v33's 9 event_ids vs 235 prior trace event_ids unioned over 27 prior trace definitions (dev_v1, dev_v2, test_v1..v8, test_v11..v15, test_v21..v32). Literal-ID collision HALT-gate per D-C1.5 #1 NOT triggered."
+    },
+    "step_5_cross_trace_gt_tuple": {
+      "verdict": "PASS",
+      "evidence": "mechanical cross-trace bytewise tuple set-intersection: 0 collisions across test_v33's 5 GT tuples vs 131 prior trace GT tuples unioned over 27 prior trace definitions (matches Step 3c result since prior trace GT tuples == banned-list tuples at this point in the cumulative-chain)"
+    },
+    "step_6_drift_8gram": {
+      "verdict": "PASS after 1 in-session step-6 single-clause revision iteration",
+      "evidence": "first-run produced 1 inadvertent 8-gram cross-trace overlap (intent #1: 'election before five p.m. Pacific today \u2014 the' vs test_v31 intent #3 Northwestern Mutual term-life convertibility-window framing); single-clause in-session step-6 revision substituted intent #1 phrase 'election before five p.m. Pacific today \u2014 the three' -> 'election ahead of the five-p.m.-Pacific cutoff this afternoon \u2014 the three' which broke the 8-token sequence at the 'before/ahead/cutoff/afternoon' replacement points; step 6 re-run PASSed with 0 8-gram overlaps vs 13503 prior dev/test 8-grams across 27 prior trace definitions; the substantive content of GT1 + briefing + intents #2..#5 + all 4 distractors stayed bytewise unchanged through the revision",
+      "in_session_iteration_count": 1,
+      "rejection_and_retry_status": "NOT a rejection-and-retry (single-clause substitution per M11a-extension D-C3.attempt1.C + M11a-extension-extension D-C2.attempt1.C in-session iteration precedent \u2014 the substantive trace stayed bytewise stable through the revision, distinct from M11a-extension D-C7.attempt1.D / D-C9.attempt1.C fresh-redraft rejection precedent which involved substantial multi-clause redrafts)"
+    }
+  },
+  "attempt_log": [
+    {
+      "attempt": 1,
+      "step_3_5_iteration_count": 1,
+      "step_6_iteration_count": 1,
+      "audit_gate_verdict": "PASS (8/8 sub-steps PASS at the accepting attempt with 1 in-session Step 3.5 single-token iteration + 1 in-session Step 6 single-clause revision iteration)",
+      "outcome": "ACCEPTED"
+    }
+  ],
+  "halt_conditions_status": {
+    "literal_id_collision_halt_d_c1_5_1": "NOT TRIGGERED (step 4 PASS at attempt #1 with 0 collisions vs 235 prior event_ids across 27 prior trace definitions)",
+    "banned_list_saturation_halt_d_c1_5_2": "NOT TRIGGERED (cumulative count at C3 acceptance = 3/50 across C1+C2+C3; 47 attempts remaining across 17 traces test_v34..v50 before the 50-attempt cumulative-cap halt-condition fires per ~/.claude/plans/m11a-extension-extension-n40.md \u00a7D13 + \u00a7D9 defense #4 inherited from M11a-extension D-C1.5 #2)",
+    "retry_cap_3_d_c1_5_3": "1/3 on test_v33 (not exhausted; 2 retries remaining had attempt #1 not accepted)",
+    "structural_parsing_failure_self_restate_d4": "NOT TRIGGERED (M11a-extension-extension structural-parsing-failure rate so far 0/3 attempts at the self-restate gate per \u00a7D4 inherited verbatim from M11a-extension)"
+  },
+  "post_c3_banned_list_increment_for_c4_input": {
+    "new_event_ids_added_post_c3": [
+      "irs_1031_like_kind_exchange_45_day_identification_window_5pm_pacific_qualified_intermediary_three_property_designate_or_lose_capital_gains_deferral",
+      "kidney_transplant_evaluation_consult_moved_up_tomorrow_8am_ucla_connie_frank_transplant_coordinator_unos_waitlist_activation_living_donor_workup",
+      "snowflake_compute_warehouse_runaway_query_credit_burn_spike_auto_suspend_disabled_sales_analytics_dashboard_outage_40k_per_hour_75min_runbook",
+      "family_law_attorney_voicemail_divorce_mediation_session_moved_up_tomorrow_9am_property_asset_disclosure_signature_qdro_pension_division_court_annex",
+      "pacific_tsunami_warning_center_alaska_aleutian_coast_subduction_magnitude_8_2_earthquake_first_wave_eta_18_minutes_coastal_evacuation_high_ground",
+      "honeycomb_production_observability_weekly_cardinality_query_performance_digest_no_action_required_all_green_envelope_within_baseline",
+      "lumiere_atelier_boutique_perfumery_quarterly_seasonal_fragrance_release_single_origin_botanical_extracts_no_action_required_no_time_pressure",
+      "jetbrains_intellij_idea_2026_1_k2_compiler_stable_kotlin_multiplatform_ios_target_preview_launch_announcement_quarterly_release_notes_no_action",
+      "pinterest_weekly_board_collaborator_activity_follow_suggestion_design_aesthetics_niche_digest_no_action_required_no_time_pressure"
+    ],
+    "new_themes_added_post_c3": [
+      "financial/deadline obligation (V2 EXISTING YES) \u2014 IRS Internal Revenue Code \u00a71031 like-kind real-estate exchange 45-day identification window closing 5pm Pacific today + IPX1031 qualified-intermediary portal binding-submission channel + three replacement-property addresses already toured on south-shore portfolio + relinquished-property $720K capital-gain deferral + Form 8824 reporting + ~$216K combined federal-plus-California recognition liability if identification lapses",
+      "schedule change affecting the user personally (V2 EXISTING YES) \u2014 UCLA Connie Frank Kidney Transplant Program nephrology service Dr. Sandra Vu's transplant coordinator pulls pre-emptive kidney transplant evaluation consult forward to tomorrow 8am at Westwood pavilion + eGFR-14 stage-5-CKD lab panel review + living-donor sibling workup status + UNOS waitlist activation decision ahead of Friday regional transplant-committee review + 6pm patient-portal confirm-or-release",
+      "production/on-call alert (V2 EXISTING YES) \u2014 PagerDuty SEV-one on data-platform Snowflake compute-warehouse cluster sales-analytics-xl-prod with recursive-CTE cartesian-join missing partition-prune predicate + auto-suspend flag inadvertently disabled by Terraform compute-policy push skipping staging gate + 40K-per-hour active-credit consumption rate + sales-analytics dashboards stale-result fallbacks + 75-min runbook escalation + controlled force-terminate + auto-suspend re-enable",
+      "message or delivery directed personally to the user (V2 EXISTING YES) \u2014 family-law attorney Olivia Reyes voicemail on pending dissolution-of-marriage matter pulls final mediation session forward to tomorrow 9am at court-annex mediation suite + property-asset-disclosure Form FL-142 in-person signature 4-7 tonight + QDRO pension-plan division draft attorney walk-through + dissolution-petition response-by deadline next month + after-hours direct line through 8pm",
+      "weather alert (V2 EXISTING YES) \u2014 Pacific Tsunami Warning Center Palmer upgrades regional Tsunami Watch to Tsunami Warning for Alaska Aleutian-coast and Gulf-of-Alaska coastline after magnitude-8.2 subduction-zone earthquake off Shumagin-Islands + 18-minute first-wave ETA at Kodiak Town + coastal-evacuation imperative to high-ground assembly areas + DART buoy +1.8m sea-level deviation + Coast Guard / Air National Guard mobilization + Anchorage emergency-operations-center cascade"
+    ],
+    "new_tuples_added_post_c3": [
+      "(1031, intermediary)",
+      "(transplant, unos)",
+      "(snowflake, credit)",
+      "(mediation, qdro)",
+      "(tsunami, evacuation)"
+    ],
+    "expected_pre_c4_banned_list_counts": {
+      "event_ids": 244,
+      "themes": 137,
+      "tuples": 136
+    }
+  },
+  "authored_trace_verbatim_reference": {
+    "file": "sandbox/event_trace.py",
+    "function_name": "test_trace_v33",
+    "registry_entry": "'test_v33': test_trace_v33",
+    "sandbox_event_trace_post_c3_sha256": "e275e4ce6b41c258f0baa6f90fd307f0ffbbe6d9457d2adbd8b88e19f3975bfa",
+    "sandbox_event_trace_post_c3_bytes": 186020,
+    "diff_stat_pre_c3_vs_post_c3": "1 file changed, 62 insertions(+), 0 deletions(-) \u2014 APPEND-ONLY discipline verified",
+    "prefix_bytewise_unchanged_pre_post_c3": true,
+    "v4_prompt_sha256_unchanged_at_c3": "09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6 (V4 prompt is NOT touched at Commit C series per locked plan \u00a7D1 + \u00a7D5 + frozen-artifacts list)"
+  }
+}
