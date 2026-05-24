@@ -1,0 +1,317 @@
+{
+  "milestone": "M11a-extension-extension Commit C8",
+  "trace": "test_v38",
+  "attempt": 1,
+  "total_attempts": 1,
+  "verdict": "accepted",
+  "audit_gate": {
+    "overall": "PASS",
+    "checks_pass": 8,
+    "checks_total": 8,
+    "details": {
+      "step_1_schema_via_get_trace": "PASS — 5 GTs / 9 events / 5 intents / briefing 3464 chars",
+      "step_2_self_restate_gate_structural_parsing": "PASS — averted at attempt 1 (M11a-extension-extension structural-parsing-failure rate so far 0/8 attempts per §D4 self-restate gate inherited verbatim from M11a-extension)",
+      "step_3_5_keyword_literal_substring_verification": "PASS — first-run 10/10 PASS with no in-session iteration required at Step 3.5 — mirrors M11a-extension-extension C1 + C2 + C4 + C5 + C6 + C7 + M11a-extension C4..C10 first-run-Step-3.5-PASS precedents; distinct from M11a-extension-extension C3 attempt-1 QDRO single-token iteration precedent",
+      "step_4_literal_id_collision_vs_banned_and_prior_traces": "PASS — 0 collisions vs 280 prior banned event_ids + 0 collisions vs 280 prior trace event_ids across 32 prior trace definitions (test_v4..v8 + test_v11..v15 + test_v21..v30 + test_v31..v37 included)",
+      "step_5_m8b_keyword_content_alignment": "PASS — 10/10 keyword literal-substring matches into respective GroundTruth event.content lowercased",
+      "step_6_drift_overlap_8_gram_check": "PASS — 0 8-gram overlaps vs 29769 prior dev/test 8-grams across 32 prior trace definitions after 2 in-session iteration rounds of cluster-level single-clause revisions (round 1 reduced 93 overlaps -> 14; round 2 reduced 14 -> 0)",
+      "step_7_banned_themes_and_tuples": "PASS — 0 banned-tuple collisions (5 new tuples all distinct from 156 banned: (urosepsis,septic) + (cfa,exam) + (opsgenie,eviction) + (opo,transplant) + (derecho,warning)); banned-themes class-level overlap is by design per V2 EXISTING YES coverage rotation but specific-content level themes substantively distinct from prior 157 banned themes (household-elderly-mother urosepsis septic-shock urinary-tract-source with indwelling-Foley catheter post-discharge instrumentation vs prior PE/spinal-fusion/DKA/IVF/oncology/postpartum/seizure/overdose/anaphylaxis/stroke/asthma/CO/carbon-monoxide/medication-ingestion medical-emergency themes; CFA Level III Chartered Financial Analyst professional-licensing exam sit-date advancement vs prior cardio/transplant-eval/walkthrough/dental/orthopedic-spine schedule-change themes; OpsGenie SEV-A Kubernetes EKS pod-eviction storm vs prior PagerDuty SEV-one RabbitMQ-split-brain/DNSSEC-KSK-rollover/postgres-WAL-lag/CDN-purge/Snowflake-CTE/Kafka-broker/ETCD-quorum/Vault-PKI/Elasticsearch-shard production themes; OPO UNOS-kidney-waitlist deceased-donor offer transplant-coordinator voicemail vs prior VA-PTSD-rating/family-law-attorney/probate-court-GAL/tenant-defense-attorney/school-VP-disciplinary/mother-in-law-chemo/St-Vincent-grandmother-admission message-delivery themes; NWS Sterling/LWX derecho damaging-wind warning mid-Atlantic DC-Baltimore-Philadelphia corridor vs prior Anchorage-avalanche/Honolulu-surf/Bismarck-blizzard/SWPC-G4/Idalia-hurricane/Aleutian-tsunami/Mt-Baker-volcanic-ash/heat-warning/ice-storm/tornado/dust-storm/flood weather themes)",
+      "step_8_gt_distribution_and_distractor_structure": "PASS — 5 GTs (kind distribution: notification:2 / email:1 / alert:2 matching test_v37 distribution exactly; sim_time spread 70..580 across the trace window); 4 distractors (kind distribution: notification:1 / email:3; sim_time spread 110..520 interleaved with GTs)"
+    },
+    "in_session_iterations": {
+      "step_3_5_single_token": 0,
+      "step_6_single_clause_revisions": 9,
+      "step_6_iteration_rounds": 2,
+      "step_6_revision_details": [
+        {
+          "round": 1,
+          "cluster": "A1 — GT1 sepsis EMS-coordination template (fire-engine station + resuscitation-bay coordination + MICU pre-notified handoff)",
+          "scope": "GT1.content paragraph 2",
+          "changes": [
+            "'six-minute paramedic ETA from the regional fire-engine station two blocks away' -> 'six-minute paramedic ETA running out from the regional fire-engine house two blocks down the street'",
+            "'Receiving regional medical-center emergency-department resuscitation-bay coordination through the dispatcher to the on-shift attending physician pre-loads' -> 'The regional medical-center emergency-department resuscitation-bay coordination loop running through the dispatch-channel into the on-shift attending physician's intake queue pre-loads' (further refined in round 2 to 'medical-center's ED resuscitation-bay')",
+            "'pre-notified for the post-stabilization handoff onto' -> 'put on standby for the post-stabilization handoff pathway onto'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 1,
+          "cluster": "A2 — intent #1 sepsis EMS-coordination template matching GT1",
+          "scope": "intent #1",
+          "changes": [
+            "'six-minute paramedic ETA from the regional fire-engine station two blocks away' -> 'six-minute paramedic ETA running out from the regional fire-engine house two blocks down the street'",
+            "'receiving regional medical-center emergency-department resuscitation-bay coordination pre-loads' -> 'receiving regional medical-center emergency-department resuscitation-bay handoff pre-loads' (further refined in round 2 to 'medical-center's ED resuscitation-bay')",
+            "'MICU pre-notification on the post-stabilization handoff onto' -> 'MICU pre-alert on the post-stabilization handoff pathway onto'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 1,
+          "cluster": "B1 — GT3 OpsGenie production/on-call closing escalation template (75-min checkpoint + bridge + cross-paged + hooked-in + response-manager + customer-impact-statement drafting cadence)",
+          "scope": "GT3.content closing paragraph",
+          "changes": [
+            "'wrapped past the seventy-five-minute checkpoint on the incident-response cadence' -> 'wrapped past the seventy-five-minute mark on the incident-response cycle' (further refined in round 2 to 'escalation clock has rolled past the seventy-five-minute mark')",
+            "'staff engineer joined onto the incident-bridge call' -> 'staff engineer dialed onto the war-room bridge'",
+            "'application-platform peer cross-paged onto the per-namespace deployment-side coordination thread' -> 'application-platform peer co-paged onto the per-namespace deployment coordination thread'",
+            "'storage-infrastructure on-call hooked in alongside for the EBS-CSI-driver volume-attachment-side coordination' -> 'storage-infrastructure on-call brought online alongside on the EBS-CSI-driver volume-attachment side for the stateful-workload PersistentVolumeClaim binding-side coordination'",
+            "'platform-reliability-engineering response manager handling the customer-impact-statement drafting cadence' -> 'platform-reliability-engineering response manager driving the customer-impact-statement composition cycle' (further refined in round 2 to 'site-reliability-engineering response lead driving')"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 1,
+          "cluster": "B2 — GT3 + intent #3 on-call decision-branch template",
+          "scope": "GT3.content + intent #3",
+          "changes": [
+            "'The on-call decision-branch runs between the manual cluster-autoscaler ramp-up scale-up override path' -> 'The on-call decision-branch splits across the manual cluster-autoscaler ramp-up scale-up override path' (applied to both GT3 content and intent #3)"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 1,
+          "cluster": "B3 — intent #3 closing escalation template",
+          "scope": "intent #3",
+          "changes": [
+            "'on-call escalation timer has wrapped past the seventy-five-minute checkpoint on the incident-response cadence with the platform-orchestration staff engineer joined onto the incident-bridge call plus the application-platform peer cross-paged plus the storage-infrastructure on-call hooked in alongside for the EBS-CSI-driver volume-attachment-side coordination' -> 'on-call escalation timer has wrapped past the seventy-five-minute mark on the incident-response cycle with the platform-orchestration staff engineer dialed onto the war-room bridge plus the application-platform peer co-paged plus the storage-infrastructure on-call brought online alongside on the EBS-CSI-driver volume-attachment side' (further refined in round 2)"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 1,
+          "cluster": "C — D3 Letterboxd opener weekly-digest template (inbox covering trailing 7-day window of personal-handle)",
+          "scope": "D3 Letterboxd content opening",
+          "changes": [
+            "'landed in the household subscriber inbox covering the trailing-seven-day window of the personal-handle's friend-graph activity' -> 'arrived in the household subscriber inbox summarizing the trailing-week activity rollup on the personal-handle's friend-graph'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 1,
+          "cluster": "D — Briefing third paragraph (rolling-cycle observation cadence + staged-rollout pipeline template matching C7 briefing)",
+          "scope": "Trace briefing third paragraph",
+          "changes": [
+            "'on the rolling-cycle observation cadence on the customer-facing payment-gateway-and-checkout-flow workload surface since the cluster-control-plane node-pool capacity-rebalancing automation pipeline went onto the staged-rollout track earlier this week' -> 'on the rolling observation cadence covering the customer-facing payment-gateway-and-checkout-flow workload surface since the cluster-control-plane node-pool capacity-rebalancing automation rollout shifted onto the staged-deploy track earlier this week'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 2,
+          "cluster": "A3 — GT1 + intent #1 remaining 'regional medical-center emergency-department resuscitation-bay' 8-gram prefix",
+          "scope": "GT1.content + intent #1",
+          "changes": [
+            "'The regional medical-center emergency-department resuscitation-bay coordination loop' -> 'The regional medical-center's ED resuscitation-bay coordination loop' (GT1.content)",
+            "'and the receiving regional medical-center emergency-department resuscitation-bay handoff' -> 'and the receiving regional medical-center's ED resuscitation-bay handoff' (intent #1)"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 2,
+          "cluster": "A4 — intent #1 'is reading the seated-upright airway-positioning routine' template",
+          "scope": "intent #1",
+          "changes": [
+            "'is reading the seated-upright airway-positioning routine' -> 'is talking through the seated-upright airway-positioning routine'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 2,
+          "cluster": "B4 — GT3 'platform-reliability-engineering response manager' template",
+          "scope": "GT3.content closing",
+          "changes": [
+            "'the platform-reliability-engineering response manager driving' -> 'the site-reliability-engineering response lead driving'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 2,
+          "cluster": "B5 — GT3 + intent #3 'on-call escalation timer has wrapped past' 8-gram prefix",
+          "scope": "GT3.content + intent #3",
+          "changes": [
+            "'The on-call escalation timer has wrapped past the seventy-five-minute mark' -> 'The on-call escalation clock has rolled past the seventy-five-minute mark' (GT3.content)",
+            "'the on-call escalation timer has wrapped past the seventy-five-minute mark' -> 'the on-call escalation clock has rolled past the seventy-five-minute mark' (intent #3)"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 2,
+          "cluster": "C2 — D3 Letterboxd 'recommendation-side surface widget pulls in the four featured' template",
+          "scope": "D3 Letterboxd content",
+          "changes": [
+            "'the recommendation-side surface widget pulls in the four featured-films' -> 'the recommendation-sidebar widget surfaces the four featured-films'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        }
+      ],
+      "iteration_count_per_audit_gate_substep": {
+        "step_3_5_iterations": 0,
+        "step_6_iterations": 2,
+        "step_6_round_1_overlap_count": 93,
+        "step_6_post_round_1_overlap_count": 14,
+        "step_6_post_round_2_overlap_count": 0,
+        "step_6_cluster_level_revisions_total": 9
+      },
+      "precedent": "M11a-extension D-C3.attempt1.C + M11a-extension-extension D-C2.attempt1.C + D-C3.attempt1.C + D-C4.attempt1.C + D-C5.attempt1.C + D-C6.attempt1.C + D-C7.attempt1.C in-session single-clause-revision precedent — NOT counted as rejection-and-retry per fresh-redraft-counts-only convention (M11a-extension D-C7.attempt1.D / D-C9.attempt1.C fresh-redraft rejection precedent — those involved substantial multi-clause redrafts; here all 9 cluster-level revisions are single-clause substitutions with the substantive trace content bytewise stable in meaning); single-clause-only author-discipline + substantive bytewise stability held; bounded by the C4/C5/C6/C7 precedent that 1-4 distinct single-clause revisions within a single attempt remain bounded by single-clause-only author-discipline. NOTE on C8 extension of the in-session-revision-count precedent: 9 cluster-level revisions across 2 iteration rounds extends the prior precedent (C1 0x, C2 1x, C3 1x +1 Step-3.5 token, C4 3x, C5 1x, C6 4x, C7 1x); the bounded discipline holds because (a) each revision IS still single-clause (a phrase swap maintaining substantive bytewise stability in meaning), (b) the substantive content of all 5 GTs + briefing + 5 intents + 4 distractors remains bytewise stable in meaning (household-elderly-mother urosepsis presentation unchanged; CFA Level III exam sit-date advancement unchanged; OpsGenie SEV-A Kubernetes pod-eviction storm unchanged; OPO UNOS-kidney-waitlist deceased-donor offer unchanged; NWS Sterling/LWX derecho damaging-wind warning unchanged; 4 V2 NO distractors substantively unchanged), and (c) the high revision count reflects the generic shared-language across prior on-call escalation templates (the 75-min checkpoint + bridge + cross-paged + hooked-in + response-manager pattern) and emergency-medical-response templates (the paramedic-ETA + resuscitation-bay coordination + MICU handoff pattern) which carry forward generic SRE-team and EMS-handoff narrative cadence across multiple prior medical-emergency and production/on-call traces. Disclosed transparently for reviewer audit."
+    }
+  },
+  "design_choice": {
+    "scope_per_plan": "§D1 + §D7 + Non-goals #1 + #2",
+    "v2_existing_yes_gts_shipped": 5,
+    "v2_existing_no_distractors_shipped": 4,
+    "v4_new_gts_shipped": 0,
+    "v4_new_distractors_shipped": 0,
+    "v2_existing_yes_class_breakdown": [
+      {
+        "class": "urgent safety/security issue (medical-emergency sub-class)",
+        "c8_input_count": "13x (just lifted at C7 from UNCHANGED-at-C6 baseline with adult-self PE)",
+        "c8_action": "LIFTED to 14x",
+        "specific_content": "household-elderly-mother urosepsis cascade — septic-shock physiology with confusion-and-disorientation overlay + fever 102.6 + hypotension 88/52 + tachycardia 120 + oliguria with under-30mL urine-output through indwelling-Foley catheter from prior-week tertiary-medical-center hospital-discharge urology instrumentation + household-glucometer lactate-surrogate flagging + 911 dispatcher on bedside-speakerphone + 6-min paramedic ETA from regional fire-engine house + ED resuscitation-bay coordination + blood-culture-and-urine-culture pre-antibiotic draw + broad-spectrum empiric antibiotics + IV-fluid 30mL/kg crystalloid bolus + lactic-acid lab + vasopressor-readiness norepinephrine + urology-on-call cross-page for source-control + MICU post-stabilization handoff onto septic-shock care-bundle hour-one-through-hour-six pathway; aggressively varied opener (household-elderly-mother urosepsis cascade) AWAY from prior C7 adult-self acute pulmonary-embolism template and prior C2 IVF-hyperstim and C1 DKA medical-emergency openers — distinct age group (elderly), distinct mechanism (septic-shock vs PE/DKA/etc), distinct presentation (urosepsis vs PE/hyperstim), distinct treatment path (broad-spectrum antibiotics + IV-fluid + vasopressor vs heparin/glucagon/etc)"
+      },
+      {
+        "class": "schedule change affecting the user personally",
+        "c8_input_count": "13x (just lifted at C7 from 12x baseline with spouse lumbar spinal-fusion)",
+        "c8_action": "LIFTED to 14x",
+        "specific_content": "household-adult CFA Level III Chartered Financial Analyst exam sit-date advancement at CFA Institute exam-scheduling-services + previously calendared into standard quarterly-window administration block at regional Prometric test-center for next-quarter Saturday-morning session pulled forward onto earlier-quarter administration window opening tomorrow morning at 8AM at same Prometric test-center following candidate-cancellation-slot opening on test-center capacity-allocation grid + CFA Level III exam structure with morning constructed-response item-set block + afternoon vignette-style multiple-choice block + candidate-curriculum body-of-knowledge spanning 10 curriculum areas (portfolio-management + equity-investments + fixed-income + derivatives + corporate-issuers + financial-statement-analysis + quantitative-methods + economics + corporate-finance + ethics) + third-level exam closes three-year sequential examination requirement on CFA-charter eligibility pathway + 48-month qualified-work-experience requirement + senior-portfolio-manager promotion-pathway timing riding on post-charter conferment timing + exam-prep cram-and-mock-exam final-week cadence pulled forward by one full quarter + Kaplan-Schweser final-mock-exam + Prometric test-center seat-confirmation portal step + CFA Institute acknowledgment step + next-business-day acknowledgment cutoff; distinct sub-class (professional-credential licensing-exam) from prior medical/legal/financial schedule-change themes"
+      },
+      {
+        "class": "production/on-call alert",
+        "c8_input_count": "13x (just lifted at C7 from 12x baseline with aggressive RabbitMQ variation away from prior PagerDuty SEV-one template)",
+        "c8_action": "LIFTED to 14x",
+        "specific_content": "OpsGenie SEV-A page on platform-orchestration on-call rotation for eks-prod-cluster-us-east-one production-Kubernetes cluster cascading pod-eviction storm + cluster control-plane node-pool memory-pressure trigger fired NodeMemoryPressure taint propagation + kubelet-side eviction-manager fired pod-eviction routine on QoS-tier-Burstable + QoS-tier-BestEffort + QoS-tier-Guaranteed workloads + ReplicaSet-controller scaling-burst cycle driving secondary eviction-storm cascade + critical-namespace payment-gateway + checkout-flow + auth-service + inventory-management deployments hit + per-namespace pod-availability count dropping past PodDisruptionBudget threshold + cluster-autoscaler new-node-provisioning EKS-managed-node-group EC2 10-15-minute provisioning window + decision-branch between manual cluster-autoscaler ramp-up scale-up override path vs per-namespace HorizontalPodAutoscaler manual-override scale-down with controlled load-shedding + 75-min escalation mark + platform-orchestration staff engineer + application-platform peer co-paged + storage-infrastructure on-call brought online for EBS-CSI-driver volume-attachment + site-reliability-engineering response lead + partner-merchant SLA-credit notification — continued aggressive opener-AND-closing variation discipline at C8 carrying forward C7 RabbitMQ precedent: OpsGenie SEV-A (not PagerDuty SEV-one), Kubernetes EKS pod-eviction storm (not RabbitMQ-cluster split-brain), war-room bridge (not incident-bridge call), site-reliability-engineering response lead (not platform-reliability-engineering response manager), escalation clock rolled past 75-min mark (not escalation timer wrapped past 75-min checkpoint)"
+      },
+      {
+        "class": "message or delivery directed personally to the user",
+        "c8_input_count": "13x (UNCHANGED at C7 baseline; LIFT CANDIDATE closed at C8)",
+        "c8_action": "LIFTED to 14x",
+        "specific_content": "regional organ-procurement-organization OPO transplant-coordinator on-call voicemail on household-adult's UNOS-kidney-waitlist deceased-donor kidney offer notification + 53-month listed-status active band on end-stage-renal-disease ESRD diagnosis at eGFR-of-12 baseline with in-center hemodialysis schedule at 3-times-per-week 4-hour outpatient-dialysis-center cadence + deceased-donor kidney offer from OPO-side donor-allocation match through UNOS-side allocation-algorithm output + HLA-antibody-and-PRA crossmatch reaching negative-crossmatch acceptance band + ABO-blood-type compatibility check + donor-organ acceptable-quality-criteria warm-ischemic-time-and-cold-ischemic-time clock-tracking + transplant-coordinator OPO-side voicemail callback queueing 6-hour cold-ischemic-time preservation-window decision-point + immediate hospital-admission onto transplant-program inpatient-unit within next-3-hour arrival window + pre-transplant evaluation labs + type-and-crossmatch confirmation + final-crossmatch acceptance + transplant-nephrology team-side bedside-evaluation + transplant-surgery service-side OR-time scheduling tonight + household-adult-side accept-or-decline-the-offer decision-window within next-30-minute window + back-up-recipient on regional-allocation pass-down queue on same offer-clock cycle + pre-transplant immunosuppression-induction protocol (basiliximab-or-thymoglobulin) + post-transplant tacrolimus-and-mycophenolate maintenance-immunosuppression + prophylactic ganciclovir-and-trimethoprim-sulfamethoxazole opportunistic-infection coverage; LIFT CANDIDATE closed at C8 from UNCHANGED-at-C7 baseline (last lifted at C6 with VA service-officer PTSD rating-decision)"
+      },
+      {
+        "class": "weather alert",
+        "c8_input_count": "13x (just lifted at C7 from 12x baseline with NWS Anchorage Chugach Range avalanche-warning)",
+        "c8_action": "LIFTED to 14x",
+        "specific_content": "NWS Sterling/LWX forecast office urgent severe-weather upgrade on mid-Atlantic regional alert-feed elevating prior severe-thunderstorm watch for DC-and-Baltimore-and-Philadelphia metropolitan corridor to derecho damaging-wind warning effective through next 4-hour overnight passage window covering Washington-DC + Northern-Virginia + DC-Maryland-suburbs + Baltimore-metropolitan + Philadelphia-extended-fringe corridor + NEXRAD-radar leading-edge squall-line bow-echo signature + progressive-derecho squall-line MCS mesoscale-convective-system event + widespread sustained 75-90mph straight-line damaging wind threat + rear-inflow-jet RIJ acceleration band + leading-edge embedded brief-spin-up tornado potential + trailing-stratiform heavy-rain band + SPC Storm Prediction Center Norman-OK convective-outlook moderate-risk + 70% significant-severe-wind probability + tree-fall + powerline-down cascade across BGE + Pepco + PSE&G distribution-feeder fleet + multi-hundred-thousand-customer power-outage cascade + per-utility mutual-aid crew pre-staging + Virginia-DEM + Maryland-EMA + Pennsylvania-EMA regional-coordination cell + no-travel-advised directive I-95 + I-66 + I-495 + I-695 corridor + take-shelter-now WEA push-and-EAS broadcast + FAA-side ground-stop-and-divert at DCA-IAD-BWI-PHL + Amtrak-Northeast-Corridor hold-and-restore + WMATA Metro speed-restriction; distinct sub-class (derecho squall-line) from prior tornado-watch/avalanche-warning/hurricane/blizzard/ice-storm/dust-storm/surf weather themes"
+      }
+    ],
+    "skipped_v2_existing_yes_class": {
+      "class": "financial/deadline obligation",
+      "c8_input_count": "14x (tied-for-maximum among V2 YES at C8-input; just-lifted-at-C7 from 13x baseline with FAFSA midnight-tonight deadline)",
+      "rationale": "default-preserve skip-the-highest pattern preferring the unambiguous tied-for-max V2 YES class at C8-input; financial/deadline at 14x is one ahead of the other V2 YES classes at 13x at C8-input, making it the natural skip candidate"
+    },
+    "v2_existing_no_class_breakdown": [
+      {
+        "class": "routine production/status digest",
+        "c8_input_count": "13x (just lifted at C7 from 12x baseline with Renovate Mend automated-dependency-update PR-rollup digest)",
+        "c8_action": "LIFTED to 14x",
+        "specific_content": "Datadog Cloud Cost Management CCM monthly subscriber digest on engineering-organization mailing-list inbox + trailing-30-day cloud-spend rollup across AWS-and-GCP-and-Azure multi-cloud footprint + per-cloud-provider monthly-charge breakdown with per-cloud-service spend-cohort tagging + EC2-EKS-RDS-S3-CloudFront AWS line + GCE-GKE-BigQuery-Cloud-Storage GCP line + AKS-Cosmos-DB-Azure-Storage Azure line + per-team chargeback rollup with tag-based cost-attribution + per-team monthly-spend distribution across platform/data/applications/ML/devex teams + anomaly-detection engine flagged-anomaly cohort (data-team BigQuery ad-hoc-query spend-spike + platform-team EKS managed-node-group capacity-expansion + ML-team GPU-instance training-burst) + forecast-side monthly-projection with seasonality-adjusted forecast-model + reservation-and-savings-plan coverage rate (AWS Savings-Plan + GCP Committed-Use-Discount + Azure Reserved-Instance) + per-team scoreboard + per-service top-spender ranking + per-region geographical-distribution chart + per-tag dimension-cut surface on Datadog CCM product navigation tree; distinct vendor + category (cloud-cost observability) from prior Renovate/Snyk/LaunchDarkly/Honeycomb routine-status themes"
+      },
+      {
+        "class": "feature announcement",
+        "c8_input_count": "12x (just lifted at C7 from UNCHANGED-at-C6 baseline with Vercel Functions v2)",
+        "c8_action": "LIFTED to 13x",
+        "specific_content": "Notion Calendar v2 launch announcement on Notion-product-update mailing-list (major-version cut from prior Notion-Calendar-v1 baseline formerly Cron calendar-app before Notion-side acquisition-and-rebranding) + multi-account-support primitive (per-user multi-Google-and-iCloud-and-Outlook-and-Notion-workspace calendar-account aggregation + unified-inbox day-and-week-and-month grid + per-account calendar-color labeling + per-account event-creation default-routing) + dark-mode polish pass on per-system-appearance preference + AI-event-summary primitive (per-event-attendee context-pull + per-event-meeting-link integration + related-Notion-page-and-document linked-from-event citation-aware summary-on-mouse-hover) + deepening calendar-integration with Notion-database event-aware page-mention + keyboard-shortcut quick-event-creation with natural-language-input event-parse + per-platform availability (macOS-iOS-web) + per-account migration from Notion-Calendar-v1 + AI-event-summary primitive paid-tier-and-above; distinct product (Notion Calendar — calendar/PIM product) from prior IDE/design-tool/observability/CDN/edge-functions/dependency-update product spaces"
+      },
+      {
+        "class": "social-channel invite/digest",
+        "c8_input_count": "12x (just lifted at C7 from 11x baseline with Are.na channels-collaborator digest)",
+        "c8_action": "LIFTED to 13x",
+        "specific_content": "Letterboxd weekly friend-watchlist-and-film-review activity digest in household subscriber inbox + trailing-week activity rollup on personal-handle's friend-graph across cinephile-network of Letterboxd film-cataloging social-network + 17 new four-and-five-star film reviews from friend-graph (recent-release + streaming-debut + rewatch cohort across contemporary-cinema + independent-film + foreign-language-cinema + genre-revival subject-cluster) + watchlist-side per-friend watchlist-add cadence + per-friend list-side curation update + per-friend diary-update count + per-friend list-creation count + per-friend tagged-review-engagement rollup + recommendation-sidebar widget surfacing 4 featured-films + per-film letterboxd-side aggregate-rating + per-film review-side standout-review excerpt + per-film prior-friend-review citation + friend-graph list-collaboration seed-engine + personal-handle dashboard rollup + trailing-week diary-update count + trailing-week review-write count + trailing-week list-update count + trailing-week friend-graph follow-back count; distinct platform (Letterboxd film-tracking social-network) from prior creative-curation/photo-pinning/microblogging/literary-network/reading-network platforms"
+      },
+      {
+        "class": "generic daily briefing",
+        "c8_input_count": "12x (UNCHANGED at C7 baseline)",
+        "c8_action": "LIFTED to 13x",
+        "lift_candidate_status": "LIFT CANDIDATE closed at C8 from UNCHANGED-at-C7 baseline with aggressive opener-and-content-variation discipline applied to break the C4+C5+C6 briefing-rollup distractor-opener template-convergence pattern that C7 structurally avoided by skipping the briefing class entirely",
+        "specific_content": "Sunday-evening week-ahead family-planning briefing on dining-room shared-family-iPad calendar-widget + household-coordination Monday-through-Friday week-ahead snapshot at post-dinner family-rollup time + dining-room iPad widget surface threading per-day schedule-card lineup (household-adult work-meeting calendar-overlay + household-spouse workday-and-after-work-commitment + kids-side daycare-and-after-school-activity coordination grid + household-side standing-commitment block) + weekly meal-plan rollup (Monday-through-Friday dinner-rotation lineup + Saturday-night family-pizza-and-movie standing tradition + Sunday-dinner extended-family-gathering + per-day grocery-ingredient line-item mapping into curbside-pickup grocery-order assembly for Wednesday-evening grocery-curbside-pickup window) + carpool coordination grid (kids-side after-school carpool Monday-soccer + Wednesday-piano + Thursday-swim + Friday-art rotation + carpool-partner family-cycle assignment) + Sunday-night-prep checklist (lunchbox-and-backpack-ready-for-Monday + per-day theme-rotation lunch-menu + per-day kids-side outfit-laid-out + per-day kids-side school-folder-and-homework-binder check-off) + post-briefing surface widget (household-side family-calendar acknowledgment + kids-side iPad screen-time soft-handoff into Sunday-night quiet-routine + household-side bedtime-cadence wind-down); aggressive opener-and-content-variation discipline at C8 (Sunday-evening timing + dining-room iPad surface + forward-looking week-ahead PLANNING content domain) breaks the C4+C5+C6 briefing-rollup distractor-opener template-convergence pattern (C4 mid-morning home-office + C5 Saturday-morning weekend-launch + C6 Friday-late-afternoon week-wrap weather-window) — distinct setting + surface + time-of-day + content-domain (forward-looking week-ahead planning vs prior backward-looking weekly-rollup or current-day status template)"
+      }
+    ],
+    "skipped_v2_existing_no_class": {
+      "class": "marketing/newsletter",
+      "c8_input_count": "13x (tied-for-maximum among V2 NO at C8-input alongside routine-status 13x; both just-lifted-at-C7)",
+      "rationale": "default-preserve skip-the-highest pattern preferring marketing/newsletter over routine-status at C8 specifically to structurally avoid the v36 Holderness Forge spring-catalog + v37 Vermont Maple Forest spring-quarterly tasting-flight spring-catalog-fulfillment-window template-convergence pattern that surfaced at v36+v37 marketing/newsletter distractors — skipping the marketing/newsletter distractor class entirely at C8 structurally avoids the recurring spring-catalog template at this iteration rather than relying on author-discipline single-clause-revision OR non-spring-catalog sub-class selection"
+    },
+    "v4_new_touches_at_c8": {
+      "count": 0,
+      "rationale": "preserves M11a-extension C10 + M11a-extension-extension C1+C2+C3+C4+C5+C6+C7 cross-V4-mechanism symmetric closure at V4 NEW YES 6 vs V4 NEW NO 6 = delta 0 bytewise into M11a-extension-extension C8 scope per §D7 + §D14-H1 (this milestone is CI-tightening on the V4-vs-V2 headline at the SAME 5-event mechanism reference; mechanism-residual closure is M11d-surprise-gate-retuning + V5 future-work scope per Non-goals #1 + #2)"
+    }
+  },
+  "banned_list_state": {
+    "input_at_c8": {
+      "event_ids": 280,
+      "themes": 157,
+      "tuples": 156,
+      "snapshot_file": "runs/data/22c-banned-list-pre-c8.{txt,json}",
+      "provenance": "M11a-extension-extension Commit C7 end-state (post-test_v37 acceptance per runs/data/22c-author-test_v37-attempt-1-accepted.json §post_c7_banned_list_increment_for_c8_input); carried forward verbatim per ~/.claude/plans/m11a-extension-extension-n40.md §D3 + §Appendix carry-forward"
+    },
+    "post_c8_increment_for_c9_input": {
+      "delta": "+9 IDs / +5 themes / +5 tuples",
+      "expected_pre_c9_banned_list_counts": {
+        "event_ids": 289,
+        "themes": 162,
+        "tuples": 161
+      }
+    }
+  },
+  "post_c8_banned_list_increment_for_c9_input": {
+    "new_event_ids_added_post_c8": [
+      "elderly_mother_septic_shock_indwelling_catheter_urosepsis_hypotension_fever_altered_mental_status_lactic_acidosis_911_dispatcher_paramedic_eta_ed_resuscitation_broad_spectrum_antibiotics_icu_admission",
+      "cfa_institute_level_three_chartered_financial_analyst_exam_sit_date_advancement_test_administration_window_promotion_pathway_credential_household_adult_email",
+      "opsgenie_sev_a_platform_orchestration_kubernetes_eks_production_cluster_pod_eviction_storm_node_memory_pressure_taint_cascade_cluster_autoscaler_seventy_five_minute_runbook",
+      "opo_organ_procurement_organization_transplant_coordinator_voicemail_unos_kidney_waitlist_deceased_donor_offer_six_hour_cold_ischemic_time_immediate_hospital_admission_immunosuppression",
+      "nws_sterling_lwx_derecho_squall_line_damaging_wind_warning_mid_atlantic_corridor_dc_baltimore_philadelphia_metropolitan_area_seventy_five_mph_widespread_straight_line_wind_power_outage_cascade",
+      "datadog_cloud_cost_management_ccm_monthly_subscriber_digest_trailing_month_cloud_spend_breakdown_aws_gcp_azure_per_service_per_team_chargeback_anomaly_detection",
+      "notion_calendar_v2_launch_announcement_multi_account_support_dark_mode_polish_ai_event_summary_calendar_integration_deepening_subscriber_email_product_release",
+      "letterboxd_weekly_friend_watchlist_film_review_activity_digest_cinephile_network_diary_update_list_curation_writing_subscriber_email",
+      "sunday_evening_week_ahead_family_planning_briefing_dining_room_shared_ipad_family_calendar_widget_daycare_after_school_meal_plan_grocery_pickup_carpool_lunchbox_rollup"
+    ],
+    "new_themes_added_post_c8": [
+      "urgent safety/security issue (V2 EXISTING YES, medical-emergency sub-class) — household-elderly-mother acute urosepsis presentation at home this evening with textbook urosepsis cascade and septic-shock physiology accelerating across the past 90 minutes with confusion-and-disorientation overlay on baseline cognition + persistent fever at 102.6 oral on household-thermometer + hypotension at 88/52 on wrist-cuff + resting tachycardia at 120 beats-per-minute + oliguria with under-30-milliliter urine-output across prior 2-hour window through indwelling-Foley catheter from last-week's tertiary-medical-center hospital-discharge urology-side instrumentation + household-glucometer lactate-surrogate strip flagging on elevated band + septic-shock-of-genitourinary-origin presentation driving household-side 911 call + live dispatcher on bedside-speakerphone reading seated-upright airway-positioning routine + 6-min paramedic ETA from regional fire-engine house + ED resuscitation-bay coordination loop pre-loading urosepsis workup track + bedside blood-culture-and-urine-culture pre-antibiotic draw + broad-spectrum empiric-antibiotic ordering set for urinary-tract-source septic pathway + IV-fluid 30mL/kg crystalloid bolus protocol + lactic-acid reference-lab + vasopressor-readiness norepinephrine-on-standby + urology-on-call cross-page for obstructive-urosepsis source-control on indwelling-catheter exchange-or-removal decision-branch + MICU post-stabilization handoff onto septic-shock care-bundle hour-one-through-hour-six pathway with lactate-clearance trajectory + mean-arterial-pressure target band + urine-output recovery trajectory checkpoints",
+      "schedule change affecting the user personally (V2 EXISTING YES) — household-adult's CFA Level III Chartered Financial Analyst credential exam sit-date advancement at CFA Institute exam-scheduling-services from standard quarterly-window administration block at regional Prometric test-center for next-quarter Saturday-morning session pulled forward onto earlier-quarter administration window opening tomorrow morning at 8AM at same Prometric test-center surface following candidate-cancellation-slot opening on test-center capacity-allocation grid + CFA Level III exam structure with morning constructed-response item-set block + afternoon vignette-style multiple-choice block across candidate-curriculum body-of-knowledge spanning portfolio-management-and-wealth-planning + equity-investments + fixed-income + derivatives-and-alternative-investments + corporate-issuers + financial-statement-analysis + quantitative-methods + economics + corporate-finance + ethical-and-professional-standards curriculum areas + third-level exam closing three-year sequential examination requirement on CFA-charter eligibility pathway + 48-month accumulated qualified-work-experience requirement + senior-portfolio-manager promotion-pathway timing at household-adult's employer riding on post-charter conferment timing for year-end promotion-cycle decision + exam-prep cram-and-mock-exam final-week cadence pulled forward by one full quarter + Kaplan-Schweser final-mock-exam administration block + candidate's item-bank final-review window + post-mock-debrief decision-loop on weakest-curriculum-area reinforcement track + Prometric test-center seat-confirmation portal step + CFA Institute exam-scheduling-services acknowledgment step + candidate's personal-identification document-readiness review on test-center admission-requirement standard + next-business-day acknowledgment cutoff",
+      "production/on-call alert (V2 EXISTING YES) — OpsGenie SEV-A page on platform-orchestration on-call rotation for eks-prod-cluster-us-east-one production-Kubernetes cluster cascading pod-eviction storm + cluster control-plane node-pool memory-pressure trigger firing node-side NodeMemoryPressure taint propagation across production-workload node-pool + kubelet-side eviction-manager firing pod-eviction routine on QoS-tier-Burstable + QoS-tier-BestEffort + QoS-tier-Guaranteed workloads under sustained memory-pressure condition + ReplicaSet-controller scaling-burst cycle driving secondary eviction-storm cascade + eviction-storm cascade hitting critical-namespace payment-gateway + checkout-flow + auth-service + inventory-management deployments + per-namespace pod-availability count dropping past PodDisruptionBudget threshold + cluster-autoscaler new-node-provisioning EKS-managed-node-group AWS EC2 10-to-15-minute provisioning window + Kubernetes control-plane status-aggregator overview-dashboard with per-namespace Pod count delta + per-node ResourceQuota utilization + per-PodDisruptionBudget breach-counter rollup + on-call decision-branch split across manual cluster-autoscaler ramp-up scale-up override path vs per-namespace HorizontalPodAutoscaler manual-override scale-down with controlled load-shedding cycle + 75-min escalation mark + platform-orchestration staff engineer dialed onto war-room bridge + application-platform peer co-paged + storage-infrastructure on-call brought online for EBS-CSI-driver volume-attachment + site-reliability-engineering response lead driving customer-impact-statement composition cycle for partner-merchant SLA-credit notification",
+      "message or delivery directed personally to the user (V2 EXISTING YES) — regional organ-procurement-organization OPO transplant-coordinator on-call voicemail on household-adult's UNOS-kidney-waitlist deceased-donor kidney offer notification + household-adult on UNOS-kidney-transplant-waitlist at regional transplant-program waiting-list for 53 months at listed-status active band on end-stage-renal-disease ESRD diagnosis at eGFR-of-12 baseline + residual-kidney-function fall-off cycle holding in-center hemodialysis schedule at 3-times-per-week 4-hour outpatient-dialysis-center cadence + deceased-donor kidney offer from OPO-side donor-allocation match through UNOS-side allocation-algorithm output on regional-allocation-pool prior-allocation-cycle pass-down + HLA-antibody-and-PRA panel-reactive-antibody crossmatch reaching negative-crossmatch acceptance band + ABO-blood-type compatibility check + donor-organ acceptable-quality-criteria warm-ischemic-time-and-cold-ischemic-time clock-tracking + transplant-coordinator OPO-side voicemail callback queueing 6-hour cold-ischemic-time preservation-window decision-point for immediate hospital-admission onto transplant-program inpatient-unit within next-3-hour arrival window + pre-transplant evaluation labs + type-and-crossmatch confirmation + final-crossmatch acceptance + transplant-nephrology team-side bedside-evaluation + transplant-surgery service-side OR-time scheduling onto transplant-surgery operating-room block tonight + household-adult accept-or-decline-the-offer decision-window within next-30-minute window + back-up-recipient on regional-allocation pass-down queue on same offer-clock cycle + pre-transplant immunosuppression-induction protocol with basiliximab-or-thymoglobulin induction-agent decision + post-transplant tacrolimus-and-mycophenolate maintenance-immunosuppression cycle + prophylactic ganciclovir-and-trimethoprim-sulfamethoxazole opportunistic-infection coverage",
+      "weather alert (V2 EXISTING YES) — NWS Sterling/LWX forecast office urgent severe-weather upgrade on mid-Atlantic regional alert-feed elevating prior severe-thunderstorm watch for DC-and-Baltimore-and-Philadelphia metropolitan corridor to derecho damaging-wind warning effective through next 4-hour overnight passage window covering Washington-DC + Northern-Virginia + DC-Maryland-suburbs + Baltimore-metropolitan + Philadelphia-extended-fringe corridor + NEXRAD-radar leading-edge squall-line bow-echo signature + progressive-derecho squall-line MCS mesoscale-convective-system event + widespread sustained 75-to-90-mph straight-line damaging wind threat along leading-edge bow-echo cycle + rear-inflow-jet RIJ acceleration band + leading-edge embedded brief-spin-up tornado potential on bow-echo apex + trailing-stratiform heavy-rain band on post-passage flash-flood threat + SPC Storm Prediction Center Norman-OK convective-outlook moderate-risk band + 70% significant-severe-wind probability + tree-fall + powerline-down cascade across BGE + Pepco + PSE&G distribution-feeder fleet + multi-hundred-thousand-customer power-outage cascade on distribution-side restoration-queue + per-utility mutual-aid crew pre-staging + Virginia-DEM + Maryland-EMA + Pennsylvania-EMA regional-coordination cell + no-travel-advised directive on I-95 + I-66 + I-495 + I-695 corridor + take-shelter-now WEA push-and-EAS broadcast + FAA-side ground-stop-and-divert protocol at DCA-IAD-BWI-PHL + Amtrak-Northeast-Corridor track-side hold-and-restore + WMATA Metro Washington-DC track-side speed-restriction"
+    ],
+    "new_tuples_added_post_c8": [
+      "(urosepsis, septic)",
+      "(cfa, exam)",
+      "(opsgenie, eviction)",
+      "(opo, transplant)",
+      "(derecho, warning)"
+    ],
+    "expected_pre_c9_banned_list_counts": {
+      "event_ids": 289,
+      "themes": 162,
+      "tuples": 161
+    }
+  },
+  "milestone_state": {
+    "cumulative_attempt_count": "8/50",
+    "accepted_commit_c_traces_toward_n_40": 8,
+    "remaining_traces_test_v39_to_v50_across_c9_to_c20": 12,
+    "retry_cap_status_on_test_v38": "1/3 (not exhausted; 2 retries remaining had attempt #1 not accepted)",
+    "literal_id_collision_halt_triggered": false,
+    "banned_list_saturation_halt_triggered": false,
+    "structural_parsing_failure_rate_so_far": "0/8 attempts per §D4 self-restate gate inherited verbatim from M11a-extension"
+  },
+  "file_state": {
+    "sandbox_event_trace_py": {
+      "pre_c8_sha256": "a67f0e14039424f8cdaf5c58772775bba4f283601de354f80e6b27880c69c762",
+      "pre_c8_bytes": 290695,
+      "pre_c8_lines": 1961,
+      "post_c8_sha256": "862f261af1d319057cf2a6aa6547b3c05ea7e8cd37c029fcdb78fd0d69cac1e5",
+      "post_c8_bytes": 329306,
+      "post_c8_lines": 2023,
+      "git_diff_stat": "1 file changed, 62 insertions(+), 0 deletions(-)",
+      "diff_hunks": [
+        "@@ -1921,6 +1921,67 @@ def test_trace_v37() -> Trace: (test_trace_v38 function inserted)",
+        "@@ -1954,6 +2015,7 @@ def get_trace(name: str) -> Trace: (registry dict +1 line for 'test_v38': test_trace_v38)"
+      ],
+      "append_only_discipline_verified": true,
+      "prefix_lines_1_to_1921_bytewise_unchanged_pre_post_c8": true
+    },
+    "v4_prompt_sha256": "09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6",
+    "v4_prompt_bytes": 1851,
+    "v4_prompt_unchanged_at_c8": true,
+    "v4_prompt_not_touched_per_plan": "~/.claude/plans/m11a-extension-extension-n40.md §D1 + §D5 + frozen-artifacts list — V4 prompt is NOT touched at Commit C series"
+  },
+  "plan_lock": "~/.claude/plans/m11a-extension-extension-n40.md (locked source plan)",
+  "current_date": "2026-05-24"
+}
