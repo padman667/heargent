@@ -1,0 +1,195 @@
+{
+  "milestone": "M11a-extension-extension Commit C4",
+  "trace_name": "test_v34",
+  "attempt_number": 1,
+  "total_attempts_to_acceptance": 1,
+  "acceptance_status": "ACCEPTED",
+  "audit_gate_verdict": "PASS (8/8 checks PASS at the accepting attempt)",
+  "current_date": "2026-05-24",
+  "plan_locked_at": "~/.claude/plans/m11a-extension-extension-n40.md",
+  "self_restate": {
+    "constraint_a": "Every value in the trace must be a literal Python expression that the module's existing dataclasses (Event, GroundTruthEvent, Trace) accept at module import time — no dynamic builders, no comprehensions referencing uncreated names, no helper-class instances beyond _gt and the imported dataclasses.",
+    "constraint_b": "No walrus operator := anywhere in the trace body — not in keyword tuples, not in event-id strings, not in conditional expressions.",
+    "constraint_c": "Event-id strings are flat literal identifiers — no string concatenation, no f-strings with arithmetic placeholders, no chr/ord tricks. Plain id=\"...\".",
+    "constraint_d": "No event_id reused from the 244-entry banned list; semantically avoid the 137 banned themes and 136 banned keyword tuples (audit-gate Steps 6-8 enforce the latter two)."
+  },
+  "self_restate_prompt_artifact": "runs/data/22c-self-restate-rendered-pre-c4.txt",
+  "banned_list_state_at_input_c4": {
+    "source": "runs/data/22c-banned-list-pre-c4.json + .txt",
+    "event_ids": 244,
+    "themes": 137,
+    "tuples": 136,
+    "carry_forward_from": "M11a-extension-extension Commit C3 end-state per runs/data/22c-author-test_v33-attempt-1-accepted.json §\"post_c3_banned_list_increment_for_c4_input\""
+  },
+  "step_3_5_keyword_literal_substring": {
+    "verdict": "PASS first-run 10/10 with no in-session iteration required",
+    "note": "Mirrors M11a-extension C4 + C5 + C6 + C7-attempt-1 + C8 + C9 + C10 + M11a-extension-extension C1 + C2 first-run-Step-3.5-PASS precedents (M11a-extension-extension C3 attempt-1 required 1 in-session Step 3.5 single-token iteration on QDRO acronym — distinct precedent not invoked here)."
+  },
+  "step_4_id_collision": {
+    "verdict": "PASS",
+    "new_event_ids_count": 9,
+    "prior_banned_ids_checked": 244,
+    "prior_trace_event_ids_checked": 244,
+    "prior_traces_count": 28,
+    "collisions_vs_banned": 0,
+    "collisions_vs_prior_trace_ids": 0
+  },
+  "step_5_m8b_keyword_content": {
+    "verdict": "PASS",
+    "fails": 0,
+    "keywords_checked": 10
+  },
+  "step_6_8gram_drift": {
+    "first_run_verdict": "FAIL — 7 cross-trace 8-gram overlaps from 3 distinct single-clause phrases",
+    "first_run_overlaps_enumerated": [
+      "'at the home office in the middle of' (1 gram; briefing opener)",
+      "'has been pulled forward to tomorrow morning at' (1 gram; GT2 walkthrough reschedule clause)",
+      "'been pulled forward to tomorrow morning at nine' (1 gram; same GT2 clause)",
+      "'pulled forward to tomorrow morning at nine because' (1 gram; same GT2 clause)",
+      "'the runbook escalation crossed the seventy-five-minute mark with' (1 gram; GT3 CDN runbook escalation clause)",
+      "'runbook escalation crossed the seventy-five-minute mark with the' (1 gram; same GT3 clause)",
+      "'bridge the next playbook step is the controlled' (1 gram; same GT3 clause)"
+    ],
+    "in_session_revisions_applied": [
+      {
+        "target": "GT2 (apartment move-out walkthrough) content phrase",
+        "old": "originally booked into next-Thursday evening has been pulled forward to tomorrow morning at nine because",
+        "new": "originally calendared for next-Thursday at six in the evening has been bumped up to the nine-o'clock-tomorrow-morning slot since",
+        "rationale": "Single-clause substitution breaks the 8-gram sequence at the 'pulled/bumped' + 'because/since' replacement points; the substantive reschedule fact (next-Thursday-evening → tomorrow-morning-9am) stays bytewise stable in meaning"
+      },
+      {
+        "target": "GT3 (CDN cache-tag global-purge) runbook escalation closing clause",
+        "old": "The runbook escalation crossed the seventy-five-minute mark with the platform-engineering staff engineer paged into the incident bridge; the next playbook step is the controlled warm-back",
+        "new": "The on-call runbook timer rolled past the seventy-five-minute escalation step with the platform-engineering staff engineer joined into the incident-bridge call; the subsequent playbook step calls for a controlled warm-back",
+        "rationale": "Single-clause substitution breaks the 8-gram sequences at the 'crossed/rolled past' + 'paged/joined' + 'next/subsequent' + 'is the controlled/calls for a controlled' replacement points; the substantive runbook content (75-min mark + staff-engineer paged + controlled warm-back of origin-shield cache + top-revenue cache-key warm-list + marketing-pipeline pre-purge automation paused + API-token revocation) stays bytewise stable in meaning"
+      },
+      {
+        "target": "Briefing opener",
+        "old": "Mid-morning at the home office in the middle of the third-floor apartment move-out window",
+        "new": "Mid-morning at the upstairs home office partway through the third-floor apartment move-out window",
+        "rationale": "Single-clause substitution breaks the 8-gram sequence at the 'home office in the middle of' replacement points via 'upstairs home office partway through'; the substantive briefing-opener context (mid-morning + home-office + apartment move-out window) stays bytewise stable in meaning"
+      }
+    ],
+    "in_session_revision_precedent": "M11a-extension-extension D-C2.attempt1.C + D-C3.attempt1.C single-clause-revision in-session precedent (NOT counted as rejection-and-retry per M11a-extension D-C7.attempt1.D / D-C9.attempt1.C fresh-redraft rejection precedent which required substantial multi-clause redrafts). Here three distinct single-clause substitutions were applied within the same in-session attempt-1 iteration; each substitution targeted a self-contained phrase whose substantive meaning stayed bytewise stable while the surface-form 8-gram window broke. Disclosed transparently for reviewer audit. This is the FIRST M11a-extension-extension Commit-C trace to require THREE distinct in-session single-clause revisions in a single attempt (C2 required 1; C3 required 1 step-6 revision + 1 step-3.5 single-token iteration); the precedent escalation is bounded by the design-choice author-discipline (single-clause only, not multi-clause redraft) and substantive bytewise stability of the underlying trace content.",
+    "re_run_verdict": "PASS",
+    "re_run_prior_8grams_checked": 15305,
+    "re_run_overlaps": 0,
+    "prior_trace_definitions_count": 28
+  },
+  "step_7_banned_themes_semantic": {
+    "verdict": "PASS",
+    "themes_checked": 137,
+    "new_gt_themes_distinctness_summary": [
+      "GT1 urgent-safety/medical-emergency — postpartum-day-7 secondary uterine hemorrhage in spouse + home-kit tranexamic-acid/oxytocin + ObGYN on speakerphone + 911 dispatched: OBSTETRIC-postpartum-bleeding subclass DISTINCT from prior medical-emergency themes (DKA pediatric v31, seizure spouse v32, stroke v29, asthma v30, anaphylaxis partner v26, MI self v27, ingestion child v25, hospital grandmother v24, CO carbon monoxide v24, gas leak v21, fall pendant v22) which cover endocrine/neurologic/cardio/respiratory/poison/trauma/exposure but NOT obstetric-postpartum bleeding",
+      "GT2 schedule-change — Pine-Ridge apartment move-out walkthrough advanced by landlord at unit-listing demand + security-deposit-release ledger ride: REAL-ESTATE-LANDLORD-LEASE end-of-tenancy class DISTINCT from prior schedule-change themes which are dominated by MEDICAL appointment reschedules (cardiology v21, pediatrician v24, dental implant v25, orthopedist v29, IVF v31, breast cancer staging v32, kidney transplant v33) + LEGAL (small-claims court v23, USCIS v27) + REAL-ESTATE-FINANCIAL (mortgage closing v28 = loan finalization not lease termination)",
+      "GT3 production/on-call — CDN edge-cache global purge-cascade origin-shield evacuation + storefront 5xx blast + warm-back runbook: CDN-CACHE-PURGE-CASCADE layer DISTINCT from prior production-engineering themes (postgres failover v22 / TLS cert expiry v23 / disk space v24 / redis memory v25 / Kafka broker election v27 / Elasticsearch shard v28 / Vault PKI v29 / K8s etcd quorum v32 / Snowflake credit burn v33) which cover data-store + cert-management + storage-fill + caching-eviction + queue-broker + search-index + secrets-management + container-orchestration + warehouse-compute but NOT CDN/edge-cache purge-cascade",
+      "GT4 message/delivery — Briarcliff Middle School Vice-Principal voicemail re same-day behavioral incident + parent-conference tomorrow 8am + disciplinary-committee suspension hearing: SCHOOL-DISTRICT-DISCIPLINARY-INSTITUTIONAL class DISTINCT from prior message/delivery themes (certified docs v21 + ring pickup v23 + hospital grandmother v24 + mother-in-law chemo v26 + eviction attorney v27 + executor estate v28 + adoption placement v30 + funeral director v31 + detective burglary v32 + family-law mediation v33) which cover legal/medical/funeral/civic but NOT K-12-school-disciplinary",
+      "GT5 weather-alert — NOAA SWPC G4 severe-geomagnetic-storm warning + X-class solar-flare CME + power-grid GIC + polar-route HF outage + low-latitude aurora: SPACE-WEATHER geophysical alert class DISTINCT from prior weather-alert themes (flash flood v22 + dust storm v23 + tornado watch v24 + wildfire smoke v26 + ice storm v28 + excessive heat v30 + volcanic ash v31 + hurricane v32 + tsunami v33) which cover atmospheric/coastal/seismic but NOT space-weather/geomagnetic"
+    ],
+    "new_distractor_themes_distinctness_summary": [
+      "D1 routine-status — LaunchDarkly monthly feature-flag account-health digest: feature-flag-management platform class DISTINCT from prior routine-status themes (SSL monitor v24 + k8s autoscaler v25 + Datadog synthetics v26 + GitHub Actions v27 + Terraform state-drift v28 + AWS Config compliance v29 + AWS CloudTrail v30 + Sentry project-health v32 + Honeycomb cardinality v33) which cover observability/CI/cloud-config/cert-monitoring/error-tracking but NOT feature-flag-rollout-management",
+      "D2 generic-daily-briefing — end-of-day pre-bedtime wind-down briefing: time-slot variant within the generic-daily-briefing theme class which is the design-choice lift candidate at C4 (UNCHANGED at C3); prior briefings span morning v23 / evening v24 / Friday weekly-recap v25 / Monday lookahead v26 / Wednesday midweek v27 / Thursday wrap v28 / Saturday prep v30 / Sunday quiet-evening v31 / Tuesday late-morning v32 — end-of-day pre-bedtime is a distinct time-slot framing within the bucket per the design's symmetric coverage rotation",
+      "D3 feature-announcement — Storybook 9.0 launch announcement (unified-testing workflow + React-19 + Vite-6 + compose-stories): frontend-component-framework testing-tooling class DISTINCT from prior feature-announcement themes (VSCode marketplace verified-publisher v25 + Postman workspace v27 + Linear cycles v29 + Figma auto-layout v30 + Calendly v6 v31 + AWS Step Functions v32 + JetBrains IntelliJ 2026.1 v33) which cover IDE-marketplace/API-tool/project-management/design-tool/scheduling/serverless/IDE-suite but NOT frontend-testing-and-stories framework",
+      "D4 social-channel-invite — Goodreads friend reading-activity weekly digest: book-social-network niche class DISTINCT from prior social-channel-invite themes (Reddit v6 + civic poll v7 + chess puzzle v11 + basketball pickup v22 + Slack frontend community v24 + Mastodon v26 + Bluesky v28 + Substack v29 + Threads v31 + Pinterest v33) which cover discussion-forum/civic/gaming/sports/work-community/microblog/social-network/newsletter/design-mood but NOT book-reading-friend-activity"
+    ]
+  },
+  "step_8_banned_tuples_and_gt_distribution": {
+    "tuples_verdict": "PASS",
+    "new_gt_tuples": [
+      "(postpartum, hemorrhage)",
+      "(walkthrough, deposit)",
+      "(cdn, purge)",
+      "(principal, conference)",
+      "(geomagnetic, g4)"
+    ],
+    "tuples_checked": 136,
+    "tuples_collisions": 0,
+    "gt_distribution_verdict": "PASS",
+    "gt_count": 5,
+    "distractor_count": 4
+  },
+  "design_choice_at_c4": {
+    "rationale": "Default-preserve M11a-extension C10 + M11a-extension-extension C1 + C2 + C3 cross-V4-mechanism symmetric closure (V4 NEW YES = 6 vs V4 NEW NO = 6 = delta 0 bytewise) inherited per ~/.claude/plans/m11a-extension-extension-n40.md §D7 + §D14-H1 + Non-goals #1 + #2 (this milestone is CI-tightening on the V4-vs-V2 headline at the SAME 5-event mechanism reference; mechanism-residual closure is M11d-surprise-gate-retuning + V5 future-work scope)",
+    "v2_yes_gts_5": [
+      "urgent-safety/medical-emergency 10x→11x (LIFT CANDIDATE closed at C4 from UNCHANGED-at-C3 baseline) — spouse postpartum-day-7 secondary uterine hemorrhage + tranexamic-acid + oxytocin home-kit + ObGYN attending Dr. Maya Linde speakerphone + 911 dispatched + regional women's-health hospital labor-and-delivery triage handoff",
+      "schedule-change 10x→11x — Pine-Ridge property-manager Owen Castille advances third-floor apartment move-out walkthrough from next-Thursday-evening to tomorrow-9am at prospective-renter tour scheduling demand + security-deposit-release ledger calculation + lease-rider standard checklist + cleaning-vendor invoice deductions",
+      "production/on-call 9x→10x — CDN cache-tag wildcard global-purge cascade triggered by misformatted tag-glob in marketing-campaign content-rotation pipeline + origin-shield cache evacuation + storefront origin-server cache-miss request blast at 7x steady-state QPS + storefront-API 500-status-code blast 38% error + 75-min runbook escalation + controlled warm-back via top-revenue cache-key warm-list",
+      "message/delivery 10x→11x — Briarcliff Middle School Vice-Principal Aisha Mbeki voicemail on same-day seventh-grader behavioral incident + after-lunch homeroom block + mandatory parent-conference tomorrow 8am + disciplinary-committee suspension-hearing review + in-school detention / out-of-school suspension / behavioral-improvement-plan registration spectrum + callback before 5 tonight",
+      "weather-alert 9x→10x — NOAA Space Weather Prediction Center G4 severe-geomagnetic-storm warning + overnight X-class solar flare + earth-directed halo coronal-mass-ejection + WSA-ENLIL solar-wind propagation 8-12hr leading-shock arrival + upper-Midwest+Northeast power-grid GIC substation-transformer risk + polar-route HF-radio outage + low-latitude aurora + GPS-positioning degradation + ISS EVA standdown + airline polar-route reroute"
+    ],
+    "v2_yes_skipped_at_c4": "financial/deadline 11x (tied-for-maximum among V2 YES at C4-input — default-preserve skip-the-highest pattern; just lifted at C3 from UNCHANGED-at-C2 baseline so financial/deadline is the natural skip-the-highest candidate at C4)",
+    "v2_no_distractors_4": [
+      "routine-status 10x→11x — LaunchDarkly monthly feature-flag account-health digest + rollout-velocity rollup + stale-flag-cleanup queue + kill-switch-readiness audit-trail + experiment-throughput chart + per-project flag-debt-burndown",
+      "generic-daily-briefing 9x→10x (LIFT CANDIDATE closed at C4 from UNCHANGED-at-C3 baseline) — household end-of-day pre-bedtime wind-down briefing + bedtime-routine widget + dishwasher mid-cycle + laundry hand-off + morning-routine staging + smart-speaker bedtime-mode handoff + do-not-disturb cadence",
+      "feature-announcement 9x→10x — Storybook 9.0 launch announcement + unified-testing workflow + React-19+Vite-6 compatibility line + compose-stories utility + rebuilt addon-API + migration-codemod for 8.5-to-9 upgrade + Discord community office-hours session",
+      "social-channel-invite 8x→9x — Goodreads weekly friend reading-activity digest + currently-reading shelves + book-club overlap rollup + reading-challenge progress sidebar + librarian-curated recommendation seed sampler-pack + daily-reading-streak counter"
+    ],
+    "v2_no_skipped_at_c4": "marketing/newsletter 10x (tied-for-maximum among V2 NO at C4-input — default-preserve skip-the-highest pattern; just lifted at C3 from UNCHANGED-at-C2 baseline so marketing/newsletter is the natural skip-the-highest candidate at C4)",
+    "v4_new_touches": "ZERO (no V4 NEW YES + no V4 NEW NO) — preserves M11a-extension C10 + M11a-extension-extension C1 + C2 + C3 cross-V4-mechanism symmetric closure at V4 NEW YES 6 vs V4 NEW NO 6 = delta 0 bytewise into M11a-extension-extension C4 scope per §D7 + §D14-H1"
+  },
+  "cumulative_milestone_counts": {
+    "attempt_count_through_c4": "4/50 (C1 attempt-1 accepted + C2 attempt-1 accepted with 1 in-session step-6 single-clause revision + C3 attempt-1 accepted with 1 in-session Step 3.5 single-token iteration + 1 in-session step-6 single-clause revision + C4 attempt-1 accepted with 3 in-session step-6 single-clause revisions)",
+    "accepted_traces_through_c4": "4 toward combined-N=40 incremental-20-new-traces path (16 traces remaining test_v35..v50 across C5..C20)",
+    "retry_cap_status_on_test_v34": "1/3 (not exhausted; 2 retries remaining had attempt #1 not accepted)",
+    "literal_id_collision_halt_triggered": false,
+    "banned_list_saturation_halt_triggered": false,
+    "structural_parsing_failure_rate_so_far": "0/4 attempts (per §D4 self-restate gate inherited verbatim from M11a-extension)",
+    "in_session_iteration_count_at_c4": "3 in-session step-6 single-clause revisions (NOT counted as rejection-and-retry per M11a-extension-extension D-C2.attempt1.C + D-C3.attempt1.C single-clause-revision precedent; FIRST M11a-extension-extension Commit-C trace to require 3 distinct in-session single-clause revisions within a single attempt — escalation bounded by author-discipline single-clause-only + substantive bytewise stability)"
+  },
+  "post_c4_banned_list_increment_for_c5_input": {
+    "new_event_ids_added_post_c4": [
+      "spouse_postpartum_day_seven_secondary_hemorrhage_home_recovery_gush_bright_red_bleeding_911_dispatcher_obstetrics_attending_speakerphone_tranexamic_oxytocin_kit",
+      "apartment_move_out_walkthrough_advanced_tomorrow_9am_landlord_pine_ridge_property_manager_security_deposit_release_prospective_renter_tour",
+      "cdn_edge_cache_marketing_campaign_pipeline_misformatted_wildcard_tag_glob_global_purge_cascade_origin_shield_evacuated_storefront_5xx_blast_75min_runbook_warm_back",
+      "briarcliff_middle_school_vice_principal_voicemail_same_day_behavioral_incident_parent_conference_tomorrow_8am_suspension_hearing_disciplinary_committee_review",
+      "noaa_swpc_g4_severe_geomagnetic_storm_warning_x_class_solar_flare_earth_directed_coronal_mass_ejection_grid_induced_current_polar_route_hf_radio_outage",
+      "launchdarkly_monthly_feature_flag_account_health_digest_rollout_velocity_stale_flag_cleanup_kill_switch_audit_no_action_required",
+      "end_of_day_pre_bedtime_wind_down_briefing_household_evening_rollup_bedtime_routine_journal_carry_forward_smart_speaker_handoff",
+      "storybook_9_0_launch_announcement_unified_testing_workflow_react_19_vite_6_compose_stories_addon_api_migration_codemod_developer_subscriber",
+      "goodreads_friend_reading_activity_weekly_digest_currently_reading_shelves_book_club_overlap_reading_challenge_progress_librarian_recommendation_seed"
+    ],
+    "new_themes_added_post_c4": [
+      "urgent safety/security issue (V2 EXISTING YES, medical-emergency sub-class) — adult-spouse postpartum-day-seven secondary uterine hemorrhage on home-recovery rotation from regional women's-health hospital + obstetrics discharge instructions hemorrhage-threshold trigger + home-kit tranexamic-acid intravenous push + intramuscular oxytocin injection + ObGYN attending Dr. Maya Linde on kitchen-speakerphone walking firm-fundal-massage technique + hypovolemic-shock escalation cadence + 911 dispatcher patched-in with 6-minute paramedic ETA + receiving labor-and-delivery triage type-and-cross blood-bank preparation",
+      "schedule change affecting the user personally (V2 EXISTING YES) — Pine-Ridge apartment-complex property-manager Owen Castille advances third-floor unit move-out walkthrough from next-Thursday-evening to tomorrow-morning-9am at leasing-office prospective-renter tour scheduling demand + security-deposit-release calculation trigger event under lease-rider standard checklist + paint-touchup/carpet-shampoo/appliance-cleaning/exterior-balcony line items + cleaning-vendor invoice deductions tallied on property-manager tablet + keys handed back at front counter with secondary-mail-key fob + after-hours common-area access card + 14-calendar-day paper-check OR resident-portal ACH-link deposit return route",
+      "production/on-call alert (V2 EXISTING YES) — PagerDuty SEV-one on platform-engineering on-call rotation with CDN cache-tag wildcard global-purge cascade triggered by misformatted tag-glob expression in marketing-campaign content-rotation pipeline automated script + Cloudflare zone fronting storefront-cluster service-domain + origin-shield cache fully evacuated + cache-key-hit ratio collapse 97% → under 3% inside 90 seconds + storefront origin-server fleet absorbing cache-miss request blast at ~7x steady-state QPS for 11 minutes + connection-pool saturation + storefront-API 500-status-code blast at 38% error rate + checkout-abandonment-rate spike past operational threshold + partner-marketplace SLA-penalty exposure on contracted nine-nines uptime band + 75-min runbook escalation + controlled warm-back via targeted top-revenue cache-key warm-list script + marketing-campaign pre-purge automation pause at API-token revocation step on secrets-vault rotation",
+      "message or delivery directed personally to the user (V2 EXISTING YES) — Briarcliff Middle School Vice-Principal Aisha Mbeki front-office voicemail on same-day seventh-grader behavioral incident during after-lunch homeroom block + school disciplinary-conduct policy mandatory parent-conference clause + principal-and-counselor in-person conference tomorrow morning at 8 in front-office conference room ahead of disciplinary-committee suspension-hearing review later in week + outcome spectrum from in-school detention to 3-day out-of-school suspension to elevated-track behavioral-improvement-plan registration through rest of academic term + eighth-grade-promotion transcript review surfacing + callback to school front office before 5 tonight + after-hours main line rolling to district-office shift-supervisor through 7 + homeroom-teacher incident-report narrative + two-table-classmate witness-statement summaries front-counter pickup + counselor restorative-conversation framing portion",
+      "weather alert (V2 EXISTING YES) — NOAA Space Weather Prediction Center G4 severe-geomagnetic-storm warning for next 72 hours after X-class solar flare on visible-disk active-region overnight launched fast halo coronal-mass-ejection on earth-directed trajectory + leading-shock ETA 8-12 hours per WSA-ENLIL solar-wind propagation model run on latest ACE solar-wind monitor frame + power-grid exposure call for upper-Midwest and Northeast continental-power-grid operators on geomagnetically-induced-current substation-transformer load risk + HF-radio communications-outage call across polar-route auroral-zone flight corridors + low-latitude aurora-visibility forecast on southern-tier states off usual Kp-index latitude band + satellite-navigation single-frequency GPS-positioning degradation through storm window + ISS extra-vehicular-activity standdown protocol crew-safety side + airline-dispatch polar-route reroute advisory through Canadian airspace controllers + SWPC alert cadence updates as IMF Bz southward turning confirmed at L1 solar-wind monitor + conditional pre-positioned advisory for substorm-onset escalation track toward G5 extreme if geomagnetic-Kp index crosses upper-tier threshold"
+    ],
+    "new_tuples_added_post_c4": [
+      "(postpartum, hemorrhage)",
+      "(walkthrough, deposit)",
+      "(cdn, purge)",
+      "(principal, conference)",
+      "(geomagnetic, g4)"
+    ],
+    "expected_pre_c5_banned_list_counts": {
+      "event_ids": 253,
+      "themes": 142,
+      "tuples": 141
+    }
+  },
+  "sandbox_event_trace_py_bytewise_audit": {
+    "pre_c4_sha256": "e275e4ce6b41c258f0baa6f90fd307f0ffbbe6d9457d2adbd8b88e19f3975bfa",
+    "pre_c4_bytes": 186020,
+    "pre_c4_lines": 1713,
+    "pre_c4_provenance": "bit-identical to M11a-extension-extension Commit C3 post-state at a55ade8",
+    "post_c4_sha256": "5faccd78d721d7eec7fe0c2c0418764329f0e4c8e971b93d9b84e2e213caf20b",
+    "post_c4_bytes": 207628,
+    "post_c4_lines": 1775,
+    "git_diff_stat": "1 file changed, 62 insertions(+), 0 deletions(-)",
+    "append_only_discipline_verified": true,
+    "diff_hunks": [
+      "@@ -1677,6 +1677,67 @@ def test_trace_v33() -> Trace: (adds test_trace_v34 function definition)",
+      "@@ -1707,6 +1768,7 @@ def get_trace(name: str) -> Trace: (adds 'test_v34': test_trace_v34 registry entry)"
+    ],
+    "prefix_bytewise_unchanged_pre_post": "lines 1..1677 (header + helpers + dev_trace_v1/v2 + dataclasses + _gt helper + Trace.duration_s property + test_v4..test_v33 definitions through test_trace_v33 closing paren on line 1677) — bytewise sha256 6962b747dbe370ebbcb24591687ad61c8ea6c82f280714f0f48bb13cd3cbdcdf pre/post C4"
+  },
+  "v4_prompt_audit": {
+    "sha256": "09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6",
+    "bytes": 1851,
+    "status": "UNCHANGED at C4 (V4 prompt is NOT touched at Commit C series per ~/.claude/plans/m11a-extension-extension-n40.md §D1 + §D5 + frozen-artifacts list)"
+  },
+  "boilerplate_paraphrase_discipline": "carries forward verbatim M11a-extension C10 TIGHTENED scope (ALL formulaic clauses including launch-window perks + pre-order-week-shipping + catalog-cadence + customer-service-closings + unsubscribe/muting-instructions + next-run-timing closings) applied at draft time to all 4 V2 EXISTING NO distractor content fields (D1 LaunchDarkly monthly feature-flag account-health digest closing + D2 household end-of-day pre-bedtime wind-down briefing middle/closing + D3 Storybook 9.0 launch announcement Discord-community-office-hours-session closing + D4 Goodreads weekly friend reading-activity digest reading-challenge-progress + librarian-recommendation-seed + reading-streak closing) — TIGHTENED draft-time discipline effective at preventing M11a-extension C7-attempt-1 + C9-attempt-1 boilerplate-template convergence rejection modes at the pre-submission gate (no 'no action required' / 'no time pressure' / 'bottom-of-mail link routing into X settings panel where digest-cadence controls live' formulaic boilerplate template surfaces in distractor closings)",
+  "pre_commit_d_fix_discipline": "carries forward unchanged from M11a-extension",
+  "transparent_correction_commit_discipline": "carries forward unchanged from M11a-extension"
+}
