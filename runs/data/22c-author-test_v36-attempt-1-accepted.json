@@ -1,0 +1,266 @@
+{
+  "milestone": "M11a-extension-extension Commit C6",
+  "trace": "test_v36",
+  "attempt": 1,
+  "total_attempts": 1,
+  "verdict": "accepted",
+  "audit_gate": {
+    "overall": "PASS",
+    "checks_pass": 8,
+    "checks_total": 8,
+    "details": {
+      "step_1_schema_via_get_trace": "PASS — 5 GTs / 9 events / 5 intents / briefing 2833 chars",
+      "step_2_self_restate_gate_structural_parsing": "PASS — averted at attempt 1 (M11a-extension-extension structural-parsing-failure rate so far 0/6 attempts per §D4 self-restate gate inherited verbatim from M11a-extension)",
+      "step_3_5_keyword_literal_substring_verification": "PASS — first-run 10/10 PASS with no in-session iteration required at Step 3.5 — mirrors M11a-extension-extension C1 + C2 + C4 + C5 + M11a-extension C4..C10 first-run-Step-3.5-PASS precedents; distinct from M11a-extension-extension C3 attempt-1 QDRO single-token iteration precedent (where step 3.5 produced 9/10 PASS with single fail averted via single-token in-session iteration)",
+      "step_4_literal_id_collision_vs_banned_and_prior_traces": "PASS — 0 collisions vs 262 prior banned event_ids + 0 collisions vs 262 prior trace event_ids across 30 prior trace definitions (test_v4..v8 + test_v11..v15 + test_v21..v30 + test_v31..v35 included)",
+      "step_5_m8b_keyword_content_alignment": "PASS — 10/10 keyword literal-substring matches into respective GroundTruth event.content lowercased",
+      "step_6_drift_overlap_8_gram_check": "PASS — 0 8-gram overlaps vs 25839 prior dev/test 8-grams across 30 prior trace definitions after 4 in-session single-clause revisions",
+      "step_7_banned_themes_and_tuples": "PASS — 0 banned-tuple collisions (5 new tuples all distinct from 146 banned: (oit,graduation) + (nso,exercise) + (dnssec,rollover) + (guardianship,petition) + (surf,warning)); banned-themes class-level overlap is by design per V2 EXISTING YES coverage rotation but specific-content level themes substantively distinct from prior 147 banned themes (peanut-OIT graduation challenge vs prior IVF/breast-cancer-staging/kidney-transplant/property-walkthrough; NSO exercise vs prior term-life/§1031/ESPP; DNSSEC KSK rollover vs prior K8s-ETCD/Snowflake/CDN-purge/postgres-WAL; guardianship petition vs prior funeral-director/burglary-witness/QDRO/school-VP/VA-PTSD; NWS Honolulu high-surf vs prior Mt-Baker-ash/NHC-Hurricane/Pacific-Tsunami/NOAA-SWPC-G4/NWS-Bismarck-blizzard)",
+      "step_8_gt_distribution_and_distractor_structure": "PASS — 5 GTs (kind distribution: notification:2 / email:1 / alert:2; sim_time spread 90..660 across the trace window); 4 distractors (kind distribution: email:3 / briefing:1; sim_time spread 50..480 interleaved with GTs)"
+    },
+    "in_session_iterations": {
+      "step_3_5_single_token": 0,
+      "step_6_single_clause_revisions": 4,
+      "step_6_revision_details": [
+        {
+          "clause": "GT3 production/on-call PagerDuty SEV-one opener",
+          "from": "PagerDuty SEV-one fired on the platform-engineering on-call rotation: the DNSSEC KSK key-signing-key rollover...",
+          "to": "An on-call platform-engineering rotation paged out a PagerDuty SEV-one ticket: the DNSSEC KSK key-signing-key rollover...",
+          "broken_8_grams": [
+            "PagerDuty SEV-one fired on the platform engineering",
+            "SEV-one fired on the platform engineering on call",
+            "fired on the platform engineering on call rotation",
+            "cutoff PagerDuty SEV-one fired on the platform"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true,
+          "overlaps_with_prior_trace": "test_v34 + test_v35 GT3 production/on-call PagerDuty opener template"
+        },
+        {
+          "clause": "GT3 production/on-call SLO-bound impact-window + bridge-call closing",
+          "from": "...climbing past the SLO-bound band on the rolling-five-minute window...staff engineer paged into the bridge call...",
+          "to": "...excursion past the SLO-bound threshold on the five-minute-rolling impact window...staff engineer joined onto the incident-bridge call...",
+          "broken_8_grams": [
+            "climbed past the SLO-bound band on the",
+            "past the SLO-bound band on the rolling five",
+            "the SLO-bound band on the rolling five minute",
+            "SLO-bound band on the rolling five minute window",
+            "bound band on the rolling five minute window",
+            "band on the rolling five minute window confirm",
+            "on the rolling five minute window confirm the",
+            "the rolling five minute window confirm the callback",
+            "rolling five minute window confirm the callback to",
+            "has climbed past the SLO-bound band on the",
+            "staff engineer paged into the bridge call the"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true,
+          "overlaps_with_prior_trace": "test_v35 GT3 production/on-call SLO + bridge-call closing template"
+        },
+        {
+          "clause": "Trace briefing platform-engineering rotation watching clause",
+          "from": "The platform-engineering on-call rotation has been watching the public-DNS authoritative-nameserver DNSSEC chain-of-trust posture through the rolling cycle on the global edge POP fleet...",
+          "to": "The on-call platform-engineering rotation has had the public-DNS authoritative-nameserver DNSSEC chain-of-trust posture on the rolling-cycle observation cadence on the global edge POP fleet...",
+          "broken_8_grams": [
+            "engineering on call rotation has been watching the",
+            "platform engineering on call rotation has been watching",
+            "one fired on the platform engineering on call",
+            "PagerDuty SEV-one fired on the platform engineering"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true,
+          "overlaps_with_prior_trace": "test_v34 + test_v35 briefing 'rotation has been watching' template-convergence"
+        },
+        {
+          "clause": "D3 briefing distractor weather-window-check sentence",
+          "from": "The weather-window check on the late-afternoon briefing rollup tracks the steady-state forecast through the weekend-long window with the marine-layer pulling back along the coastal corridor...",
+          "to": "The weather sidebar on the late-afternoon briefing widget threads a steady-state outlook into the weekend-long horizon with the marine-layer retreat plotted along the coastal corridor...",
+          "broken_8_grams": [
+            "briefing rollup tracks the steady-state forecast through",
+            "rollup tracks the steady-state forecast through the"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true,
+          "overlaps_with_prior_trace": "test_v35 D2 Saturday briefing 'briefing rollup tracks the steady-state forecast through the' template-convergence (recurring distractor-opener template pattern observed at v34 briefing opener + v35 D4 Bluesky digest opener + now v36 D3 briefing rollup-clause per C4 + C5 distractor-template-convergence precedent)"
+        },
+        {
+          "clause": "Intent #3 GT3 production/on-call action-line opener + SLO closing",
+          "from": "acknowledge any SEV-one PagerDuty page on the platform-engineering on-call rotation for the DNSSEC KSK...; ...the customer-facing storefront-DNS resolution failure rate has climbed past the SLO-bound band on the rolling-five-minute window",
+          "to": "respond to any platform-engineering on-call SEV-one PagerDuty incident covering the DNSSEC KSK...; ...the customer-facing storefront-DNS resolution failure-rate excursion has crossed past the SLO-bound threshold on the five-minute-rolling impact window",
+          "broken_8_grams": [
+            "acknowledge any SEV-one PagerDuty page on the",
+            "any SEV-one PagerDuty page on the platform",
+            "engineer paged into the bridge call the (intent context)"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true,
+          "overlaps_with_prior_trace": "test_v35 intent #3 action-line opener template"
+        }
+      ],
+      "iteration_count_per_audit_gate_substep": {
+        "step_3_5_iterations": 0,
+        "step_6_iterations": 4,
+        "step_6_first_run_overlap_count": 22,
+        "step_6_post_revision_overlap_count": 0
+      },
+      "precedent": "M11a-extension D-C3.attempt1.C + M11a-extension-extension D-C2.attempt1.C + D-C3.attempt1.C + D-C4.attempt1.C + D-C5.attempt1.C in-session single-clause-revision precedent — NOT counted as rejection-and-retry per fresh-redraft-counts-only convention (M11a-extension D-C7.attempt1.D / D-C9.attempt1.C); single-clause-only author-discipline + substantive bytewise stability in meaning of underlying trace content held across all 4 revisions; bounded by the C4 precedent that 3+ distinct single-clause revisions within a single attempt remain bounded by single-clause-only author-discipline. NOTE: 4 distinct single-clause revisions at C6 escalates the in-session-revision-count precedent (C2 1x, C3 1x, C4 3x, C5 1x, C6 4x); ALL revisions cluster on the production/on-call PagerDuty opener + SLO-band + bridge-call closing template-convergence pattern (3 of 4 directly tied to GT3 / briefing-watching / intent #3 — all on the same SEV-one production/on-call semantic surface) + 1 on the recurring briefing-rollup-weather-window distractor-opener template (third surfacing of distractor-opener template-convergence after C4 briefing + C5 D4 Bluesky)"
+    }
+  },
+  "design_choice": {
+    "scope_per_plan": "§D1 + §D7 + Non-goals #1 + #2",
+    "v2_existing_yes_gts_shipped": 5,
+    "v2_existing_no_distractors_shipped": 4,
+    "v4_new_gts_shipped": 0,
+    "v4_new_distractors_shipped": 0,
+    "v2_existing_yes_class_breakdown": [
+      {
+        "class": "schedule change affecting the user personally",
+        "c6_input_count": "11x (UNCHANGED at C5)",
+        "c6_action": "LIFTED to 12x",
+        "specific_content": "pediatric-allergy clinic pulls peanut OIT oral-immunotherapy graduation-dose challenge milestone forward from next-Friday-afternoon at 1:30pm to tomorrow-morning 7:30am on Dr. Priya Bhatt's specialist calendar following a same-week cancellation-slot opening; on-site epinephrine-readiness posture + bedside intramuscular-autoinjector pair pre-staged + same-bay four-hour post-challenge observation monitoring window + morning-of antihistamine washout band + asthma-medication clearance review + pre-dose baseline-eosinophil + tryptase reference lab draw + parent-side day-off-work coverage + eight-year-old household-child overnight bag with comfort-blanket and chair-side iPad for observation-period distraction",
+        "lift_candidate_status": "LIFT CANDIDATE closed at C6 from UNCHANGED-at-C5 baseline"
+      },
+      {
+        "class": "financial/deadline obligation",
+        "c6_input_count": "12x (just lifted at C5 from UNCHANGED-at-C4 baseline)",
+        "c6_action": "LIFTED to 13x",
+        "specific_content": "E-Trade brokerage portal cutoff on prior-employer non-qualified stock-option NSO post-termination ninety-day exercise window closing 5pm local time today on broker-portal election surface; cap-table-issuer ninety-calendar-day window from employment-termination date; cashless-exercise path through broker same-day-settlement window with bargain-element ordinary-income payroll-side withholding at strike-price vs FMV spread; alternative same-day-sale all-cash exercise path; missed-window forfeits unexercised tranche to option-pool reserve with no extension or grace-period; AMT alternative-minimum-tax preference-item flagging on bargain-element exercise Form 6251 for next-cycle filing through household-CPA Trent Aguilar"
+      },
+      {
+        "class": "production/on-call alert",
+        "c6_input_count": "11x (just lifted at C5 from 10x baseline)",
+        "c6_action": "LIFTED to 12x",
+        "specific_content": "PagerDuty SEV-one on platform-engineering on-call rotation for DNSSEC KSK key-signing-key rollover causing SERVFAIL resolver responses across global edge POP fleet; parent-zone DS-record transition window on registry-side TLD authoritative-nameserver; dual-signing-zone overlap requirement violated when publishing-side automation rotated past dual-signing onto new-only KSK before parent-zone DS-record propagation completed on resolver-side cache; chain-of-trust break at resolver-side validation step; rollback path through prior-KSK promotion + dual-signing-zone re-publish + registry-side TLD operator manual-coordination ticket; storefront-DNS resolution failure rate past SLO-bound threshold on 5-min-rolling impact window; partner-API endpoint resolution miss rate + CDN-edge-fetch lookup-side failure rate spike on upstream-DNS path; 75-min runbook escalation + network-edge staff engineer joined onto incident-bridge call + security-infrastructure on-call cross-paged for chain-of-trust validation lockdown + registry-coordination escalation manager on manual-coordination ticket"
+      },
+      {
+        "class": "message or delivery directed personally to the user",
+        "c6_input_count": "12x (just lifted at C5 from 11x baseline)",
+        "c6_action": "LIFTED to 13x",
+        "specific_content": "voicemail from probate-attorney Marisol Vega's law-office paralegal Nina Salazar on contested guardianship petition + regional probate-court guardian-ad-litem GAL appointment notice for elderly parent's mid-stage Alzheimer's care arrangement; GAL investigator assigned + home-visit-and-elderly-parent-interview schedule landing early-next-week window; contested-petition sibling-side adverse-party opposition motion landed on docket yesterday + late-month evidentiary-hearing slot for petition determination; combined guardian-of-person scope (medical-care plan + residential-placement assignment + daily-life routine + family-contact permissions) and guardian-of-estate scope (financial-account oversight + asset-management plan + medical-bill-payment routing + long-term-care-insurance election + household-distribution) versus sibling-side proposed scope split; elderly-parent-rights notice service deadline next-week window with personal-service-of-process at residential-care facility + elder-rights-advocate notification cycle; callback to Vega law-office direct line before 5:30pm tonight + case-file evidence pack walkthrough + household-adult-side deposition prep early-next-week"
+      },
+      {
+        "class": "weather alert",
+        "c6_input_count": "11x (just lifted at C5 from 10x baseline)",
+        "c6_action": "LIFTED to 12x",
+        "specific_content": "NWS Honolulu forecast office upgraded high-surf advisory to high-surf warning for North Shore of Oahu effective next 48-hour window; 35-to-45-foot wave-face heights at Pipeline + Sunset Beach + Waimea Bay surf-break exposure on storm-driven North-Pacific extratropical-cyclone swell propagation reaching Hawaiian Islands on upper-band swell-period bracket via windward-corridor approach; extreme-rip-current threat across North Shore surf-zone + Pipeline-Sunset-Waimea coastal-zone water-side access closure under county lifeguard division no-surf-no-swim-no-paddle directive; Hawaii Beach Lifeguards extreme-condition status-board posting on lifeguard-tower placards; marine-side small-craft advisory across offshore Kauai-channel and Molokai-channel corridors; coastal-flood inundation forecast through low-elevation oceanfront access-road and parking-lot; wave-runup-and-overwash exposure on Kamehameha Highway shoreline Sunset-Beach-and-Pipeline curve closure-and-detour from Hawaii DOT; high-tide-stack-up with lunar-cycle alignment magnifying runup-zone exposure across windward-coast residential-development; professional big-wave-surfing tow-in event organizers standby-window assessment cadence on contest green-light vs hold-window decision branch"
+      }
+    ],
+    "skipped_v2_existing_yes_class": {
+      "class": "urgent safety/security issue (medical-emergency sub-class)",
+      "c6_input_count": "12x (tied-for-maximum among V2 YES at C6-input AND most-consistently-lifted across C1+C2+C3+C4+C5 at 5-of-5)",
+      "rationale": "default-preserve skip-the-highest pattern preferring the one most-consistently-lifted (urgent-safety has been lifted at every M11a-extension-extension Commit C iteration C1-C5: child T1D DKA + adult-spouse seizure + UCLA kidney transplant (was schedule-change actually) + postpartum hemorrhage + adult-son opioid overdose); per-trace adversarial-reviewer walkthrough confirms this is the natural C6 skip-the-highest candidate"
+    },
+    "v2_existing_no_class_breakdown": [
+      {
+        "class": "routine production/status digest",
+        "c6_input_count": "11x (UNCHANGED at C5)",
+        "c6_action": "LIFTED to 12x",
+        "specific_content": "Snyk weekly software-composition-analysis SCA vulnerability-scan digest on platform-engineering organization mailing-list rollup; 218 tracked repositories on GitHub-side integration; npm-yarn-pnpm-pip-poetry-go-modules-Maven-coordinates ecosystem coverage with per-language-ecosystem vulnerability-class breakdown; zero CRITICAL-and-HIGH severity findings on production-deploy-targeted repositories block; MEDIUM-severity findings concentrating on dev-tooling-side test-harness dependency tree on legacy-language-runtime branches; LOW-severity findings on transitive-dependency tier via package-resolution graph; rolling-week scan-coverage rollup tracking per-repository scan-cadence stability across auto-PR remediation surface + per-team severity-rollup ownership map + dependency-license-compliance check on OSI-approved-vs-restrictive-license filter rule",
+        "lift_candidate_status": "LIFT CANDIDATE closed at C6 from UNCHANGED-at-C5 baseline"
+      },
+      {
+        "class": "marketing/newsletter",
+        "c6_input_count": "11x (just lifted at C5 from UNCHANGED-at-C4 baseline)",
+        "c6_action": "LIFTED to 12x",
+        "specific_content": "Holderness Forge spring quarterly hand-forged garden-tools catalog email; New-Hampshire workshop seasonal hand-forge production block; four-pattern lineup (hand-forged garden trowel - signature curved-tang single-bevel pattern in carbon-steel-blade-and-ash-handle; hand-forged border spade - long-reach narrow-blade in carbon-steel-and-ash; hand-forged hand fork - four-tine curved-pattern weed-clearing in carbon-steel-and-walnut-handle; hand-forged hori-hori soil knife - Japanese-style dual-edge sheath-included in high-carbon-steel-and-cherrywood-handle) under master-blacksmith Cyrus Holderness-and-apprentice-pair production schedule for spring fulfillment window; workshop-side provenance through Pennsylvania iron-stock mill partnership + workshop-floor hand-forge production photographs + workshop's lifetime-rehandle-and-resharpen service-policy commitment"
+      },
+      {
+        "class": "generic daily briefing",
+        "c6_input_count": "11x (just lifted at C5 from 10x baseline)",
+        "c6_action": "LIFTED to 12x",
+        "specific_content": "Friday late-afternoon week-wrap household briefing rolled into kitchen-island dashboard widget on household-coordination side as workweek wound down with standard end-of-week wrap rituals; calendar-review surfacing weekend-prep checklist with Saturday-morning grocery-list rollup pre-loaded into shared shopping-cart app with per-aisle breakdown across produce + pantry-staples + dairy-and-frozen sections; household-chore ledger weekend pull-ups across front-yard hose-coil + garage-bin sweep + back-deck patio-furniture re-arrangement on spring-weather window; pre-dinner family-rollup threading household-adult cooking rotation handoff onto kitchen-side meal-plan board for salmon-and-asparagus dinner plan on weekend-friendly cooking-tempo; weather sidebar threading steady-state outlook into weekend-long horizon with marine-layer retreat plotted along coastal corridor on late-evening cooling cycle; household reminder track holding recycling-bin curbside placement for early-morning Saturday municipal pickup window"
+      },
+      {
+        "class": "social-channel invite/digest",
+        "c6_input_count": "10x (just lifted at C5 from 9x baseline)",
+        "c6_action": "LIFTED to 11x",
+        "specific_content": "Substack reader-network weekly recommendation digest landed in writing-side inbox tab around midday covering rolling-week window of personal-handle's reader-network friend-of-friend activity across subscribed-publication graph; 11 new friend-of-friend subscriber overlaps where personal-handle's subscriber list cross-pollinates onto second-degree-reader publication-handle subscription pattern; cross-publication recommendation seed-engine threading personal-handle's subscribed-publication topical-overlap signature onto discovery-sidebar widget with per-author-handle seed-recommendation rollup; author-recommendation track on discover-side widget pulling in four featured-author-handles whose publication-topic distribution overlaps with personal-handle's rolling-week reading pattern; subscriber-engagement metric rollup on writing-side handle-dashboard threading trailing-week reader-comment count + note-reshare count + paid-subscriber-conversion count onto writing-side analytics rollup; cross-publication chat-side activity widget bundling trailing-week chat-thread cross-publication thread participation; writer-side note-feed activity widget pulling trailing-week note-engagement summary into writing-side notification-tab rollup"
+      }
+    ],
+    "skipped_v2_existing_no_class": {
+      "class": "feature announcement",
+      "c6_input_count": "11x (tied-for-maximum among V2 NO at C6-input + just-lifted-consecutively at C4 (Storybook 9.0 + React 19 + Vite 6 unified-testing) + C5 (Figma Sites launch + design-to-publish workflow))",
+      "rationale": "default-preserve skip-the-highest pattern preferring the one most-recently-and-consistently-lifted (feature-announcement lifted consecutively at C4+C5); per-trace adversarial-reviewer walkthrough confirms this is the natural C6 skip-the-highest candidate among V2 NO 11x-tied-for-max"
+    },
+    "v4_new_touches_at_c6": {
+      "count": 0,
+      "rationale": "preserves M11a-extension C10 + M11a-extension-extension C1+C2+C3+C4+C5 cross-V4-mechanism symmetric closure at V4 NEW YES 6 vs V4 NEW NO 6 = delta 0 bytewise into M11a-extension-extension C6 scope per §D7 + §D14-H1 (this milestone is CI-tightening on the V4-vs-V2 headline at the SAME 5-event mechanism reference; mechanism-residual closure is M11d-surprise-gate-retuning + V5 future-work scope per Non-goals #1 + #2)"
+    }
+  },
+  "banned_list_state": {
+    "input_at_c6": {
+      "event_ids": 262,
+      "themes": 147,
+      "tuples": 146,
+      "snapshot_file": "runs/data/22c-banned-list-pre-c6.{txt,json}",
+      "provenance": "M11a-extension-extension Commit C5 end-state (post-test_v35 acceptance per runs/data/22c-author-test_v35-attempt-1-accepted.json §post_c5_banned_list_increment_for_c6_input); carried forward verbatim per ~/.claude/plans/m11a-extension-extension-n40.md §D3 + §Appendix carry-forward"
+    },
+    "post_c6_increment_for_c7_input": {
+      "delta": "+9 IDs / +5 themes / +5 tuples",
+      "expected_pre_c7_banned_list_counts": {
+        "event_ids": 271,
+        "themes": 152,
+        "tuples": 151
+      }
+    }
+  },
+  "post_c6_banned_list_increment_for_c7_input": {
+    "new_event_ids_added_post_c6": [
+      "allergist_peanut_oit_oral_immunotherapy_graduation_dose_challenge_pediatric_allergy_clinic_moved_up_tomorrow_seven_thirty_am_eight_year_old_household_child",
+      "nso_non_qualified_stock_option_post_termination_ninety_day_exercise_window_expiry_five_pm_today_etrade_brokerage_portal_payroll_cashless_election",
+      "dnssec_ksk_key_signing_key_rollover_servfail_resolver_cascade_global_edge_pop_chain_of_trust_break_parent_zone_ds_record_seventy_five_minute_runbook",
+      "probate_court_guardian_ad_litem_appointment_voicemail_attorney_marisol_vega_contested_guardianship_petition_elderly_parent_mid_stage_alzheimers_hearing_notice",
+      "nws_honolulu_high_surf_warning_north_shore_oahu_thirty_five_to_forty_five_foot_face_heights_extreme_rip_current_threat_pipeline_waimea_bay_coastal_zone_closure",
+      "snyk_weekly_software_composition_analysis_vulnerability_scan_digest_engineering_organization_repos_dependency_health_dashboard_no_high_severity_flagged",
+      "holderness_forge_hand_forged_garden_tools_spring_catalog_quarterly_release_handle_pattern_lineup_subscriber_email_blacksmith_workshop_provenance",
+      "friday_late_afternoon_week_wrap_household_briefing_kitchen_island_dashboard_widget_weekend_prep_checklist_grocery_list_pre_dinner_rollup",
+      "substack_reader_network_friend_of_friend_recommendation_digest_writing_subscriber_cross_publication_pollination_author_handle_seed_inbox_tab"
+    ],
+    "new_themes_added_post_c6": [
+      "schedule change affecting the user personally (V2 EXISTING YES) — pediatric-allergy clinic patient-portal-and-callback line schedule advance on the household's eight-year-old child's peanut oral-immunotherapy OIT graduation-dose challenge milestone — previously slotted for next-Friday-afternoon at 1:30pm in the clinic-side food-challenge bay — pulled forward to tomorrow-morning 7:30am arrival on Dr. Priya Bhatt's specialist calendar following a same-week cancellation-slot opening on the high-acuity-OIT-graduation block + multi-year peanut-OIT maintenance dosing program capped with threshold-dose oral-immunotherapy challenge against calibrated peanut-protein-equivalent test dose under clinic's standardized food-challenge protocol + on-site epinephrine-readiness posture + bedside intramuscular-autoinjector pair pre-staged at chair-side supply tray + same-bay four-hour post-challenge observation monitoring window + morning-of antihistamine washout band (no diphenhydramine or loratadine within 72-hour washout window) + asthma-medication clearance review (no albuterol within 4-hour pre-dose window) + routine baseline-vitals + pre-dose lab-side draw for baseline eosinophil count + tryptase reference value on same-morning clinic phlebotomy queue + household-side preparation with eight-year-old's overnight bag + comfort-blanket + chair-side iPad for observation-period viewing distraction + snack-and-water staging through post-monitoring discharge window + parent-side day-off-work coverage for full clinic-day attendance pattern",
+      "financial/deadline obligation (V2 EXISTING YES) — E-Trade brokerage portal cutoff reminder on prior-employer corporate-equity stock-option grant package non-qualified stock-option NSO post-termination ninety-day exercise window for unexercised tranche of original four-year grant closing 5pm local time today on broker-portal election surface ninety calendar days after employment-termination date on cap-table-side employment record + cashless-exercise path through broker same-day-settlement window with broker fronting exercise-cost cash to cap-table issuer and immediately selling same-day matched lot of just-issued shares on public-market to recover exercise-cost plus payroll-side withholding through broker-side settlement bridge + residual net-share count after bargain-element ordinary-income withholding tax-bracket applied at strike-price vs fair-market value spread on broker-statement reporting line + alternative same-day-sale all-cash exercise path settling full bargain-element ordinary-income on broker-cash account through broker-side tax-withholding deposit step + missed-exercise-window outcome forfeits unexercised tranche back into option-pool reserve under standard plan-document language with no extension or grace-period mechanism on cap-table-issuer side + AMT alternative-minimum-tax preference-item flagging on bargain-element exercise on Form 6251 sits on tax-planning side for next-cycle filing through household-CPA accountant Trent Aguilar + brokerage-portal multi-factor reauthentication step + exercise-share-count election + payroll-side withholding-bracket election + broker-tax-lot-method election needed before 5pm cutoff",
+      "production/on-call alert (V2 EXISTING YES) — PagerDuty SEV-one on platform-engineering on-call rotation for DNSSEC KSK key-signing-key rollover scheduled across public-DNS authoritative-zone fleet started parent-zone DS-record transition window on registry-side TLD authoritative-nameserver side with chain-of-trust validation breaking at resolver-side cache mid-rollover surfacing SERVFAIL resolver responses across global-edge-POP fleet covering public-internet customer-facing surface + dual-signing-zone overlap requirement during KSK rollover holding both prior and new key-signing-key in zone-signing keyset through parent-zone DS-record propagation TTL window violated when publishing-side automation rotated past dual-signing overlap onto new-only KSK before parent-zone DS-record propagation completed on resolver-side cache + chain-of-trust break at resolver-side validation step on cached parent-zone DS-record returning prior-only KSK reference + rollback path through prior-KSK promotion window with dual-signing-zone re-publish step + parent-zone DS-record rollback request to registry-side TLD operator with manual-coordination ticket through registry support-channel surface + customer-facing exposure surfacing storefront-DNS resolution failure-rate excursion past SLO-bound threshold on five-minute-rolling impact window + partner-API endpoint resolution miss rate climbing past operational threshold + CDN-edge-fetch lookup-side failure rate spike on upstream-DNS resolution path + 75-min runbook escalation with network-edge staff engineer joined onto incident-bridge call + security-infrastructure on-call cross-paged for chain-of-trust validation lockdown + registry-coordination escalation manager on manual-coordination ticket side",
+      "message or delivery directed personally to the user (V2 EXISTING YES) — voicemail from Attorney Marisol Vega's law-office paralegal Nina Salazar on household callback line on regional probate-court guardian-ad-litem GAL appointment notice in contested guardianship petition the household-adult filed for elderly parent's care arrangement under mid-stage Alzheimer's progression trajectory + GAL investigator name assigned on probate-court clerk's office side + GAL home-visit-and-elderly-parent-interview schedule landing early-next-week window for in-person evaluation + contested-petition opposition motion from sibling-side adverse party landed on probate-court docket yesterday + late-month evidentiary-hearing slot calendared for petition determination + combined guardian-of-person scope (decisional authority over medical-care plan + residential-placement assignment + daily-life routine + family-contact permissions side) and guardian-of-estate scope (decisional authority over financial-account oversight + asset-management plan + medical-bill-payment routing + long-term-care-insurance election + household-distribution side) running as combined scope on petition versus sibling-side proposed scope split + elderly-parent-rights notice service deadline on family-law procedural calendar through next-week window with personal-service-of-process requirement at elderly parent's residential-care facility + elder-rights-advocate notification cycle + callback to Vega law-office direct line before 5:30pm tonight + case-file evidence pack walkthrough (medical-records review + financial-account overview + household-distribution-and-care-routine documentation) + household-adult-side deposition prep early-next-week",
+      "weather alert (V2 EXISTING YES) — NWS Honolulu forecast office upgrade of North Shore of Oahu high-surf advisory to high-surf warning effective through next 48-hour window with 35-to-45-foot wave-face heights forecast at Pipeline + Sunset Beach + Waimea Bay surf-break exposure on storm-driven North-Pacific extratropical-cyclone swell propagation reaching Hawaiian Islands across upper-band swell-period bracket through windward-corridor approach + extreme-rip-current threat across North Shore surf-zone closing Pipeline-Sunset-Waimea coastal-zone water-side access under county lifeguard division no-surf-no-swim-no-paddle directive + Hawaii Beach Lifeguards extreme-condition status-board posting on lifeguard-tower placards across windward-facing surf-zones + marine-side small-craft advisory across offshore Kauai-channel and Molokai-channel corridors + coastal-flood inundation forecast through low-elevation oceanfront access-road and parking-lot side + wave-runup-and-overwash exposure on Kamehameha Highway shoreline Sunset-Beach-and-Pipeline curve closure-and-detour pattern from Department of Transportation Hawaii side + on-shore wave-set timing through daylight-side bright-period extends closure-and-evacuation window + high-tide-stack-up with lunar-cycle alignment magnifying runup-zone exposure across windward-coast residential-development access pattern + professional big-wave-surfing tow-in event organizers standby-window assessment cadence on contest-side green-light vs hold-window decision branch for contest-format alternate-day arrangement"
+    ],
+    "new_tuples_added_post_c6": [
+      "(oit, graduation)",
+      "(nso, exercise)",
+      "(dnssec, rollover)",
+      "(guardianship, petition)",
+      "(surf, warning)"
+    ],
+    "expected_pre_c7_banned_list_counts": {
+      "event_ids": 271,
+      "themes": 152,
+      "tuples": 151
+    }
+  },
+  "milestone_state": {
+    "cumulative_attempt_count": "6/50",
+    "accepted_commit_c_traces_toward_n_40": 6,
+    "remaining_traces_test_v37_to_v50_across_c7_to_c20": 14,
+    "retry_cap_status_on_test_v36": "1/3 (not exhausted; 2 retries remaining had attempt #1 not accepted)",
+    "literal_id_collision_halt_triggered": false,
+    "banned_list_saturation_halt_triggered": false,
+    "structural_parsing_failure_rate_so_far": "0/6 attempts per §D4 self-restate gate inherited verbatim from M11a-extension"
+  },
+  "file_state": {
+    "sandbox_event_trace_py": {
+      "pre_c6_sha256": "ebdd9ad93e82dbd10e59ef035c6da16300a6f23159c3d4b4da6fb445fe55d1e3",
+      "pre_c6_bytes": 232679,
+      "pre_c6_lines": 1837,
+      "post_c6_sha256": "c648fa38f031516eab1c0fe028af6cfaf9d7b16540a448159d2299be2b8cee3c",
+      "post_c6_bytes": 258746,
+      "post_c6_lines": 1899,
+      "git_diff_stat": "1 file changed, 62 insertions(+), 0 deletions(-)",
+      "diff_hunks": [
+        "@@ -1799,6 +1799,67 @@ def test_trace_v35() -> Trace: (test_trace_v36 function inserted)",
+        "@@ -1831,6 +1892,7 @@ def get_trace(name: str) -> Trace: (registry dict +1 line for 'test_v36': test_trace_v36)"
+      ],
+      "append_only_discipline_verified": true,
+      "prefix_lines_1_to_1799_bytewise_unchanged_pre_post_c6": true
+    },
+    "v4_prompt_sha256": "09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6",
+    "v4_prompt_bytes": 1851,
+    "v4_prompt_unchanged_at_c6": true,
+    "v4_prompt_not_touched_per_plan": "~/.claude/plans/m11a-extension-extension-n40.md §D1 + §D5 + frozen-artifacts list — V4 prompt is NOT touched at Commit C series"
+  },
+  "plan_lock": "~/.claude/plans/m11a-extension-extension-n40.md (locked source plan)",
+  "current_date": "2026-05-24"
+}
