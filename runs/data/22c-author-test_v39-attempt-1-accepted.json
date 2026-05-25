@@ -1,0 +1,268 @@
+{
+  "milestone": "M11a-extension-extension Commit C9",
+  "trace": "test_v39",
+  "attempt": 1,
+  "total_attempts": 1,
+  "verdict": "accepted",
+  "audit_gate": {
+    "overall": "PASS",
+    "checks_pass": 8,
+    "checks_total": 8,
+    "details": {
+      "step_1_schema_via_get_trace": "PASS — 5 GTs / 9 events / 5 intents / briefing 3710 chars",
+      "step_2_self_restate_gate_structural_parsing": "PASS — averted at attempt 1 (M11a-extension-extension structural-parsing-failure rate so far 0/9 attempts per §D4 self-restate gate inherited verbatim from M11a-extension)",
+      "step_3_5_keyword_literal_substring_verification": "PASS — first-run 10/10 PASS with no in-session iteration required at Step 3.5 — mirrors M11a-extension-extension C1 + C2 + C4 + C5 + C6 + C7 + C8 + M11a-extension C4..C10 first-run-Step-3.5-PASS precedents; distinct from M11a-extension-extension C3 attempt-1 QDRO single-token iteration precedent",
+      "step_4_literal_id_collision_vs_banned_and_prior_traces": "PASS — 0 collisions vs 289 prior banned event_ids + 0 collisions vs prior trace event_ids across 33 prior trace definitions (test_v4..v8 + test_v11..v15 + test_v21..v30 + test_v31..v38 included)",
+      "step_5_m8b_keyword_content_alignment": "PASS — 10/10 keyword literal-substring matches into respective GroundTruth event.content lowercased",
+      "step_6_drift_overlap_8_gram_check": "PASS — 0 8-gram overlaps vs 34141 prior dev/test 8-grams across 33 prior trace definitions after 2 in-session iteration rounds of cluster-level single-clause revisions (round 1 reduced 41 overlaps -> 10; round 2 reduced 10 -> 0)",
+      "step_7_banned_themes_and_tuples": "PASS — 0 banned-tuple collisions (5 new tuples all distinct from 161 banned: (hematochezia,embolization) + (cataract,phacoemulsification) + (ilit,crummey) + (lymphoma,chop) + (psps,deenergization)); banned-themes class-level overlap is by design per V2 EXISTING YES coverage rotation but specific-content level themes substantively distinct from prior 162 banned themes (household-grandfather acute massive lower-GI hematochezia + diverticular-hemorrhage with hypovolemic-shock physiology + ambulance crew + ED trauma-bay + IR angio-embolization + GI-bleed surgical-stepdown handoff distinct from prior medical-emergency themes (PE/spinal-fusion/DKA/IVF/oncology/postpartum/seizure/overdose/anaphylaxis/stroke/asthma/CO/medication-ingestion/urosepsis); household-spouse right-eye phacoemulsification cataract surgery with monovision-target IOL implant distinct from prior schedule-change themes (cardio/transplant-eval/walkthrough/dental/orthopedic-spine/CFA-exam/OIT-graduation/IVF-egg-retrieval/mastectomy/UCLA-kidney-transplant-eval/lumbar-fusion/mediation-session); estate-planning attorney ILIT annual Crummey-notice 30-day-letter funding-deadline distinct from prior financial/deadline themes (1031-intermediary/ESPP-lookback/NSO-exercise/ISO-exercise/FBAR-foreign/FAFSA-filing/IRA-Roth-conversion/HELOC-draw/mortgage-rate-lock/term-life-convertibility/IRS-Q3-estimated-tax/tax-loss-harvest); veterinary specialty-oncology service voicemail on senior dog Lily's multicentric lymphoma + CHOP-protocol decision distinct from prior message/delivery themes (VA-PTSD-rating/family-law-attorney/probate-court-GAL/tenant-defense-attorney/school-VP-disciplinary/OPO-transplant/mother-in-law-chemo/St-Vincent-grandmother-admission/sister-Tess-estate/attorney-Reyes-FL-142/adoption-agency-caseworker/funeral-home-director/detective-burglary/Vega-paralegal-guardian-ad-litem); NWS Los Angeles/Oxnard red-flag critical-fire-weather warning + Santa-Ana-wind + PSPS pre-emptive-deenergization distinct from prior weather themes (Anchorage-avalanche/Honolulu-surf/Bismarck-blizzard/SWPC-G4/Idalia-hurricane/Aleutian-tsunami/Mt-Baker-volcanic-ash/heat-warning/ice-storm/tornado/dust-storm/flood/Sterling-LWX-derecho))",
+      "step_8_gt_distribution_and_distractor_structure": "PASS — 5 GTs (kind distribution: notification:2 / email:2 / alert:1; sim_time spread 70..580 across the trace window); 4 distractors (kind distribution: notification:2 / email:2; sim_time spread 110..520 interleaved with GTs)"
+    },
+    "in_session_iterations": {
+      "step_3_5_single_token": 0,
+      "step_6_single_clause_revisions": 7,
+      "step_6_iteration_rounds": 2,
+      "step_6_revision_details": [
+        {
+          "round": 1,
+          "cluster": "A — briefing opener template (mid-week-early-evening-at-household-kitchen-island-with-workday-wrap-up-cycle-giving-way-to-household-coordination-half-of-day-on-family-rollup-cadence)",
+          "scope": "trace briefing opener (single phrase, ~14 overlapping 8-grams clustered here)",
+          "changes": [
+            "'Mid-week early-evening at the household kitchen-island with the workday wrap-up cycle giving way to the household-coordination half of the day on the family-rollup cadence —' -> 'An overcast Thursday late-afternoon at the household-side kitchen-island as the workday closing-band slides into the family-coordination cadence on the household-rollup pattern —'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 1,
+          "cluster": "B — WEA push-and-EAS broadcast template (wireless-emergency-alert-WEA-push-and-EAS-broadcast-cycle)",
+          "scope": "GT5.content + intent #5 (both branches use the same phrase)",
+          "changes": [
+            "'wireless-emergency-alert WEA push-and-EAS broadcast cycle' -> 'wireless-emergency-alert WEA cellphone-push plus EAS emergency-broadcast-system loop' applied to both GT5.content closing + intent #5 closing"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 1,
+          "cluster": "C — schedule-change pulled-forward-to-tomorrow-morning-at + same-week-cancellation-slot-opening template",
+          "scope": "GT2.content + intent #2",
+          "changes": [
+            "GT2.content: 'has been pulled forward to tomorrow morning at seven-AM on Dr. Bakhtiar's earlier-week operating block at the same Greenwood Ambulatory Surgical Center following a same-week cancellation-slot opening on the practice-side' -> 'has been bumped onto tomorrow morning at the seven-AM slot on Dr. Bakhtiar's earlier-week operating block at the same Greenwood Ambulatory Surgical Center off the back of a same-week cancellation-slot opening on the practice-side'",
+            "intent #2: 'onto tomorrow morning at seven-AM on Dr. Bakhtiar's earlier-week operating block at the same Greenwood Ambulatory Surgical Center following the same-week cancellation-slot opening' -> 'onto tomorrow morning at the seven-AM slot on Dr. Bakhtiar's earlier-week operating block at the same Greenwood Ambulatory Surgical Center off the back of the same-week cancellation-slot opening'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 1,
+          "cluster": "D — bolus-protocol-pre-mixed-on-the-resuscitation-cart template",
+          "scope": "GT1.content middle paragraph (ED workup loop)",
+          "changes": [
+            "'isotonic-crystalloid IV-fluid bolus protocol pre-mixed on the resuscitation-cart side' -> 'isotonic-crystalloid IV-fluid bolus order primed at the resuscitation-cart bedside station'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 1,
+          "cluster": "E — feature-announcement distractor opener template (launch-announcement-reached-the-household-subscriber-inbox-on-the)",
+          "scope": "D3 Cloudflare R2 v2 content opening",
+          "changes": [
+            "'The Cloudflare R2 v2 storage launch announcement reached the household-subscriber inbox on the Cloudflare product-update mailing-list surface' -> 'Cloudflare's R2 v2 storage launch announcement landed on the household-subscriber inbox via the Cloudflare product-update mailing-list channel'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 1,
+          "cluster": "F — weather-alert warning-effective-through-the-next-thirty-six-hour template",
+          "scope": "GT5.content opening",
+          "changes": [
+            "'elevated to a red-flag critical-fire-weather warning effective through the next thirty-six-hour Santa-Ana-wind-driven offshore-flow window' -> 'elevated to a red-flag critical-fire-weather warning running across the next thirty-six-hour Santa-Ana-wind-driven offshore-flow window'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        },
+        {
+          "round": 2,
+          "cluster": "C-residual — schedule-change same-week-cancellation-slot-opening-on-the residual 8-gram",
+          "scope": "GT2.content (one residual 8-gram surviving round-1 cluster-C fix)",
+          "changes": [
+            "'off the back of a same-week cancellation-slot opening on the practice-side surgical-block calendar' -> 'off the back of a fresh same-week cancellation-slot opening on the practice-side surgical-block calendar' (single-word 'fresh' insertion breaking the 'a same week cancellation slot opening on the' 8-gram)"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true
+        }
+      ],
+      "iteration_count_per_audit_gate_substep": {
+        "step_3_5_iterations": 0,
+        "step_6_iterations": 2,
+        "step_6_round_1_overlap_count": 41,
+        "step_6_post_round_1_overlap_count": 10,
+        "step_6_post_round_2_overlap_count": 0,
+        "step_6_cluster_level_revisions_total": 7
+      },
+      "transparent_disclosure_round_2_housekeeping": {
+        "issue": "Round 1 Cluster B WEA fix used Edit replace_all=true on 'wireless-emergency-alert WEA push-and-EAS broadcast cycle' which inadvertently also matched and modified test_v38 GT5 content at line 1948 (test_v38 GT5 originally ended its WEA clause with 'broadcast cycle.', which the replace_all picked up as a third hit alongside the two intended hits in test_v39 GT5 + intent #5). This violated APPEND-ONLY discipline relative to the M11a-extension-extension C8 post-state baseline.",
+        "correction": "Round 2 first action was to revert test_v38 GT5 line 1948 back to the original 'wireless-emergency-alert WEA push-and-EAS broadcast cycle.' verbatim from the C8 post-state, restoring bytewise-stability of test_v38. Verified via post-revert git diff sandbox/event_trace.py showing 62 insertions / 0 deletions (pure APPEND of test_v39 + 1 registry-dict line for the test_v39 entry) and post-c9 prior 8-gram count = 34141 matching the pre-edit baseline.",
+        "discipline_status": "APPEND-ONLY discipline restored at round 2 first action; final post-c9 git diff --stat shows 62 insertions + 0 deletions confirming test_v4..test_v38 + helpers + dev_trace_v1/v2 + dataclasses + _gt helper + Trace.duration_s property are bytewise unchanged pre/post C9; disclosed transparently for reviewer audit per M11a-extension transparent-correction-commit discipline"
+      },
+      "precedent": "M11a-extension D-C3.attempt1.C + M11a-extension-extension D-C2.attempt1.C + D-C3.attempt1.C + D-C4.attempt1.C + D-C5.attempt1.C + D-C6.attempt1.C + D-C7.attempt1.C + D-C8.attempt1.C in-session single-clause-revision precedent — NOT counted as rejection-and-retry per fresh-redraft-counts-only convention (M11a-extension D-C7.attempt1.D / D-C9.attempt1.C fresh-redraft rejection precedent — those involved substantial multi-clause redrafts; here all 7 cluster-level revisions are single-clause substitutions with the substantive trace content bytewise stable in meaning); single-clause-only author-discipline + substantive bytewise stability held. NOTE on C9 in-session-revision-count trajectory: 7 cluster-level revisions across 2 iteration rounds is closer to C8's 9-across-2-rounds than the C1-C7 baseline (0-4 revisions). Root-cause analysis: (a) ~14 of the 41 round-1 overlaps came from the briefing opener being inherited near-verbatim from test_v38's opener template ('Mid-week early-evening at the household kitchen-island with the workday wrap-up cycle giving way to the household-coordination half of the day on the family-rollup cadence —'); a single cluster-A revision broke all 14 (one phrase swap with substantive bytewise stability in meaning). Lesson for C10: vary the briefing opener at draft time, not as a step-6 revision. (b) ~6 of the round-1 overlaps came from the WEA-push-and-EAS-broadcast-cycle template inheritance from prior weather-alert GTs; a single cluster-B revision broke all 6 but introduced the APPEND-ONLY violation requiring a round-2 housekeeping revert. Lesson for C10: use replace_all=false with anchored old_string contexts when revising templates that appear in prior traces."
+    }
+  },
+  "design_choice": {
+    "scope_per_plan": "§D1 + §D7 + Non-goals #1 + #2",
+    "v2_existing_yes_gts_shipped": 5,
+    "v2_existing_no_distractors_shipped": 4,
+    "v4_new_gts_shipped": 0,
+    "v4_new_distractors_shipped": 0,
+    "v2_existing_yes_class_breakdown": [
+      {
+        "class": "urgent safety/security issue (medical-emergency sub-class)",
+        "c9_input_count": "14x (just lifted at C8 from 13x baseline with household-elderly-mother urosepsis)",
+        "c9_action": "LIFTED to 15x",
+        "specific_content": "household-grandfather acute massive lower-gastrointestinal hemorrhage event with active bright-red blood-per-rectum hematochezia volumes across three successive bathroom episodes + hypovolemic-shock physiology cascade (BP 78/45 + HR 138 + cool clammy extremities pattern) + prior-diagnosed sigmoid-diverticulosis history with two prior conservative-treatment cycles for diverticular-bleed at academic-medical-center gastroenterology service inpatient unit positioning diverticular-hemorrhage source-control workup as highest-likelihood differential + household-adult walking 911 call-taker through room-side situational picture across household mobile-phone speakerphone with call-taker running supine-and-legs-elevated positioning routine + ambulance crew's 8-min ETA rolling out from township fire-rescue station + academic-medical-center's ED trauma-bay receiving handoff loop on warm-handoff posture through dispatch intake-channel out to on-shift ED attending physician's triage console + GI-bleed source-control workup track (two large-bore peripheral-IV-line placement + type-and-crossmatch 4-unit PRBC + 2-unit FFP order set + isotonic-crystalloid IV-fluid bolus order primed at resuscitation-cart bedside station + gastroenterology-on-call cross-page for urgent-bedside colonoscopy decision-branch + interventional-radiology on-call team alerted for angio-embolization standby on CTA mesenteric-vasculature pattern) + GI-bleed dedicated surgical-stepdown inpatient unit queued onto warm-bed standby for post-stabilization transfer-and-admit cycle into GI-bleed care-pathway hour-one-through-hour-six monitoring milestone; aggressively varied EMS-handoff template AWAY from prior C8 elderly-mother urosepsis + C7 adult-self PE + C2 IVF-hyperstim + C1 DKA medical-emergency openers — distinct mechanism (lower-GI bleed vs septic-shock/PE/hyperstim/DKA), distinct receiving-side (academic-medical-center trauma-bay vs regional medical-center resuscitation-bay), distinct EMS source-side (ambulance crew from township fire-rescue station vs paramedic crew from regional fire-engine house/station), distinct positioning routine (supine-and-legs-elevated vs seated-upright airway-positioning), distinct post-stabilization handoff (surgical-stepdown inpatient unit vs MICU/ICU), distinct mobile-phone speakerphone vs bedside-speakerphone; aggressive paraphrase discipline applied at DRAFT time per C8 step-6 9-revision lesson to RE-BASELINE toward C1-C7 range"
+      },
+      {
+        "class": "schedule change affecting the user personally",
+        "c9_input_count": "14x (just lifted at C8 from 13x baseline with CFA Level III exam sit-date advancement)",
+        "c9_action": "LIFTED to 15x",
+        "specific_content": "household-spouse's elective right-eye phacoemulsification cataract surgery with monovision-target IOL intraocular-lens implant + Dr. Ines Bakhtiar's ophthalmic-surgical practice at Greenwood Ambulatory Surgical Center + previously calendared for next-Wednesday-morning + bumped onto tomorrow morning at 7AM slot off the back of a fresh same-week cancellation-slot opening + phacoemulsification ultrasonic lens-fragmentation through 2.4mm clear-corneal incision + monofocal IOL implantation targeting monovision refractive outcome (right eye pseudoemmetropia + left eye reserved for near-vision targeting on planned second-eye surgery in 8 weeks) + pre-op eye-drop regimen (cyclopentolate + phenylephrine dilating-drop + moxifloxacin-prednisolone-acetate antibiotic-anti-inflammatory) + no-NPO conscious-sedation anesthesia plan (chair-side topical-anesthesia + MAC IV-light-sedation versed-fentanyl) + post-shower-no-makeup-no-perfume protocol + household-adult driver-and-companion arrangement + 4-hour post-op observation-and-discharge window + post-op surgical-plan (1-day slit-lamp + 1-week OCT + 1-month final-refractive-outcome + 8-week second-eye scheduling); distinct sub-class (ophthalmology-surgery) from prior schedule-change themes (cardiology/transplant-eval/walkthrough/dental/orthopedic-spine/CFA-exam/OIT-graduation/IVF-egg-retrieval/mastectomy/UCLA-kidney-transplant-eval/lumbar-fusion/mediation-session)"
+      },
+      {
+        "class": "financial/deadline obligation",
+        "c9_input_count": "14x (UNCHANGED at C8 baseline; LIFT CANDIDATE closed at C9 as natural lift candidate)",
+        "c9_action": "LIFTED to 15x",
+        "specific_content": "estate-planning attorney Sebastian Aliyu's tax-and-trust-law practice email reminder on household-side irrevocable-life-insurance-trust ILIT annual Crummey-notice 30-day-letter funding-deadline closing 5pm Eastern today on trustee-side annual-gift-tax-exclusion contribution allocation cycle + ILIT settled 3 years ago to hold household-adult's term-life-converted whole-life-permanent policy + second-to-die survivorship-life-insurance policy for estate-tax-exclusion-preservation planning goal against projected lifetime-exemption exposure + Crummey-notice cycle runs 30-day-letter distribution window with per-beneficiary written-notice acknowledgment requirement on 4-beneficiary list (2 children + designated-grandchild + designated-niece) on present-interest-gift treatment requirement on annual-exclusion path + annual-gift-tax-exclusion ceiling $19K-per-donee per-donor band + household-spouse-as-co-donor combined-spousal allocation doubling to $38K-per-beneficiary on gift-splitting Form 709 path + funding-deposit-into-trustee-side account + per-beneficiary Crummey-notice ceremony letter mailing + per-beneficiary acknowledgment-receipt collection + premium-routing-through-trust into insurance-carrier policy-funding cycle + 3-year-look-back-rule risk closed at 3-year-anniversary milestone past + missed-window forfeits annual-exclusion gift treatment pushing characterization into lifetime-exemption usage band; distinct sub-class (estate-planning ILIT Crummey-notice) from prior financial/deadline themes (1031-intermediary/ESPP-lookback/NSO-exercise/ISO-exercise/FBAR-foreign/FAFSA-filing/IRA-Roth-conversion/HELOC-draw/mortgage-rate-lock/term-life-convertibility/IRS-Q3-quarterly-estimated-tax/tax-loss-harvest/Schwab-portfolio-advisor/Carta-equity-admin)"
+      },
+      {
+        "class": "message or delivery directed personally to the user",
+        "c9_input_count": "14x (just lifted at C8 from 13x baseline with OPO transplant-coordinator UNOS-kidney-waitlist deceased-donor offer)",
+        "c9_action": "LIFTED to 15x",
+        "specific_content": "veterinary specialty-oncology service voicemail from Dr. Reema Ashworth at Cascade Veterinary Specialty Center's medical-oncology department on household-side senior-dog Lily's diagnostic-workup outcome + fine-needle-aspirate cytology lab-side reading from prior-week submandibular-and-prescapular lymphadenopathy sampling pass consistent with multicentric lymphoma (~80% of canine-lymphoma case-cohort) + involved-lymph-node distribution covering submandibular + prescapular + axillary + inguinal node-station bilateral pattern + 3 primary treatment-protocol arms (gold-standard CHOP-protocol 19-25-week injectable chemotherapy regimen rotating cyclophosphamide-and-hydroxydaunorubicin-and-vincristine-and-prednisone weekly cycle with 10-12-month median-remission + 12-14-month median-survival on responder cohort + simpler COP-protocol dropping doxorubicin + single-agent doxorubicin-alone monthly cycle) + supportive-care palliative-pathway alternative (prednisolone-monotherapy oral-steroid cycle with 4-6-week median-comfort-window) + treatment-cost-band $6K-$8K for full CHOP course on Cascade specialty-pricing tier + pet-insurance pre-authorization claim package + household-side callback-window through tomorrow-afternoon for treatment-start-scheduling decision; distinct sub-class (veterinary specialty-oncology) from prior message/delivery themes (VA-PTSD-rating/family-law-attorney/probate-court-GAL/tenant-defense-attorney/school-VP-disciplinary/OPO-transplant/mother-in-law-chemo/St-Vincent-grandmother-admission/sister-Tess-estate/attorney-Reyes-FL-142/adoption-agency-caseworker/funeral-home-director/detective-burglary/Vega-paralegal-guardian-ad-litem); aggressively varied voicemail-from-{role}-on-{topic} template per C9 kickoff guidance — distinct role (veterinary specialty-oncology service vs human-side professional roles), distinct receiver (pet-side senior dog vs household-adult/household-spouse/household-relative), distinct topic-side (canine-multicentric-lymphoma chemotherapy decision)"
+      },
+      {
+        "class": "weather alert",
+        "c9_input_count": "14x (just lifted at C8 from 13x baseline with NWS Sterling/LWX derecho damaging-wind warning)",
+        "c9_action": "LIFTED to 15x",
+        "specific_content": "NWS Los Angeles/Oxnard forecast office in coordination with Cal-Fire-and-California-Office-of-Emergency-Services red-flag critical-fire-weather warning effective through next 36-hour Santa-Ana-wind-driven offshore-flow window across Southern California foothill-and-coastal-mountain corridor + Santa Monica Mountains + Malibu Coast + Calabasas-and-Topanga-Canyon foothill corridor + Conejo Valley + San Fernando Valley north-rim + Angeles National Forest front-country zone + offshore-flow downslope wind-pattern across Transverse-Ranges terrain + Santa-Ana-wind setup (high-pressure ridge anchoring across Great Basin + low-pressure trough offshore in Eastern Pacific + sustained 35-45mph offshore Santa-Ana wind with 60-75mph peak-gust band on through-the-canyon-and-pass acceleration zones: Soledad-Canyon + Newhall-Pass + Cajon-Pass + Banning-Pass + single-digit relative-humidity band + critically-dry fuel-moisture-index on foothill-chaparral-and-oak-woodland vegetation + multi-day Santa-Ana ridge persistence) + SCE Southern-California-Edison + PG&E Pacific-Gas-and-Electric utility-side grid-deenergization protocol on Public-Safety-Power-Shutoff PSPS pre-emptive-deenergization decision-tree + customer-notification cycle + community-resource-center activation + medical-baseline-customer outreach + Malibu Coast + Santa Monica Mountains foothill-evacuation-zone pre-warning on LA-County Fire-Department-and-Sheriff-Department coordination + WEA-cellphone-push-and-EAS-emergency-broadcast-system loop + PCH Pacific-Coast-Highway closure-and-detour + Malibu-Canyon-Road + Topanga-Canyon-Boulevard contraflow-emergency-egress + LA-County Sheriff red-flag-warning patrol-staffing + Angeles National Forest + Santa Monica Mountains National Recreation Area campground-and-trail closure + Cal-Fire pre-positioned aviation-resources (Type-2 helicopters + Bombardier-CL-415 super-scoopers + heavy air-tankers) + federal Type-1-Incident-Management-Team standby; distinct sub-class (Santa-Ana-wind-driven offshore-flow critical-fire-weather + PSPS deenergization) from prior weather themes (Anchorage-avalanche/Honolulu-surf/Bismarck-blizzard/SWPC-G4-geomagnetic/Idalia-hurricane/Aleutian-tsunami/Mt-Baker-volcanic-ash/heat-warning/ice-storm/tornado/dust-storm/flood/Sterling-LWX-derecho)"
+      }
+    ],
+    "skipped_v2_existing_yes_class": {
+      "class": "production/on-call alert",
+      "c9_input_count": "14x (just lifted at C8 from 13x baseline with OpsGenie SEV-A K8s EKS pod-eviction storm)",
+      "rationale": "default-preserve skip-the-highest pattern preferring production/on-call at C9 specifically to STRUCTURALLY avoid the recurring SRE-team-escalation template-convergence pattern that drove the C8 step-6 9-revision spike (5 of 9 C8 revisions clustered on production/on-call GT3 template: 75-min checkpoint/mark + bridge/war-room + cross-paged/co-paged + hooked-in/brought-online + response-manager/response-lead + customer-impact-statement drafting/composition); production/on-call has been lifted at consecutive C7+C8 with aggressive opener-AND-closing variation discipline already exhausted at OpsGenie SEV-A K8s + RabbitMQ split-brain; skipping production/on-call distractor class entirely at C9 structurally avoids the recurring SRE-team escalation template at this iteration rather than relying on author-discipline single-clause-revision in-session — directly addresses C8 in-session-revision-count spike lesson per C9 kickoff guidance"
+    },
+    "v2_existing_no_class_breakdown": [
+      {
+        "class": "marketing/newsletter",
+        "c9_input_count": "13x (UNCHANGED at C8 baseline; LIFT CANDIDATE closed at C9 as natural lift candidate)",
+        "c9_action": "LIFTED to 14x",
+        "specific_content": "King Arthur Baking Company monthly autumn-baking newsletter on household-subscriber inbox + autumn-recipe rotation lineup (apple-cinnamon-coffee-cake + pumpkin-spice-cake-doughnut + sourdough-everything-bagel + honey-oat-pull-apart-rolls + classic-pumpkin-pie) + household-baking-school class schedule (King-Arthur-Baking-School in-person on Vermont-Norwich campus + autumn-bread-baking workshop + sourdough-starter intensive + holiday-pie pre-Thanksgiving accelerated + live-online pumpkin-bread workshop + sourdough-fundamentals-from-scratch 8-week online-progression) + sourdough-starter community surface (per-week starter-recipe community-cohort discussion + per-month bread-shaping-and-scoring photo-contest + bakery-on-the-rise community-spotlight) + recipe-of-the-week rotation (seasonal-flour-spotlight rotation across autumn-wheat + heirloom-flour + whole-grain); NON-spring-catalog sub-class per C9 kickoff guidance specifically to STRUCTURALLY avoid the v36 Holderness Forge spring-catalog + v37 Vermont Maple Forest spring-quarterly tasting-flight spring-catalog-fulfillment-window template-convergence pattern at marketing/newsletter distractors that drove the C8 skip — autumn-baking-recipe-rotation + sourdough-community + baking-school class-schedule narrative domain is fully distinct from the recurring spring-quarterly-catalog template"
+      },
+      {
+        "class": "generic daily briefing",
+        "c9_input_count": "13x (just lifted at C8 from 12x baseline with Sunday-evening week-ahead family-planning briefing on dining-room iPad)",
+        "c9_action": "LIFTED to 14x",
+        "specific_content": "Thursday early-morning kitchen-table dawn-routine briefing on household-kitchen-island morning-routine widget + household-morning launch-pad checklist for school-and-work day-ahead + school-drop-off pre-flight checklist (school-folder-and-backpack + outfit-laid-out + lunchbox + homework-folder + library-book-return) + breakfast-prep rollup (Thursday-rotation breakfast-card: overnight-oats + fresh-fruit-bowl + morning-coffee pour-over + multivitamin-and-supplement station) + commute-traffic snapshot (morning-route + school-route + alternative-route + spouse-workday-route congestion-band readouts) + post-drop-off cycle (return-home + morning home-office workday-start + spouse workday-start) + household-handle dashboard kitchen-table breakfast-station handoff into school-day-and-workday morning-cycle; distinct setting + surface + time-of-day (Thursday early-morning + kitchen-table + dawn-routine forward-looking day-ahead launch-pad content domain) from C4 mid-morning home-office + C5 Saturday-morning weekend-launch + C6 Friday-late-afternoon week-wrap + C8 Sunday-evening dining-room iPad week-ahead briefing-rollup distractor-opener template-convergence patterns"
+      },
+      {
+        "class": "feature announcement",
+        "c9_input_count": "13x (just lifted at C8 from 12x baseline with Notion Calendar v2 launch announcement)",
+        "c9_action": "LIFTED to 14x",
+        "specific_content": "Cloudflare R2 v2 storage launch announcement on Cloudflare product-update mailing-list (Cloudflare-side alternative-to-S3 object-storage platform on egress-cost-zero pricing model from R2-v1 baseline) + new R2-infrequent-access storage-class tier on per-bucket-class storage-pricing cycle for cold-data archival pattern + cross-region replication primitive on per-bucket replication-policy cycle + S3-compatible API deepening (multipart-upload + presigned-URL + bucket-versioning + lifecycle-rule + event-notification primitives) bringing R2-API closer to AWS-S3 parity for migration-path-from-S3 cohort + Workers-side R2-binding deepening on per-Worker R2-bucket-access cycle (mutation-and-query + per-Worker access-policy + streaming-upload-and-download primitives) + per-bucket-class storage-class-management primitive on lifecycle-policy-aware tier-transition cycle; distinct product (Cloudflare R2 object-storage — CDN-side storage product) from prior IDE/design-tool/observability/edge-compute/dependency-update/CI-platform/calendar-PIM product spaces"
+      },
+      {
+        "class": "social-channel invite/digest",
+        "c9_input_count": "13x (just lifted at C8 from 12x baseline with Letterboxd weekly friend-watchlist-and-film-review activity digest)",
+        "c9_action": "LIFTED to 14x",
+        "specific_content": "Discord-app weekly server-activity digest on household-handle's per-app notifications-tray surface for tabletop-gaming community-network membership tracking pass + per-server activity-rollup pattern + per-server new-member rollup (7 new members joining household-handle's per-server membership-cohort across gaming-community subject-cluster) + per-server message-activity heatmap (per-channel hourly-activity-band readout) + per-server voice-chat session-count rollup + per-server role-promotion notification + per-handle community-tier-promotion + community-event-RSVP rollup (Friday-night-D&D-campaign + Sunday-afternoon-board-game-meetup + Wednesday-evening-online-Catan-tournament + Saturday-morning-Magic-the-Gathering-Commander-pod + monthly-warhammer-painting workshop) + per-channel pinned-message update rollup + bot-side leaderboard (community-engagement + XP-and-level + contribution-to-community-cohort); distinct platform (Discord gaming-community social-network) from prior creative-curation/photo-pinning/microblogging/literary-network/reading-network/writing/federated/film-tracking platforms — aggressively varied opener AWAY from the recurring 'digest landed/arrived in subscriber inbox covering trailing-7-day window of friend-graph activity pattern' template that the C5 D4 Bluesky + C8 D3 Letterboxd surfaced at step-6 single-clause revision precedent"
+      }
+    ],
+    "skipped_v2_existing_no_class": {
+      "class": "routine production/status digest",
+      "c9_input_count": "14x (tied-for-maximum among V2 NO at C9-input; just-lifted-at-C8 with Datadog Cloud Cost Management CCM monthly subscriber digest)",
+      "rationale": "default-preserve skip-the-highest pattern preferring routine-status at C9 (tied-for-max V2 NO at 14x + just-lifted-at-C8); the C9 kickoff guidance names routine-status specifically as the natural skip candidate at C9 with marketing/newsletter + generic-daily-briefing + feature-announcement + social-channel-invite as the 4 lifted V2 NO distractors"
+    },
+    "v4_new_touches_at_c9": {
+      "count": 0,
+      "rationale": "preserves M11a-extension C10 + M11a-extension-extension C1+C2+C3+C4+C5+C6+C7+C8 cross-V4-mechanism symmetric closure at V4 NEW YES 6 vs V4 NEW NO 6 = delta 0 bytewise into M11a-extension-extension C9 scope per §D7 + §D14-H1 (this milestone is CI-tightening on the V4-vs-V2 headline at the SAME 5-event mechanism reference; mechanism-residual closure is M11d-surprise-gate-retuning + V5 future-work scope per Non-goals #1 + #2)"
+    }
+  },
+  "banned_list_state": {
+    "input_at_c9": {
+      "event_ids": 289,
+      "themes": 162,
+      "tuples": 161,
+      "snapshot_file": "runs/data/22c-banned-list-pre-c9.{txt,json}",
+      "provenance": "M11a-extension-extension Commit C8 end-state (post-test_v38 acceptance per runs/data/22c-author-test_v38-attempt-1-accepted.json §post_c8_banned_list_increment_for_c9_input); carried forward verbatim per ~/.claude/plans/m11a-extension-extension-n40.md §D3 + §Appendix carry-forward"
+    },
+    "post_c9_increment_for_c10_input": {
+      "delta": "+9 IDs / +5 themes / +5 tuples",
+      "expected_pre_c10_banned_list_counts": {
+        "event_ids": 298,
+        "themes": 167,
+        "tuples": 166
+      }
+    }
+  },
+  "post_c9_banned_list_increment_for_c10_input": {
+    "new_event_ids_added_post_c9": [
+      "grandfather_acute_massive_lower_gi_hematochezia_diverticular_hemorrhage_hypovolemic_shock_911_dispatcher_ambulance_crew_trauma_bay_resuscitation_ir_angio_embolization_stepdown_unit",
+      "household_spouse_right_eye_cataract_phacoemulsification_iol_implant_surgery_pulled_forward_tomorrow_morning_ambulatory_surgical_center_topical_anesthesia_monovision_target",
+      "estate_planning_attorney_email_irrevocable_life_insurance_trust_ilit_crummey_notice_thirty_day_window_annual_gift_tax_exclusion_funding_deadline_five_pm_today",
+      "veterinary_specialty_oncology_service_voicemail_senior_dog_lily_multicentric_lymphoma_chop_chemotherapy_protocol_staging_decision_six_thousand_cost_palliative_options",
+      "nws_los_angeles_oxnard_cal_fire_red_flag_critical_fire_weather_warning_psps_pre_emptive_deenergization_santa_ana_winds_santa_monica_mountains_malibu_calabasas_topanga",
+      "king_arthur_baking_company_monthly_autumn_baking_newsletter_recipe_rotation_sourdough_community_baking_school_class_schedule_subscriber_email",
+      "thursday_early_morning_kitchen_table_dawn_routine_briefing_school_drop_off_preflight_checklist_breakfast_prep_commute_traffic_snapshot_household_morning_launch_pad",
+      "cloudflare_r2_v2_object_storage_launch_announcement_infrequent_access_tier_cross_region_replication_s3_compatible_api_workers_binding_deepening_subscriber_email",
+      "discord_weekly_server_activity_digest_tabletop_gaming_community_membership_per_channel_message_heatmap_voice_chat_session_count_role_promotion_rollup_household_handle"
+    ],
+    "new_themes_added_post_c9": [
+      "urgent safety/security issue (V2 EXISTING YES, medical-emergency sub-class) — household-grandfather acute massive lower-gastrointestinal hemorrhage event unfolding in downstairs sitting-room over past 40 minutes with active bright-red blood-per-rectum hematochezia volumes across three successive bathroom episodes plus continuing seepage onto household-bath-towel pressure-pack plus hypovolemic-shock physiology cascade (BP 78/45 on home cuff + resting tachycardia 138 bpm + cool clammy extremities pattern) plus prior-diagnosed sigmoid-diverticulosis history with two prior conservative-treatment cycles for diverticular-bleed at academic-medical-center gastroenterology service inpatient unit positioning diverticular-hemorrhage source-control workup as highest-likelihood differential on bedside triage plus household-adult walking 911 call-taker through room-side situational picture across household mobile-phone speakerphone plus call-taker running supine-and-legs-elevated positioning routine to support cerebral-perfusion-and-preload band plus ambulance crew's 8-min ETA rolling out from township fire-rescue station alongside engine-and-rescue fleet plus academic-medical-center's ED trauma-bay receiving handoff loop on warm-handoff posture through dispatch intake-channel out to on-shift ED attending physician's triage console plus GI-bleed source-control workup track (2 large-bore peripheral-IV-line placement + type-and-crossmatch 4-unit PRBC plus 2-unit FFP order set + isotonic-crystalloid IV-fluid bolus order primed at resuscitation-cart bedside station + gastroenterology-on-call cross-page for urgent-bedside colonoscopy decision-branch + interventional-radiology on-call team alerted for angio-embolization standby on CTA mesenteric-vasculature pattern) plus GI-bleed dedicated surgical-stepdown inpatient unit queued onto warm-bed standby for post-stabilization transfer-and-admit cycle into GI-bleed care-pathway hour-one-through-hour-six monitoring milestone",
+      "schedule change affecting the user personally (V2 EXISTING YES) — household-spouse's elective right-eye phacoemulsification cataract surgery with monovision-target IOL intraocular-lens implant at Dr. Ines Bakhtiar's ophthalmic-surgical practice + previously calendared for next-Wednesday-morning at Greenwood Ambulatory Surgical Center under standard operating-block pulled forward onto tomorrow morning at 7AM slot on Dr. Bakhtiar's earlier-week operating block at same Greenwood Ambulatory Surgical Center off the back of a fresh same-week cancellation-slot opening on practice-side surgical-block calendar + phacoemulsification ultrasonic lens-fragmentation through 2.4mm clear-corneal incision + monofocal IOL implantation targeting monovision refractive outcome (right eye pseudoemmetropia + left eye reserved for near-vision targeting on planned second-eye surgery in 8 weeks per Dr. Bakhtiar's two-stage refractive-plan discussion at pre-op evaluation visit) + pre-op eye-drop regimen (cyclopentolate-hydrochloride 1% + phenylephrine 2.5% dilating-drop cycle + moxifloxacin-and-prednisolone-acetate antibiotic-and-anti-inflammatory pre-treatment drops every 6 hours starting tonight) + no-NPO-required conscious-sedation anesthesia plan (chair-side topical-anesthesia + monitored-anesthesia-care MAC IV-light-sedation versed-and-fentanyl titration) + household-spouse-side morning-of post-shower-no-makeup-no-perfume protocol + household-adult-side driver-and-companion arrangement for post-procedure transport-home with designated-caregiver coverage through 4-hour post-op observation-and-discharge window + post-op surgical-plan (1-day-post-op slit-lamp evaluation + 1-week-post-op anterior-segment OCT scan plus refractive-outcome assessment + 1-month-post-op final-refractive-outcome stabilization + 8-week post-op second-eye surgical-scheduling decision-loop)",
+      "financial/deadline obligation (V2 EXISTING YES) — estate-planning attorney Sebastian Aliyu's tax-and-trust-law practice email reminder on household-side irrevocable-life-insurance-trust ILIT annual Crummey-notice 30-day-letter funding deadline closing 5pm Eastern today on trustee-side annual-gift-tax-exclusion contribution allocation cycle + ILIT instrument settled 3 years ago to hold household-adult's term-life-converted whole-life-permanent policy plus second-to-die survivorship-life-insurance policy for estate-tax-exclusion-preservation planning goal against household estate's projected lifetime-exemption exposure on federal-estate-tax side + Crummey-notice cycle for this year's annual-gift-tax-exclusion contribution to ILIT premium-funding queue runs 30-day-letter distribution window from contribution-deposit date with per-beneficiary written-notice acknowledgment requirement on 4-beneficiary list (household-adult's 2 children + household-side designated-grandchild + designated-niece beneficiaries) under standard ILIT trust-instrument language on present-interest-gift treatment requirement on annual-exclusion path + annual-gift-tax-exclusion ceiling at prior-IRS-indexed $19K-per-donee per-donor band caps present-interest-gift contribution treatment with 4-beneficiary per-donor allocation per ILIT contribution-funding plan plus household-spouse-as-co-donor combined-spousal allocation doubling per-beneficiary ceiling to $38K-per-beneficiary on gift-splitting Form 709-side path + funding-deposit-into-trustee-side account step plus per-beneficiary Crummey-notice ceremony letter mailing step plus per-beneficiary acknowledgment-receipt collection step plus per-beneficiary acknowledgment-archival on trust-administrative records step plus premium-routing-through-trust step into insurance-carrier policy-funding cycle + 3-year-look-back-rule risk on existing life-insurance-policy transfer-into-ILIT closed at 3-year-anniversary milestone past + missed-window outcome forfeits this year's annual-exclusion gift treatment pushing present-interest-gift treatment characterization into lifetime-exemption usage band",
+      "message or delivery directed personally to the user (V2 EXISTING YES) — veterinary specialty-oncology service voicemail from Dr. Reema Ashworth at Cascade Veterinary Specialty Center's medical-oncology department on household-side senior-dog Lily's diagnostic-workup outcome + fine-needle-aspirate cytology lab-side reading from last week's submandibular-and-prescapular lymphadenopathy sampling pass consistent with multicentric lymphoma (~80% of canine-lymphoma case-cohort at Cascade veterinary-oncology referral practice) + involved-lymph-node distribution covering submandibular plus prescapular plus axillary plus inguinal node-station bilateral pattern on staging-physical-exam re-check pass + 3 primary treatment-protocol arms (gold-standard CHOP-protocol 19-25-week injectable chemotherapy regimen rotating cyclophosphamide-and-hydroxydaunorubicin-and-vincristine-and-prednisone weekly cycle at Cascade veterinary-oncology infusion bay with expected median-remission-duration band 10-12 months on responder-cohort survival curve plus expected median-survival-duration band 12-14 months from diagnosis-date + simpler COP-protocol monthly cycle dropping doxorubicin-side hydroxydaunorubicin with shorter median-remission balanced against lower-side adverse-event profile + single-agent doxorubicin-alone monthly cycle with lowest treatment-burden cadence but shortest median-remission-duration band) + supportive-care palliative-pathway alternative (prednisolone-monotherapy oral-steroid cycle with 4-6-week median-comfort-window band and avoid-the-injectable-chemotherapy decision-loop on household-side treatment-budget-and-bandwidth constraint discussion) + treatment-cost-band $6K-$8K range on Cascade veterinary-oncology specialty-pricing tier for full CHOP-protocol 19-25-week course with household pet-insurance-policy coverage-side step requiring pre-authorization claim package submission + per-cycle treatment-cost-reimbursement processing on post-cycle claim-cycle + household-side callback-window through tomorrow-afternoon for treatment-start-scheduling decision into next-week treatment-induction-cycle at Cascade veterinary-oncology infusion bay",
+      "weather alert (V2 EXISTING YES) — NWS Los Angeles/Oxnard forecast office in coordination with Cal-Fire-and-California-Office-of-Emergency-Services red-flag critical-fire-weather warning across Southern California regional alert-feed elevating prior fire-weather watch across foothill-and-coastal-mountain corridor to red-flag critical-fire-weather warning running across next 36-hour Santa-Ana-wind-driven offshore-flow window covering Santa Monica Mountains plus Malibu Coast plus Calabasas-and-Topanga-Canyon foothill corridor plus Conejo Valley plus San Fernando Valley north-rim plus Angeles National Forest front-country zone on offshore-flow downslope wind-pattern across Transverse-Ranges terrain + Santa-Ana-wind setup threading high-pressure ridge anchoring across Great Basin plus low-pressure trough offshore in Eastern Pacific driving sustained 35-45mph offshore Santa-Ana wind with 60-75mph peak-gust band on through-the-canyon-and-pass acceleration zones (Soledad-Canyon + Newhall-Pass + Cajon-Pass + Banning-Pass on southern-routes side) + single-digit relative-humidity band on downslope-warming-and-drying-effect pattern + critically-dry fuel-moisture-index reading on foothill-chaparral-and-oak-woodland vegetation band on multi-month-precipitation-deficit cycle + multi-day Santa-Ana ridge persistence on upper-air-pattern continuity holding critical-fire-weather conditions through warning window + SCE Southern-California-Edison + PG&E Pacific-Gas-and-Electric utility-side grid-deenergization protocol on Public-Safety-Power-Shutoff PSPS pre-emptive-deenergization decision-tree across transmission-corridor-and-distribution-feeder exposure pattern activating PSPS-event sequence + customer-notification cycle through SCE PSPS-notification email-and-text channel + PG&E PSPS-notification channel + community-resource-center activation + medical-baseline-customer outreach + Malibu Coast + Santa Monica Mountains foothill-evacuation-zone pre-warning on LA-County Fire-Department-and-Sheriff-Department coordination cycle + LA-County emergency-evacuation-notification cycle on wireless-emergency-alert WEA cellphone-push plus EAS emergency-broadcast-system loop + PCH Pacific-Coast-Highway closure-and-detour-pattern coordination on Caltrans-side traffic-control + Malibu-Canyon-Road + Topanga-Canyon-Boulevard contraflow-emergency-egress pattern + LA-County Sheriff red-flag-warning patrol-staffing posture + Angeles National Forest + Santa Monica Mountains National Recreation Area campground-and-trail closure cordon + Cal-Fire pre-positioned aviation-resources (Type-2 helicopters + Bombardier-CL-415 super-scoopers + heavy air-tankers) on alert-and-ready-to-launch ground-station posture + federal Type-1-Incident-Management-Team standby cycle"
+    ],
+    "new_tuples_added_post_c9": [
+      "(hematochezia, embolization)",
+      "(cataract, phacoemulsification)",
+      "(ilit, crummey)",
+      "(lymphoma, chop)",
+      "(psps, deenergization)"
+    ],
+    "expected_pre_c10_banned_list_counts": {
+      "event_ids": 298,
+      "themes": 167,
+      "tuples": 166
+    }
+  },
+  "milestone_state": {
+    "cumulative_attempt_count": "9/50",
+    "accepted_commit_c_traces_toward_n_40": 9,
+    "remaining_traces_test_v40_to_v50_across_c10_to_c20": 11,
+    "retry_cap_status_on_test_v39": "1/3 (not exhausted; 2 retries remaining had attempt #1 not accepted)",
+    "literal_id_collision_halt_triggered": false,
+    "banned_list_saturation_halt_triggered": false,
+    "structural_parsing_failure_rate_so_far": "0/9 attempts per §D4 self-restate gate inherited verbatim from M11a-extension"
+  },
+  "file_state": {
+    "sandbox_event_trace_py": {
+      "pre_c9_sha256": "862f261af1d319057cf2a6aa6547b3c05ea7e8cd37c029fcdb78fd0d69cac1e5",
+      "pre_c9_bytes": 329306,
+      "pre_c9_lines": 2023,
+      "post_c9_sha256": "9be3d1b06214935b7f8b4a932e5b837fa4b5c8fb9e3a7add735571c7778713bc",
+      "post_c9_bytes": 369579,
+      "post_c9_lines": 2085,
+      "git_diff_stat": "1 file changed, 62 insertions(+), 0 deletions(-)",
+      "diff_hunks": [
+        "@@ -1982,6 +1982,67 @@ def test_trace_v38() -> Trace: (test_trace_v39 function inserted)",
+        "@@ -2015,6 +2076,7 @@ def get_trace(name: str) -> Trace: (registry dict +1 line for 'test_v39': test_trace_v39)"
+      ],
+      "append_only_discipline_verified": true,
+      "prefix_lines_1_to_1982_bytewise_unchanged_pre_post_c9": true,
+      "note_round_2_housekeeping_revert": "Round 2 first action reverted an inadvertent test_v38 GT5 line-1948 modification from Round 1 Cluster B WEA fix (which used Edit replace_all=true on 'wireless-emergency-alert WEA push-and-EAS broadcast cycle' template — the same template appeared in test_v38 GT5 closing); revert restored test_v38 GT5 line 1948 to original C8 post-state verbatim; final post-c9 git diff --stat confirms 62 insertions / 0 deletions APPEND-ONLY pure"
+    },
+    "v4_prompt_sha256": "09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6",
+    "v4_prompt_bytes": 1851,
+    "v4_prompt_unchanged_at_c9": true,
+    "v4_prompt_not_touched_per_plan": "~/.claude/plans/m11a-extension-extension-n40.md §D1 + §D5 + frozen-artifacts list — V4 prompt is NOT touched at Commit C series"
+  },
+  "plan_lock": "~/.claude/plans/m11a-extension-extension-n40.md (locked source plan)",
+  "current_date": "2026-05-25"
+}
