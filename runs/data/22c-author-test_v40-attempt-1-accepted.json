@@ -1,0 +1,240 @@
+{
+  "milestone": "M11a-extension-extension Commit C10",
+  "trace": "test_v40",
+  "attempt": 1,
+  "total_attempts": 1,
+  "verdict": "accepted",
+  "audit_gate": {
+    "overall": "PASS",
+    "checks_pass": 8,
+    "checks_total": 8,
+    "details": {
+      "step_1_schema_via_get_trace": "PASS — 5 GTs / 9 events / 5 intents / briefing 4478 chars",
+      "step_2_self_restate_gate_structural_parsing": "PASS — averted at attempt 1 (M11a-extension-extension structural-parsing-failure rate so far 0/10 attempts per §D4 self-restate gate inherited verbatim from M11a-extension)",
+      "step_3_5_keyword_literal_substring_verification": "PASS — first-run 10/10 PASS with no in-session iteration required at Step 3.5 — mirrors M11a-extension-extension C1 + C2 + C4 + C5 + C6 + C7 + C8 + C9 + M11a-extension C4..C10 first-run-Step-3.5-PASS precedents; distinct from M11a-extension-extension C3 attempt-1 QDRO single-token iteration precedent",
+      "step_4_literal_id_collision_vs_banned_and_prior_traces": "PASS — 0 collisions vs 298 prior banned event_ids + 0 collisions vs prior trace event_ids across 34 prior trace definitions (test_v4..v8 + test_v11..v15 + test_v21..v30 + test_v31..v39 included)",
+      "step_5_m8b_keyword_content_alignment": "PASS — 10/10 keyword literal-substring matches into respective GroundTruth event.content lowercased",
+      "step_6_drift_overlap_8_gram_check": "PASS — 0 8-gram overlaps vs 31473 prior unique dev/test 8-grams (32995 total instances) across 34 prior trace definitions after 1 in-session iteration round of 4 cluster-level single-clause revisions (round 1 reduced 21 overlaps -> 0)",
+      "step_7_banned_themes_and_tuples": "PASS — 0 banned-tuple collisions (5 new tuples all distinct from 166 banned: (iep,reevaluation) + (daf,charitable) + (prometheus,federation) + (nicu,discharge) + (lake-effect,snow)); banned-themes class-level overlap is by design per V2 EXISTING YES coverage rotation but specific-content level themes substantively distinct from prior 167 banned themes (household-adolescent IEP Individualized-Education-Program annual reevaluation meeting at public-school student-services-and-special-education department with three-year-mandatory comprehensive-reevaluation cycle distinct from prior schedule-change themes (cataract/cardio/transplant-eval/walkthrough/dental/orthopedic-spine/CFA-exam/OIT-graduation/IVF-egg-retrieval/mastectomy/UCLA-kidney-transplant-eval/lumbar-fusion/mediation-session); donor-advised-fund DAF year-end contribution at Fidelity Charitable with bunched-charitable-giving tax-planning + appreciated-securities transfer distinct from prior financial/deadline themes (ILIT-Crummey/1031-intermediary/ESPP-lookback/NSO-exercise/ISO-exercise/FBAR-foreign/FAFSA-filing/IRA-Roth-conversion/HELOC-draw/mortgage-rate-lock/term-life-convertibility/IRS-Q3-estimated-tax/tax-loss-harvest/Schwab-portfolio-advisor/Carta-equity-admin); PagerDuty SEV-1 on platform-observability-engineering Prometheus-federation outage with TSDB-compaction regression distinct from prior production/on-call themes (OpsGenie-K8s-EKS/RabbitMQ-split-brain/DNSSEC-rollover/Postgres-WAL-replication/CDN-purge/Elasticsearch-shard/datastore-replica/Snowflake-credit/Kafka-broker/etcd-quorum/Redis-memory/disk-space); NICU social-worker voicemail at Briarwood Children's Medical Center on premature-newborn six-week discharge planning with home-oxygen + apnea-monitor + lactation + WIC + EI Early-Intervention discharge bundle distinct from prior message/delivery themes (Cascade-vet-oncology-lymphoma/VA-PTSD-rating/family-law-attorney/probate-court-GAL/tenant-defense-attorney/school-VP-disciplinary/OPO-transplant/mother-in-law-chemo/St-Vincent-grandmother-admission/sister-Tess-estate/attorney-Reyes-FL-142/adoption-agency-caseworker/funeral-home-director/detective-burglary/Vega-paralegal-guardian-ad-litem); NWS Buffalo lake-effect-snow LES warning for eastern-Lake-Ontario Tug-Hill-Plateau snowbelt corridor distinct from prior weather themes (NWS-LA/Oxnard-fire-weather-Santa-Ana/Anchorage-avalanche/Honolulu-surf/Bismarck-blizzard/SWPC-G4-geomagnetic/Idalia-hurricane/Aleutian-tsunami/Mt-Baker-volcanic-ash/heat-warning/ice-storm/tornado/dust-storm/flood/Sterling-LWX-derecho))",
+      "step_8_gt_distribution_and_distractor_structure": "PASS — 5 GTs (kind distribution: email:2 / notification:2 / alert:1; sim_time spread 70..580 across the trace window); 4 distractors (kind distribution: email:2 / notification:2; sim_time spread 110..520 interleaved with GTs)"
+    },
+    "in_session_iterations": {
+      "step_3_5_single_token": 0,
+      "step_6_single_clause_revisions": 4,
+      "step_6_iteration_rounds": 1,
+      "step_6_revision_details": [
+        {
+          "round": 1,
+          "cluster": "A — financial/deadline closing template (all-need-to-land-before-the-five-PM-Eastern-cutoff-today + missed-window-outcome-forfeits-the-current-tax-year-itemized-charitable-deduction)",
+          "scope": "GT2.content closing + intent #2 closing (both branches use the same closing template inherited from C9 GT3 ILIT Crummey financial/deadline closing)",
+          "changes": [
+            "GT2.content: 'all need to land before the five-PM Eastern cutoff today on the DAF year-end contribution-processing cycle. The missed-window outcome forfeits the current-tax-year itemized-charitable-deduction for the household-side contribution' -> 'all need to clear the five-PM Eastern processing-window today on the DAF year-end contribution-processing cycle. A missed-window outcome on the contribution-acceptance cycle forfeits the current-tax-year itemized-charitable-deduction for the household-side contribution'",
+            "intent #2: 'all need to land before the five-PM Eastern cutoff today, and the missed-window outcome forfeits the current-tax-year itemized-charitable-deduction' -> 'all need to clear the five-PM Eastern processing-window today, and a missed-window outcome on the contribution-acceptance cycle forfeits the current-tax-year itemized-charitable-deduction'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true,
+          "overlaps_eliminated": 13
+        },
+        {
+          "round": 1,
+          "cluster": "B — feature-announcement distractor release-notes-documentation-threads-the-per-region-rollout-cycle-availability-plus-the template (inherited from C9 D3 Cloudflare R2 v2 release-notes closing)",
+          "scope": "D3 Tailscale Funnel v2 launch announcement closing paragraph",
+          "changes": [
+            "'The release-notes documentation threads the per-region rollout-cycle availability plus the per-customer migration-path-from-Funnel-v1 carryover pass' -> 'The Tailscale-side product release-notes covers the per-region rollout-cycle availability plus the per-customer migration-path-from-Funnel-v1 carryover pass'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true,
+          "overlaps_eliminated": 4
+        },
+        {
+          "round": 1,
+          "cluster": "C — message/delivery voicemail opener landed-on-the-household-callback-line-on-the template (inherited from C9 GT4 Cascade veterinary specialty-oncology voicemail opener)",
+          "scope": "GT4 NICU social-worker voicemail opening clause",
+          "changes": [
+            "'social-work-and-discharge-planning team landed on the household callback line on the household-side premature-newborn six-week NICU stay-and-discharge planning cycle' -> 'social-work-and-discharge-planning team came in on the household callback queue on the household-side premature-newborn six-week NICU stay-and-discharge planning cycle'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true,
+          "overlaps_eliminated": 2
+        },
+        {
+          "round": 1,
+          "cluster": "D — financial/deadline opener email-reminder-reached-the-household-adults-personal-inbox-on-the template (inherited from C9 GT3 Sebastian Aliyu ILIT Crummey opener)",
+          "scope": "GT2 Fidelity Charitable opening clause",
+          "changes": [
+            "'Fidelity Charitable's donor-services-team email reminder reached the household-adult's personal inbox on the household-side donor-advised-fund DAF account confirming' -> 'Fidelity Charitable's donor-services-team year-end deadline reminder landed in the household-adult's personal inbox on the household-side donor-advised-fund DAF account confirming'"
+          ],
+          "substantive_content_bytewise_stable_in_meaning": true,
+          "overlaps_eliminated": 2
+        }
+      ],
+      "iteration_count_per_audit_gate_substep": {
+        "step_3_5_iterations": 0,
+        "step_6_iterations": 1,
+        "step_6_round_1_overlap_count": 21,
+        "step_6_post_round_1_overlap_count": 0,
+        "step_6_cluster_level_revisions_total": 4
+      },
+      "anchored_old_string_discipline_applied": "All 4 cluster-level revisions used Edit replace_all=false with anchored old_string contexts unique to test_v40 (per C9 Round-1 Cluster-B replace_all=true lesson). Verified post-edit that no inadvertent prior-trace modification occurred via git diff --stat showing 62 insertions / 0 deletions APPEND-ONLY pure across 2 hunks (line 2043 test_v40 function insertion + line 2079 registry +1 line for 'test_v40': test_trace_v40 entry); prior trace 8-gram count = 31473 unique (32995 instances) bytewise stable pre/post C10 edits.",
+      "precedent": "M11a-extension D-C3.attempt1.C + M11a-extension-extension D-C2.attempt1.C + D-C3.attempt1.C + D-C4.attempt1.C + D-C5.attempt1.C + D-C6.attempt1.C + D-C7.attempt1.C + D-C8.attempt1.C + D-C9.attempt1.C in-session single-clause-revision precedent — NOT counted as rejection-and-retry per fresh-redraft-counts-only convention (M11a-extension D-C7.attempt1.D / D-C9.attempt1.C fresh-redraft rejection precedent — those involved substantial multi-clause redrafts; here all 4 cluster-level revisions are single-clause substitutions with the substantive trace content bytewise stable in meaning); single-clause-only author-discipline + substantive bytewise stability held. NOTE on C10 in-session-revision-count trajectory: 4 cluster-level revisions in 1 iteration round successfully re-baselines back toward the C1-C7 range (0-4 revisions) from the C8 9-across-2-rounds + C9 7-across-2-rounds spike (the C9 kickoff guidance lessons applied: (1) varied the briefing opener at draft time — 'A pre-dawn Friday morning before sunrise on the household-bedside reading-lamp with the household-adult flipping through the household-handle morning-routine widget across the household-bedside surface ahead of the household-side workday lead-up cycle —' is structurally distinct from the test_v38-and-v39 briefing-opener template that drove 14-of-41 round-1 overlaps at C9 + the C4-C6+C8 briefing-rollup convergence pattern; the C10 briefing-opener produced 0 round-1 overlaps; (2) used Edit replace_all=false with anchored old_string contexts unique to test_v40 across all 4 cluster-level revisions, avoiding the C9 Round-1 Cluster-B inadvertent test_v38 GT5 modification; no round-2 housekeeping revert was required at C10). The 4 remaining round-1 cluster sources at C10 were genuinely substantive shared-template inheritance from prior traces (Cluster A 13 overlaps from C9 ILIT-Crummey financial/deadline closing template; Cluster B 4 overlaps from C9 Cloudflare R2 v2 release-notes template; Cluster C 2 overlaps from C9 Cascade veterinary voicemail opener template; Cluster D 2 overlaps from C9 ILIT-Crummey opener template) — all bounded by single-clause-only author-discipline + substantive bytewise stability in meaning."
+    }
+  },
+  "design_choice": {
+    "scope_per_plan": "§D1 + §D7 + Non-goals #1 + #2",
+    "v2_existing_yes_gts_shipped": 5,
+    "v2_existing_no_distractors_shipped": 4,
+    "v4_new_gts_shipped": 0,
+    "v4_new_distractors_shipped": 0,
+    "v2_existing_yes_class_breakdown": [
+      {
+        "class": "schedule change affecting the user personally",
+        "c10_input_count": "15x (just lifted at C9 from 14x baseline with household-spouse right-eye phacoemulsification cataract surgery)",
+        "c10_action": "LIFTED to 16x",
+        "specific_content": "household-adolescent's annual IEP Individualized-Education-Program reevaluation meeting at the public-school student-services-and-special-education department on case-coordinator Marisela Reyes's calendar — previously calendared for next-Friday-afternoon — moved forward onto tomorrow morning at the eight-AM block on the school-side conference-room calendar following an opening on the case-coordinator-side IEP-team availability grid + three-year-mandatory comprehensive-reevaluation cycle covering present-levels-of-academic-achievement-and-functional-performance + reading-fluency-and-comprehension + math-computation-and-problem-solving + writing-output + executive-functioning + social-emotional-and-pragmatic-language reassessment + school-psychologist cognitive-and-processing-speed battery + speech-language-pathologist reassessment + occupational-therapist reassessment + school-counselor reassessment + IEP-team meeting roster (case-coordinator + general-ed-teacher + special-ed-teacher + school-psychologist + SLP + OT + counselor + administrator + household-adult parent + household-spouse parent + outside-of-school clinical-neuropsychologist Dr. Halima Ngo cognitive-assessment report) + IEP-document deliverables (updated goals-and-objectives + present-levels-of-performance baseline + specially-designed-instruction grid + related-services grid + state-and-district-assessment-accommodations + transition-planning + behavior-intervention-plan + procedural-safeguards-notice acknowledgment) + household-side meeting-preparation steps through the next-eighteen-hour cycle (review of prior-IEP draft + review of Dr. Ngo's neuropsychology-evaluation + preparation of parent-input-statement + review of recent-week academic-progress-update + procedural-safeguards-notice acknowledgment + IEP-team-meeting confirmation + pre-meeting self-advocacy conversation with the household-adolescent); distinct sub-class (special-education IEP reevaluation, school-side scheduling) from prior schedule-change themes (cataract/cardio/transplant-eval/walkthrough/dental/orthopedic-spine/CFA-exam/OIT-graduation/IVF-egg-retrieval/mastectomy/UCLA-kidney-transplant-eval/lumbar-fusion/mediation-session) — fully non-surgical-scheduling-coordinator frame avoiding any inheritance of the C9 ophthalmic-surgical-services-scheduling-coordinator template"
+      },
+      {
+        "class": "financial/deadline obligation",
+        "c10_input_count": "15x (just lifted at C9 from 14x baseline with estate-planning attorney ILIT Crummey-notice funding-deadline)",
+        "c10_action": "LIFTED to 16x",
+        "specific_content": "household-side donor-advised-fund DAF account at Fidelity Charitable year-end contribution deadline closing 5pm Eastern today on the bunched-charitable-giving tax-planning strategy + DAF account opened four years ago on bunching strategy stacking multiple years of itemized-charitable-deductions into a single tax-year contribution-and-grant cycle ahead of the standard-deduction threshold band + current-year contribution-amount $50K appreciated-long-term-capital-gain stock-position from household-adult's prior-employer's RSU-vesting cycle with $35K unrealized-capital-gain avoidance by contributing appreciated-securities directly to Fidelity Charitable rather than selling-and-donating-cash + contribution-acceptance window with appreciated-securities transfer through Fidelity-Investments brokerage onto Fidelity Charitable receiving-DAF-account via internal cross-account-transfer mechanic with same-day settlement + missed-window outcome forfeits current-tax-year itemized-charitable-deduction pushing the donation into next-tax-year contribution cycle on rolling tax-planning strategy; distinct sub-class (DAF year-end charitable-giving, appreciated-securities transfer, bunching strategy) from prior financial/deadline themes (ILIT-Crummey/1031-intermediary/ESPP-lookback/NSO-exercise/ISO-exercise/FBAR-foreign/FAFSA-filing/IRA-Roth-conversion/HELOC-draw/mortgage-rate-lock/term-life-convertibility/IRS-Q3-quarterly-estimated-tax/tax-loss-harvest/Schwab-portfolio-advisor/Carta-equity-admin)"
+      },
+      {
+        "class": "production/on-call alert",
+        "c10_input_count": "14x (UNCHANGED at C9 baseline; LIFT CANDIDATE closed at C10 as natural lift candidate since other 5 V2 YES classes all just-lifted-at-C9 to 15x tied-for-max)",
+        "c10_action": "LIFTED to 15x",
+        "specific_content": "PagerDuty SEV-1 on platform-observability-engineering on-call rotation for production-side Prometheus federation hierarchy outage + global Prometheus-federation tier sitting on top of regional Prometheus servers stopped ingesting federated time-series data after Prometheus-2.50 upgrade rollout pushed last week landed regression in remote-write TSDB compaction settings on global-tier federation server fleet + dashboards-and-alerting on-call surface with empty-panel readings on per-service SLO-tracking dashboard fleet + critical-service alerting-rule fleet returning no-data responses on Alertmanager evaluation leaving production-side service-health monitoring posture flying-blind + on-call decision-branch between rollback-the-Prometheus-upgrade path on global-federation-tier with Prometheus-2.49 previous-known-good redeployment vs in-place patch path applying Prometheus-2.50 configuration-side workaround with rolling-restart sequence + incident-window crossed 90-min response-band threshold with platform-observability principal engineer brought into response-channel over incident-bridge link + platform-engineering peer looped onto federation-pipeline coordination + platform-storage on-call brought onto Prometheus-TSDB reconciliation + platform-reliability-engineering response coordinator handling customer-comms drafting for customer-side service-status-page update on observability-pipeline-disruption tenant-notification routine; aggressively varied opener-AND-closing AWAY from C8 OpsGenie K8s EKS pod-eviction + C7 RabbitMQ split-brain + C5 Postgres WAL-replication + C4 CDN-purge + C2 datastore-replica patterns per C10 kickoff guidance — distinct vocabulary at opener (PagerDuty SEV-one through-the-incident-pipeline vs PagerDuty SEV-one-fired-on-X-on-call-rotation), distinct middle (90-min response-band threshold vs 75-min escalation timer wrapped past checkpoint), distinct middle (principal engineer brought into the response-channel vs staff engineer paged onto the bridge call), distinct closing (response coordinator handling customer-comms drafting on observability-pipeline-disruption tenant-notification vs response manager handling customer-impact-statement drafting on SLA-credit notification); product-domain (Prometheus federation metrics-pipeline observability) is itself distinct from prior production/on-call product-domains (K8s orchestration / messaging-queue / database-replication / DNS-rollover / CDN-purge / datastore-replica)"
+      },
+      {
+        "class": "message or delivery directed personally to the user",
+        "c10_input_count": "15x (just lifted at C9 from 14x baseline with Cascade veterinary specialty-oncology voicemail on senior dog Lily's multicentric lymphoma diagnosis + CHOP-protocol decision)",
+        "c10_action": "LIFTED to 16x",
+        "specific_content": "NICU social-worker Constance Whittaker voicemail from Briarwood Children's Medical Center's neonatal-intensive-care-unit social-work-and-discharge-planning team on household-side premature-newborn six-week NICU stay-and-discharge planning cycle + household-side premature-newborn at NICU level-three intensive-care nursery on respiratory-support-and-feeding-support pathway following household-adult-side preterm-labor-and-emergency-cesarean delivery six weeks ago at 31-and-6/10-week gestation + discharge-readiness threshold crossing into transition-to-home-care + discharge-planning bundle threading home-oxygen-therapy via household-side oxygen-concentrator with backup-oxygen-cylinder rotation + apnea-monitor home-monitoring device with caregiver-training session + lactation-consultant follow-up cycle on breast-milk-and-NICU-fortifier transition + WIC enrollment + EI Early-Intervention Part-C developmental-services referral + pediatric primary-care-physician Dr. Onyeka Ifeanyi introduction visit with immunization-catch-up on premature-newborn adjusted-age band + discharge-coordination cycle (next-36-hour pre-discharge teaching sessions at NICU bedside + discharge-medication-reconciliation with neonatologist-and-pharmacist + discharge-equipment-delivery scheduling at household-side residence + discharge-transportation with car-seat-safety-check + household-side pediatric-home-nursing arrangement); distinct sub-class (neonatal-intensive-care NICU discharge social-work coordination) from prior message/delivery themes (Cascade-vet-oncology-lymphoma/VA-PTSD-rating/family-law-attorney/probate-court-GAL/tenant-defense-attorney/school-VP-disciplinary/OPO-transplant/mother-in-law-chemo/St-Vincent-grandmother-admission/sister-Tess-estate/attorney-Reyes-FL-142/adoption-agency-caseworker/funeral-home-director/detective-burglary/Vega-paralegal-guardian-ad-litem)"
+      },
+      {
+        "class": "weather alert",
+        "c10_input_count": "15x (just lifted at C9 from 14x baseline with NWS Los Angeles/Oxnard red-flag critical-fire-weather warning + PSPS pre-emptive deenergization)",
+        "c10_action": "LIFTED to 16x",
+        "specific_content": "NWS Buffalo forecast office lake-effect snow LES warning on eastern-Lake-Ontario regional alert-feed elevating prior winter-storm-watch across eastern-Lake-Ontario snowbelt corridor to lake-effect-snow warning running across next 36-hour stationary-LES-band window + Tug-Hill-Plateau ridge + Watertown-and-Pulaski snowbelt corridor + Lewis-and-Oswego-and-Jefferson county-side eastern-shore exposure + persistent west-southwest fetch over Lake-Ontario's 800-square-mile open-water surface + leeward-shore-ascending-onto-Tug-Hill-Plateau orographic-lift enhancement + LES-band setup threading cold-air-mass advection across lake-surface + 35-degree-Fahrenheit air-lake temperature differential threshold + stalled-upper-level-trough holding steering-flow over long-fetch axis + boundary-layer-equilibrium-depth deepening on prolonged-cold-air-advection + 3-5-foot storm-total snowfall band centerline forecast on Tug-Hill-Plateau highest-snowfall corridor + 2-3-foot snowfall on lower-elevation snowbelt corridor + 4-6-inch-per-hour snowfall-rate peak + whiteout-condition visibility-reduction + sub-zero wind-chill on post-LES cold-air mass advection + NYSDOT closure-and-detour on I-81 + I-90 NYS-Thruway eastern-shore corridor + Route-3 and Route-104 snowbelt corridor + NYSP snowbelt patrol-staffing + Jefferson-Lewis-Oswego-county-side plow-fleet activation + regional Watertown-Pulaski-Mexico-side school-district closure + Fort-Drum military-installation hold-and-restore + regional county-side emergency-management-office coordination cell with snowbelt-corridor emergency-shelter standup + WEA cellphone-push-alert plus EAS emergency-broadcast-system loop + regional electric-cooperative distribution-feeder cold-weather-loading and snow-loading outage-risk band; distinct sub-class (Great-Lakes lake-effect-snow stationary-LES-band orographic-lift Tug-Hill-Plateau snowbelt) from prior weather themes (NWS-LA/Oxnard-fire-weather-Santa-Ana/Anchorage-avalanche/Honolulu-surf/Bismarck-blizzard/SWPC-G4-geomagnetic/Idalia-hurricane/Aleutian-tsunami/Mt-Baker-volcanic-ash/heat-warning/ice-storm/tornado/dust-storm/flood/Sterling-LWX-derecho)"
+      }
+    ],
+    "skipped_v2_existing_yes_class": {
+      "class": "urgent safety/security issue (medical-emergency sub-class)",
+      "c10_input_count": "15x (tied-for-max V2 YES at C10-input; just-lifted-consecutively-at-C7+C8+C9 with EMS-handoff template-convergence risk per C9 kickoff guidance)",
+      "rationale": "default-preserve skip-the-highest pattern preferring urgent-safety at C10 specifically to STRUCTURALLY avoid the recurring EMS-handoff template-convergence pattern that drove the C8 step-6 9-revision spike (clustering on paramedic-ETA + ED resuscitation-bay coordination + MICU handoff template) AND the C9 step-6 cluster-D bolus-protocol-pre-mixed-on-resuscitation-cart template (inherited from v38 GI-bleed/urosepsis EMS-handoff narrative); urgent-safety has been lifted at consecutive C7+C8+C9 with aggressive opener-AND-closing variation discipline already exhausted at adult-self-PE + household-elderly-mother-urosepsis + household-grandfather-lower-GI-hematochezia; skipping urgent-safety distractor class entirely at C10 structurally avoids the recurring EMS-handoff template at this iteration rather than relying on author-discipline single-clause-revision in-session — directly addresses C8+C9 in-session-revision-count spike lesson per C10 kickoff guidance"
+    },
+    "v2_existing_no_class_breakdown": [
+      {
+        "class": "routine production/status digest",
+        "c10_input_count": "14x (UNCHANGED at C9 baseline; LIFT CANDIDATE closed at C10 as natural lift candidate since other 4 V2 NO classes all just-lifted-at-C9 to 14x tied-for-max)",
+        "c10_action": "LIFTED to 15x",
+        "specific_content": "Sentry weekly application-error-monitoring digest on platform-engineering organization-side inbox covering trailing-week unhandled-exception count rollup + per-service error-rate trend + per-release crash-rate breakdown + DSN rate-limit summary across organization-wide Sentry-project fleet + trailing-week unhandled-exception count 4680 events + per-project breakdown (payment-gateway 1200 + checkout-flow 600 + auth-service 420 + inventory-management 380 + messaging-pipeline 250) + per-service issue-resolution-rate metric + per-release crash-rate breakdown + DSN data-source-name rate-limit summary + dashboard-and-alerts surface + per-project alert-rule fleet on per-issue impact-band condition; distinct platform (Sentry application-error-monitoring) from prior routine-status themes (Snyk-SCA-vulnerability/Renovate-Mend-dependency-update/Datadog-CCM-cloud-cost-management + older themes)"
+      },
+      {
+        "class": "marketing/newsletter",
+        "c10_input_count": "14x (just lifted at C9 from 13x baseline with King Arthur Baking Company monthly autumn-baking newsletter)",
+        "c10_action": "LIFTED to 15x",
+        "specific_content": "Rancho Gordo Bean Club quarterly heirloom-beans subscriber-club shipment-newsletter from Napa CA artisanal-dry-beans direct-to-consumer farmer-cooperative model + autumn-quarter shipment 6-variety lineup (Yellow-Eye + Marcella-cannellini + Rebosero + Mayocoba + Vaquero + Christmas-Lima) from Napa-and-Sonoma California north-coast farmer-cooperative + Mexico-side farmer-cooperative trade-partnership provenance + heirloom-seed-stock conservation-and-cataloging-and-stewardship cycle + Rancho Gordo recipe-and-cooking-technique companion-side content; distinct sub-class (heirloom-bean subscriber-club, artisanal-dry-beans, Napa-California-and-Mexico-farmer-cooperative supply-chain) from prior marketing/newsletter themes (King-Arthur-Baking-autumn-baking/Holderness-Forge-spring-garden-tools/Vermont-Maple-Forest-spring-syrup/Ridge-and-Rail-Coffee-Roasters-quarterly-seasonal-origin)"
+      },
+      {
+        "class": "feature announcement",
+        "c10_input_count": "14x (just lifted at C9 from 13x baseline with Cloudflare R2 v2 object storage launch announcement)",
+        "c10_action": "LIFTED to 15x",
+        "specific_content": "Tailscale Funnel v2 launch announcement on Tailscale product-update notification surface covering major-feature-set deepening on Tailscale Funnel-side device-exposure-to-public-internet HTTPS-endpoints product line from Funnel-v1 baseline + per-device routing-policy primitive + per-Funnel TLS-cert customization primitive with Tailscale-managed-TLS-cert issuance + customer-managed-TLS-cert import + cert-rotation-and-renewal cycle + Tailscale-side metrics-and-logs surface (per-Funnel request-rate-and-response-code-and-error-rate-and-latency dashboard + per-Funnel access-log streaming primitive + per-Funnel rate-limit-and-throttling primitive) + Tailscale-side per-Funnel-exposure ACL access-control-list integration + Tailscale-side product release-notes covers per-region rollout-cycle availability + per-customer migration-path-from-Funnel-v1 carryover pass; distinct product (Tailscale mesh-VPN-and-public-exposure Funnel-v2) from prior feature-announcement themes (Cloudflare-R2-v2/Notion-Calendar-v2/Vercel-Functions-v2/Figma-Sites)"
+      },
+      {
+        "class": "social-channel invite/digest",
+        "c10_input_count": "14x (just lifted at C9 from 13x baseline with Discord weekly server-activity digest tabletop-gaming community)",
+        "c10_action": "LIFTED to 15x",
+        "specific_content": "Lemmy federated-discussion-aggregator weekly subscriber-feed digest on household-handle's per-app notification-tray surface covering trailing-week subscribed-community activity rollup across federated-Lemmy-instance-fleet on household-handle's subscribed-community lineup + 116 new posts across 17 subscribed-communities + per-community comment-thread engagement-rollup + per-community moderator-action surface + cross-community recommendation seed-engine + household-handle subscribed-community lineup (tech-and-engineering + photography-and-curation + reading-and-literature + gardening-and-cooking community-clusters); distinct platform (Lemmy federated-discussion-aggregator federated-Reddit-alternative) from prior social-channel-invite themes (Discord-tabletop-gaming/Letterboxd-friend-watchlist/Bluesky-federated-microblogging/Substack-reader-network/Are.na-creative-curation) — aggressively varied opener AWAY from the recurring 'digest landed/arrived in subscriber inbox covering trailing-7-day window' template per C9 kickoff guidance"
+      }
+    ],
+    "skipped_v2_existing_no_class": {
+      "class": "generic daily briefing",
+      "c10_input_count": "14x (tied-for-maximum among V2 NO at C10-input alongside marketing/newsletter 14x + feature-announcement 14x + social-channel-invite 14x; just-lifted-at-C9 with Thursday early-morning kitchen-table dawn-routine briefing)",
+      "rationale": "default-preserve skip-the-highest pattern preferring generic-daily-briefing at C10 specifically to STRUCTURALLY break the briefing-rollup distractor-opener template-convergence pattern that surfaced at C4 + C5 + C6 + C8 + C9 (5 of 9 prior commits) — skipping generic-daily-briefing distractor class entirely at C10 structurally avoids the recurring 'X morning/evening briefing on household-Y-widget covering rollup' template at this iteration rather than relying on author-discipline single-clause-revision in-session"
+    },
+    "v4_new_touches_at_c10": {
+      "count": 0,
+      "rationale": "preserves M11a-extension C10 + M11a-extension-extension C1+C2+C3+C4+C5+C6+C7+C8+C9 cross-V4-mechanism symmetric closure at V4 NEW YES 6 vs V4 NEW NO 6 = delta 0 bytewise into M11a-extension-extension C10 scope per §D7 + §D14-H1 (this milestone is CI-tightening on the V4-vs-V2 headline at the SAME 5-event mechanism reference; mechanism-residual closure is M11d-surprise-gate-retuning + V5 future-work scope per Non-goals #1 + #2)"
+    }
+  },
+  "banned_list_state": {
+    "input_at_c10": {
+      "event_ids": 298,
+      "themes": 167,
+      "tuples": 166,
+      "snapshot_file": "runs/data/22c-banned-list-pre-c10.{txt,json}",
+      "provenance": "M11a-extension-extension Commit C9 end-state (post-test_v39 acceptance per runs/data/22c-author-test_v39-attempt-1-accepted.json §post_c9_banned_list_increment_for_c10_input); carried forward verbatim per ~/.claude/plans/m11a-extension-extension-n40.md §D3 + §Appendix carry-forward"
+    },
+    "post_c10_increment_for_c11_input": {
+      "delta": "+9 IDs / +5 themes / +5 tuples",
+      "expected_pre_c11_banned_list_counts": {
+        "event_ids": 307,
+        "themes": 172,
+        "tuples": 171
+      }
+    }
+  },
+  "post_c10_banned_list_increment_for_c11_input": {
+    "new_event_ids_added_post_c10": [
+      "household_adolescent_iep_individualized_education_program_annual_reevaluation_meeting_pulled_forward_tomorrow_morning_eight_am_school_special_education_case_coordinator",
+      "fidelity_charitable_donor_advised_fund_daf_year_end_contribution_deadline_five_pm_eastern_today_bunched_charitable_giving_appreciated_securities_transfer",
+      "pagerduty_sev_one_platform_observability_on_call_prometheus_federation_metrics_pipeline_outage_remote_write_tsdb_compaction_regression_alerting_blind_post_upgrade",
+      "briarwood_childrens_medical_center_nicu_social_worker_voicemail_household_premature_newborn_six_week_discharge_planning_home_oxygen_apnea_monitor_lactation_wic_early_intervention",
+      "nws_buffalo_lake_effect_snow_les_warning_eastern_lake_ontario_tug_hill_plateau_watertown_pulaski_corridor_three_to_five_foot_snowfall_band_thirty_six_hour_window_stationary",
+      "sentry_application_error_monitoring_weekly_engineering_organization_digest_unhandled_exception_count_per_service_error_rate_per_release_crash_rate_dsn_rate_limit",
+      "rancho_gordo_bean_club_heirloom_beans_quarterly_subscriber_club_shipment_newsletter_napa_california_artisanal_dry_beans_farmer_cooperative_household_subscriber",
+      "tailscale_funnel_v2_launch_announcement_per_device_routing_policy_per_funnel_tls_cert_customization_metrics_and_logs_surface_acl_integration_subscriber_notification",
+      "lemmy_federated_discussion_aggregator_weekly_subscriber_feed_digest_per_community_post_activity_comment_thread_engagement_cross_community_recommendation_household_handle"
+    ],
+    "new_themes_added_post_c10": [
+      "schedule change affecting the user personally (V2 EXISTING YES) — household-adolescent's annual IEP Individualized-Education-Program reevaluation meeting at the public-school student-services-and-special-education department on case-coordinator Marisela Reyes's calendar pulled forward from next-Friday-afternoon onto tomorrow morning at the 8AM block on the school-side conference-room calendar following an opening on the case-coordinator-side IEP-team availability grid plus three-year-mandatory comprehensive-reevaluation cycle covering present-levels-of-academic-achievement-and-functional-performance assessment plus reading-fluency-and-comprehension plus math-computation-and-problem-solving plus writing-output plus executive-functioning plus social-emotional-and-pragmatic-language reassessment plus school-psychologist-side cognitive-and-processing-speed reassessment battery plus speech-language-pathologist-side reassessment plus occupational-therapist-side reassessment plus school-counselor-side reassessment plus IEP-team meeting roster (school-side participants plus household-side parents plus outside-of-school clinical-neuropsychologist Dr. Halima Ngo private-practice cognitive-assessment report) plus IEP-document deliverables (updated goals-and-objectives plus updated present-levels-of-performance baseline plus updated specially-designed-instruction grid plus updated related-services grid plus updated state-and-district-assessment-accommodations plus updated transition-planning plus updated behavior-intervention-plan plus parent-and-student procedural-safeguards-notice acknowledgment) plus household-side meeting-preparation steps through the next-eighteen-hour cycle",
+      "financial/deadline obligation (V2 EXISTING YES) — household-side donor-advised-fund DAF account at Fidelity Charitable year-end charitable-giving contribution deadline closing 5PM Eastern today on the bunched-charitable-giving tax-planning strategy plus DAF account opened four years ago on bunching strategy stacking multiple years of itemized-charitable-deductions into a single tax-year contribution-and-grant cycle ahead of the standard-deduction threshold plus current-year contribution-amount $50K appreciated-long-term-capital-gain stock-position from household-adult's prior-employer's RSU-vesting cycle with $35K unrealized-capital-gain avoidance by contributing the appreciated-securities directly to Fidelity Charitable rather than selling-and-donating-cash plus contribution-acceptance window with appreciated-securities transfer through Fidelity-Investments brokerage onto the Fidelity Charitable receiving-DAF-account via the internal cross-account-transfer mechanic with same-day settlement plus contribution-processing step plus appreciated-securities-acceptance-and-liquidation cycle at Fidelity Charitable's investment-management step plus household-side itemized-deduction substantiation on the contribution-acknowledgment letter on the household-side tax-return-preparation file plus missed-window outcome forfeits the current-tax-year itemized-charitable-deduction pushing the donation characterization into the next-tax-year contribution cycle",
+      "production/on-call alert (V2 EXISTING YES) — PagerDuty SEV-one on platform-observability-engineering on-call rotation for production-side Prometheus federation hierarchy outage plus global Prometheus-federation tier sitting on top of regional Prometheus servers stopped ingesting federated time-series data after Prometheus-2.50 upgrade rollout pushed last week landed a regression in remote-write TSDB compaction settings on global-tier federation server fleet driving time-series data drops at federation-ingestion stage across critical-service SLO monitoring surface plus platform-observability metric-pipeline outage hits application-tier dashboards-and-alerting on-call surface with empty-panel readings on per-service SLO-tracking dashboard fleet plus critical-service alerting-rule fleet returning no-data responses on Alertmanager evaluation cycle leaving production-side service-health monitoring posture flying-blind plus on-call decision-branch between rollback-the-Prometheus-upgrade path on global-federation-tier with Prometheus-2.49 previous-known-good redeployment vs in-place patch path applying Prometheus-2.50 configuration-side workaround with rolling-restart sequence on global-federation-tier Prometheus server instances plus incident-window crossed the 90-min response-band threshold with platform-observability principal engineer brought into response-channel over incident-bridge link plus platform-engineering peer looped onto federation-pipeline coordination plus platform-storage on-call brought onto Prometheus-TSDB reconciliation plus platform-reliability-engineering response coordinator handling customer-comms drafting cadence for customer-side service-status-page update on observability-pipeline-disruption tenant-notification routine",
+      "message or delivery directed personally to the user (V2 EXISTING YES) — NICU social-worker Constance Whittaker voicemail from Briarwood Children's Medical Center's neonatal-intensive-care-unit social-work-and-discharge-planning team on the household-side premature-newborn six-week NICU stay-and-discharge planning cycle plus household-side premature-newborn currently in NICU's level-three intensive-care nursery on respiratory-support-and-feeding-support pathway following household-adult-side preterm-labor-and-emergency-cesarean delivery six weeks ago at 31-and-6/10 weeks-gestation has reached the discharge-readiness criteria threshold band on NICU's six-week-and-eight-day length-of-stay progress milestone and is ready for transition-to-home-care discharge step on Briarwood's neonatal-care discharge-coordination pathway plus discharge-planning bundle threading home-oxygen-therapy via household-side oxygen-concentrator setup with backup-oxygen-cylinder rotation plus apnea-monitor home-monitoring device with caregiver-training session plus lactation-consultant follow-up cycle plus WIC Women-Infants-and-Children supplemental-nutrition-program enrollment plus EI Early-Intervention Part-C developmental-services referral plus pediatric primary-care-physician Dr. Onyeka Ifeanyi introduction visit with immunization-catch-up on premature-newborn adjusted-age band plus discharge-coordination cycle (pre-discharge teaching sessions at NICU bedside plus discharge-medication-reconciliation plus discharge-equipment-delivery plus discharge-transportation with car-seat-safety-check plus household-side pediatric-home-nursing arrangement)",
+      "weather alert (V2 EXISTING YES) — NWS Buffalo forecast office lake-effect snow LES warning on eastern-Lake-Ontario regional alert-feed elevating prior winter-storm-watch across eastern-Lake-Ontario snowbelt corridor to lake-effect-snow warning running across the next 36-hour stationary-LES-band window covering Tug-Hill-Plateau ridge plus Watertown-and-Pulaski snowbelt corridor plus Lewis-and-Oswego-and-Jefferson county-side eastern-shore exposure on persistent west-southwest fetch over Lake-Ontario's 800-square-mile open-water surface driving lake-effect-snow precipitation-band onto leeward-shore-ascending-onto-Tug-Hill-Plateau orographic-lift enhancement plus LES-band setup threading cold-air-mass advection across lake-surface with 35-degree-Fahrenheit air-lake temperature differential plus stalled-upper-level-trough orientation holding steering-flow over long-fetch axis plus boundary-layer-equilibrium-depth deepening on prolonged-cold-air-advection plus orographic-lift enhancement at Tug-Hill-Plateau onto-the-ridge ascent plus 3-5-foot storm-total snowfall band centerline forecast on Tug-Hill-Plateau highest-snowfall corridor plus 2-3-foot snowfall band on lower-elevation snowbelt corridor plus 4-6-inch-per-hour snowfall-rate peak band plus whiteout-condition visibility-reduction plus sub-zero wind-chill on post-LES cold-air mass advection plus transportation-and-emergency-response coordination cycle (NYSDOT closure-and-detour on I-81 + I-90 NYS-Thruway eastern-shore corridor plus Route-3 and Route-104 snowbelt corridor under no-unnecessary-travel-advised plus NYSP snowbelt patrol-staffing plus Jefferson-Lewis-Oswego-county-side plow-fleet activation plus regional Watertown-Pulaski-Mexico-side school-district closure plus Fort-Drum military-installation hold-and-restore plus regional county-side emergency-management-office coordination cell plus WEA cellphone-push-alert plus EAS emergency-broadcast-system loop plus regional electric-cooperative distribution-feeder cold-weather-loading and snow-loading outage-risk band)"
+    ],
+    "new_tuples_added_post_c10": [
+      "(iep, reevaluation)",
+      "(daf, charitable)",
+      "(prometheus, federation)",
+      "(nicu, discharge)",
+      "(lake-effect, snow)"
+    ],
+    "expected_pre_c11_banned_list_counts": {
+      "event_ids": 307,
+      "themes": 172,
+      "tuples": 171
+    }
+  },
+  "milestone_state": {
+    "cumulative_attempt_count": "10/50",
+    "accepted_commit_c_traces_toward_n_40": 10,
+    "remaining_traces_test_v41_to_v50_across_c11_to_c20": 10,
+    "retry_cap_status_on_test_v40": "1/3 (not exhausted; 2 retries remaining had attempt #1 not accepted)",
+    "literal_id_collision_halt_triggered": false,
+    "banned_list_saturation_halt_triggered": false,
+    "structural_parsing_failure_rate_so_far": "0/10 attempts per §D4 self-restate gate inherited verbatim from M11a-extension"
+  },
+  "file_state": {
+    "sandbox_event_trace_py": {
+      "pre_c10_sha256": "9be3d1b06214935b7f8b4a932e5b837fa4b5c8fb9e3a7add735571c7778713bc",
+      "pre_c10_bytes": 369579,
+      "pre_c10_lines": 2085,
+      "post_c10_sha256": "ad4df5e18d54bd14ea62d3c7112376a0e54d7c685ac9c2bb4216351184ee0295",
+      "post_c10_bytes": 412119,
+      "post_c10_lines": 2147,
+      "git_diff_stat": "1 file changed, 62 insertions(+), 0 deletions(-)",
+      "diff_hunks": [
+        "@@ -2043,6 +2043,67 @@ def test_trace_v39() -> Trace: (test_trace_v40 function inserted)",
+        "@@ -2079,6 +2140,7 @@ def get_trace(name: str) -> Trace: (registry dict +1 line for 'test_v40': test_trace_v40)"
+      ],
+      "append_only_discipline_verified": true,
+      "prefix_lines_1_to_2043_bytewise_unchanged_pre_post_c10": true,
+      "anchored_old_string_discipline_applied_to_all_4_revisions": "All 4 step-6 cluster-level single-clause revisions used Edit replace_all=false with anchored old_string contexts unique to test_v40, preventing any inadvertent prior-trace modification (per the C9 Round-1 Cluster B replace_all=true lesson that required a Round-2 housekeeping revert). Post-edit verification: git diff --stat sandbox/event_trace.py shows 62 insertions + 0 deletions APPEND-ONLY pure; prior trace 8-gram count = 31473 unique (32995 total instances) bytewise stable pre/post C10 edits — NO Round-2 housekeeping revert was required at C10."
+    },
+    "v4_prompt_sha256": "09be309de5609a3c599d401e93ee4b35e655be24232ece6570a51893f80f56a6",
+    "v4_prompt_bytes": 1851,
+    "v4_prompt_unchanged_at_c10": true,
+    "v4_prompt_not_touched_per_plan": "~/.claude/plans/m11a-extension-extension-n40.md §D1 + §D5 + frozen-artifacts list — V4 prompt is NOT touched at Commit C series"
+  },
+  "plan_lock": "~/.claude/plans/m11a-extension-extension-n40.md (locked source plan)",
+  "current_date": "2026-05-25"
+}
