@@ -1,0 +1,96 @@
+{
+  "milestone": "M11a-extension-extension Commit C20 (test_v50) \u2014 FINAL TRACE",
+  "trace_name": "test_v50",
+  "current_date": "2026-05-29",
+  "plan_locked_at": "~/.claude/plans/m11a-extension-extension-n40.md",
+  "self_restate_prompt_artifact_path": "/tmp/m11a-ext-ext-c20-restate-prompt.txt",
+  "verdict": "ACCEPTED",
+  "attempt_number": 1,
+  "total_attempts": 1,
+  "rejection_and_retry_count": 0,
+  "retry_cap_status": "1/3 on test_v50 (not exhausted; 2 retries remaining had attempt #1 not been accepted)",
+  "audit_gate_checks_passed": "8/8 (Step 1 schema + Step 2 self-restate + Step 3 author + Step 3.5 keyword literal-substring 10/10 first-run + Step 4 ID collision 0 + Step 5 M8b keyword-content + Step 6 8-gram drift 0 after 10 cluster-level revisions in 1 round + 10 round-2 housekeeping + 7 round-3 housekeeping + 3 round-4 housekeeping + Step 7 GT distribution 5+4 + Step 8a banned-themes pass + Step 8b banned-tuples pass)",
+  "first_run_step_3_5_pass": true,
+  "step_3_5_first_run_pass_precedents": "C12+C14+C15+C16+C17+C18+C19+C20 (8 consecutive first-run Step-3.5 PASS)",
+  "in_session_step_3_5_iteration_count": 0,
+  "self_restate_gate_structural_parsing_failure_averted": true,
+  "structural_parsing_failure_rate": "0/20 attempts (M11a-extension-extension self-restate gate stable)",
+  "first_run_step_6_inadvertent_overlap_count": 306,
+  "first_run_step_6_overlap_breakdown_note": "306 overlaps clustering on 10 distinct convergence sources almost entirely inherited from C18+C19 templates: (1 LARGEST 92+85=177 overlaps GT2/intent_1 schedule-change schema inherited from C18 TKA + C19 cholecystectomy templates; 2 31 overlaps D4 Sunday brunch briefing inherited from C16+C18 D4 briefing-rollup templates; 3 29 overlaps D3 Bandcamp inherited from C19 Tumblr digest template; 4 13 overlaps briefing opener+CTA+callback inherited from C18+C19; 5 18 overlaps GT3 ESPP + intent_2 from C19 personal-email opener; 6 9 overlaps D2 Honeycomb from C19 New Relic; 7 8 overlaps D1 Marlinwood Forge from C19 Stoneleaf Cidery typography-letterpress; 8 10 overlaps GT4 + intent_3 genetic counselor; 9 4 overlaps intent_0 stroke from C18 mesenteric ischemia + C17 cholangitis; 10 7 overlaps GT5 + intent_4 weather-alert)",
+  "in_session_step_6_revision_count": 10,
+  "in_session_step_6_revision_rounds": "1 round of 10 cluster-level single-clause revisions (R1 schedule-change + R2 genetic counselor + R3 weather emergent-watch-to-warning + R4 stroke EMS-on-scene + R5 briefing opener+CTA+callback + R6 D1 Marlinwood + R7 D2 Honeycomb + R8 D3 Bandcamp + R9 D4 Sunday brunch + R10 GT3 ESPP+intent_2)",
+  "post_round_1_residual_overlap_count": 69,
+  "post_round_1_residual_overlap_note": "69 residual overlaps after R1-R10 round-1 \u2014 all within same convergence clusters: R1 schedule-change (19+12 GT2+intent_1), R8 Bandcamp (2), R6 Marlinwood (1), R7 Honeycomb (1), R9 Sunday brunch briefing (15), R1 briefing residual (1), R10 ESPP+intent_2 residuals (18)",
+  "in_session_step_6_round_2_housekeeping_substitution_count": 10,
+  "in_session_step_6_round_2_housekeeping_note": "10 round-2 within-cluster housekeeping touchups inside SAME convergence clusters as R1-R10 \u2014 NOT counted as additional cluster-level revisions per C13+C14+C15+C16+C17+C18+C19 within-cluster housekeeping precedent",
+  "in_session_step_6_round_3_housekeeping_substitution_count": 7,
+  "in_session_step_6_round_3_housekeeping_note": "7 round-3 within-cluster housekeeping touchups to break new 8-grams introduced by round-2 substitutions (HK-R6.1.2 Marlinwood + HK-R7.1.2 Honeycomb + HK-R10.1.2/HK-R10.2.2 ESPP openers + HK-R8.1.2 Bandcamp + HK-R9.3.2 D4 personal-calendar + HK-R9.x.2 D4 spilling-onto-next-rollup)",
+  "in_session_step_6_round_4_housekeeping_substitution_count": 3,
+  "in_session_step_6_round_4_housekeeping_note": "3 round-4 within-cluster housekeeping (HK-R7.1.3 Honeycomb + HK-R10.1.3 GT3 opener + HK-R10.2.3 intent_2 opener) plus 2 substantive theme-pivots (GT5 NOAA SWPC G4 geomagnetic-storm \u2192 USGS HVO Mauna-Loa Northeast-Rift-Zone fissure-eruption + GT3 ESPP enrollment-window \u2192 QSBS IRC-\u00a71202 five-year holding-period maturity) to resolve theme-level banned-list conflicts (test_v34 already covered NOAA SWPC G4 geomagnetic-storm; test_v35 already covered ESPP enrollment-window)",
+  "post_round_n_residual_overlap_count": 0,
+  "in_session_revision_count_history": "C1 0\u00d7 / C2 1\u00d7+1 token / C3 1\u00d7+1 token / C4 3\u00d7 / C5 1\u00d7 / C6 4\u00d7 / C7 1\u00d7 / C8 9\u00d7 / C9 7\u00d7 / C10 4\u00d7 / C11 11\u00d7 / C12 7\u00d7 / C13 5\u00d7+1 token / C14 7\u00d7 / C15 8\u00d7+4 housekeeping / C16 7\u00d7+2 housekeeping / C17 6\u00d7+1 housekeeping / C18 6\u00d7+5 housekeeping / C19 7\u00d7+1 housekeeping / C20 10\u00d7 in 1 round + 10 round-2 housekeeping + 7 round-3 housekeeping + 3 round-4 housekeeping + 2 substantive theme-pivots (GT5 + GT3) for banned-theme avoidance",
+  "lessons_applied_from_c20_kickoff": [
+    "(1) varied briefing opener Sunday late-morning + breakfast-nook bay-window built-in bench (12th-distinct combo) + opener-tail bay-window-rail mounted brass-stand tablet ledge + body phrases (caregiver-rollup verb-noun combo 'wraps around the caregiver-watch ledger' 7th-distinct; call-to-action 'Every entry below jumps the immediate-action queue without delay' 8th-distinct; emergency-services-coordination 'lighting up the acute-stroke signal into the regional 911-and-stroke-team intake desk onto the township paramedic-stroke-protocol corridor' distinct from prior)",
+    "(2) used Python text.replace with assertion-checked expected_count for ALL cluster-level revisions + round-2/3/4 housekeeping; all revisions applied in /tmp/test_v50_draft.py scratch-file BEFORE the sandbox/event_trace.py write; final sandbox/event_trace.py write was a single APPEND-ONLY operation across 2 hunks",
+    "(3) PROACTIVELY paraphrased recurring templates at draft time: (a) EMS-dialing opener 'tapped through to nine-one-one on breakfast-nook countertop-mounted cordless-phone speed-dial within forty seconds' 8th-distinct verb-noun combo; (b) weather-alert HISTORICAL-ANALOGUE-AND-PRIOR-ERUPTION-COMPARATOR closing 7th-distinct framing referencing 1843+1880-1881+1935+1942+1984+2022 Mauna-Loa NE-Rift-Zone eruptions; (d) routine-status DASHBOARD-EMBED-AND-METRIC-TILE-DRILL-THROUGH 8th-distinct framing on Honeycomb per-service per-metric tile-pane embed-link rollup; (e) marketing/newsletter EDUCATIONAL-AND-CRAFT-TECHNIQUE 9th-distinct framing on Marlinwood Forge per-blade pattern-welding-and-Damascus-billet craft-technique tutorial; (g) financial/deadline 'crosses the threshold-of-eligibility at five-PM-Eastern holding-period-maturity-anchor stamp today' time-stamp + 'crosses' verb + 'threshold-of-eligibility' noun + 'at' connector + 'stays unrealized for current-tax-year cycle with holding-period continuation rolling onto following-tax-year window' missed-window framing varying all four axes",
+    "(4) SKIPPED feature-announcement at C20 per design (just-lifted-at-C19 Plaid Link v3; structurally avoid recurring developer-platform announcement template-convergence)",
+    "(5) CANONICAL-PHRASE DISCIPLINE for Step-3.5 keyword-content alignment applied at draft time \u2014 all 5 GT keyword tuples used canonical medical/financial/technical/geophysical phrases containing both keywords as literal substrings (GT1 (stroke, thrombectomy); GT2 (ablation, catheter); GT3 (qsbs, holding); GT4 (genetic, counselor); GT5 (mauna, eruption)); Step 3.5 PASSed 10/10 on first run maintaining C12+C14+C15+C16+C17+C18+C19 first-run-Step-3.5-PASS streak",
+    "(6) C15+C16+C17+C18+C19 CALLBACK-REQUEST + VOICEMAIL-LANDING TEMPLATE variation applied \u2014 GT2 schedule-change callback-request 'buzz back across the Westbrook-side scheduling-coordinator phone-extension' 10th-distinct from C19 'dial back into' + C18 'ring through to' + C17 'circle back through' + C16 'loops back through' + C15 'prompts to ring back on' + C14 'phone back via' + C10 'call back through'; GT4 voicemail-landing-noun combo 'surfaced on the household-adult-side residential-line voicemail tray' 11th-distinct from C19 'parked on office-line voicemail dock' + C18 'deposited into after-hours phone-mail queue' + C17 'stacked onto missed-call notification feed'; GT4 callback-request 'circle the Whitehurst Genetics genetic counselor direct-line ahead of five-PM tomorrow' 11th-distinct callback-request phrasing",
+    "(7) C19 LESSON ON KEEPING IN-SESSION-REVISION COUNT LOW BY PROACTIVELY VARYING FINANCIAL-DEADLINE TEMPLATE AT DRAFT TIME \u2014 C20 GT3 financial-deadline used 'crosses the threshold-of-eligibility at five-PM-Eastern holding-period-maturity-anchor stamp today' (verb=crosses + noun=threshold-of-eligibility + time-stamp=five-PM-Eastern + missed-window=stays unrealized for current-tax-year cycle with holding-period continuation rolling onto following-tax-year window) varying ALL four template axes AWAY from C19 + C18 + C17 + C16 + C15 + C14 + C13 + C12 templates at draft time; result: GT3 first-run produced no deadline-template-axis overlaps (only opener-axis overlaps which were broken with R10 + housekeeping)"
+  ],
+  "theme_pivot_note": "C20 required TWO substantive theme-pivots during audit Step 8a banned-themes verification: (a) GT5 weather-alert original choice (NOAA SWPC G4-Severe geomagnetic-storm + CME) was duplicate of test_v34 (C4) banned theme \u2014 pivoted to USGS Hawaiian-Volcano-Observatory HVO Mauna-Loa Northeast-Rift-Zone fissure-eruption advisory with lava-flow inundation + vog air-quality + HISTORICAL-ANALOGUE-AND-PRIOR-ERUPTION-COMPARATOR framing referencing 1843+1880-1881+1935+1942+1984+2022 Mauna-Loa NE-Rift-Zone eruptions (distinct from C1 USGS Cascades Mt-Baker phreatic explosion); (b) GT3 financial-deadline original choice (ESPP Employee-Stock-Purchase-Plan enrollment-window) was duplicate of test_v35 (C5) banned theme \u2014 pivoted to QSBS Qualified-Small-Business-Stock IRC-section-1202 five-year holding-period maturity deadline with hundred-percent federal-capital-gains-exclusion election (distinct sub-class from all prior financial-deadline themes including ESPP+ISO+ILIT+HSA+FSA+Medicare-AEP+529-Roth+mega-backdoor-Roth+NQDC-409A+QCD-RMD+TreasuryDirect-Series-I)",
+  "pre_c20_banned_list_state": {
+    "artifact_path_txt": "runs/data/22c-banned-list-pre-c20.txt",
+    "artifact_path_json": "runs/data/22c-banned-list-pre-c20.json",
+    "event_ids": 388,
+    "themes": 217,
+    "tuples": 216
+  },
+  "post_c20_banned_list_increment_for_milestone_close": {
+    "expected_post_c20_banned_list_counts": {
+      "event_ids": 397,
+      "themes": 222,
+      "tuples": 221
+    },
+    "new_event_ids_added_post_c20": [
+      "household_spouse_acute_large_vessel_occlusion_lvo_ischemic_stroke_witnessed_onset_iv_tpa_alteplase_mechanical_thrombectomy_endovascular_neuro_icu_admission",
+      "household_grandparent_outpatient_atrial_fibrillation_radiofrequency_catheter_ablation_cardiac_electrophysiology_lab_surgical_day_moved_up_tomorrow_morning_eight_fifteen_am_block",
+      "household_adult_qsbs_qualified_small_business_stock_irc_section_1202_five_year_holding_period_maturity_deadline_capital_gains_exclusion_election_household",
+      "whitehurst_genetics_hereditary_cancer_syndrome_genetic_counselor_voicemail_household_side_brca_panel_testing_result_cascade_testing_recommendation_consult_callback",
+      "usgs_hawaiian_volcano_observatory_hvo_mauna_loa_northeast_rift_zone_fissure_eruption_lava_flow_inundation_hilo_pahoa_volcanic_ash_plume_vog_air_quality_subscriber",
+      "marlinwood_forge_artisan_bladesmith_and_toolmaker_cooperative_quarterly_subscriber_hand_forged_knife_and_hand_tool_shipment_newsletter_educational_craft_technique_household",
+      "honeycomb_observability_and_distributed_tracing_weekly_engineering_organization_service_fleet_digest_dashboard_embed_metric_tile_per_service_drill_through_rollup_email",
+      "bandcamp_weekly_artist_follow_and_new_release_and_fan_collection_and_merch_drop_community_digest_household_handle_followed_indie_music_subscriber_email",
+      "sunday_late_morning_post_brunch_household_side_breakfast_nook_bay_window_built_in_bench_briefing_tablet_household_coordination_wind_down_personal_rollup_household_handle_widget"
+    ],
+    "new_tuples_added_post_c20": [
+      "(stroke, thrombectomy)",
+      "(ablation, catheter)",
+      "(qsbs, holding)",
+      "(genetic, counselor)",
+      "(mauna, eruption)"
+    ]
+  },
+  "cumulative_milestone_attempt_count": "20/50 (C1..C20 all accepted at attempt 1)",
+  "cumulative_accepted_traces": 20,
+  "halt_conditions_status": {
+    "literal_id_collision_halt": "NOT triggered (0 collisions vs 388 prior event_ids)",
+    "banned_list_saturation_halt": "NOT triggered (20 < 50 threshold)",
+    "retry_cap_3_per_trace": "NOT triggered (test_v50 attempt 1/3 accepted)"
+  },
+  "design_choice": "C20 ships 5 V2 EXISTING YES GTs (urgent-safety 22\u219223 LIFT household-spouse acute LVO ischemic stroke + IV-tPA + mechanical thrombectomy + neuro-ICU; schedule-change 23\u219224 household-grandparent outpatient atrial-fibrillation radiofrequency catheter ablation EP-lab; financial-deadline 23\u219224 household-adult QSBS IRC-\u00a71202 five-year holding-period maturity; message-delivery 23\u219224 hereditary cancer-syndrome genetic counselor BRCA panel; weather-alert 22\u219223 USGS HVO Mauna-Loa NE-Rift-Zone fissure-eruption) + 4 V2 EXISTING NO distractors (marketing/newsletter 23\u219224 Marlinwood Forge bladesmith cooperative + EDUCATIONAL-AND-CRAFT-TECHNIQUE; routine-status 22\u219223 Honeycomb observability + DASHBOARD-EMBED-AND-METRIC-TILE; social-channel-invite 22\u219223 Bandcamp; generic-daily-briefing 20\u219221 LIFT Sunday late-morning post-brunch breakfast-nook bay-window built-in bench) + SKIPPED production/on-call at 23\u00d7 (just-lifted-at-C19 NATS JetStream) + SKIPPED feature-announcement at 23\u00d7 (just-lifted-at-C19 Plaid Link v3) + ZERO V4 NEW touches \u2014 preserves M11a-extension C10 + M11a-extension-extension C1..C19 cross-V4-mechanism symmetric closure at V4 NEW YES 6 vs V4 NEW NO 6 = delta 0 bytewise into C20 scope per plan \u00a7D7 + \u00a7D14-H1",
+  "frozen_artifacts_unchanged": {
+    "v4_prompt_sha256": "09be309d... unchanged (V4 prompt NOT touched at Commit C series per plan \u00a7D1 + \u00a7D5)",
+    "v4_prompt_bytes": 1851
+  },
+  "append_only_discipline": {
+    "pre_c20_sha256": "33d5d23b60764a61e8558c302f4d552ba9515b6a2ea50bb6fc2956c1f2f3c416",
+    "pre_c20_bytes": 916152,
+    "post_c20_sha256": "19595de50cce18dbb2053f89e7a2e70fe926142d93ecf3f81c3232b3dd94d9f2",
+    "post_c20_bytes": 979030,
+    "git_diff_stat": "1 file changed, 56 insertions(+), 0 deletions(-)",
+    "diff_hunks": "2 (@@ -2616,6 +2616,61 @@ adding test_trace_v50 function body 55 lines + @@ -2662,6 +2717,7 @@ adding 'test_v50': test_trace_v50 to get_trace registry 1 line)",
+    "prefix_lines_1_to_2616_bytewise_unchanged_pre_post_c20": true
+  },
+  "milestone_close_note": "C20 acceptance closes the M11a-extension-extension N=40 milestone. 20 fresh-session-authored traces (test_v31..test_v50) accepted across C1..C20 + 20 carry-forward traces (test_v11..v15 from M11a + test_v21..v30 from M11a-extension) = combined-N=40 sample target met. Next phase: Commit D (V4-Opus N=40\u00d73-tier harness + V2-Opus N=40 extension + Phase 2/3 Sonnet/Haiku drift smoke + aggregate analysis + outcome row identification) per plan \u00a7D13 Commit D row."
+}

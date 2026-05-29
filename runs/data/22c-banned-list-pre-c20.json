@@ -1,0 +1,13 @@
+{
+  "milestone": "M11a-extension-extension Commit C20 (test_v50) input",
+  "provenance": "Carried forward from runs/data/22c-banned-list-pre-c19.{txt,json} + C19 acceptance increment per runs/data/22c-author-test_v49-attempt-1-accepted.json \u00a7post_c19_banned_list_increment_for_c20_input",
+  "source_chain": 36,
+  "counts": {
+    "event_ids": 388,
+    "themes": 217,
+    "tuples": 216
+  },
+  "event_ids": 388,
+  "themes": 217,
+  "tuples": 216
+}
