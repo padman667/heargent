@@ -1,0 +1,160 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "child_type1_diabetes_dka_glucose_above_500_kussmaul_breathing_911_dispatched_glucagon_kit_administered_endocrinologist_callback",
+      "notification_sim_time": 235.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "ivf_egg_retrieval_procedure_moved_up_tomorrow_630am_reproductive_endocrinologist_follicle_peak_trigger_shot_8pm_confirm_cycle_cancel",
+      "notification_sim_time": 355.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "term_life_insurance_convertibility_window_5pm_election_whole_life_permanent_no_medical_underwriting_age65_anniversary_lapse",
+      "notification_sim_time": 445.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "funeral_home_director_voicemail_father_remains_casket_cremation_election_tomorrow_viewing_service_signoff_5pm_paperwork_pickup",
+      "notification_sim_time": 535.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "usgs_volcanic_ash_advisory_mount_baker_eruption_plume_cascadia_4county_n95_respiratory_outdoor_avoidance_48hr_projection_cone",
+      "notification_sim_time": 665.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.004898,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 785.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 9881,
+    "completion_tokens": 167,
+    "total_duration_s": 12.499655792,
+    "arbiter_calls": 7,
+    "arbiter_yes_rate": 0.42857142857142855,
+    "arbiter_input_tokens": 4758,
+    "arbiter_output_tokens": 28,
+    "arbiter_dispatched_model": "claude-haiku-4-5-20251001"
+  },
+  "trace_name": "test_v31",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "haiku",
+  "surprise_log": [
+    {
+      "sim_time": 45.0,
+      "event_id": "threads_by_meta_follow_suggestion_weekly_digest_brand_design_curatorial_circle_no_time_pressure",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Weekly Threads-by-Meta follow-suggestion digest landed in the social inbox: seven accounts in the brand-design and visual-identity curatorial circle showed up in the algorithmic recommendation feed this rotation, weighted off the existing follow graph plus the engagement signal from the Threads accounts you already pay attention to. The digest carries the usual one-tap follow buttons inline, an opt-out link for the curated-circle category, and a contextual summary card explaining why each suggested account surfaced this round. Threads ships this digest on a rolling seven-day cadence and any of the listed accounts can be added or skipped without affecting the broader recommendation model \u2014 the listed picks are pre-filtered against the existing follow set and the muted-keyword list already configured on the account.",
+      "surprise": 0.5006959509361417,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 95.0,
+      "event_id": "calendly_v6_round_robin_team_pools_workflow_addons_quarterly_release_notes_launch_announcement_no_action",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Calendly product-update email: the v6 release ships today across all team workspaces, headlined by the new round-robin team-pool routing engine that lets meeting-pool admins set per-event-type fairness weights and per-host availability caps that survive across the recurring round-robin queue, plus the workflow-addons API surface that lets third-party integrations register pre-meeting and post-meeting hooks directly into the booking flow. The team-pool rollout is opt-in at the workspace level with the prior single-host routing engine continuing to back any event-type that has not migrated; the workflow-addons surface is generally available to v6 workspaces and the SDK docs landed alongside this announcement. The accompanying changelog covers the four secondary launches in this train, with the engineering deep-dive on the team-pool fairness algorithm running on the Calendly product blog from this morning.",
+      "surprise": 0.47762506962590134,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 155.0,
+      "event_id": "sunday_quiet_evening_pre_monday_briefing_no_overdue_items_calendar_clear_personal_focus_block_setup",
+      "prediction": "Calendly v6 release email opens inbox with updates on new routing engine and workflow-addons API.",
+      "observation": "Sunday-evening quiet-pulse briefing ahead of the Monday cadence reopening tomorrow morning. The personal task board cleared earlier this afternoon and the project-tracker has no overdue rows or red-flagged blockers crossing the weekend boundary; the household errand list shows the Saturday-morning grocery run already done and tomorrow's reset-day reading block staged on the desk. The weekly review-and-plan session from earlier in the day produced the focus-block schedule for the week ahead, with two ninety-minute deep-work pours blocked on the calendar Monday and Tuesday morning and the rest of the week left open for reactive scheduling. None of these threads carry timing dependencies tonight, and the calendar through tomorrow morning is clear other than the standing seven-a.m. wake-up alarm and the eight-a.m. recurring planning-coffee on the kitchen table.",
+      "surprise": 0.4836741032583196,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 235.0,
+      "event_id": "child_type1_diabetes_dka_glucose_above_500_kussmaul_breathing_911_dispatched_glucagon_kit_administered_endocrinologist_callback",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Your eight-year-old daughter Maya, who carries a long-standing Type-one-diabetes diagnosis on a closed-loop insulin pump regimen, has been vomiting for the past forty minutes with rapid deep breathing audible from across the kitchen, and the home fingerstick on the spare meter just read four-hundred-eighty-seven with the urine ketone strip jumping straight to the dark-purple large-ketone tier on the manufacturer color key. The clinical picture lines up cleanly with the DKA presentation that her endocrinology clinic walked the family through at the most recent quarterly visit \u2014 Kussmaul-pattern hyperventilation, the fruity acetone breath, sustained vomiting that has crossed the home-management threshold, and an inability to keep down the corrective bolus the pump tried to deliver. You have just administered the pediatric glucagon emergency-kit dose into the lateral thigh per the action plan taped to the refrigerator door, the 911 dispatcher is on the speakerphone confirming paramedics seven minutes out, and the on-call pediatric endocrinologist at Children's is paging back to coordinate the receiving-team handoff at the emergency department. Bring the closed-loop pump and continuous-glucose-monitor reader along in the to-go medical bag, plus the latest A1c and the basal-bolus reference card from the home binder.",
+      "surprise": 0.5462603568484805,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 355.0,
+      "event_id": "ivf_egg_retrieval_procedure_moved_up_tomorrow_630am_reproductive_endocrinologist_follicle_peak_trigger_shot_8pm_confirm_cycle_cancel",
+      "prediction": "Pediatric emergency response team en route for DKA pediatric patient's rapid deterioration.",
+      "observation": "Voicemail from Dr. Ananya Iyer's nurse coordinator at the Pacific Reproductive Endocrinology clinic: the morning follicle-ultrasound and serum-estradiol panel show the IVF stimulation cohort hitting peak follicular maturity twenty-four hours sooner than the original retrieval-day model, and Dr. Iyer is recommending pulling the egg retrieval procedure forward from next-week-Thursday morning into tomorrow morning at six-thirty in the clinic procedure suite. The decision-window closes at eight tonight because the trigger-shot subcutaneous injection has to land in the abdomen exactly thirty-six hours before retrieval to time the ovulation-cascade against the surgical schedule. Holding to the original Thursday slot risks the cohort post-mature lutealization that historically drops mature-oocyte yield by roughly forty percent on this clinic's published curve, and skipping the trigger-shot tonight closes the cycle and forfeits the stimulation regimen this menstrual cycle. The coordinator is asking for a callback to the after-hours fertility-clinic line by eight; the medication-room pickup of the trigger-shot pre-loaded syringe is staffed at the clinic until seven-thirty.",
+      "surprise": 0.4312874681412945,
+      "z": -2.6328222385601383,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 445.0,
+      "event_id": "term_life_insurance_convertibility_window_5pm_election_whole_life_permanent_no_medical_underwriting_age65_anniversary_lapse",
+      "prediction": "Pediatric emergency as your daughter's severe diabetic ketoacidosis worsens and requires immediate medical intervention.",
+      "observation": "Carrier letter from Northwestern Mutual, attached as the binding policyowner notice: the convertibility-window provision attached to your one-million-dollar twenty-year-term policy expires at five p.m. Pacific today on the upcoming sixty-fifth birthday anniversary, after which the contractual right to convert any remaining face amount to a whole-life permanent policy without fresh medical underwriting lapses entirely. The actuarial-table conversion premium calculation lands at roughly nine-thousand-four-hundred annually for the full one-million face converted, with partial-conversion lots accepted in two-hundred-fifty-thousand increments at the same rate-class anchor. Under the current health profile your independent underwriter quoted twice that for a freshly underwritten whole-life policy, so the convertibility window is the cheaper path. Submit the conversion election through the policyowner portal \u2014 paper-mail and email submissions are explicitly excluded by the contract language \u2014 and the carrier service desk is staffed through seven p.m. Pacific tonight on the dedicated convertibility-window phone tree if you want to walk a customer-service agent through the partial-vs-full conversion math before electing.",
+      "surprise": 0.49401613376233666,
+      "z": 0.16443245596185121,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 535.0,
+      "event_id": "funeral_home_director_voicemail_father_remains_casket_cremation_election_tomorrow_viewing_service_signoff_5pm_paperwork_pickup",
+      "prediction": "Pediatric emergency as your daughter's severe diabetic ketoacidosis worsens and requires immediate medical intervention.",
+      "observation": "Voicemail from Daniel Brennan, the funeral-home director at Brennan & Sons handling arrangements for your father: the remains-release election decision needs to be on his desk by five p.m. today so the embalming team can begin the casket-side preparation tonight ahead of tomorrow morning's family viewing window between nine and eleven. The casket-versus-cremation choice carries downstream implications for the service-program printer cutoff at seven tonight, the headstone-engraver order routing, and the cemetery-plot grave-opening schedule that ties to tomorrow afternoon's interment if the casket path is selected. Daniel needs you in the funeral-home office in person tonight to countersign the remains-release authorization and the service-schedule plan; the front-desk-staff stays past closing through seven-thirty to accept the signed paperwork, and the after-hours line rolls to the director's mobile if the family runs late. He also needs a head-count for the tomorrow-morning viewing so the staff can set the family-room chairs.",
+      "surprise": 0.4808538549284257,
+      "z": -0.23754824159099525,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 605.0,
+      "event_id": "prairie_pen_company_handcrafted_fountain_pen_quarterly_seasonal_release_newsletter_handmade_nibs_no_action",
+      "prediction": "Your father's funeral home requires immediate in-person signature at five p.m. today to authorize remains release and plan service schedule.",
+      "observation": "The Prairie Pen Company quarterly seasonal-release newsletter for the long-form-writer subscriber list: the spring batch from the family workshop in central Iowa includes a small run of the Bluestem cellulose-acetate barrel in two finishes, a refreshed ebonite section for the existing flagship pen body, and three new hand-ground nib grinds \u2014 a stub-italic, an architect, and a needlepoint \u2014 cut by the second-generation nibmeister to order on the workshop's vintage Pelikan grinding wheel. The ink-flow review notes against each new nib grind read like the tasting-note format the wine and coffee newsletters use, and the workshop is taking the usual six-to-eight weeks from order to ship on the made-to-order grinds. Order placement, grind preferences, and ink-channel-feed adjustments all run through the small-batch subscriber portal on the brand site; the team behind the workshop has the inbox open during the early morning Iowa window only and the auto-reply confirms receipt within the same business day.",
+      "surprise": 0.4986167236601968,
+      "z": 0.3432673512655311,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 665.0,
+      "event_id": "usgs_volcanic_ash_advisory_mount_baker_eruption_plume_cascadia_4county_n95_respiratory_outdoor_avoidance_48hr_projection_cone",
+      "prediction": "Your father's funeral home director needs you in person tonight to sign paperwork for remains release.",
+      "observation": "The USGS Cascades Volcano Observatory in coordination with the regional Volcanic Ash Advisory Center has issued a four-county respiratory advisory after the overnight phreatic explosion at Mount Baker pushed a coarse-ash plume east-southeast over the foothills counties, with the volcanic ash deposition cone now mapped against the prevailing jet-stream forecast through the next forty-eight hours. Whatcom, Skagit, Snohomish, and northeast King counties are in the deposition footprint with measurable ashfall expected at ground level by mid-afternoon; the advisory directs N95-or-equivalent respiratory protection for any outdoor activity, sheltering for livestock and exposed greenhouse crops, and HEPA-recirculation for indoor air-handling systems near the cone-axis. The FAA has issued a parallel SIGMET against the same airspace footprint and air-traffic control is rerouting the inbound Pacific-coast jet corridor north of the plume. School-district outdoor-recess windows are suspended through tomorrow per the joint county-health-officer bulletin, and the cone-projection update reissues every six hours.",
+      "surprise": 0.4618491684222713,
+      "z": -0.9164802236100273,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    }
+  ]
+}

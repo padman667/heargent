@@ -1,0 +1,160 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "spouse_new_onset_generalized_tonic_clonic_seizure_rectal_diazepam_diastat_kit_administered_status_epilepticus_911_neurology_mass_general",
+      "notification_sim_time": 235.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "surgical_oncology_breast_cancer_second_opinion_staging_consult_pulled_forward_tomorrow_730am_unilateral_mastectomy_lumpectomy_radiation_decision_8pm_release",
+      "notification_sim_time": 355.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "k8s_controlplane_etcd_quorum_leader_election_stalemate_api_server_write_traffic_shed_worker_node_pod_eviction_cascade_75min_runbook_snapshot_restore",
+      "notification_sim_time": 445.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "detective_voicemail_vehicle_burglary_ringer_park_witness_statement_signature_district_station_5pm_tomorrow_suffolk_county_da_indictment_decline_determination",
+      "notification_sim_time": 535.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "nws_hurricane_warning_south_carolina_lowcountry_major_idalia_landfall_36hr_storm_surge_mandatory_evacuation_zone_a_charleston_edisto_river_mouth",
+      "notification_sim_time": 665.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.120375,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 785.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 10110,
+    "completion_tokens": 153,
+    "total_duration_s": 22.607999459,
+    "arbiter_calls": 8,
+    "arbiter_yes_rate": 0.5,
+    "arbiter_input_tokens": 7945,
+    "arbiter_output_tokens": 16,
+    "arbiter_dispatched_model": "claude-opus-4-7"
+  },
+  "trace_name": "test_v32",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "opus",
+  "surprise_log": [
+    {
+      "sim_time": 45.0,
+      "event_id": "sentry_quarterly_platform_engineering_project_health_digest_zero_unresolved_high_severity_no_action_required",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Sentry quarterly platform-engineering project-health digest landed in the engineering-ops mailbox: the six tracked projects across the storefront / payments / checkout / search / loyalty / promo-platform domains all closed the quarter with zero unresolved high-severity events on the rollup, the alert-fatigue ratio held inside the per-project target band, the issue-resolution median across the consolidated portfolio sits within the rolling six-quarter baseline envelope, and the auto-resolved-by-deploy share rose three points quarter-on-quarter as the per-service issue-ownership-routing migration completed. The digest carries the standard Sentry-SaaS tier-utilization summary with no overage projection through the next two quarters, the issue-tag taxonomy compliance report sitting at full coverage across the six tracked projects, and a bottom-of-mail Sentry-platform-status link verifying no platform-side ingestion incidents over the rolling ninety-day window.",
+      "surprise": 0.49049172404870256,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 95.0,
+      "event_id": "aws_step_functions_distributed_map_v2_concurrency_retry_catch_iteration_metrics_launch_announcement_quarterly_release_no_action",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "AWS announcement landed in the developer email channel: Step Functions distributed-map v2 ships generally available across all commercial AWS regions today, headlined by the per-iteration concurrency-controls expansion that lifts the prior per-state-machine concurrency cap from ten-thousand parallel iterators to one-hundred-thousand parallel iterators, the per-iteration retry-and-catch hooks at the inner-state-machine level, and the new per-iteration custom-CloudWatch-metrics emission surface that lets a parent-state-machine read inner-iteration performance signals without an explicit fan-in step. The release also lifts the per-iteration payload-size limit to two-hundred-fifty-six kilobytes and ships a managed-policy template for the inner-execution role provisioning. Three concurrent secondary launches in the same train round out the train summary; the engineering architecture deep-dive is scheduled on the AWS Containers and Serverless YouTube channel later this week and the matching CDK construct lands in the next aws-cdk minor-version drop.",
+      "surprise": 0.43389287315135383,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 155.0,
+      "event_id": "tuesday_late_morning_midweek_pulse_briefing_no_overdue_rows_household_errand_clear_grocery_pickup_window_lunchtime_calendar_clear",
+      "prediction": "AWS Step Functions distributed-map v2 release details expected to be shared on AWS Containers and Serverless YouTube channel.",
+      "observation": "Tuesday late-morning mid-week pulse briefing for the home office: the personal task tracker closed two single-day items earlier in the morning and the project rollup shows no overdue rows or red-flagged blockers crossing into the back half of the week. The household errand list completed Monday night and tomorrow's grocery-pickup window is scheduled into the lunchtime block on the shared calendar already; the calendar through tomorrow morning has only the standing eight-a.m. wake-up alarm and the recurring ten-thirty office-hours block on the personal calendar, with no surprises lurking in the project-tracking dashboards either. None of the workspace status indicators are flashing yellow on the morning rollup and the personal-budget tracker confirmed the auto-debit reconciliation against the checking account closed without exceptions for the rolling weekly snapshot window.",
+      "surprise": 0.5178613100231872,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 235.0,
+      "event_id": "spouse_new_onset_generalized_tonic_clonic_seizure_rectal_diazepam_diastat_kit_administered_status_epilepticus_911_neurology_mass_general",
+      "prediction": "AWS Step Functions v2 release expected to boost concurrency limits in serverless workflows.",
+      "observation": "Your spouse Lena has just had a witnessed first-time generalized tonic-clonic seizure on the living-room couch \u2014 a brief lip-smacking automatism warned the onset, the bilateral motor activity ran past the ninety-second cutoff, and a second wave of tonic-clonic activity kicked in with no inter-ictal recovery interval between events. Postictal unresponsiveness to sternal rub continues into the third minute, and the rectal-diazepam Diastat AcuDial kit her neurologist prescribed after the prior febrile episode last winter just dosed per the kit instructions taped behind the medicine-cabinet door. A live 911 line stays open through the kitchen speaker; the dispatcher is reading the airway-positioning sub-routine for a status-epilepticus presentation while paramedic ETA reads six and a half minutes inbound. The Mass General neurology service has paged through to set up the receiving emergency-department bay with the standard first-seizure-in-status workup. Carry the seizure-action plan binder, the levetiracetam Keppra and lamotrigine bottles from the bathroom shelf, the most recent ambulatory-EEG hospital-discharge summary, and the prior brain-MRI report tucked into the bedside drawer.",
+      "surprise": 0.5528956565285947,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 355.0,
+      "event_id": "surgical_oncology_breast_cancer_second_opinion_staging_consult_pulled_forward_tomorrow_730am_unilateral_mastectomy_lumpectomy_radiation_decision_8pm_release",
+      "prediction": "Your spouse's seizure requires immediate medical attention as paramedics are en route.",
+      "observation": "Voicemail from Megan Yoo, scheduling lead for Dr. Hiroshi Tanaka's surgical-oncology team at the Memorial Sloan Kettering Westchester campus: Dr. Tanaka has carved out a same-day cancellation slot for tomorrow at seven-thirty in the breast-cancer staging-consult clinic and is offering to pull the second-opinion appointment originally booked for next-Tuesday afternoon into that earlier window. Dr. Tanaka reviewed the outside pathology slides and the recent multifocal breast-MRI overnight and would like to walk the unilateral-mastectomy-versus-lumpectomy-plus-radiation surgical-plan branch through with the family before the originally-scheduled neoadjuvant chemotherapy port-placement at the first hospital next week. The earlier slot lets the household settle a single surgical course before the first-hospital pre-op clock starts. The decision window for accepting tomorrow's slot closes at eight tonight when the scheduling office releases unconfirmed cancellations to the surgical-oncology back-up wait list; the patient-services line for this clinic stays open through nine for the callback from a family-member-with-medical-proxy authority if needed.",
+      "surprise": 0.4808375347992939,
+      "z": -0.4125225860389971,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 445.0,
+      "event_id": "k8s_controlplane_etcd_quorum_leader_election_stalemate_api_server_write_traffic_shed_worker_node_pod_eviction_cascade_75min_runbook_snapshot_restore",
+      "prediction": "Your spouse's seizure requires immediate medical attention with paramedics en route.",
+      "observation": "PagerDuty SEV-one fired on the platform-infra Kubernetes control-plane cluster prod-k8s-us-west-2-controlplane: the three-node ETCD quorum lost leader-election and the cluster is in a re-election stalemate after the prior leader pod was OOM-killed during a cumulative-leak compaction burst. ETCD member health-checks return inconsistent term and index responses, the API-server has shed all write traffic and is bleeding read traffic to stale-result fallbacks, and the kube-controller-manager has begun the worker-node pod-eviction cascade as node-lease renewals time out across the worker pool. Customer-facing checkout workloads on the worker fleet are running in a graceful-degradation banner-only path with the API-gateway returning five-oh-threes on any control-plane-dependent admission-webhook traffic. The runbook escalation clock crossed the seventy-five-minute mark with the next tier paging the platform staff engineer; the next playbook step is the controlled ETCD snapshot-restore from the most recent S3-replicated etcdctl backup with a documented eight-minute write-traffic blackout.",
+      "surprise": 0.49491696762959503,
+      "z": -0.0070468728111652765,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 535.0,
+      "event_id": "detective_voicemail_vehicle_burglary_ringer_park_witness_statement_signature_district_station_5pm_tomorrow_suffolk_county_da_indictment_decline_determination",
+      "prediction": "Seizure patient's family preparing for emergency surgery while platform-infra cluster faces control-plane failure.",
+      "observation": "Voicemail from Detective Aisha Lawson at Boston Police District B-Two property-crimes unit: she needs the witness statement on the vehicle burglary at the Ringer Park parking strip last Friday completed and signed at the district station front counter by five tomorrow afternoon before the case packet moves to the Suffolk County DA's office for the indictment-or-decline determination by end of week. The detective walked through the security-camera composite from the next-door bodega's exterior feed during the Sunday phone interview, and the signed statement formalizes the evidentiary chain on the smashed-passenger-window timing alignment with the suspect identified in the composite. Holding past tomorrow's afternoon cutoff drops the case into the property-crimes case-clearance backlog and the suspect's arraignment court-date next week proceeds without the victim-affirmation page in the file. The detective's direct desk extension on the after-hours main line at the station rolls to the property-crimes shift-supervisor between four and ten tonight if the in-person stop has to push later.",
+      "surprise": 0.4779152662827866,
+      "z": -0.47708902460801295,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 605.0,
+      "event_id": "letterboxd_friends_activity_weekly_digest_followed_users_log_reviews_watchlist_overlap_no_action_required_no_time_pressure",
+      "prediction": "Emergency response team converges for seizure victim and platform-infra cluster outage.",
+      "observation": "Letterboxd weekly friends-activity digest arrived in the personal inbox: nine accounts in the followed-list across the docu-film and indie-cinema clusters logged reviews during this rotation, the digest summary card surfaces three highly-rated picks across the followed list this week, and the watchlist-overlap rollup against the queued items already on the personal watchlist shows two titles in common with the most-active friend's recent log set. The mail carries a follow-suggestion list pre-screened against the existing follow graph, an opt-out toggle for the friends-activity category that survives the cadence rotation, and a bottom-of-mail link routing to the friends-circle settings panel on the Letterboxd profile-preferences page where the notification-cadence controls live and the per-friend visibility toggles are surfaced for granular adjustment.",
+      "surprise": 0.4804263782405278,
+      "z": -0.3607950814631648,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 665.0,
+      "event_id": "nws_hurricane_warning_south_carolina_lowcountry_major_idalia_landfall_36hr_storm_surge_mandatory_evacuation_zone_a_charleston_edisto_river_mouth",
+      "prediction": "Emergency response to seizure incident at home triggers medical triage and dispatch.",
+      "observation": "The National Hurricane Center has upgraded the tropical-cyclone advisory for the South Carolina Lowcountry coast to a Hurricane Warning ahead of the expected landfall of Major Hurricane Idalia at the Edisto-River-mouth corridor inside the next thirty-six hours, carrying sustained Category-three winds and a forecast peak storm surge of nine to twelve feet inundating the barrier-island and tidal-marsh communities from Hilton Head north through Folly Beach. NOAA Storm Surge Watch has been issued for the inland Beaufort and Charleston tidal basins with Significant-River-Flood-Potential cascading inland through the ACE-Basin watershed for the next seventy-two hours. South Carolina Emergency Management has issued mandatory-evacuation orders for the Zone-A coastal-barrier strip with special-needs-shelter intake at Cane Bay High School staying open through tomorrow noon. The Charleston International Airport has suspended commercial-passenger operations from this evening through Saturday and the Wando River bridge-deck access to the peninsula will be closed eight hours before tropical-storm-force-winds onset per the standard SCDOT bridge-closure protocol.",
+      "surprise": 0.4550614968633241,
+      "z": -1.1262971220478923,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    }
+  ]
+}

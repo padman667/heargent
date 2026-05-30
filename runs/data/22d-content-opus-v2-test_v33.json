@@ -1,0 +1,149 @@
+{
+  "hit_rate": 0.4,
+  "false_initiation_rate_per_hour": 4.585987261146497,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 3,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "irs_1031_like_kind_exchange_45_day_identification_window_5pm_pacific_qualified_intermediary_three_property_designate_or_lose_capital_gains_deferral",
+      "notification_sim_time": 235.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "snowflake_compute_warehouse_runaway_query_credit_burn_spike_auto_suspend_disabled_sales_analytics_dashboard_outage_40k_per_hour_75min_runbook",
+      "notification_sim_time": 450.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "kidney_transplant_evaluation_consult_moved_up_tomorrow_8am_ucla_connie_frank_transplant_coordinator_unos_waitlist_activation_living_donor_workup",
+    "family_law_attorney_voicemail_divorce_mediation_session_moved_up_tomorrow_9am_property_asset_disclosure_signature_qdro_pension_division_court_annex",
+    "pacific_tsunami_warning_center_alaska_aleutian_coast_subduction_magnitude_8_2_earthquake_first_wave_eta_18_minutes_coastal_evacuation_high_ground"
+  ],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.061215,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 785.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 10456,
+    "completion_tokens": 182,
+    "total_duration_s": 43.223440668,
+    "arbiter_calls": 5,
+    "arbiter_yes_rate": 0.4,
+    "arbiter_input_tokens": 4031,
+    "arbiter_output_tokens": 10,
+    "arbiter_dispatched_model": "claude-opus-4-7"
+  },
+  "trace_name": "test_v33",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v2",
+  "arbiter_model": "opus",
+  "surprise_log": [
+    {
+      "sim_time": 35.0,
+      "event_id": "honeycomb_production_observability_weekly_cardinality_query_performance_digest_no_action_required_all_green_envelope_within_baseline",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Honeycomb production-observability weekly digest landed in the platform-engineering mailbox covering the four tracked services across the checkout / payments / catalog / identity domains: cardinality across the tracked datasets held flat within the per-service baseline envelope on the rolling thirteen-week window, the p95 latency for the saved-query board used by the morning incident-review stand-up tracked within the target band across all four services, and the active-dataset event-ingestion volumes trended sideways against the prior comparable interval with no per-key-value cardinality blowouts surfacing through the per-event sample auditor. The digest carries the standard Honeycomb-SaaS event-ingest tier-utilization summary with no overage projection on the trailing quarter forecast, the per-team query-volume rollup sitting at full sampling on the executive-summary saved boards, and a bottom-of-mail Honeycomb-platform-status pointer verifying no SaaS-side ingest backlog incidents over the rolling ninety-day reliability window.",
+      "surprise": 0.452851574506952,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 105.0,
+      "event_id": "lumiere_atelier_boutique_perfumery_quarterly_seasonal_fragrance_release_single_origin_botanical_extracts_no_action_required_no_time_pressure",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Quarterly seasonal-release email from Lumi\u00e8re Atelier, the boutique-perfumery atelier on the artisan-perfumer subscriber list: the new spring rotation features three single-origin extrait-de-parfum compositions built around the family-owned producers the founding nose has been buying from across the past decade \u2014 a Grasse rose-absolute base from the Provence harvest, a Calabrian bergamot top from the winter-press cold-extraction lots, and a Madagascar vanilla-orchid heart from the Sambava cooperative on the slow-cure preparation. Founding-member tier carries the customary pre-release reservation lane on the atelier's small-batch subscriber portal at the standard quarterly cadence, the bottling team holds the limited-decant trial-set volume to the existing subscriber roster only, and the studio inbox stays open during the early-Provence-morning slot for direct-to-nose composition questions without any sort of time-pressure obligation on the subscriber side.",
+      "surprise": 0.4667549529006323,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 175.0,
+      "event_id": "jetbrains_intellij_idea_2026_1_k2_compiler_stable_kotlin_multiplatform_ios_target_preview_launch_announcement_quarterly_release_notes_no_action",
+      "prediction": "Quarterly seasonal-release email from Lumi\u00e8re Atelier arrives in subscribers' inbox.",
+      "observation": "JetBrains 2026.1 release announcement email landed in the developer-tools subscriber mailbox: IntelliJ IDEA ships the K2 Kotlin compiler at stable in the bundled Kotlin plugin in this release train, with the Kotlin Multiplatform iOS-target shared-module preview available behind the experimental-features toggle on the project-settings panel. The bundled HTTP-client surface adds request-history persistence across IDE restarts, the Code-With-Me collaborative-editing latency profile on the cross-region peer-to-peer channel improved markedly on the engineering benchmarks, and the JetBrains AI Assistant inline-completion model graduated to the next generation across the supported language plugins. The matching plugin upgrade for the JetBrains Toolbox companion app lands later this week, the release-notes deep-dive runs on the JetBrains-blog engineering-write-up later in the month, and the developer-mailbox tier carries the standard product-update digest without any sort of immediate-attention call-out on the subscriber side.",
+      "surprise": 0.36991665270474683,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 235.0,
+      "event_id": "irs_1031_like_kind_exchange_45_day_identification_window_5pm_pacific_qualified_intermediary_three_property_designate_or_lose_capital_gains_deferral",
+      "prediction": "JetBrains AI Assistant inline-completion model upgrade for Toolbox app later this week expected.",
+      "observation": "Binding policyowner notification from the IPX1031 qualified-intermediary desk: the forty-five-day identification window on the relinquished-property like-kind exchange closes at five p.m. Pacific today, and the three candidate replacement properties already walked through with the listing brokers on the south-shore portfolio tour need to be designated in writing through the qualified-intermediary portal before the cutoff or the deferred-capital-gain treatment under Internal Revenue Code section ten-thirty-one lapses irrevocably for this transaction. The relinquished single-tenant retail-shell parcel closed three weeks ago at one-point-eight-five million net of broker fees, the deferred capital-gain rides at roughly seven-hundred-twenty thousand on the cost-basis schedule, and a combined federal-plus-California recognition liability at the long-term capital-gain plus depreciation-recapture rates lands near two-hundred-sixteen thousand in tax owed by the next quarterly estimated-payment cycle if identification fails. The qualified-intermediary advisor desk is staffed through six tonight on the after-hours partner line for last-minute address-typo corrections or three-property-versus-two-hundred-percent-rule election questions before the bound submission posts to the Form 8824 reporting package.",
+      "surprise": 0.3973596417750732,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 355.0,
+      "event_id": "kidney_transplant_evaluation_consult_moved_up_tomorrow_8am_ucla_connie_frank_transplant_coordinator_unos_waitlist_activation_living_donor_workup",
+      "prediction": "JetBrains 2026.1 release announcement email expected in developer-tools subscriber mailbox soon.",
+      "observation": "Voicemail from Priya Raman, the pre-emptive-transplant coordinator on Dr. Sandra Vu's nephrology service at the UCLA Connie Frank Kidney Transplant Program: the evaluation consult that was originally booked into next-Thursday's afternoon clinic slot has been pulled forward to tomorrow morning at eight in the transplant-clinic suite at the Westwood pavilion after a same-day cancellation opened on the surgical-coordinator's schedule. The earlier slot lets the team review the latest eGFR-fourteen / stage-five-CKD lab panel, the renal-ultrasound morphology read, and the living-donor sibling workup status before the UNOS waitlist activation decision needs to land at end of clinic tomorrow ahead of the regional transplant-committee Friday review. The patient-portal confirm-or-release deadline closes at six this evening \u2014 release returns the slot to the transplant-coordinator's same-day-cancellation backup pool \u2014 and the after-hours nephrology-clinic line stays staffed through eight tonight if the family wants the coordinator to walk through the pre-emptive-versus-dialysis-bridge branch before confirming.",
+      "surprise": 0.47326578023827004,
+      "z": 1.3014673936443433,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 450.0,
+      "event_id": "snowflake_compute_warehouse_runaway_query_credit_burn_spike_auto_suspend_disabled_sales_analytics_dashboard_outage_40k_per_hour_75min_runbook",
+      "prediction": "Priya Raman will likely confirm or release Dr. Sandra Vu's transplant slot by six tonight, impacting UCLA Kidney Transplant Program resources.",
+      "observation": "PagerDuty SEV-one fired on the data-platform Snowflake compute-warehouse cluster sales-analytics-xl-prod: a recursive common-table-expression in an overnight multi-statement transaction has pinned the extra-large warehouse cluster at one-hundred-percent active-credit consumption for the past twenty-eight minutes, and the auto-suspend flag was inadvertently disabled by a Terraform config push that landed yesterday afternoon and skipped the staging-environment compute-policy gate. Query-history attributes the spike to a fact-table-on-fact-table cartesian-join missing the partition-prune predicate, the per-hour credit-burn rate is running at roughly forty-thousand dollars an hour on the standard credit-pricing schedule, and the sales-analytics dashboards downstream of the affected schema are returning stale-result fallbacks to the C-suite kiosk and the field-sales rep workspace. The runbook escalation crossed the seventy-five-minute mark with the data-platform staff engineer paged into the bridge; the next playbook step is the controlled force-terminate of the runaway query through the system-administration role plus the immediate re-enable of the auto-suspend policy on the warehouse-cluster resource definition.",
+      "surprise": 0.45868941759210435,
+      "z": 0.6504357580363074,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 535.0,
+      "event_id": "family_law_attorney_voicemail_divorce_mediation_session_moved_up_tomorrow_9am_property_asset_disclosure_signature_qdro_pension_division_court_annex",
+      "prediction": "PagerDuty SEV-one alert expected as data-platform Snowflake cluster hits 100% active-credit consumption.",
+      "observation": "Voicemail from Olivia Reyes, the family-law attorney on the pending dissolution-of-marriage matter at the court-annex mediation suite downtown: the final mediation session originally calendared for next-Friday afternoon has been pulled forward to tomorrow morning at nine because opposing counsel has a federal-court trial out of district starting Monday and the mediator's only open slot before the response-by deadline on the dissolution petition is tomorrow. Attorney Reyes needs the property-asset-disclosure Form FL-142 reviewed and signed in person at the firm's office between four and seven this afternoon \u2014 the form itemizes the brokerage portfolio, the joint-tenancy real-estate parcel, and the defined-benefit pension plan \u2014 plus an attorney walk-through of the qualified-domestic-relations-order (QDRO) draft for the pension-plan division before the mediator opens the property-settlement-agreement conversation in the morning. The firm's after-hours direct line picks up through eight tonight if the in-office stop has to push later and the disclosure pages can be couriered for in-person signature at home as a same-night fallback.",
+      "surprise": 0.5193361418133737,
+      "z": 2.140452569194172,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 595.0,
+      "event_id": "pinterest_weekly_board_collaborator_activity_follow_suggestion_design_aesthetics_niche_digest_no_action_required_no_time_pressure",
+      "prediction": "IntelliJ IDEA release announcement email due, with potential impact on Kotlin developers.",
+      "observation": "Pinterest weekly board-collaborator activity digest arrived in the personal inbox: two collaborators on the shared home-renovation mood-board pinned a combined eleven items across the past week in the millwork-detail and built-in-storage clusters, the digest summary surfaces three highly-engaged boards in the mid-century-modern-aesthetics niche pre-screened against the existing follow graph, and the watchlist-overlap rollup against the personal boards-saved list shows two board overlaps with the most-active collaborator's recent pin set. The mail carries a follow-suggestion list pre-filtered against the existing follow set, an opt-out toggle for the board-collaborator-activity category that survives the rotation, and a bottom-of-mail link routing into the boards-and-following settings panel on the profile-preferences page where the digest-cadence controls live and the per-collaborator visibility toggles are surfaced for granular adjustment.",
+      "surprise": 0.40284487778103206,
+      "z": -0.9862058702900668,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 660.0,
+      "event_id": "pacific_tsunami_warning_center_alaska_aleutian_coast_subduction_magnitude_8_2_earthquake_first_wave_eta_18_minutes_coastal_evacuation_high_ground",
+      "prediction": "Data-platform Snowflake compute-warehouse cluster sales-analytics-xl-prod facing auto-suspend bypass leading to high credit burn.",
+      "observation": "The Pacific Tsunami Warning Center in Palmer has upgraded the regional Tsunami Watch to a Tsunami Warning for the Alaska Aleutian-coast and the Gulf-of-Alaska coastline after a magnitude-eight-point-two subduction-zone earthquake off the Shumagin-Islands segment recorded by the Alaska Earthquake Center seismic network nine minutes ago. The first-wave estimated arrival at Kodiak Town is in eighteen minutes, with Sand Point at twelve, Cold Bay at twenty-two, and Seward at forty-one on the propagation model; the coastal-evacuation imperative directs immediate movement out of the inundation-zone overlay maps to the posted Tsunami Evacuation Route high-ground assembly areas or, as fallback inside the time budget, the second-floor-of-substantial-reinforced-concrete-structure refuge protocol. The DART buoy network in the offshore Pacific has recorded a leading-edge sea-level deviation of plus-one-point-eight meters; the Alaska Coast Guard sector commander and Air National Guard rotary-wing assets are on the mobilization order, and the Anchorage emergency-operations-center is coordinating the statewide alert cascade through the National Weather Service Wireless Emergency Alert channel.",
+      "surprise": 0.4987284692729973,
+      "z": 1.2283909281691026,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    }
+  ]
+}

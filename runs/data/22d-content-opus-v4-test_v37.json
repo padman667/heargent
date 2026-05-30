@@ -1,0 +1,160 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 4.444444444444445,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 6,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "adult_self_acute_pulmonary_embolism_pleuritic_chest_pain_dyspnea_post_orthopedic_surgery_dvt_unilateral_leg_swelling_911_dispatcher_heparin_anticoagulation_interventional_radiology_thrombolysis",
+      "notification_sim_time": 60.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "spouse_lumbar_spinal_fusion_laminectomy_surgery_moved_up_tomorrow_730am_orthopedic_spine_surgeon_pre_op_admit_anesthesia_clearance_intraoperative_neuromonitoring_hospital_admission",
+      "notification_sim_time": 240.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "fafsa_free_application_federal_student_aid_filing_deadline_midnight_tonight_current_academic_year_application_high_school_senior_college_bound_need_based_aid_pell_grant_parent_plus_loan",
+      "notification_sim_time": 360.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "pagerduty_sev_one_rabbitmq_production_cluster_mirrored_queue_split_brain_reconciliation_halt_rolling_restart_misorder_dlx_filling_seventy_five_minute_runbook_force_reconciliation",
+      "notification_sim_time": 420.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "nws_anchorage_chugach_range_avalanche_warning_level_four_high_danger_alyeska_girdwood_backcountry_persistent_slab_instability_thirty_six_hour_heavy_snowfall_helicopter_rescue_standby",
+      "notification_sim_time": 600.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.14286,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 810.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 17941,
+    "completion_tokens": 224,
+    "total_duration_s": 71.233973458,
+    "arbiter_calls": 7,
+    "arbiter_yes_rate": 0.5714285714285714,
+    "arbiter_input_tokens": 9454,
+    "arbiter_output_tokens": 14,
+    "arbiter_dispatched_model": "claude-opus-4-7"
+  },
+  "trace_name": "test_v37",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "opus",
+  "surprise_log": [
+    {
+      "sim_time": 60.0,
+      "event_id": "adult_self_acute_pulmonary_embolism_pleuritic_chest_pain_dyspnea_post_orthopedic_surgery_dvt_unilateral_leg_swelling_911_dispatcher_heparin_anticoagulation_interventional_radiology_thrombolysis",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Adult-self sudden-onset acute pulmonary-embolism PE presentation at home this afternoon \u2014 abrupt onset of sharp pleuritic chest pain on the right-side anterior-thoracic wall worsening with each inhalation cycle, acute dyspnea on minimal exertion across the living-room walk, resting tachycardia on the wrist-worn pulse-oximeter reading at one-twenty-eight beats-per-minute, oxygen-saturation hovering at eighty-nine percent on room-air, and unilateral right-calf swelling and tenderness on the post-orthopedic-surgery DVT-risk side following the right-knee arthroscopic-meniscectomy procedure ten days ago with the post-op weight-bearing restriction limiting ambulation through the prescribed two-week recovery window. The Wells-criteria-screening points clinical decision-rule lands at the high-risk band on the PE pretest-probability triage workflow, with the unilateral-leg-swelling sign plus the recent-surgery risk-factor plus the tachycardia threshold all scoring on the affirmative side of the criteria-grid. The live 911 dispatcher on the household-phone speakerphone is reading the seated-upright airway-positioning sub-routine and the symptom-monitoring cadence ahead of the paramedic ETA at seven minutes from the regional fire-engine station three blocks away. Receiving regional medical-center emergency-department resuscitation-bay coordination through the dispatcher to the on-shift attending physician pre-loads the suspected-PE workup track on the bedside CT-pulmonary-angiogram scanner queue, the troponin-and-d-dimer reference lab draw orders pre-staged onto the ED phlebotomy queue, the bedside intravenous-access placement protocol with the large-bore peripheral-line kit pre-staged, and the heparin anticoagulation weight-based bolus-and-infusion ordering set pre-loaded onto the ED-side pharmacy queue. The interventional-radiology catheter-directed thrombolysis on-call team has been cross-paged for the massive-PE escalation contingency on the bedside echocardiogram right-ventricular-strain reading window, and the pulmonary-and-critical-care service has been pre-notified for the post-stabilization handoff onto the intensive-care-unit observation bed.",
+      "surprise": 0.37886900935860535,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 80.0,
+      "event_id": "renovate_mend_automated_dependency_update_pr_rollup_weekly_digest_engineering_organization_repositories_per_repo_update_status_no_action_required_no_time_pressure",
+      "prediction": "Paramedics en route to administer life-saving anticoagulants and prepare for potential thrombolysis.",
+      "observation": "The Renovate Mend automated-dependency-update bot weekly PR-rollup digest reached the platform-engineering organization inbox covering the trailing-seven-day automated-dependency-update PR-creation rollup across the GitHub-and-GitLab repository fleet on the engineering-organization side: across the two-hundred-thirty-four tracked repositories under the Renovate-bot org-level subscription the rolling-window automation surfaced the per-repository dependency-update PR distribution across the npm-and-yarn-and-pnpm-and-pip-and-poetry-and-go-modules-and-Cargo-and-Maven-coordinates ecosystem coverage with the per-language-ecosystem update-class breakdown on the dependency-tree posture. The PR-rollup distribution lands at one-hundred-eighteen PRs opened across the engineering-organization repositories during the trailing-week window \u2014 patch-version updates concentrating on the transitive-dependency tier with the auto-merge-on-passing-CI label-and-status-check gating, minor-version updates on the direct-dependency tier sitting in the per-repo merge-queue awaiting reviewer-side sign-off, major-version updates flagged for the per-repo migration-runbook coordination pass on the engineering-team-owner side, and security-advisory-driven updates on the GitHub-Advisory-Database advisory-feed integration handled through the auto-PR remediation surface with the per-CVE remediation track per-repository. The configuration-file scan-coverage rollup tracks the per-repository renovate.json schema-conformance check across the engineering-organization repositories, the schedule-window-cron job-conformance on the per-repo PR-throttle limits, and the dependency-license-policy filter on the OSI-approved-vs-restrictive-license filter rule across the dependency-graph pull-in surface.",
+      "surprise": 0.5732413872451733,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 150.0,
+      "event_id": "vermont_maple_forest_small_batch_maple_syrup_grade_spectrum_spring_quarterly_tasting_flight_newsletter_sugarmaker_coop_subscriber_email_no_action_required",
+      "prediction": "Pulmonary embolism confirmation via CT-pulmonary-angiogram in progress at the emergency department.",
+      "observation": "The Vermont Maple Forest small-batch maple-syrup grade-spectrum spring quarterly tasting-flight newsletter from the Vermont sugarmaker co-op reached the household subscriber inbox covering the spring-tap-season harvest release from the upper-Vermont sugarmaker-cooperative network: the spring-release tasting-flight threads the grade-spectrum across the Golden-Color-Delicate-Taste single-tap-run early-season pour from the Stowe-Mountain sugarbush, the Amber-Color-Rich-Taste mid-season pour from the Mad-River-Valley sugarbush block, the Dark-Color-Robust-Taste late-season pour from the Northeast-Kingdom sugarbush block, and the Very-Dark-Color-Strong-Taste end-of-season pour from the cooperative's blend-of-final-runs block under the master-sugarmaker-and-apprentice-pair production cadence aligned with the spring fulfillment cycle. The co-op's tap-to-bottle narrative threads the wood-fired-evaporator processing block on the small-batch sugarhouse-floor, the per-batch maple-grading-conformance check against the USDA-and-state-of-Vermont grading-standards reference, the sugarbush-source provenance through the Vermont small-farm sugarbush-network on the upper-Champlain-Valley terroir distribution, and the small-batch bottle-and-label workflow across the cooperative-side packaging-line on the sugarhouse-floor side.",
+      "surprise": 0.5086034606177285,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 240.0,
+      "event_id": "spouse_lumbar_spinal_fusion_laminectomy_surgery_moved_up_tomorrow_730am_orthopedic_spine_surgeon_pre_op_admit_anesthesia_clearance_intraoperative_neuromonitoring_hospital_admission",
+      "prediction": "Pulmonary embolism patient in acute distress awaiting emergency medical transport.",
+      "observation": "Schedule advance notification from the orthopedic-spine-surgeon's-office scheduling-coordinator at the tertiary-medical-center: the household-spouse's pre-scheduled lumbar L4-L5 spinal-fusion-and-laminectomy surgery with Dr. Hadi Yousefi's spine-service team \u2014 previously slotted for next-Tuesday-morning at seven-thirty arrival on the surgical-block schedule \u2014 has been pulled forward to tomorrow-morning at seven-thirty arrival on the same operating-room block following a same-week cancellation-slot opening at the high-acuity spine-surgical-block calendar. The surgical-plan-of-record runs the L4-L5 posterior lumbar interbody-fusion approach with the pedicle-screw-and-rod construct fixation, the interbody-cage placement on the disc-space-restored side, and the decompressive laminectomy with foraminotomy on the affected nerve-root distribution for the prior-diagnosed grade-one spondylolisthesis with progressive lumbar-radiculopathy through the L5-nerve-root dermatome distribution. The pre-operative checklist pulls in the morning-of NPO-status nothing-by-mouth from midnight tonight onward, the antiplatelet-and-anticoagulation washout band with the household-spouse off the aspirin-eighty-one-milligram and the rivaroxaban Xarelto five-day-pre-op cessation window already on the medication-reconciliation list, the morning-of anesthesia-clearance review at the pre-op holding-bay with the anesthesiologist-on-record pre-call review, and the intraoperative-neuromonitoring-team SSEPs-and-MEPs sensory-and-motor-evoked-potential baseline-recording placement window pre-staged. The hospital-admission paperwork has the pre-registered tertiary-medical-center surgical-block under the household-spouse's medical-record number with the insurance-prior-authorization on file and the household-adult-side designated visitor-and-decision-maker on the surgical-consent surface, and the post-op surgical-floor admission to the spine-service inpatient-unit has the expected three-night length-of-stay with the discharge-planning rehabilitation-and-PT consultation pre-arranged through the inpatient-rehab service.",
+      "surprise": 0.5081480694166283,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 300.0,
+      "event_id": "vercel_functions_v2_launch_announcement_multi_runtime_node_python_go_edge_functions_streaming_response_cold_start_optimization_connection_pooling_observability_trace_subscriber_email",
+      "prediction": "Tomorrow-morning at seven-thirty, household-spouse's lumbar L4-L5 spinal-fusion-and-laminectomy surgery scheduled.",
+      "observation": "The Vercel Functions v2 launch announcement reached the platform-engineering subscriber inbox on the per-engineering-organization tier of the Vercel-deploy-platform subscriber surface covering the Functions-v2 multi-runtime edge-compute runtime release with the major-version cut from the prior Functions-v1 single-runtime-Node baseline: the Functions-v2 release threads the multi-runtime support across the Node.js-twenty-stable runtime and the Python-three-twelve runtime and the Go-one-twenty-two runtime on the edge-compute fleet, the streaming-response default mechanic across the ReadableStream-server protocol on the response-payload streaming surface, the cold-start optimization pass on the per-runtime container-snapshot warm-start window with the documented sub-fifty-millisecond cold-start latency on the documented benchmark grid, the connection-pooling primitive on the per-runtime upstream-database connection-reuse surface with the per-function lifetime-bound connection-cache scope, and the observability-trace integration on the OpenTelemetry-collector edge-trace propagation pattern with the cross-function trace-context propagation surface. The release-notes documentation threads the migration-guide from Functions-v1 to Functions-v2 on the per-runtime breaking-change matrix across the request-and-response API delta, the per-runtime SDK-version dependency-upgrade path on the Vercel-CLI-and-deploy-platform compatibility surface, and the per-engineering-organization rollout window with the per-deployment-target-environment opt-in-and-opt-out flag on the deploy-pipeline configuration block.",
+      "surprise": 0.5229058838123367,
+      "z": 0.4347344848251766,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 360.0,
+      "event_id": "fafsa_free_application_federal_student_aid_filing_deadline_midnight_tonight_current_academic_year_application_high_school_senior_college_bound_need_based_aid_pell_grant_parent_plus_loan",
+      "prediction": "The household-spouse's scheduled lumbar surgery is rescheduled to tomorrow morning, moving up their pre-op checklist and admission process.",
+      "observation": "Federal Student Aid email reminder on the household's high-school-senior college-bound child's FAFSA Free Application Federal Student Aid filing deadline closing at midnight tonight on the studentaid.gov submission surface for the current-academic-year application affecting the fall-enrollment need-based-aid award package across the three target institutions on the household's college-list (the in-state flagship public-university plus the private liberal-arts-college plus the regional state-university-system campus). The FAFSA filing surface routes through the federally-administered need-analysis-formula calculation against the household's prior-prior-tax-year IRS Form 1040 income-and-asset reporting on the data-retrieval-tool import path from the IRS direct-import side, the household's expected-family-contribution EFC-replaced Student-Aid-Index SAI calculation feeding into each institution's financial-aid-office award-package construction with the Pell-grant-eligibility determination on the federal need-based grant side, the federal Direct-subsidized-and-unsubsidized student-loan allocation on the dependent-student loan-borrowing cap of five-thousand-five-hundred-dollar freshman-year first-time band, the federal Work-Study allocation on the campus-employment-job earning cap, and the institution-specific need-based-grant-and-scholarship allocation on each campus's institutional-funds surface. The parent-PLUS-loan eligibility determination on the household-adult-side credit-check surface lands on the post-FAFSA-filing approval pathway with the credit-history-adverse-events review on the federal-PLUS-loan underwriting standard, and the missed-midnight-cutoff outcome forfeits current-cycle need-based-aid eligibility on each target institution's freshman-class financial-aid-award-distribution priority-cohort cutoff window. The studentaid.gov portal multi-factor authentication step on the FSA-ID household-adult-and-student credential pair plus the IRS data-retrieval-tool authentication step plus the household's tax-year financial-summary review need to land before the midnight cutoff on the central-time-zone submission timestamp.",
+      "surprise": 0.41918193700434514,
+      "z": -1.230805683460924,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 420.0,
+      "event_id": "pagerduty_sev_one_rabbitmq_production_cluster_mirrored_queue_split_brain_reconciliation_halt_rolling_restart_misorder_dlx_filling_seventy_five_minute_runbook_force_reconciliation",
+      "prediction": "The household-spouse's scheduled lumbar surgery with Dr. Hadi Yousefi's spine-service team is pulled forward to tomorrow-morning at seven-thirty due to a same-week cancellation-slot opening.",
+      "observation": "Incident dispatch from the operations-center fanout circuit hit the platform-messaging on-call queue as a SEV-one ticket carrying the rabbitmq-prod-cluster cascade signal: the production rabbitmq-prod-cluster mirrored-queue master-replica reconciliation halt followed a misordered rolling-restart that brought one cluster-node back ahead of its peer's queue-mirror sync watermark, the cluster-partition handler triggered the node-fence mechanic preventing queue-message-loss but also wedging the producer-side connection-pool against the unhealthy zone, and the cluster-state-recovery split-brain divergence has held the queue-mirror reconciliation in a halt-and-await-operator-intervention posture for roughly seventeen minutes climbing on the impact-band rolling-window sampling cadence. The customer-facing checkout-confirmation queue producer-side connection-pool is backed up against the cluster-side write-availability dead-band, the DLX dead-letter exchange has been filling rapidly with the rejected-republish messages from the queue-mirror-mismatch handler, and the Erlang process-mailbox memory-bloat alarms have been firing across the unhealthy zone's broker-node fleet as the queue-state-replay cycle accumulates on the in-flight queue-mirror reconciliation backlog. The cluster-partition strategy on the cluster-configuration surface is set to pause-minority with the network-partition heal-time arbitrarily long for operator-intervention, the rolling-restart automation has been disabled at the deployment-pipeline rung pending the post-incident retrospective root-cause review, and the on-call decision-branch runs between the force-sync-from-master node-promotion path with the controlled queue-mirror re-attach cycle and the cluster-side restart-from-quorum reconciliation path with the documented producer-side six-minute write-availability blackout window. The on-call escalation timer has wrapped past the seventy-five-minute checkpoint on the incident-response cadence with the messaging-infrastructure staff engineer joined over the war-room link, the application-platform peer cross-paged onto the queue-consumer-side coordination thread, the storage-infrastructure on-call hooked in alongside for the persistent-store reconciliation-side coordination, and the platform-reliability-engineering response manager handling the customer-impact-statement drafting cadence for the partner-marketplace SLA-credit notification surface.",
+      "surprise": 0.4843106444188129,
+      "z": -0.012898524108590726,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 510.0,
+      "event_id": "arena_weekly_channels_collaborator_activity_digest_creative_curation_niche_followed_channels_blocks_connections_design_research_no_action_required",
+      "prediction": "SEV-one rabbitmq-prod-cluster incident continues with queue-mirror reconciliation halt, producer-side connection-pool backed up, and DLX filling rapidly.",
+      "observation": "The Are.na weekly channels-collaborator activity digest landed in the household subscriber inbox covering the trailing-seven-day window of the personal-handle's channels-collaborator activity across the followed-channels graph on the creative-curation niche of the Are.na federated-curation platform: the digest surfaces nineteen new blocks-and-connections added to the personal-handle's followed-channels across the design-research and visual-curation and editorial-archive subject-clusters, the channels-collaborator engagement metric rollup on the per-channel collaborator-block-addition counter across the household-handle's followed-channels graph plus the per-channel reblock-and-cross-channel-connection cadence on the cross-channel discoverability pattern, the discover-side surface widget pulls in the four featured-channels whose blocks-and-connections distribution overlaps with the personal-handle's rolling-week design-research browsing pattern with the per-channel curator-handle and per-channel block-aggregate distribution on the channels-discover-page widget, and the cross-channel block-recommendation seed-engine threads the personal-handle's reblock-history signature onto the per-channel recommendation-sidebar with the per-curator-handle seed-recommendation rollup. The author-side handle-dashboard rollup surfaces the trailing-week block-add count plus the trailing-week reblock-from-other-handles count plus the trailing-week channel-collaborator-invitation count on the household-handle's channels-of-record across the editorial-archive-and-design-research subject-cluster on the personal-curator activity surface.",
+      "surprise": 0.3984310595885421,
+      "z": -1.4234492685561846,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 600.0,
+      "event_id": "nws_anchorage_chugach_range_avalanche_warning_level_four_high_danger_alyeska_girdwood_backcountry_persistent_slab_instability_thirty_six_hour_heavy_snowfall_helicopter_rescue_standby",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "The National Weather Service Anchorage forecast office in coordination with the Chugach National Forest Avalanche Information Center has upgraded the Chugach Range backcountry avalanche advisory to a Level-Four high-avalanche-danger warning effective through the next thirty-six-hour window for the Girdwood-and-Alyeska-Resort-adjacent backcountry zones plus the Turnagain-Pass corridor and the Twentymile-River watershed approaches following the thirty-six-hour heavy-snowfall band depositing two-to-three feet of storm-snow on the persistent-slab-instability weak-layer at the storm-snow-on-old-snow interface. The persistent-slab-instability layer is sitting on the early-season faceted-snow grain-structure across the upper-elevation start-zone band on the windward-aspect alpine terrain, the wind-loading pattern on the leeward-aspect cross-loaded slopes has formed reactive wind-slab structures on the rolling test-pit shear-quality-one-and-two propagation cadence, the natural-and-human-triggered avalanche cycle is forecast across the prescribed elevation-and-aspect rose for the upper-and-middle-elevation start-zone bands, and the cornice-failure-onto-loaded-slope trigger pattern at the ridgeline-corniced-leeward-aspect dropoff threatens the down-slope start-zone propagation cycle. The Forest Service Chugach-District backcountry-skiing closure cordon at the ski-area-boundary perimeter plus the Alyeska Resort patrol-side mandatory uphill-travel restriction on the in-bounds glacial-aspect terrain plus the avalanche-control-team explosive-mitigation cycle on the Seward-Highway corridor near Bird Point and Beluga Point under the Alaska DOT-and-PF avalanche-control surface plus the Alaska Avalanche Information Center extreme-condition status-board posting on the trailhead-kiosk placards combine on the regional-side risk-communication cadence. The Alaska State-Troopers search-and-rescue coordination plus the Alaska Air-National-Guard 210th Rescue Squadron HH-60 Pave-Hawk helicopter-rescue standby-window assessment alongside the Tordrillo Mountain Lodge and the Chugach Powder Guides commercial-operator hold-window cadence on the heli-skiing operation runs through the bluebird-day post-storm window assessment with the additional-loading propagation forecast carrying the high-avalanche-danger reading through the post-storm warming-trend band.",
+      "surprise": 0.4650972731418599,
+      "z": -0.14304823295999652,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    }
+  ]
+}

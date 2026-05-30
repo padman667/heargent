@@ -1,0 +1,160 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 4.137931034482759,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 6,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "allergist_peanut_oit_oral_immunotherapy_graduation_dose_challenge_pediatric_allergy_clinic_moved_up_tomorrow_seven_thirty_am_eight_year_old_household_child",
+      "notification_sim_time": 90.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "nso_non_qualified_stock_option_post_termination_ninety_day_exercise_window_expiry_five_pm_today_etrade_brokerage_portal_payroll_cashless_election",
+      "notification_sim_time": 340.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "dnssec_ksk_key_signing_key_rollover_servfail_resolver_cascade_global_edge_pop_chain_of_trust_break_parent_zone_ds_record_seventy_five_minute_runbook",
+      "notification_sim_time": 410.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "probate_court_guardian_ad_litem_appointment_voicemail_attorney_marisol_vega_contested_guardianship_petition_elderly_parent_mid_stage_alzheimers_hearing_notice",
+      "notification_sim_time": 540.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "nws_honolulu_high_surf_warning_north_shore_oahu_thirty_five_to_forty_five_foot_face_heights_extreme_rip_current_threat_pipeline_waimea_bay_coastal_zone_closure",
+      "notification_sim_time": 660.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.004985,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 870.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 14468,
+    "completion_tokens": 195,
+    "total_duration_s": 67.958885083,
+    "arbiter_calls": 6,
+    "arbiter_yes_rate": 0.5,
+    "arbiter_input_tokens": 4865,
+    "arbiter_output_tokens": 24,
+    "arbiter_dispatched_model": "claude-haiku-4-5-20251001"
+  },
+  "trace_name": "test_v36",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "haiku",
+  "surprise_log": [
+    {
+      "sim_time": 50.0,
+      "event_id": "snyk_weekly_software_composition_analysis_vulnerability_scan_digest_engineering_organization_repos_dependency_health_dashboard_no_high_severity_flagged",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Snyk's weekly software-composition-analysis vulnerability-scan digest reached the platform-engineering organization mailing-list rollup with the trailing-seven-day scan-coverage report on the engineering-organization repository fleet: across the two-hundred-eighteen tracked repositories on the GitHub-side integration the rolling-window scan surfaced the dependency-tree posture across the npm-and-yarn-and-pnpm-and-pip-and-poetry-and-go-modules-and-Maven-coordinates ecosystem coverage with the per-language-ecosystem vulnerability-class breakdown laid out in the dashboard report. The dependency-health rollup distribution lands at zero CRITICAL-and-HIGH severity findings on the production-deploy-targeted repositories block, with the MEDIUM-severity findings concentrating on the dev-tooling-side test-harness dependency tree across the legacy-language-runtime branches and the LOW-severity findings on the transitive-dependency tier through the package-resolution graph. The rolling-week scan-coverage rollup tracks the per-repository scan-cadence stability across the auto-PR remediation surface, the per-team severity-rollup ownership map across the engineering-organization team-structure roster, and the dependency-license-compliance check on the OSI-approved-vs-restrictive-license filter rule across the dependency-pull-in surface.",
+      "surprise": 0.5399608467362309,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 90.0,
+      "event_id": "allergist_peanut_oit_oral_immunotherapy_graduation_dose_challenge_pediatric_allergy_clinic_moved_up_tomorrow_seven_thirty_am_eight_year_old_household_child",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Schedule change notification from the pediatric-allergy clinic patient-portal-and-callback line: the household's eight-year-old child's peanut oral-immunotherapy OIT graduation-dose challenge milestone \u2014 previously slotted for next-Friday-afternoon at one-thirty p.m. in the clinic-side food-challenge bay \u2014 has been pulled forward to tomorrow-morning seven-thirty arrival on Dr. Priya Bhatt's specialist calendar following a same-week cancellation-slot opening on the high-acuity-OIT-graduation block. The graduation-dose challenge milestone caps the multi-year peanut-OIT maintenance dosing program with the threshold-dose oral-immunotherapy challenge against the calibrated peanut-protein-equivalent test dose under the clinic's standardized food-challenge protocol, with the on-site epinephrine-readiness posture and the bedside intramuscular-autoinjector pair pre-staged at the chair-side supply tray plus the same-bay four-hour post-challenge observation monitoring window. The pre-challenge preparation checklist requires the morning-of antihistamine washout band (no diphenhydramine or loratadine within the seventy-two-hour washout window), the asthma-medication clearance review (no albuterol within the four-hour pre-dose window), the routine baseline-vitals check, and the pre-dose lab-side draw for the baseline eosinophil count plus the tryptase reference value on the same-morning clinic phlebotomy queue. The household-side preparation runs the eight-year-old's overnight bag with the comfort-blanket and the chair-side iPad for the observation-period viewing distraction, the snack-and-water staging through the post-monitoring discharge window, and the parent-side day-off-work coverage for the full clinic-day attendance pattern.",
+      "surprise": 0.463139915609431,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 150.0,
+      "event_id": "holderness_forge_hand_forged_garden_tools_spring_catalog_quarterly_release_handle_pattern_lineup_subscriber_email_blacksmith_workshop_provenance",
+      "prediction": "Pediatric-allergy clinic patient's OIT graduation-dose challenge moved up to tomorrow-morning from next-Friday-afternoon.",
+      "observation": "Holderness Forge's spring quarterly hand-forged garden-tools catalog email reached the personal subscriber list covering the seasonal hand-forge production block from the New-Hampshire workshop: the spring-catalog release threads the four-pattern lineup of the hand-forged garden trowel (the workshop's signature curved-tang single-bevel pattern in the carbon-steel-blade-and-ash-handle build), the hand-forged border spade (the long-reach narrow-blade pattern in the same carbon-steel-and-ash build), the hand-forged hand fork (the four-tine curved-pattern weed-clearing tool in the carbon-steel-and-walnut-handle build), and the hand-forged hori-hori soil knife (the Japanese-style dual-edge sheath-included pattern in the high-carbon-steel-and-cherrywood-handle build) across the master-blacksmith Cyrus Holderness-and-apprentice-pair production schedule for the spring fulfillment window. The catalog narrative threads the workshop-side provenance through the iron-stock source from the Pennsylvania mill partnership, the workshop-floor hand-forge production photographs across the four-pattern lineup, and the workshop's lifetime-rehandle-and-resharpen service-policy commitment on the master-blacksmith side.",
+      "surprise": 0.5150638843100418,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 270.0,
+      "event_id": "friday_late_afternoon_week_wrap_household_briefing_kitchen_island_dashboard_widget_weekend_prep_checklist_grocery_list_pre_dinner_rollup",
+      "prediction": "Holderness Forge's spring quarterly catalog email reaches subscribers with new hand-forged garden tools.",
+      "observation": "Friday late-afternoon week-wrap household briefing rolled into the kitchen-island dashboard widget on the household-coordination side as the workweek wound down with the standard end-of-week wrap rituals: the calendar-review surfaces the weekend-prep checklist with the Saturday-morning grocery-list rollup pre-loaded into the shared shopping-cart app with the per-aisle breakdown across the produce and the pantry-staples and the dairy-and-frozen sections, the household-chore ledger pencils in the weekend pull-ups across the front-yard hose-coil and the garage-bin sweep and the back-deck patio-furniture re-arrangement on the spring-weather window, and the pre-dinner family-rollup widget threads the household-adult-side cooking rotation handoff onto the kitchen-side meal-plan board for the salmon-and-asparagus dinner plan on the weekend-friendly cooking-tempo. The weather sidebar on the late-afternoon briefing widget threads a steady-state outlook into the weekend-long horizon with the marine-layer retreat plotted along the coastal corridor on the late-evening cooling cycle, and the household-side reminder track holds the recycling-bin curbside placement for the early-morning Saturday municipal pickup window.",
+      "surprise": 0.4379205261571031,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 340.0,
+      "event_id": "nso_non_qualified_stock_option_post_termination_ninety_day_exercise_window_expiry_five_pm_today_etrade_brokerage_portal_payroll_cashless_election",
+      "prediction": "Friday evening's weather briefing predicts a coastal marine-layer fog roll-in affecting early morning Saturday commute.",
+      "observation": "E-Trade brokerage portal cutoff reminder on the prior-employer corporate-equity stock-option grant package: the non-qualified stock-option NSO post-termination ninety-day exercise window for the unexercised tranche of the original four-year grant closes at five p.m. local time today on the broker-portal election surface, ninety calendar days after the employment-termination date on the cap-table-side employment record. The exercise-election surface routes the cashless-exercise path through the broker's same-day-settlement window where the broker fronts the exercise-cost cash to the cap-table issuer and immediately sells a same-day matched lot of the just-issued shares on the public-market to recover the exercise-cost plus the payroll-side withholding through the broker-side settlement bridge, leaving the household with the residual net-share count after the bargain-element ordinary-income withholding tax-bracket applied at the strike-price vs fair-market value spread on the broker-statement reporting line. The alternative same-day-sale all-cash exercise path settles the full bargain-element ordinary-income on the broker-cash account through the broker-side tax-withholding deposit step. The missed-exercise-window outcome forfeits the unexercised tranche back into the option-pool reserve under the standard plan-document language with no extension or grace-period mechanism on the cap-table-issuer side, and the AMT alternative-minimum-tax preference-item flagging on the bargain-element exercise on Form 6251 sits on the tax-planning side for the next-cycle filing through the household-CPA accountant Trent Aguilar. The brokerage-portal multi-factor reauthentication step plus the exercise-share-count election plus the payroll-side withholding-bracket election plus the broker-tax-lot-method election need to land before the five-p.m. cutoff.",
+      "surprise": 0.48594204595294455,
+      "z": -0.07607029235622902,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 410.0,
+      "event_id": "dnssec_ksk_key_signing_key_rollover_servfail_resolver_cascade_global_edge_pop_chain_of_trust_break_parent_zone_ds_record_seventy_five_minute_runbook",
+      "prediction": "E-Trade brokerage portal exercise window closes, prompting last-minute stock option grants reviews.",
+      "observation": "An on-call platform-engineering rotation paged out a PagerDuty SEV-one ticket: the DNSSEC KSK key-signing-key rollover scheduled across the public-DNS authoritative-zone fleet started the parent-zone DS-record transition window on the registry-side TLD authoritative-nameserver side with the chain-of-trust validation breaking at the resolver-side cache mid-rollover, surfacing SERVFAIL resolver responses across the global-edge-POP fleet covering the public-internet customer-facing surface roughly eight minutes ago and climbing the impact-band through the rolling-window sampling cadence. The dual-signing-zone overlap requirement during the KSK rollover holds both the prior and the new key-signing-key in the zone-signing keyset through the parent-zone DS-record propagation TTL window, but the publishing-side automation rotated past the dual-signing overlap onto the new-only KSK before the parent-zone DS-record propagation completed on the resolver-side cache, leaving the chain-of-trust break at the resolver-side validation step on the cached parent-zone DS-record returning the prior-only KSK reference. The rollback path runs through the prior-KSK promotion window with the dual-signing-zone re-publish step and the parent-zone DS-record rollback request to the registry-side TLD operator with the manual-coordination ticket through the registry support-channel surface. The customer-facing exposure surfaces the storefront-DNS resolution failure-rate excursion past the SLO-bound threshold on the five-minute-rolling impact window, the partner-API endpoint resolution miss rate climbing past the operational threshold, and the CDN-edge-fetch lookup-side failure rate spike on the upstream-DNS resolution path. The seventy-five-minute runbook escalation crossed with the network-edge staff engineer joined onto the incident-bridge call, the security-infrastructure on-call cross-paged for the chain-of-trust validation lockdown, and the registry-coordination escalation manager on the manual-coordination ticket side.",
+      "surprise": 0.4250594904311388,
+      "z": -1.7486111309232197,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 480.0,
+      "event_id": "substack_reader_network_friend_of_friend_recommendation_digest_writing_subscriber_cross_publication_pollination_author_handle_seed_inbox_tab",
+      "prediction": "DNSSEC KSK rollover failure triggers rollback path with potential impact across public-facing services.",
+      "observation": "Substack's reader-network weekly recommendation digest landed in the writing-side inbox tab around midday covering the rolling-week window of the personal-handle's reader-network friend-of-friend activity across the subscribed-publication graph: the digest surfaces eleven new friend-of-friend subscriber overlaps where the personal-handle's subscriber list cross-pollinates onto the second-degree-reader publication-handle subscription pattern, the cross-publication recommendation seed-engine threads the personal-handle's subscribed-publication topical-overlap signature onto the discovery-sidebar widget with the per-author-handle seed-recommendation rollup, and the author-recommendation track on the discover-side widget pulls in the four featured-author-handles whose publication-topic distribution overlaps with the personal-handle's rolling-week reading pattern. The subscriber-engagement metric rollup on the writing-side handle-dashboard threads the trailing-week reader-comment count, the trailing-week note-reshare count, and the trailing-week paid-subscriber-conversion count onto the writing-side analytics rollup, the cross-publication chat-side activity widget bundles the trailing-week chat-thread cross-publication thread participation summary into the chat-tab cross-network conversation rollup, and the writer-side note-feed activity widget pulls the trailing-week note-engagement summary into the writing-side notification-tab rollup.",
+      "surprise": 0.43338980941019556,
+      "z": -1.0941648101005326,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 540.0,
+      "event_id": "probate_court_guardian_ad_litem_appointment_voicemail_attorney_marisol_vega_contested_guardianship_petition_elderly_parent_mid_stage_alzheimers_hearing_notice",
+      "prediction": "On-call platform-engineering rotation paged for DNSSEC KSK key-signing-key rollover failure, impacting public-DNS authoritative-zone fleet.",
+      "observation": "Voicemail from Attorney Marisol Vega's law-office paralegal Nina Salazar on the household callback line: the regional probate-court has issued the guardian-ad-litem appointment notice in the contested guardianship petition the household-adult filed for the elderly parent's care arrangement under the mid-stage Alzheimer's progression trajectory, with the GAL investigator name assigned on the probate-court clerk's office side and the GAL home-visit-and-elderly-parent-interview schedule landing in the early-next-week window for the in-person evaluation. The contested-petition opposition motion from the sibling-side adverse party landed on the probate-court docket yesterday with the late-month evidentiary-hearing slot calendared for the petition determination, with the guardian-of-person scope (decisional authority over the medical-care plan plus the residential-placement assignment plus the daily-life routine plus the family-contact permissions side) and the guardian-of-estate scope (decisional authority over the financial-account oversight plus the asset-management plan plus the medical-bill-payment routing plus the long-term-care-insurance election plus the household-distribution side) running as a combined scope on the petition versus the sibling-side proposed scope split. The elderly-parent-rights notice service deadline on the family-law procedural calendar runs through the next-week window with the personal-service-of-process requirement at the elderly parent's residential-care facility and the elder-rights-advocate notification cycle. Callback to Attorney Marisol Vega's law-office direct line before five-thirty tonight to confirm receipt of the GAL appointment notice, walk the case-file evidence pack the household has assembled (medical-records review plus financial-account overview plus the household-distribution-and-care-routine documentation), and schedule the household-adult-side deposition prep through the early-next-week window.",
+      "surprise": 0.4618763422990565,
+      "z": -0.23632603046937445,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 660.0,
+      "event_id": "nws_honolulu_high_surf_warning_north_shore_oahu_thirty_five_to_forty_five_foot_face_heights_extreme_rip_current_threat_pipeline_waimea_bay_coastal_zone_closure",
+      "prediction": "An on-call platform-engineering rotation will likely initiate a rollback path for the DNSSEC KSK key-signing-key rollover failure.",
+      "observation": "The National Weather Service Honolulu forecast office has upgraded the North Shore of Oahu high-surf advisory to a high-surf warning effective through the next forty-eight-hour window, with thirty-five-to-forty-five-foot wave-face heights forecast at the Pipeline, Sunset Beach, and Waimea Bay surf-break exposure on the storm-driven North-Pacific extratropical-cyclone swell propagation reaching the Hawaiian Islands across the upper-band swell-period bracket through the windward-corridor approach. The extreme-rip-current threat across the North Shore surf-zone closes the Pipeline-Sunset-Waimea coastal-zone water-side access under the county lifeguard division's no-surf-no-swim-no-paddle directive, with the Hawaii Beach Lifeguards extreme-condition status-board posting on the lifeguard-tower placards across the windward-facing surf-zones, the marine-side small-craft advisory across the offshore Kauai-channel and Molokai-channel corridors, and the coastal-flood inundation forecast through the low-elevation oceanfront access-road and parking-lot side. The wave-runup-and-overwash exposure on the Kamehameha Highway shoreline section across the Sunset-Beach-and-Pipeline curve runs into the closure-and-detour pattern from the Department of Transportation Hawaii side, the on-shore wave-set timing through the daylight-side bright-period extends the closure-and-evacuation window through the visible-period sea-state observation cadence, and the high-tide-stack-up with the lunar-cycle alignment magnifies the runup-zone exposure across the windward-coast residential-development access pattern. The professional big-wave-surfing tow-in event organizers run the standby-window assessment cadence on the contest-side green-light vs hold-window decision branch for the contest-format alternate-day arrangement.",
+      "surprise": 0.4393574012078937,
+      "z": -0.8096217322968315,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    }
+  ]
+}

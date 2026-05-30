@@ -1,0 +1,157 @@
+{
+  "hit_rate": 0.8,
+  "false_initiation_rate_per_hour": 4.444444444444445,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 5,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "elderly_mother_septic_shock_indwelling_catheter_urosepsis_hypotension_fever_altered_mental_status_lactic_acidosis_911_dispatcher_paramedic_eta_ed_resuscitation_broad_spectrum_antibiotics_icu_admission",
+      "notification_sim_time": 70.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "cfa_institute_level_three_chartered_financial_analyst_exam_sit_date_advancement_test_administration_window_promotion_pathway_credential_household_adult_email",
+      "notification_sim_time": 200.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "opsgenie_sev_a_platform_orchestration_kubernetes_eks_production_cluster_pod_eviction_storm_node_memory_pressure_taint_cascade_cluster_autoscaler_seventy_five_minute_runbook",
+      "notification_sim_time": 320.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "opo_organ_procurement_organization_transplant_coordinator_voicemail_unos_kidney_waitlist_deceased_donor_offer_six_hour_cold_ischemic_time_immediate_hospital_admission_immunosuppression",
+      "notification_sim_time": 440.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "nws_sterling_lwx_derecho_squall_line_damaging_wind_warning_mid_atlantic_corridor_dc_baltimore_philadelphia_metropolitan_area_seventy_five_mph_widespread_straight_line_wind_power_outage_cascade"
+  ],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.018846,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 810.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 22456,
+    "completion_tokens": 232,
+    "total_duration_s": 56.160441292,
+    "arbiter_calls": 6,
+    "arbiter_yes_rate": 0.5,
+    "arbiter_input_tokens": 6162,
+    "arbiter_output_tokens": 24,
+    "arbiter_dispatched_model": "claude-sonnet-4-6"
+  },
+  "trace_name": "test_v38",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "sonnet",
+  "surprise_log": [
+    {
+      "sim_time": 70.0,
+      "event_id": "elderly_mother_septic_shock_indwelling_catheter_urosepsis_hypotension_fever_altered_mental_status_lactic_acidosis_911_dispatcher_paramedic_eta_ed_resuscitation_broad_spectrum_antibiotics_icu_admission",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "The household-elderly-mother is presenting at home this evening with the textbook urosepsis cascade \u2014 septic-shock physiology accelerating across the past ninety minutes \u2014 with the confusion-and-disorientation overlay on the baseline cognition pattern, the persistent fever at one-oh-two-point-six oral on the household-thermometer reading, the hypotension at eighty-eight-over-fifty-two on the wrist-cuff reading, the resting tachycardia at one-hundred-twenty beats-per-minute on the pulse-check, the oliguria with under-thirty-milliliter urine-output across the prior two-hour window through the indwelling-Foley catheter from last-week's tertiary-medical-center hospital-discharge urology-side instrumentation, and the household-glucometer lactate-surrogate strip flagging on the elevated band against the post-meal baseline reference. The septic-shock-of-genitourinary-origin presentation drives the household-side 911 call with the live dispatcher on the bedside-speakerphone reading the seated-upright airway-positioning routine and the elderly-mother-vital-signs monitoring cadence ahead of the six-minute paramedic ETA running out from the regional fire-engine house two blocks down the street. The regional medical-center's ED resuscitation-bay coordination loop running through the dispatch-channel into the on-shift attending physician's intake queue pre-loads the urosepsis workup track on the bedside blood-culture-and-urine-culture pre-antibiotic draw protocol, the broad-spectrum empiric-antibiotic ordering set for the urinary-tract-source septic pathway pre-staged onto the ED-side pharmacy queue, the IV-fluid thirty-milliliter-per-kilogram crystalloid bolus protocol pre-mixed on the resuscitation-cart side, the lactic-acid reference-lab pre-order on the rapid-blood-panel queue, the vasopressor-readiness peripheral-IV norepinephrine-on-standby protocol for the post-fluid-non-responder pathway, and the urology-on-call cross-page for the obstructive-urosepsis source-control consideration on the indwelling-catheter exchange-or-removal decision-branch. The medical-intensive-care-unit MICU has been put on standby for the post-stabilization handoff pathway onto the septic-shock care-bundle hour-one-through-hour-six pathway with the post-resuscitation reassessment milestone on the lactate-clearance trajectory plus the mean-arterial-pressure target band plus the urine-output recovery trajectory checkpoints on the inpatient-side septic monitoring rollup.",
+      "surprise": 0.49790796054520114,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 110.0,
+      "event_id": "datadog_cloud_cost_management_ccm_monthly_subscriber_digest_trailing_month_cloud_spend_breakdown_aws_gcp_azure_per_service_per_team_chargeback_anomaly_detection",
+      "prediction": "911 call from household for elderly mother's urosepsis worsening with shock.",
+      "observation": "The Datadog Cloud Cost Management CCM monthly subscriber digest landed in the engineering-organization mailing-list inbox covering the trailing-thirty-day cloud-spend rollup across the household-engineering-organization's AWS-and-GCP-and-Azure multi-cloud footprint with the per-cloud-provider monthly-charge breakdown threading the per-cloud-service spend-cohort tagging surface: the trailing-month aggregate cloud-spend lands at the documented monthly-spend baseline with the per-service breakdown across the EC2-and-EKS-and-RDS-and-S3-and-CloudFront line on the AWS side plus the GCE-and-GKE-and-BigQuery-and-Cloud-Storage line on the GCP side plus the AKS-and-Cosmos-DB-and-Azure-Storage line on the Azure side feeding into the consolidated cloud-spend dashboard on the Datadog CCM-side product surface. The per-team chargeback rollup threads the tag-based cost-attribution model on the cost-center-and-team-owner tag-pair lookup with the per-team monthly-spend distribution surfacing the platform-team-and-data-team-and-applications-team-and-machine-learning-team-and-developer-experience-team chargeback breakdown on the engineering-organization rollup-side. The anomaly-detection engine threads the per-service month-over-month spend-delta seasonality-adjusted model with the flagged-anomaly cohort covering the elevated cost-cohort items on the data-team BigQuery-side ad-hoc-query spend-spike pattern plus the platform-team EKS-side managed-node-group capacity-expansion spend-uptick plus the machine-learning-team GPU-instance-side training-burst spend-cohort. The forecast-side monthly-projection on the next-cycle cloud-spend trajectory threads the seasonality-adjusted forecast-model on the trailing-six-month baseline plus the forward-rolling reservation-and-savings-plan coverage rate plus the per-service commitment-coverage rollup on the AWS Savings-Plan and the GCP Committed-Use-Discount and the Azure Reserved-Instance coverage-side. The dashboard threads the per-team scoreboard-side trend-line plus the per-service top-spender ranking plus the per-region geographical-distribution chart plus the per-tag dimension-cut surface on the Datadog CCM-side product navigation tree.",
+      "surprise": 0.6121024657397903,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 200.0,
+      "event_id": "cfa_institute_level_three_chartered_financial_analyst_exam_sit_date_advancement_test_administration_window_promotion_pathway_credential_household_adult_email",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "CFA Institute exam-scheduling-services email reminder reached the household-adult's candidate-side inbox on the credential-administration-services mailing surface confirming the CFA Level III Chartered Financial Analyst exam sit-date advancement \u2014 previously calendared into the standard quarterly-window administration block at the regional Prometric test-center for the next-quarter Saturday-morning session \u2014 pulled forward at the test-administration-side onto an earlier-quarter administration window opening tomorrow morning at the eight-AM administration block at the same Prometric test-center surface following a candidate-cancellation-slot opening on the test-center capacity-allocation grid plus the standard-window candidate-roster rebalancing pass on the CFA Institute exam-scheduling-services queue. The CFA Level III exam structure runs the morning constructed-response item-set block plus the afternoon vignette-style multiple-choice block across the candidate-curriculum body-of-knowledge spanning the portfolio-management-and-wealth-planning area, the equity-investments area, the fixed-income area, the derivatives-and-alternative-investments area, the corporate-issuers area, the financial-statement-analysis area, the quantitative-methods area, the economics area, the corporate-finance area, and the ethical-and-professional-standards area on the CFA Institute curriculum-side. Passing this third-level exam closes the three-year sequential examination requirement on the CFA-charter eligibility pathway alongside the forty-eight-month accumulated qualified-work-experience requirement on the candidate-side professional-record toward the post-exam charter-conferment cycle through the candidate's CFA Institute member-application surface. The professional-credential timing has cascading impact on the household-adult's promotion-pathway plan with the senior-portfolio-manager track at the household-adult's employer riding on the post-charter conferment timing for the year-end promotion-cycle decision. The exam-prep cram-and-mock-exam final-week cadence needs to pull forward by one full quarter to land on the now-advanced sit-date with the third-party Kaplan-Schweser final-mock-exam administration block plus the candidate's own item-bank final-review window plus the post-mock-debrief decision-loop on the weakest-curriculum-area reinforcement track on the household-study-corner side. The Prometric test-center seat-confirmation portal step plus the CFA Institute exam-scheduling-services surface acknowledgment step plus the candidate's personal-identification document-readiness review on the test-center admission-requirement standard need to land before the next-business-day acknowledgment cutoff to lock in the advanced sit-date or release the seat back to the test-center capacity-allocation queue.",
+      "surprise": 0.4263607820174242,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 260.0,
+      "event_id": "notion_calendar_v2_launch_announcement_multi_account_support_dark_mode_polish_ai_event_summary_calendar_integration_deepening_subscriber_email_product_release",
+      "prediction": "The household-adult will need to confirm their Prometric test center seat and schedule personal ID document review before the next business day for the advanced CFA Level III exam sit-date.",
+      "observation": "The Notion Calendar v2 launch announcement reached the household subscriber inbox on the Notion-product-update mailing-list covering the major-version cut from the prior Notion-Calendar-v1 baseline-product line (formerly the Cron calendar-app product before the Notion-side acquisition-and-rebranding pass): the v2 release threads the multi-account-support primitive on the per-user multi-Google-and-iCloud-and-Outlook-and-Notion-workspace calendar-account aggregation surface with the unified-inbox-side day-and-week-and-month grid presentation plus the per-account calendar-color labeling plus the per-account event-creation default-routing surface, the dark-mode polish pass on the per-system-appearance preference plus the per-calendar-event contrast-and-readability tuning, the AI-event-summary primitive on the per-event-attendee context-pull plus the per-event-meeting-link surface integration plus the related-Notion-page-and-document linked-from-event citation-aware summary-on-mouse-hover pattern, the deepening of the calendar-integration with the Notion-database-side event-aware page-mention pattern plus the calendar-and-task-and-meeting-note unified-surface side, and the keyboard-shortcut-friendly quick-event-creation block with the natural-language-input event-parse surface. The release-notes documentation threads the per-platform availability-window on the macOS-and-iOS-and-web-application surface plus the per-account migration-from-prior-Notion-Calendar-v1 carryover pass on the user-side per-account event-history-and-recurring-event-rule preservation plus the per-account integration-third-party-app continuation surface plus the per-user-side per-Notion-workspace account-binding refresh-pass. The pricing-side per-user-and-per-Notion-workspace product-tier remains anchored at the prior Notion-product subscription-tier alignment on the per-Notion-paid-workspace plus the personal-account free-tier plus the per-Notion-enterprise-tier feature-surface availability with the per-tier feature-availability delta on the AI-event-summary primitive available on the paid-tier-and-above side.",
+      "surprise": 0.45813822472040844,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 320.0,
+      "event_id": "opsgenie_sev_a_platform_orchestration_kubernetes_eks_production_cluster_pod_eviction_storm_node_memory_pressure_taint_cascade_cluster_autoscaler_seventy_five_minute_runbook",
+      "prediction": "The household-adult will need to adjust their CFA Level III exam preparation schedule by one full quarter.",
+      "observation": "OpsGenie SEV-A page hit the platform-orchestration on-call rotation as the alert-channel routing surface fired the eks-prod-cluster-us-east-one production-Kubernetes cluster cascading pod-eviction storm signal: the cluster control-plane node-pool memory-pressure trigger fired the node-side NodeMemoryPressure taint propagation across the production-workload node-pool, the kubelet-side eviction-manager fired the pod-eviction routine on the QoS-tier-Burstable and QoS-tier-BestEffort workloads first followed by the QoS-tier-Guaranteed workloads under the sustained memory-pressure condition, and the ReplicaSet-controller scaling-burst cycle is trying to reschedule the evicted pods across the under-pressured remaining nodes on the production-workload node-pool driving the secondary eviction-storm cascade on the rebalancing pass. The eviction-storm cascade has hit the critical-namespace payment-gateway plus the checkout-flow plus the auth-service plus the inventory-management deployments on the production-workload node-pool with the per-namespace pod-availability count dropping past the PodDisruptionBudget threshold pinning the cluster-state into the partial-availability degraded posture on the control-plane status-aggregator side. The cluster-autoscaler new-node-provisioning cycle on the EKS-managed-node-group has the AWS EC2 boot-and-bootstrap-and-cordon-uncordon ten-to-fifteen-minute provisioning window running while the under-pressured remaining nodes continue the eviction cycle through the cluster-autoscaler ramp-up delay window. The Kubernetes control-plane status-aggregator surfaces the cluster-state degraded posture on the cluster-side overview-dashboard with the per-namespace Pod count delta-from-baseline plus the per-node ResourceQuota utilization plus the per-PodDisruptionBudget breach-counter rollup. The on-call decision-branch splits across the manual cluster-autoscaler ramp-up scale-up override path with the immediate node-fleet expansion on the under-pressured workload-side and the per-namespace HorizontalPodAutoscaler manual-override scale-down path with the controlled load-shedding cycle on the non-critical-namespace deployments to free up cluster-side capacity for the critical-namespace pod-availability recovery. The on-call escalation clock has rolled past the seventy-five-minute mark on the incident-response cycle with the platform-orchestration staff engineer dialed onto the war-room bridge, the application-platform peer co-paged onto the per-namespace deployment coordination thread, the storage-infrastructure on-call brought online alongside on the EBS-CSI-driver volume-attachment side for the stateful-workload PersistentVolumeClaim binding-side coordination, and the site-reliability-engineering response lead driving the customer-impact-statement composition cycle for the partner-merchant SLA-credit notification surface.",
+      "surprise": 0.5273938891751191,
+      "z": 0.4095015151558362,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 380.0,
+      "event_id": "letterboxd_weekly_friend_watchlist_film_review_activity_digest_cinephile_network_diary_update_list_curation_writing_subscriber_email",
+      "prediction": "Manual cluster-autoscaler ramp-up scale-up override path likely chosen as the immediate node-fleet expansion is initiated to address the production-Kubernetes cluster cascading pod-eviction storm.",
+      "observation": "The Letterboxd weekly friend-watchlist-and-film-review activity digest arrived in the household subscriber inbox summarizing the trailing-week activity rollup on the personal-handle's friend-graph across the cinephile-network of the Letterboxd film-cataloging social-network: the digest surfaces seventeen new four-and-five-star film reviews from the friend-graph network covering the recent-release-and-streaming-debut-and-rewatch cohort across the contemporary-cinema-and-independent-film-and-foreign-language-cinema-and-genre-revival subject-cluster, the watchlist-side rollup threads the per-friend watchlist-add cadence on the trailing-week window with the friend-graph subset whose watchlist-add overlaps with the personal-handle's prior watchlist-bookmark surface plus the per-friend list-side curation update on the rolling-list-cycle pattern. The personal-handle's friend-graph activity rollup threads the per-friend diary-update count plus the per-friend list-side creation count plus the per-friend tagged-review-engagement rollup on the social-side discoverability cadence, the recommendation-sidebar widget surfaces the four featured-films whose friend-graph reviewer-rating distribution overlaps with the personal-handle's prior diary-watching pattern with the per-film letterboxd-side aggregate-rating distribution plus the per-film review-side standout-review excerpt plus the per-film prior-friend-review citation, and the friend-graph list-collaboration seed-engine threads the personal-handle's prior list-collaboration history onto the per-friend-graph recommendation-sidebar with the per-curated-list-side participation surface. The personal-handle dashboard rollup surfaces the trailing-week diary-update count plus the trailing-week review-write count plus the trailing-week list-update count plus the trailing-week friend-graph follow-back count on the Letterboxd-side personal-handle activity surface across the cinephile-and-film-criticism subject-cluster on the friend-graph cinephile-curation surface.",
+      "surprise": 0.43632132185347017,
+      "z": -1.065485369184764,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 440.0,
+      "event_id": "opo_organ_procurement_organization_transplant_coordinator_voicemail_unos_kidney_waitlist_deceased_donor_offer_six_hour_cold_ischemic_time_immediate_hospital_admission_immunosuppression",
+      "prediction": "OpsGenie SEV-A page likely remains active as EKS cluster continues to face production Kubernetes workload evictions.",
+      "observation": "The regional organ-procurement-organization OPO transplant-coordinator on-call voicemail landed on the household-adult's personal callback line on the UNOS-kidney-waitlist deceased-donor kidney offer notification: the household-adult has been on the UNOS-kidney-transplant-waitlist at the regional transplant-program waiting-list for fifty-three months at the listed-status active band on the household-adult's end-stage-renal-disease ESRD diagnosis at the eGFR-of-twelve baseline with the residual-kidney-function fall-off cycle holding the in-center hemodialysis schedule at the three-times-per-week four-hour outpatient-dialysis-center cadence. The deceased-donor kidney offer comes from the OPO-side donor-allocation match through the UNOS-side allocation-algorithm output on the regional-allocation-pool prior-allocation-cycle pass-down with the HLA-antibody-and-PRA panel-reactive-antibody crossmatch reaching the negative-crossmatch acceptance band against the household-adult's listed-antibody-profile reference plus the ABO-blood-type compatibility check plus the donor-organ acceptable-quality-criteria warm-ischemic-time-and-cold-ischemic-time clock-tracking on the donor-procurement coordination side. The transplant-coordinator on the OPO-side voicemail callback queues the six-hour cold-ischemic-time preservation-window decision-point for the immediate hospital-admission onto the transplant-program inpatient-unit at the regional transplant-center within the next-three-hour arrival window for the pre-transplant evaluation labs and the type-and-crossmatch confirmation and the final-crossmatch acceptance step plus the transplant-nephrology team-side bedside-evaluation pass plus the transplant-surgery service-side OR-time scheduling onto the transplant-surgery operating-room block tonight. The household-adult-side accept-or-decline-the-offer decision-window through the transplant-coordinator callback acknowledgment closes within the next-thirty-minute window on the OPO-side coordination-cadence with the back-up-recipient on the regional-allocation pass-down queue running on the same offer-clock cycle as the household-adult's accept-or-decline decision-window. The pre-transplant immunosuppression-induction protocol with the basiliximab-or-thymoglobulin induction-agent decision on the transplant-nephrology surface plus the post-transplant tacrolimus-and-mycophenolate maintenance-immunosuppression cycle plus the prophylactic ganciclovir-and-trimethoprim-sulfamethoxazole opportunistic-infection coverage all queue up on the post-transplant care-pathway side.",
+      "surprise": 0.43853761449282036,
+      "z": -0.8570698800242756,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 520.0,
+      "event_id": "sunday_evening_week_ahead_family_planning_briefing_dining_room_shared_ipad_family_calendar_widget_daycare_after_school_meal_plan_grocery_pickup_carpool_lunchbox_rollup",
+      "prediction": "The transplant-coordinator will call to confirm household-adult's UNOS-kidney-waitlist offer decision within the next thirty minutes.",
+      "observation": "The Sunday-evening week-ahead family-planning briefing on the dining-room shared-family-iPad calendar-widget assembled the household-coordination Monday-through-Friday week-ahead snapshot at the post-dinner family-rollup time on the household-routine cadence: the dining-room iPad widget surface threads the per-day schedule-card lineup across the household-adult-side work-meeting calendar-overlay plus the household-spouse-side workday-and-after-work-commitment lineup plus the kids-side daycare-and-after-school-activity coordination grid plus the household-side standing-commitment block on the per-day calendar surface. The weekly meal-plan rollup threads the Monday-through-Friday dinner-rotation lineup across the household-favorite recipe-card sequence plus the Saturday-night family-pizza-and-movie standing tradition plus the Sunday-dinner extended-family-gathering rotation cycle with the per-day grocery-ingredient line-item mapping into the curbside-pickup grocery-order assembly surface for the Wednesday-evening grocery-curbside-pickup window. The carpool coordination grid threads the kids-side after-school carpool assignment across the Monday-soccer-practice-and-Wednesday-piano-lesson-and-Thursday-swim-team-and-Friday-art-class rotation cycle plus the carpool-partner family-cycle assignment alongside the per-day pickup-time-and-dropoff-time logistics. The Sunday-night-prep checklist surfaces the lunchbox-and-backpack-ready-for-Monday assembly cycle across the kids-side lunchbox-pack with the per-day theme-rotation lunch-menu lineup plus the per-day kids-side outfit-laid-out side plus the per-day kids-side school-folder-and-homework-binder check-off cycle on the household-side Monday-morning launch-pad. The post-briefing surface widget threads the household-side family-calendar acknowledgment step on the kids-side iPad screen-time soft-handoff into the Sunday-night quiet-routine cycle with the household-side bedtime-cadence wind-down sequence on the post-iPad-acknowledgment family-rollup.",
+      "surprise": 0.4863989106053809,
+      "z": 0.01853741787988061,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 580.0,
+      "event_id": "nws_sterling_lwx_derecho_squall_line_damaging_wind_warning_mid_atlantic_corridor_dc_baltimore_philadelphia_metropolitan_area_seventy_five_mph_widespread_straight_line_wind_power_outage_cascade",
+      "prediction": "The transplant-coordinator will call to confirm the household-adult's accept-or-decline decision for the UNOS kidney offer within the next thirty minutes.",
+      "observation": "An NWS Sterling/LWX forecast office urgent severe-weather upgrade landed on the mid-Atlantic regional alert-feed: the prior severe-thunderstorm watch for the DC-and-Baltimore-and-Philadelphia metropolitan corridor has been elevated to a derecho damaging-wind warning effective through the next four-hour overnight passage window for the Sterling/LWX forecast office area-of-responsibility covering the Washington-DC and Northern-Virginia and DC-Maryland-suburbs and Baltimore-metropolitan and the Philadelphia-extended-fringe corridor on the NEXRAD-radar leading-edge squall-line bow-echo signature. The progressive-derecho squall-line MCS mesoscale-convective-system event carries the widespread sustained seventy-five-to-ninety-mph straight-line damaging wind threat along the leading-edge bow-echo cycle on the radar-loop velocity-couplet signature with the rear-inflow-jet RIJ acceleration band on the leading-edge wind-core pattern plus the leading-edge embedded brief-spin-up tornado potential on the bow-echo apex side plus the trailing-stratiform heavy-rain band on the post-passage flash-flood threat. The SPC Storm Prediction Center Norman-OK convective-outlook on the day-one categorical-and-probabilistic outlook places the corridor at the moderate-risk band on the categorical-side with the seventy-percent significant-severe-wind probability on the probabilistic-side covering the Sterling/LWX corridor through the warning window. The infrastructure-impact projection has the tree-fall and the powerline-down cascade across the BGE Baltimore-Gas-and-Electric distribution-feeder fleet plus the Pepco Potomac-Electric-Power-Company DC-suburb feeder fleet plus the PSE&G Public-Service-Enterprise-Group Philadelphia-area feeder fleet driving the projected multi-hundred-thousand-customer power-outage cascade on the distribution-side restoration-queue with the per-utility mutual-aid crew pre-staging on the regional-emergency-coordination cycle. The Virginia-Department-of-Emergency-Management and the Maryland-Emergency-Management-Agency and the Pennsylvania-Emergency-Management-Agency have activated the regional-coordination cell on the State-Emergency-Operations-Center side with the no-travel-advised directive on the I-95 and I-66 and I-495 and I-695 corridor through the warning window plus the take-shelter-now public-messaging cycle on the wireless-emergency-alert WEA push-and-EAS broadcast cycle. The Capital-Region-and-Mid-Atlantic-Air-Traffic-Control DCA-and-IAD-and-BWI-and-PHL ground-stop-and-divert protocol on the FAA-side coordination plus the Amtrak-Northeast-Corridor track-side hold-and-restore window plus the WMATA Metro Washington-DC underground-and-surface track-side speed-restriction protocol all queue up on the transportation-side response-coordination cycle.",
+      "surprise": 0.5629076096871721,
+      "z": 1.3390095179731667,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    }
+  ]
+}

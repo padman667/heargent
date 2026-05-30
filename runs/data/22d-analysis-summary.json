@@ -1,0 +1,964 @@
+{
+  "per_tier": {
+    "v4_opus": {
+      "fail": 11,
+      "n": 40,
+      "rate_pct": 27.5,
+      "cp_lo_pct": 14.600899196420869,
+      "cp_hi_pct": 43.888290717904965,
+      "cp_width_pp": 29.287391521484096,
+      "bs_lo_pct": 15.0,
+      "bs_hi_pct": 42.5,
+      "cost_usd": 4.27776,
+      "hits": 29,
+      "cost_per_hit_usd": 0.14750896551724138
+    },
+    "v4_sonnet": {
+      "fail": 9,
+      "n": 40,
+      "rate_pct": 22.5,
+      "cp_lo_pct": 10.839663898377694,
+      "cp_hi_pct": 38.45116773031805,
+      "cp_width_pp": 27.611503831940354,
+      "bs_lo_pct": 10.0,
+      "bs_hi_pct": 35.0,
+      "cost_usd": 0.602013,
+      "hits": 31,
+      "cost_per_hit_usd": 0.019419774193548386
+    },
+    "v4_haiku": {
+      "fail": 9,
+      "n": 40,
+      "rate_pct": 22.5,
+      "cp_lo_pct": 10.839663898377694,
+      "cp_hi_pct": 38.45116773031805,
+      "cp_width_pp": 27.611503831940354,
+      "bs_lo_pct": 10.0,
+      "bs_hi_pct": 35.0,
+      "cost_usd": 0.200438,
+      "hits": 31,
+      "cost_per_hit_usd": 0.0064657419354838715
+    },
+    "v2_opus": {
+      "fail": 10,
+      "n": 40,
+      "rate_pct": 25.0,
+      "cp_lo_pct": 12.69147989328303,
+      "cp_hi_pct": 41.19619801517729,
+      "cp_width_pp": 28.504718121894257,
+      "bs_lo_pct": 12.5,
+      "bs_hi_pct": 40.0,
+      "cost_usd": 3.558555,
+      "hits": 30,
+      "cost_per_hit_usd": 0.1186185
+    }
+  },
+  "predicates": {
+    "DELTA_PE_pp": 2.5,
+    "v4o": 11,
+    "v2o": 10,
+    "IMPROVEMENT": false,
+    "NEUTRAL": true,
+    "REGRESSION": false,
+    "WIDE_CI": false,
+    "MECHANISM_CONFIRM": false,
+    "MECHANISM_PARTIAL": true,
+    "MECHANISM_FALSIFY": false,
+    "v4_correct_count": 1,
+    "v4_fix_count": 1,
+    "COMPLIANT_NO_REGRESSION": false,
+    "v4o_compliant_fails": 10,
+    "v2o_compliant_fails": 8
+  },
+  "outcome_row": {
+    "id": 2,
+    "name": "MECHANISM-ONLY, NET NEUTRAL"
+  },
+  "v4_mechanism_branch": "V4-partial",
+  "cross_tier_v4_branch": "CT-V4-partial",
+  "mechanism_detail": [
+    {
+      "trace": "test_v11",
+      "event": "trivia_league_round",
+      "should": false,
+      "v2_surfaced": true,
+      "v4_surfaced": true,
+      "v2_path": "z<-1",
+      "v4_path": "z<-1",
+      "v2_correct": false,
+      "v4_correct": false,
+      "v4_fixed_v2": false
+    },
+    {
+      "trace": "test_v12",
+      "event": "grocer_back_in_stock",
+      "should": false,
+      "v2_surfaced": true,
+      "v4_surfaced": true,
+      "v2_path": "z<-1",
+      "v4_path": "z<-1",
+      "v2_correct": false,
+      "v4_correct": false,
+      "v4_fixed_v2": false
+    },
+    {
+      "trace": "test_v12",
+      "event": "calendar_yoga_suggest",
+      "should": false,
+      "v2_surfaced": true,
+      "v4_surfaced": true,
+      "v2_path": "z<-1",
+      "v4_path": "z<-1",
+      "v2_correct": false,
+      "v4_correct": false,
+      "v4_fixed_v2": false
+    },
+    {
+      "trace": "test_v8",
+      "event": "mom_birthday_heads_up",
+      "should": true,
+      "v2_surfaced": false,
+      "v4_surfaced": false,
+      "v2_path": "surprise gate skip",
+      "v4_path": "surprise gate skip",
+      "v2_correct": false,
+      "v4_correct": false,
+      "v4_fixed_v2": false
+    },
+    {
+      "trace": "test_v8",
+      "event": "bridgers_presale_window",
+      "should": true,
+      "v2_surfaced": false,
+      "v4_surfaced": true,
+      "v2_path": "arbiter classified NO",
+      "v4_path": "arbiter classified YES",
+      "v2_correct": false,
+      "v4_correct": true,
+      "v4_fixed_v2": true
+    }
+  ],
+  "cross_tier_detail": [
+    {
+      "trace": "test_v11",
+      "event": "trivia_league_round",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "a_flagged"
+    },
+    {
+      "trace": "test_v12",
+      "event": "grocer_back_in_stock",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "a_flagged"
+    },
+    {
+      "trace": "test_v12",
+      "event": "calendar_yoga_suggest",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "a_flagged"
+    },
+    {
+      "trace": "test_v8",
+      "event": "mom_birthday_heads_up",
+      "opus": false,
+      "sonnet": false,
+      "haiku": false,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "a_flagged"
+    },
+    {
+      "trace": "test_v8",
+      "event": "bridgers_presale_window",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "a_flagged"
+    },
+    {
+      "trace": "test_v33",
+      "event": "irs_1031_like_kind_exchange_45_day_identification_window_5pm_pacific_qualified_intermediary_three_property_designate_or_lose_capital_gains_deferral",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v33",
+      "event": "pinterest_weekly_board_collaborator_activity_follow_suggestion_design_aesthetics_niche_digest_no_action_required_no_time_pressure",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v33",
+      "event": "snowflake_compute_warehouse_runaway_query_credit_burn_spike_auto_suspend_disabled_sales_analytics_dashboard_outage_40k_per_hour_75min_runbook",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v38",
+      "event": "cfa_institute_level_three_chartered_financial_analyst_exam_sit_date_advancement_test_administration_window_promotion_pathway_credential_household_adult_email",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v38",
+      "event": "elderly_mother_septic_shock_indwelling_catheter_urosepsis_hypotension_fever_altered_mental_status_lactic_acidosis_911_dispatcher_paramedic_eta_ed_resuscitation_broad_spectrum_antibiotics_icu_admission",
+      "opus": false,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": true,
+      "diff_haiku": true,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v38",
+      "event": "letterboxd_weekly_friend_watchlist_film_review_activity_digest_cinephile_network_diary_update_list_curation_writing_subscriber_email",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v38",
+      "event": "opo_organ_procurement_organization_transplant_coordinator_voicemail_unos_kidney_waitlist_deceased_donor_offer_six_hour_cold_ischemic_time_immediate_hospital_admission_immunosuppression",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v38",
+      "event": "opsgenie_sev_a_platform_orchestration_kubernetes_eks_production_cluster_pod_eviction_storm_node_memory_pressure_taint_cascade_cluster_autoscaler_seventy_five_minute_runbook",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v43",
+      "event": "father_in_law_acute_ruptured_cerebral_aneurysm_subarachnoid_hemorrhage_thunderclap_headache_911_neurosurgery_endovascular_coiling_neuro_icu_admission",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v43",
+      "event": "fsa_flexible_spending_account_use_it_or_lose_it_spend_down_deadline_midnight_tonight_employer_cafeteria_plan_carry_over_household_adult",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v43",
+      "event": "resend_email_api_v2_launch_announcement_multi_region_edge_delivery_batch_send_domain_dns_validation_mjml_template_webhook_subscriber_email",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v43",
+      "event": "splunk_on_call_sev_one_production_cassandra_cluster_ring_imbalance_hinted_handoff_backlog_node_replacement_repair_storefront_query_latency_excursion",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v46",
+      "event": "convex_2_launch_announcement_reactive_database_scheduled_functions_per_organization_audit_log_multi_region_replication_partner_integration_marketplace",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v46",
+      "event": "household_grandparent_alzheimers_disease_modifying_therapy_lecanemab_clinical_trial_coordinator_voicemail_screening_enrollment_consent_cycle",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v46",
+      "event": "household_spouse_acute_type_a_aortic_dissection_emergent_cardiothoracic_surgery_open_repair_ascending_aortic_graft_911_ems_paramedic_csicu_admission",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v46",
+      "event": "pediatric_tonsillectomy_and_adenoidectomy_household_adolescent_ent_otolaryngology_scheduling_coordinator_advanced_tomorrow_morning_seven_thirty_am_block",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v46",
+      "event": "rootly_sev_one_platform_analytics_on_call_production_clickhouse_replicatedmergetree_replication_queue_stall_inserts_mutations_backlog",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v46",
+      "event": "wednesday_late_evening_household_side_den_room_recliner_armchair_post_bedtime_adult_time_household_coordination_wind_down_briefing",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v50",
+      "event": "household_adult_employer_provided_espp_employee_stock_purchase_plan_next_offering_period_enrollment_window_close_five_pm_eastern_friday_seal_lookback_discount_household",
+      "opus": false,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": true,
+      "diff_haiku": true,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v50",
+      "event": "household_grandparent_outpatient_atrial_fibrillation_radiofrequency_catheter_ablation_cardiac_electrophysiology_lab_surgical_day_moved_up_tomorrow_morning_eight_fifteen_am_block",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v50",
+      "event": "household_spouse_acute_large_vessel_occlusion_lvo_ischemic_stroke_witnessed_onset_iv_tpa_alteplase_mechanical_thrombectomy_endovascular_neuro_icu_admission",
+      "opus": false,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": true,
+      "diff_haiku": true,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v50",
+      "event": "usgs_hawaiian_volcano_observatory_hvo_mauna_loa_northeast_rift_zone_fissure_eruption_lava_flow_inundation_hilo_pahoa_volcanic_ash_plume_vog_air_quality_subscriber",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    },
+    {
+      "trace": "test_v50",
+      "event": "whitehurst_genetics_hereditary_cancer_syndrome_genetic_counselor_voicemail_household_side_brca_panel_testing_result_cascade_testing_recommendation_consult_callback",
+      "opus": true,
+      "sonnet": true,
+      "haiku": true,
+      "diff_sonnet": false,
+      "diff_haiku": false,
+      "set": "b_new_joint_bar_firing"
+    }
+  ],
+  "per_trace_v4_v2_opus": [
+    {
+      "trace": "test_v4",
+      "v4_hit": 0.8,
+      "v4_false_h": 7.128712871287129,
+      "v4_fail": true,
+      "v2_hit": 0.8,
+      "v2_false_h": 7.128712871287129,
+      "v2_fail": true
+    },
+    {
+      "trace": "test_v5",
+      "v4_hit": 1.0,
+      "v4_false_h": 0.0,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 0.0,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v6",
+      "v4_hit": 1.0,
+      "v4_false_h": 0.0,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 0.0,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v7",
+      "v4_hit": 1.0,
+      "v4_false_h": 0.0,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 0.0,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v8",
+      "v4_hit": 0.8,
+      "v4_false_h": 0.0,
+      "v4_fail": false,
+      "v2_hit": 0.6,
+      "v2_false_h": 0.0,
+      "v2_fail": true
+    },
+    {
+      "trace": "test_v11",
+      "v4_hit": 0.8,
+      "v4_false_h": 3.711340206185567,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 3.711340206185567,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v12",
+      "v4_hit": 1.0,
+      "v4_false_h": 7.741935483870967,
+      "v4_fail": true,
+      "v2_hit": 1.0,
+      "v2_false_h": 7.741935483870967,
+      "v2_fail": true
+    },
+    {
+      "trace": "test_v13",
+      "v4_hit": 1.0,
+      "v4_false_h": 0.0,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 0.0,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v14",
+      "v4_hit": 1.0,
+      "v4_false_h": 0.0,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 0.0,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v15",
+      "v4_hit": 1.0,
+      "v4_false_h": 0.0,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 0.0,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v21",
+      "v4_hit": 0.6,
+      "v4_false_h": 0.0,
+      "v4_fail": true,
+      "v2_hit": 0.6,
+      "v2_false_h": 0.0,
+      "v2_fail": true
+    },
+    {
+      "trace": "test_v22",
+      "v4_hit": 0.6,
+      "v4_false_h": 4.044943820224719,
+      "v4_fail": true,
+      "v2_hit": 0.6,
+      "v2_false_h": 4.044943820224719,
+      "v2_fail": true
+    },
+    {
+      "trace": "test_v23",
+      "v4_hit": 0.8,
+      "v4_false_h": 4.044943820224719,
+      "v4_fail": false,
+      "v2_hit": 0.8,
+      "v2_false_h": 4.044943820224719,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v24",
+      "v4_hit": 1.0,
+      "v4_false_h": 4.0,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 4.0,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v25",
+      "v4_hit": 0.8,
+      "v4_false_h": 0.0,
+      "v4_fail": false,
+      "v2_hit": 0.8,
+      "v2_false_h": 0.0,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v26",
+      "v4_hit": 0.6,
+      "v4_false_h": 0.0,
+      "v4_fail": true,
+      "v2_hit": 0.4,
+      "v2_false_h": 0.0,
+      "v2_fail": true
+    },
+    {
+      "trace": "test_v27",
+      "v4_hit": 0.8,
+      "v4_false_h": 0.0,
+      "v4_fail": false,
+      "v2_hit": 0.8,
+      "v2_false_h": 0.0,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v28",
+      "v4_hit": 0.8,
+      "v4_false_h": 4.444444444444445,
+      "v4_fail": false,
+      "v2_hit": 0.8,
+      "v2_false_h": 4.444444444444445,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v29",
+      "v4_hit": 0.8,
+      "v4_false_h": 0.0,
+      "v4_fail": false,
+      "v2_hit": 0.8,
+      "v2_false_h": 0.0,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v30",
+      "v4_hit": 0.6,
+      "v4_false_h": 0.0,
+      "v4_fail": true,
+      "v2_hit": 0.6,
+      "v2_false_h": 0.0,
+      "v2_fail": true
+    },
+    {
+      "trace": "test_v31",
+      "v4_hit": 1.0,
+      "v4_false_h": 0.0,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 0.0,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v32",
+      "v4_hit": 1.0,
+      "v4_false_h": 0.0,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 0.0,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v33",
+      "v4_hit": 0.4,
+      "v4_false_h": 4.585987261146497,
+      "v4_fail": true,
+      "v2_hit": 0.4,
+      "v2_false_h": 4.585987261146497,
+      "v2_fail": true
+    },
+    {
+      "trace": "test_v34",
+      "v4_hit": 0.8,
+      "v4_false_h": 0.0,
+      "v4_fail": false,
+      "v2_hit": 0.8,
+      "v2_false_h": 0.0,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v35",
+      "v4_hit": 1.0,
+      "v4_false_h": 4.137931034482759,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 4.137931034482759,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v36",
+      "v4_hit": 1.0,
+      "v4_false_h": 4.137931034482759,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 4.137931034482759,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v37",
+      "v4_hit": 1.0,
+      "v4_false_h": 4.444444444444445,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 4.444444444444445,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v38",
+      "v4_hit": 0.6,
+      "v4_false_h": 4.444444444444445,
+      "v4_fail": true,
+      "v2_hit": 0.8,
+      "v2_false_h": 4.444444444444445,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v39",
+      "v4_hit": 1.0,
+      "v4_false_h": 4.444444444444445,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 4.444444444444445,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v40",
+      "v4_hit": 0.8,
+      "v4_false_h": 4.444444444444445,
+      "v4_fail": false,
+      "v2_hit": 0.8,
+      "v2_false_h": 4.444444444444445,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v41",
+      "v4_hit": 0.8,
+      "v4_false_h": 4.337349397590361,
+      "v4_fail": false,
+      "v2_hit": 0.8,
+      "v2_false_h": 4.337349397590361,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v42",
+      "v4_hit": 1.0,
+      "v4_false_h": 4.337349397590361,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 4.337349397590361,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v43",
+      "v4_hit": 0.6,
+      "v4_false_h": 3.75,
+      "v4_fail": true,
+      "v2_hit": 0.6,
+      "v2_false_h": 3.75,
+      "v2_fail": true
+    },
+    {
+      "trace": "test_v44",
+      "v4_hit": 0.8,
+      "v4_false_h": 0.0,
+      "v4_fail": false,
+      "v2_hit": 0.8,
+      "v2_false_h": 0.0,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v45",
+      "v4_hit": 0.8,
+      "v4_false_h": 3.75,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 3.75,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v46",
+      "v4_hit": 0.8,
+      "v4_false_h": 7.619047619047619,
+      "v4_fail": true,
+      "v2_hit": 0.8,
+      "v2_false_h": 7.619047619047619,
+      "v2_fail": true
+    },
+    {
+      "trace": "test_v47",
+      "v4_hit": 1.0,
+      "v4_false_h": 3.8095238095238093,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 3.8095238095238093,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v48",
+      "v4_hit": 0.8,
+      "v4_false_h": 3.8502673796791442,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 3.8502673796791442,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v49",
+      "v4_hit": 1.0,
+      "v4_false_h": 3.829787234042553,
+      "v4_fail": false,
+      "v2_hit": 1.0,
+      "v2_false_h": 3.829787234042553,
+      "v2_fail": false
+    },
+    {
+      "trace": "test_v50",
+      "v4_hit": 0.6,
+      "v4_false_h": 0.0,
+      "v4_fail": true,
+      "v2_hit": 1.0,
+      "v2_false_h": 0.0,
+      "v2_fail": false
+    }
+  ],
+  "commit_e": {
+    "fires": false,
+    "ci_width_pp": 29.287391521484096,
+    "delta_pe_pp": 2.5,
+    "abs_delta_pe_pp": 2.5,
+    "ci_band": "20pp<CI<=30pp",
+    "delta_band": "|DELTA_PE|<=5pp",
+    "region_2d_cell": "20pp<CI<=30pp x |DELTA_PE|<=5pp"
+  },
+  "drift_smoke": {
+    "phase2_vs_phase1": [
+      {
+        "cell": "sonnet/dev_v2",
+        "verdict": "PASS",
+        "deltas": []
+      },
+      {
+        "cell": "sonnet/test_v1",
+        "verdict": "PASS",
+        "deltas": []
+      },
+      {
+        "cell": "sonnet/test_v2",
+        "verdict": "PASS",
+        "deltas": []
+      },
+      {
+        "cell": "haiku/dev_v2",
+        "verdict": "PASS",
+        "deltas": []
+      },
+      {
+        "cell": "haiku/test_v1",
+        "verdict": "PASS",
+        "deltas": []
+      },
+      {
+        "cell": "haiku/test_v2",
+        "verdict": "PASS",
+        "deltas": []
+      }
+    ],
+    "phase3_vs_phase1": [
+      {
+        "cell": "sonnet/dev_v2",
+        "verdict": "PASS",
+        "deltas": []
+      },
+      {
+        "cell": "sonnet/test_v1",
+        "verdict": "PASS",
+        "deltas": []
+      },
+      {
+        "cell": "sonnet/test_v2",
+        "verdict": "PASS",
+        "deltas": []
+      },
+      {
+        "cell": "haiku/dev_v2",
+        "verdict": "PASS",
+        "deltas": []
+      },
+      {
+        "cell": "haiku/test_v1",
+        "verdict": "PASS",
+        "deltas": []
+      },
+      {
+        "cell": "haiku/test_v2",
+        "verdict": "PASS",
+        "deltas": []
+      }
+    ],
+    "phase2_vs_phase3": [
+      {
+        "cell": "sonnet/dev_v2",
+        "verdict": "PASS",
+        "deltas": []
+      },
+      {
+        "cell": "sonnet/test_v1",
+        "verdict": "PASS",
+        "deltas": []
+      },
+      {
+        "cell": "sonnet/test_v2",
+        "verdict": "PASS",
+        "deltas": []
+      },
+      {
+        "cell": "haiku/dev_v2",
+        "verdict": "PASS",
+        "deltas": []
+      },
+      {
+        "cell": "haiku/test_v1",
+        "verdict": "PASS",
+        "deltas": []
+      },
+      {
+        "cell": "haiku/test_v2",
+        "verdict": "PASS",
+        "deltas": []
+      }
+    ]
+  },
+  "pareto_ratios": {
+    "cross_tier_within_prompt": {
+      "v4_haiku_vs_v4_opus": 22.81392715470361,
+      "v4_sonnet_vs_v4_opus": 7.59581260044963
+    },
+    "matched_arbiter_within_tier": {
+      "v4_opus_vs_v2_opus": 1.2435578389310384
+    }
+  },
+  "surface_16": {
+    "disclosure_text": "M11a-extension Commit D used HeargentZA (skip+1.0) for V4 N=20 + V2-Opus test_v21..v30 extension; V2-Opus test_v4..v15 inherited HeargentZAWide (skip+1.5) from M10/M10b/M11a. M11a-extension-extension carries this variant-mix forward (bit-identical reproduction of M11a-extension Commit D filed measurement infrastructure). The N=40 V2-Opus baseline is therefore a mix of two agent variants: 10 cells skip+1.5 (test_v4..v15) + 30 cells skip+1.0 (test_v21..v50). Skip+1.5 produces higher hit rates than skip+1.0 per Commit B empirical comparison. Discovered at Commit B 0cd70af 2026-05-22 during 80-cell belt-and-suspenders. Observational-only on \u00a7D7 predicate semantics at this milestone \u2014 does NOT alter Row 1 reachability (D14-H1) or MECHANISM_* (frozen at V4-partial=1/5 per Commit B bit-identical belt). Future-work milestone M11a-extension-restate-baseline named to re-derive at uniform skip+1.5.",
+    "v2_opus_variant_mix": {
+      "skip_1_5_traces": [
+        "test_v4",
+        "test_v5",
+        "test_v6",
+        "test_v7",
+        "test_v8",
+        "test_v11",
+        "test_v12",
+        "test_v13",
+        "test_v14",
+        "test_v15"
+      ],
+      "skip_1_0_traces": [
+        "test_v21",
+        "test_v22",
+        "test_v23",
+        "test_v24",
+        "test_v25",
+        "test_v26",
+        "test_v27",
+        "test_v28",
+        "test_v29",
+        "test_v30",
+        "test_v31",
+        "test_v32",
+        "test_v33",
+        "test_v34",
+        "test_v35",
+        "test_v36",
+        "test_v37",
+        "test_v38",
+        "test_v39",
+        "test_v40",
+        "test_v41",
+        "test_v42",
+        "test_v43",
+        "test_v44",
+        "test_v45",
+        "test_v46",
+        "test_v47",
+        "test_v48",
+        "test_v49",
+        "test_v50"
+      ]
+    },
+    "v4_variant_uniform": true,
+    "v4_skip_value": 1.0,
+    "paper_v2_limitations_pointer": true,
+    "future_work_milestone": "M11a-extension-restate-baseline"
+  },
+  "source_paths": {
+    "v4_carry_forward_dir": "runs/data/21d-content-{tier}-v4-test_v{4..15,21..30}.json",
+    "v4_new_dir": "runs/data/22d-content-{tier}-v4-test_v{31..50}.json",
+    "v2_opus_test_v4_15": "runs/data/22b-belt-content-opus-v2-test_v{4..15}.json",
+    "v2_opus_test_v21_30": "runs/data/21d-content-opus-v2-test_v{21..30}.json",
+    "v2_opus_test_v31_50": "runs/data/22d-content-opus-v2-test_v{31..50}.json",
+    "drift_smoke_phase1_baseline": "runs/data/22b-baseline-content-{sonnet,haiku}-v4-{dev_v2,test_v1,test_v2}.json",
+    "drift_smoke_phase2": "runs/data/22d-smoke-preharness-content-{sonnet,haiku}-v4-{dev_v2,test_v1,test_v2}.json",
+    "drift_smoke_phase3": "runs/data/22d-smoke-postharness-content-{sonnet,haiku}-v4-{dev_v2,test_v1,test_v2}.json"
+  }
+}

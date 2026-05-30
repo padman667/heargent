@@ -1,0 +1,160 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 4.444444444444445,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 6,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "grandfather_acute_massive_lower_gi_hematochezia_diverticular_hemorrhage_hypovolemic_shock_911_dispatcher_ambulance_crew_trauma_bay_resuscitation_ir_angio_embolization_stepdown_unit",
+      "notification_sim_time": 70.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "household_spouse_right_eye_cataract_phacoemulsification_iol_implant_surgery_pulled_forward_tomorrow_morning_ambulatory_surgical_center_topical_anesthesia_monovision_target",
+      "notification_sim_time": 200.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "estate_planning_attorney_email_irrevocable_life_insurance_trust_ilit_crummey_notice_thirty_day_window_annual_gift_tax_exclusion_funding_deadline_five_pm_today",
+      "notification_sim_time": 320.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "veterinary_specialty_oncology_service_voicemail_senior_dog_lily_multicentric_lymphoma_chop_chemotherapy_protocol_staging_decision_six_thousand_cost_palliative_options",
+      "notification_sim_time": 440.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "nws_los_angeles_oxnard_cal_fire_red_flag_critical_fire_weather_warning_psps_pre_emptive_deenergization_santa_ana_winds_santa_monica_mountains_malibu_calabasas_topanga",
+      "notification_sim_time": 580.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.148935,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 810.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 23780,
+    "completion_tokens": 258,
+    "total_duration_s": 125.185758293,
+    "arbiter_calls": 6,
+    "arbiter_yes_rate": 0.6666666666666666,
+    "arbiter_input_tokens": 9869,
+    "arbiter_output_tokens": 12,
+    "arbiter_dispatched_model": "claude-opus-4-7"
+  },
+  "trace_name": "test_v39",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "opus",
+  "surprise_log": [
+    {
+      "sim_time": 70.0,
+      "event_id": "grandfather_acute_massive_lower_gi_hematochezia_diverticular_hemorrhage_hypovolemic_shock_911_dispatcher_ambulance_crew_trauma_bay_resuscitation_ir_angio_embolization_stepdown_unit",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "The household-grandfather is in the middle of an acute massive lower-gastrointestinal hemorrhage event unfolding in the downstairs sitting-room over the past forty minutes \u2014 active bright-red blood-per-rectum hematochezia volumes across three successive bathroom episodes on the toilet-bowl visual count plus the continuing seepage onto the household-bath-towel pressure-pack the household-adult put in place on the way to the sitting-room couch \u2014 with the hypovolemic-shock physiology cascade now visible on the household-vital-signs check: the blood-pressure reading at seventy-eight-over-forty-five on the home cuff, the resting tachycardia at one-hundred-thirty-eight beats-per-minute, the cool clammy extremities pattern, and the household-grandfather's prior-diagnosed sigmoid-diverticulosis history with two prior conservative-treatment cycles for diverticular-bleed at the academic-medical-center gastroenterology service inpatient unit positioning the diverticular-hemorrhage source-control workup as the highest-likelihood differential on the bedside triage. The household-adult is walking the 911 call-taker through the room-side situational picture across the household mobile-phone speakerphone with the call-taker running the supine-and-legs-elevated positioning routine to support the cerebral-perfusion-and-preload band on the household-grandfather's hemodynamic-instability profile ahead of the ambulance crew's eight-minute ETA rolling out from the township fire-rescue station alongside the engine-and-rescue fleet on the downhill response-route. The academic-medical-center's emergency-department trauma-bay receiving handoff loop is on warm-handoff posture through the dispatch intake-channel out to the on-shift ED attending physician's triage console with the GI-bleed source-control workup track lined up: two large-bore peripheral-IV-line placement on the resuscitation-trolley side, type-and-crossmatch four-unit packed-red-blood-cell PRBC plus two-unit fresh-frozen-plasma FFP order set going up to the blood-bank-side, isotonic-crystalloid IV-fluid bolus order primed at the resuscitation-cart bedside station, gastroenterology-on-call cross-page for the urgent-bedside colonoscopy decision-branch on the timing-of-colonoscopy-versus-CT-angiography-first triage step, and interventional-radiology on-call team alerted for the angio-embolization standby on the IR-suite side in case the bleed is brisk-and-localizable to a specific colonic-artery vessel on the CTA mesenteric-vasculature pattern. The GI-bleed dedicated surgical-stepdown inpatient unit has been queued onto warm-bed standby for the post-stabilization transfer-and-admit cycle into the GI-bleed care-pathway hour-one-through-hour-six monitoring milestone on the hemoglobin-trend trajectory plus the transfusion-response checkpoint plus the rebleed-watch surveillance protocol on the inpatient GI-side reassessment cadence.",
+      "surprise": 0.45489166767587286,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 110.0,
+      "event_id": "king_arthur_baking_company_monthly_autumn_baking_newsletter_recipe_rotation_sourdough_community_baking_school_class_schedule_subscriber_email",
+      "prediction": "The ambulance crew is expected to arrive and begin stabilizing the household-grandfather for transfer.",
+      "observation": "The King Arthur Baking Company monthly autumn-baking newsletter showed up in the household-subscriber inbox covering the autumn-recipe rotation lineup plus the household-baking-school class schedule plus the sourdough-starter community-side activity rollup across the King-Arthur-Baking-Company subscriber-network surface: the autumn-recipe rotation threads the apple-cinnamon-coffee-cake on Saturday-morning baking-cohort cycle plus the pumpkin-spice-cake-doughnut on weekend-brunch cycle plus the sourdough-everything-bagel boil-and-bake cycle plus the honey-oat-pull-apart-rolls dinner-bread-side cycle plus the classic-pumpkin-pie holiday-prep cycle on the household-baking-shelf seasonal-recipe-card sequence. The household-baking-school class-schedule rollup surfaces the King-Arthur-Baking-School in-person class-cycle covering the autumn-bread-baking workshop on the Vermont-Norwich campus plus the sourdough-starter intensive multi-day track plus the holiday-pie pre-Thanksgiving accelerated course plus the live-online class-cycle covering the pumpkin-bread-and-savory-quick-breads workshop on the online-cohort cycle plus the sourdough-fundamentals-from-scratch eight-week online-progression cycle. The sourdough-starter community surface threads the per-week starter-recipe-and-feeding-schedule community-cohort discussion thread plus the per-month sourdough-bread-shaping-and-scoring photo-contest community-cohort rollup plus the bakery-on-the-rise community-spotlight cohort featuring household-baker amateur-bakery-business launches on the King-Arthur-Baking-Company community-platform side. The recipe-of-the-week rotation threads the seasonal-flour-spotlight rotation (autumn-wheat plus heirloom-flour plus whole-grain) across the per-recipe ingredient-and-technique walkthrough surface plus the per-recipe baker-photo gallery plus the per-recipe community-rating cohort feedback rollup plus the per-recipe variation-and-substitution discussion thread on the King-Arthur-Baking-Company online recipe-platform side.",
+      "surprise": 0.5803943763719925,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 200.0,
+      "event_id": "household_spouse_right_eye_cataract_phacoemulsification_iol_implant_surgery_pulled_forward_tomorrow_morning_ambulatory_surgical_center_topical_anesthesia_monovision_target",
+      "prediction": "The household-adult is likely to finalize the ambulance call details while the household-grandfather's emergency team arrives.",
+      "observation": "Surgical-services scheduling-coordinator email from Dr. Ines Bakhtiar's ophthalmic-surgical practice reached the household-spouse's patient-portal inbox confirming that the household-spouse's right-eye phacoemulsification cataract surgery with monovision-target IOL intraocular-lens implant \u2014 previously calendared for next-Wednesday-morning at the Greenwood Ambulatory Surgical Center under Dr. Bakhtiar's standard operating-block \u2014 has been bumped onto tomorrow morning at the seven-AM slot on Dr. Bakhtiar's earlier-week operating block at the same Greenwood Ambulatory Surgical Center off the back of a fresh same-week cancellation-slot opening on the practice-side surgical-block calendar. The cataract-surgical-plan threads phacoemulsification ultrasonic lens-fragmentation through a two-point-four-millimeter clear-corneal incision with monofocal IOL intraocular-lens implantation targeting monovision refractive outcome \u2014 the right eye targeted for distance-vision pseudoemmetropia and the left eye reserved for near-vision targeting on the planned second-eye surgery in eight weeks' time per Dr. Bakhtiar's two-stage refractive-plan discussion the household-spouse had at the pre-op evaluation visit at the practice-office consult room. The pre-op eye-drop regimen on the patient-portal dosing-reminder threads the morning-of dilating-drop cycle (cyclopentolate-hydrochloride one-percent plus phenylephrine two-point-five-percent in the affected right eye thirty-minutes-pre-procedure) plus the antibiotic-and-anti-inflammatory pre-treatment drops (moxifloxacin-and-prednisolone-acetate) starting tonight on the every-six-hour cadence onto the surgical eye, the no-NPO-required protocol on the conscious-sedation anesthesia plan (chair-side topical-anesthesia plus monitored-anesthesia-care MAC IV-light-sedation versed-and-fentanyl titration on the anesthesia team-side), the household-spouse-side morning-of post-shower-no-makeup-no-perfume protocol, and the household-adult-side driver-and-companion arrangement for the post-procedure transport-home with the household-side designated-caregiver coverage through the four-hour post-op observation-and-discharge window. The post-op surgical-plan threads the one-day-post-op slit-lamp evaluation at Dr. Bakhtiar's office tomorrow-afternoon, the one-week-post-op anterior-segment OCT scan plus refractive-outcome assessment, the one-month-post-op final-refractive-outcome stabilization-and-IOL-position confirmation pass, and the eight-week post-op second-eye surgical-scheduling decision-loop on the household-spouse's monovision-target refractive plan. The patient-portal acknowledgment step plus the surgical-consent-form e-signature step plus the insurance-prior-authorization-on-file confirmation step plus the cataract-surgical-package billing-side acknowledgment step all need to land before the surgical-block lock-in confirmation cutoff at five-PM today on the practice-side surgical-coordination cadence.",
+      "surprise": 0.4414670415654025,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 260.0,
+      "event_id": "thursday_early_morning_kitchen_table_dawn_routine_briefing_school_drop_off_preflight_checklist_breakfast_prep_commute_traffic_snapshot_household_morning_launch_pad",
+      "prediction": "The household-grandfather's hemorrhage will likely be stabilized with IV fluids and PRBC transfusions before ambulance transport.",
+      "observation": "The Thursday early-morning kitchen-table dawn-routine briefing on the household-kitchen-island morning-routine widget threads the household-morning launch-pad checklist for the school-and-work day-ahead with the daylight-hours-arriving sunrise-side context cue: the school-drop-off pre-flight checklist surfaces the kids-side school-folder-and-backpack-ready-on-the-bench check-off cycle plus the kids-side outfit-laid-out morning-getting-dressed cycle plus the kids-side lunchbox-ready-on-the-counter post-fridge handoff plus the kids-side homework-folder-on-the-bench cycle plus the kids-side library-book-return cycle on the per-day cycle. The breakfast-prep rollup threads the per-day Thursday-rotation breakfast-card lineup with the household-favorite Thursday-morning recipe-cycle on the breakfast-station counter (overnight-oats from last-evening soak plus the household-spouse-side fresh-fruit-bowl assembly plus the household-adult-side morning-coffee station single-cup-pour-over rotation onto the household-cup lineup) plus the household-side morning-multivitamin-and-supplement station cycle. The commute-traffic snapshot threads the household-adult-side morning-route congestion-band readout from the commute-routing-app on the household-handle dashboard plus the school-route congestion-band readout for the school-drop-off cycle plus the alternative-route option-cycle for the school-drop-off plus the household-spouse-side workday-route congestion-band readout. The post-drop-off cycle threads the household-adult-side return-home segment plus the household-adult-side morning home-office workday-start cycle plus the household-spouse-side workday-start cycle on the per-day Thursday-routine cadence. The household-handle dashboard surface threads the household-rollup at the kitchen-table breakfast-station context with the post-breakfast school-and-work morning-handoff cycle on the household-side dawn-routine handoff into the school-day-and-workday morning-cycle.",
+      "surprise": 0.5258354472500402,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 320.0,
+      "event_id": "estate_planning_attorney_email_irrevocable_life_insurance_trust_ilit_crummey_notice_thirty_day_window_annual_gift_tax_exclusion_funding_deadline_five_pm_today",
+      "prediction": "The household-adult will arrive home from work, initiating the post-drop-off and evening commute traffic snapshot cycles.",
+      "observation": "Estate-planning attorney Sebastian Aliyu's tax-and-trust-law practice email reminder reached the household-adult's personal inbox on the estate-planning client-mailing surface confirming that the household-side irrevocable-life-insurance-trust ILIT annual Crummey-notice thirty-day-letter funding deadline closes at five-PM Eastern today on the trustee-side annual-gift-tax-exclusion contribution allocation cycle: the ILIT instrument was settled three years ago to hold the household-adult's term-life-converted whole-life-permanent policy plus the second-to-die survivorship-life-insurance policy for the estate-tax-exclusion-preservation planning goal against the household estate's projected lifetime-exemption exposure on the federal-estate-tax side. The Crummey-notice cycle for this year's annual-gift-tax-exclusion contribution to the ILIT premium-funding queue runs the thirty-day-letter distribution window from the contribution-deposit date with the per-beneficiary written-notice acknowledgment requirement on the four-beneficiary list (household-adult's two children plus the household-side designated-grandchild and designated-niece beneficiaries) under the standard ILIT trust-instrument language on the present-interest-gift treatment requirement on the annual-exclusion path. The annual-gift-tax-exclusion ceiling at the prior-IRS-indexed nineteen-thousand-dollar-per-donee per-donor band caps the present-interest-gift contribution treatment with the four-beneficiary per-donor allocation per the ILIT contribution-funding plan plus the household-spouse-as-co-donor combined-spousal allocation doubling the per-beneficiary ceiling to thirty-eight-thousand-per-beneficiary on the gift-splitting Form 709-side path. The funding-deposit-into-trustee-side account step plus the per-beneficiary Crummey-notice ceremony letter mailing step plus the per-beneficiary acknowledgment-receipt collection step plus the per-beneficiary acknowledgment-archival on the trust-administrative records step plus the premium-routing-through-trust step into the insurance-carrier policy-funding cycle all need to land before the five-PM Eastern cutoff today on the policy-anniversary funding-cycle timing alignment. The three-year-look-back-rule risk on existing life-insurance-policy transfer-into-ILIT remains a closed exposure at this point on the trust-establishment three-year-anniversary milestone past, but the missed-window outcome on the Crummey-notice cycle forfeits this year's annual-exclusion gift treatment on the contribution allocation pushing the present-interest-gift treatment characterization into the lifetime-exemption usage band on the household estate-planning rollup \u2014 a substantive enough consequence that Sebastian Aliyu walks the household-adult through the Form 709 reporting line plus the post-deadline trustee-side acknowledgment cycle on the prior-year reminder email.",
+      "surprise": 0.4626767380933824,
+      "z": -0.6768051112155812,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 380.0,
+      "event_id": "cloudflare_r2_v2_object_storage_launch_announcement_infrequent_access_tier_cross_region_replication_s3_compatible_api_workers_binding_deepening_subscriber_email",
+      "prediction": "The household-grandfather's hemorrhage source-control workup is scheduled for urgent intervention at the academic-medical-center GI-bleed care-pathway hour-one-through-six monitoring milestone.",
+      "observation": "Cloudflare's R2 v2 storage launch announcement landed on the household-subscriber inbox via the Cloudflare product-update mailing-list channel covering the major-feature-set deepening on the Cloudflare-R2 object-storage platform (the Cloudflare-side alternative-to-S3 product line on the egress-cost-zero pricing model the R2-v1 product cut launched with): the v2 release threads the new R2-infrequent-access storage-class tier on the per-bucket-class storage-pricing cycle for the cold-data archival pattern (the per-gigabyte storage-cost-discount band offset by the per-retrieval cost on the access-pattern profile), the cross-region replication primitive on the per-bucket replication-policy cycle replicating the R2-bucket content across the Cloudflare-region fleet on the per-region failover-and-disaster-recovery pattern, the S3-compatible API deepening on the per-API-surface-coverage cycle (multipart-upload primitive plus presigned-URL primitive plus bucket-versioning primitive plus lifecycle-rule primitive plus event-notification primitive) bringing the R2-API surface closer to the AWS-S3 API parity for the migration-path-from-S3 cohort, the Workers-side R2-binding deepening on the per-Worker R2-bucket-access cycle (R2-binding-side mutation-and-query primitive plus per-Worker R2-bucket-access-policy cycle plus Worker-to-R2 streaming-upload-and-download primitive) deepening the Cloudflare-edge-compute Worker-side integration with the R2-storage layer, and the per-bucket-class storage-class-management primitive on the per-bucket lifecycle-policy-aware tier-transition cycle automating the cold-data movement-into-infrequent-access cycle on the retention-policy-side configuration. The release-notes documentation threads the per-region rollout-cycle availability plus the per-customer migration-path-from-R2-v1 carryover pass on the per-bucket-class storage-class election plus the per-bucket cross-region replication-policy election plus the per-Worker R2-binding-mode election plus the per-customer pricing-tier acknowledgment on the per-bucket-class storage-and-retrieval-cost rollup.",
+      "surprise": 0.5460755096558239,
+      "z": 1.0113442276778355,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 440.0,
+      "event_id": "veterinary_specialty_oncology_service_voicemail_senior_dog_lily_multicentric_lymphoma_chop_chemotherapy_protocol_staging_decision_six_thousand_cost_palliative_options",
+      "prediction": "The household-adult will finalize the annual Crummey-notice letter funding for the ILIT trust by five PM Eastern time.",
+      "observation": "Veterinary specialty-oncology service voicemail from Dr. Reema Ashworth at Cascade Veterinary Specialty Center's medical-oncology department landed on the household callback line on the household-side senior-dog Lily's diagnostic-workup outcome: the fine-needle-aspirate cytology lab-side reading from last week's submandibular-and-prescapular lymphadenopathy sampling pass came back consistent with multicentric lymphoma \u2014 the most common canine-lymphoma presentation pattern accounting for roughly eighty-percent of the canine-lymphoma case-cohort at Cascade's veterinary-oncology referral practice \u2014 with the involved-lymph-node distribution covering the submandibular plus prescapular plus axillary plus inguinal node-station bilateral pattern on the staging-physical-exam re-check pass Dr. Ashworth's team did at the diagnostic confirmation visit. The treatment-protocol decision-branch threads three primary arms on the canine-multicentric-lymphoma chemotherapy treatment-protocol landscape: the gold-standard CHOP-protocol nineteen-to-twenty-five-week injectable chemotherapy regimen rotating cyclophosphamide-and-hydroxydaunorubicin-and-vincristine-and-prednisone weekly cycle at Cascade's veterinary-oncology infusion bay with an expected median-remission-duration band running ten-to-twelve months on the responder-cohort survival curve plus an expected median-survival-duration band running twelve-to-fourteen months from the diagnosis-date with the canine-side quality-of-life cohort scoring band held high on the responder-cohort treatment-tolerance pattern, the simpler COP-protocol monthly cycle dropping the hydroxydaunorubicin doxorubicin-side from the regimen with shorter median-remission-duration band balanced against the lower-side adverse-event profile, and the single-agent doxorubicin-alone monthly cycle with the lowest treatment-burden cadence but the shortest median-remission-duration band on the responder cohort. The supportive-care palliative-pathway alternative threads the prednisolone-monotherapy oral-steroid cycle with the four-to-six-week median-comfort-window band and the avoid-the-injectable-chemotherapy decision-loop on the household-side treatment-budget-and-bandwidth constraint discussion. The treatment-cost-band estimate for the full CHOP-protocol nineteen-to-twenty-five-week course runs the household-side six-thousand-to-eight-thousand-dollar range on Cascade's veterinary-oncology specialty-pricing tier with the household's pet-insurance-policy coverage-side step requiring a pre-authorization claim package submission plus the per-cycle treatment-cost-reimbursement processing on the post-cycle claim-cycle. Dr. Ashworth's voicemail walks the household-adult through the next-step treatment-decision-loop on the household-side three-arm-versus-palliative selection plus the household-side callback-window through tomorrow-afternoon for the treatment-start-scheduling decision into the next-week treatment-induction-cycle at Cascade's veterinary-oncology infusion bay.",
+      "surprise": 0.4953939199042008,
+      "z": -0.12546130505215528,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 520.0,
+      "event_id": "discord_weekly_server_activity_digest_tabletop_gaming_community_membership_per_channel_message_heatmap_voice_chat_session_count_role_promotion_rollup_household_handle",
+      "prediction": "Veterinary oncologist Dr. Ashworth will schedule Lily's multicentric lymphoma chemotherapy induction treatment for tomorrow afternoon.",
+      "observation": "A weekly Discord-app activity sweep ticked through onto the household-handle's per-app notifications-tray surface for the tabletop-gaming community-network membership tracking pass: the digest surfaces the per-server activity-rollup pattern across the household-handle's subscribed-server lineup with the per-server new-member rollup (seven new members joining the household-handle's per-server membership-cohort across the gaming-community subject-cluster) plus the per-server message-activity heatmap covering the per-channel hourly-activity-band readout plus the per-server voice-chat session-count rollup on the per-day-of-week pattern. The per-server role-promotion notification surface threads the per-handle role-elevation events plus the per-handle community-tier-promotion events plus the per-server moderator-and-trusted-member appointment notifications on the household-handle's subscribed-server-cohort. The community-event-RSVP rollup threads the per-server tabletop-gaming session-RSVP cycle on the per-event scheduled-session lineup (Friday-night-D&D-campaign plus Sunday-afternoon-board-game-meetup plus Wednesday-evening-online-Catan-tournament plus Saturday-morning-Magic-the-Gathering-Commander pod plus monthly-warhammer-painting workshop) on the per-event seat-availability-and-host-confirmation cycle plus the per-event community-cohort attendance-rollup on the post-event recap surface. The per-channel pinned-message update rollup surfaces the trailing-week per-channel pinned-message change-log plus the per-channel rules-update community-notification plus the per-channel community-spotlight rotation. The bot-side leaderboard threads the per-server community-engagement leaderboard cycle plus the per-server XP-and-level community-progression rollup plus the per-server contribution-to-community-cohort recognition cycle on the household-handle's per-server activity participation pattern.",
+      "surprise": 0.4426788156492687,
+      "z": -1.214449343676197,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 580.0,
+      "event_id": "nws_los_angeles_oxnard_cal_fire_red_flag_critical_fire_weather_warning_psps_pre_emptive_deenergization_santa_ana_winds_santa_monica_mountains_malibu_calabasas_topanga",
+      "prediction": "Dr. Ashworth will likely schedule treatment for Lily at Cascade Veterinary Specialty Center tomorrow afternoon based on her voicemail guidance and the CHOP protocol decision.",
+      "observation": "A red-flag critical-fire-weather warning came out of the NWS Los Angeles/Oxnard forecast office in coordination with Cal-Fire-and-California-Office-of-Emergency-Services on the Southern California regional alert-feed: the prior fire-weather watch across the foothill-and-coastal-mountain corridor has been elevated to a red-flag critical-fire-weather warning running across the next thirty-six-hour Santa-Ana-wind-driven offshore-flow window covering the Santa Monica Mountains plus the Malibu Coast plus the Calabasas-and-Topanga-Canyon foothill corridor plus the Conejo Valley plus the San Fernando Valley north-rim plus the Angeles National Forest front-country zone on the offshore-flow downslope wind-pattern across the Transverse-Ranges terrain. The Santa-Ana-wind setup threads the high-pressure ridge anchoring across the Great Basin plus the low-pressure trough offshore in the Eastern Pacific driving the sustained thirty-five-to-forty-five-mph offshore Santa-Ana wind with the sixty-to-seventy-five-mph peak-gust band on the through-the-canyon-and-pass acceleration zones (Soledad-Canyon plus Newhall-Pass plus Cajon-Pass plus Banning-Pass on the southern-routes side), the single-digit relative-humidity band on the downslope-warming-and-drying-effect pattern, the critically-dry fuel-moisture-index reading on the foothill-chaparral and oak-woodland vegetation band on the multi-month-precipitation-deficit cycle on the rainfall-anomaly side, and the multi-day Santa-Ana ridge persistence on the upper-air-pattern continuity holding the critical-fire-weather conditions through the warning window. The Southern-California-Edison plus the Pacific-Gas-and-Electric utility-side grid-deenergization protocol on the Public-Safety-Power-Shutoff PSPS pre-emptive-deenergization decision-tree across the transmission-corridor-and-distribution-feeder exposure pattern is activating the PSPS-event sequence with the customer-notification cycle running through the SCE PSPS-notification email-and-text channel and the PG&E PSPS-notification channel covering the per-customer service-address impact scope plus the community-resource-center activation plus the medical-baseline-customer outreach cycle. The Malibu Coast plus the Santa Monica Mountains foothill-evacuation-zone pre-warning is on the LA-County Fire-Department-and-Sheriff-Department coordination cycle with the brush-cleared zone-of-evacuation pre-positioning at the equestrian-side property-and-livestock evacuation route plus the LA-County emergency-evacuation-notification cycle on the wireless-emergency-alert WEA cellphone-push plus EAS emergency-broadcast-system loop. The PCH Pacific-Coast-Highway closure-and-detour-pattern coordination on the Caltrans-side traffic-control plus the Malibu-Canyon-Road plus the Topanga-Canyon-Boulevard contraflow-emergency-egress pattern plus the LA-County Sheriff red-flag-warning patrol-staffing posture all queue up on the response-coordination cycle. The Angeles National Forest plus the Santa Monica Mountains National Recreation Area campground-and-trail closure cordon plus the Cal-Fire pre-positioned aviation-resources (Type-2 helicopters plus Bombardier-CL-415 super-scoopers plus heavy air-tankers) on the alert-and-ready-to-launch ground-station posture plus the federal Type-1-Incident-Management-Team standby cycle all queue up on the suppression-readiness coordination side.",
+      "surprise": 0.4848311047715994,
+      "z": -0.18105723236045823,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    }
+  ]
+}

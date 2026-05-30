@@ -1,0 +1,160 @@
+{
+  "hit_rate": 1.0,
+  "false_initiation_rate_per_hour": 4.137931034482759,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 6,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "adult_son_opioid_overdose_basement_guest_room_naloxone_narcan_nasal_spray_administered_911_dispatcher_rescue_breathing_paramedic_eta_six_minutes_substance_use_disorder_referral",
+      "notification_sim_time": 90.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "quarterly_espp_employee_stock_purchase_plan_enrollment_window_5pm_pacific_lookback_period_election_fifteen_percent_discount_payroll_contribution_election_qualifying_disposition_irs_25k_cap",
+      "notification_sim_time": 340.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "pagerduty_sev_one_postgres_primary_replica_streaming_replication_wal_lag_thirty_gigabyte_threshold_pg_stat_replication_read_replica_routing_fallback_wal_archive_replay_or_base_backup_rebuild",
+      "notification_sim_time": 410.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "va_veterans_service_officer_voicemail_service_connected_ptsd_rating_elevation_fifty_to_one_hundred_percent_total_permanent_retro_backpay_calculation_tdiu_champva_dependents_higher_level_review_window",
+      "notification_sim_time": 540.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "nws_bismarck_blizzard_warning_north_dakota_cass_county_clay_county_minnesota_twenty_two_inch_snowfall_sixty_mph_wind_minus_twenty_five_windchill_whiteout_interstate_corridor_closure_thirty_six_hour",
+      "notification_sim_time": 660.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.004092,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 870.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 13900,
+    "completion_tokens": 179,
+    "total_duration_s": 52.109821793,
+    "arbiter_calls": 5,
+    "arbiter_yes_rate": 0.4,
+    "arbiter_input_tokens": 3992,
+    "arbiter_output_tokens": 20,
+    "arbiter_dispatched_model": "claude-haiku-4-5-20251001"
+  },
+  "trace_name": "test_v35",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "haiku",
+  "surprise_log": [
+    {
+      "sim_time": 50.0,
+      "event_id": "ridge_and_rail_coffee_roasters_quarterly_seasonal_origin_release_ethiopia_yirgacheffe_colombia_huila_guatemala_huehuetenango_rwanda_bourbon_washed_natural_process_subscriber_email",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Ridge and Rail Coffee Roasters' quarterly seasonal-origin release email landed in the personal subscriber inbox covering the spring single-origin lineup: an Ethiopia Yirgacheffe washed-process from the Gedeb-zone cooperative with the bright-citrus and jasmine-floral cup-profile fingerprint, a Colombia Huila natural-process from the Pitalito-municipality farm with the strawberry-and-cocoa-nib sweetness band, a Guatemala Huehuetenango washed-process from the Concepci\u00f3n-region small-holder partnership with the brown-sugar-and-stone-fruit balance line, and a Rwanda Bourbon natural-process from the Karongi-district washing-station with the red-grape-and-floral-honey tasting note. The release narrative threads the harvest-season provenance through the supply-chain co-roaster relationship with each producing-partner organization including the multi-year fixed-price commitment band on each origin lane. The roaster's tasting-companion booklet ships in the same parcel with the brewing-recipe parameters tuned for the pour-over and the espresso-extraction equipment surface across the four origin profiles, and the educational sidebar covers the post-harvest-processing differentiation between the washed-and-natural pathways on the seasonal-origin selection.",
+      "surprise": 0.46014791530125976,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 90.0,
+      "event_id": "adult_son_opioid_overdose_basement_guest_room_naloxone_narcan_nasal_spray_administered_911_dispatcher_rescue_breathing_paramedic_eta_six_minutes_substance_use_disorder_referral",
+      "prediction": "Ridge and Rail Coffee Roasters' subscribers will open their quarterly seasonal-origin release email with excitement.",
+      "observation": "Critical home situation in the basement guest room: the nineteen-year-old college-age son visiting home on spring break was found unresponsive on the futon by the laundry-room handoff hallway with pinpoint pupils, shallow eight-per-minute respirations, and a faint carotid pulse \u2014 the textbook opioid-overdose presentation that triggered the household's overdose-response kit pulled from the bathroom medicine cabinet. The first dose of the four-milligram nasal naloxone Narcan spray went into the right nostril at the head-of-bed position and the second dose into the left nostril at the three-minute mark when the breath count stayed under ten and the room-air pulse-oximeter showed mid-eighties saturation. The emergency-medical-services call-taker on the speakerphone is walking the rescue-breathing two-breath-per-five-second cadence and the lateral recovery position while the household waits on the six-minute paramedic estimated-arrival on the city's emergency-medical-services dispatch board. The receiving emergency-department at the regional county hospital has been pre-alerted to the suspected fentanyl-contaminated polysubstance presentation with the toxicology-screen tube-set staged at the trauma bay and the substance-use-disorder hospital-liaison social-worker on a same-night consult slot for the bedside intake conversation about the next-step treatment-referral options including the medically-supervised withdrawal program and the outpatient buprenorphine induction track. The household action plan posted on the kitchen-counter clipboard covers the door-unlock sequence for the paramedic crew, the recovered-naloxone-kit hand-off to the medic chief on arrival, and the partner staying with the son through the receiving-emergency-department triage handoff while the second household-adult holds the in-home perimeter for the younger sibling already routed to the bedroom-wing quiet space.",
+      "surprise": 0.5350679169276646,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 150.0,
+      "event_id": "saturday_morning_weekend_launch_briefing_household_farmers_market_pickup_soccer_game_yard_work_calendar_review_weather_window_chore_ledger_kid_activities_rollup",
+      "prediction": "Emergency medical services en route after suspected opioid overdose in teenager.",
+      "observation": "Saturday-morning weekend-launch briefing on the household kitchen-counter morning-routine widget rollup: the calendar-review surfaces the standing farmer's-market pickup at the downtown plaza in the late-morning window for the community-supported-agriculture box and the bakery-stall pickup, the kids' youth-soccer match on the league-schedule rotation at the late-morning kickoff slot on the upper-field practice grounds, and the household-chore ledger of the open-garage organization sweep plus the back-yard mulch-spread project on the weather-window opening through the early afternoon. The weather-window check on the morning briefing rollup tracks the steady-state forecast through the early-afternoon work-period before the marine-layer pulls back in on the late-afternoon coastal-side cooling cycle. The kids'-activities rollup widget threads the post-soccer-game playdate handoff on the friend-family side and the early-evening family-movie selection from the household-shared streaming watch-list onto the front-hall display board, and the household-chore tracker pencils in the dishwasher-unload from the overnight cycle and the next-week meal-prep ingredient inventory check on the kitchen pantry sweep.",
+      "surprise": 0.6135280783740957,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 270.0,
+      "event_id": "figma_sites_launch_announcement_design_to_publish_workflow_auto_responsive_layouts_custom_domain_attachment_analytics_dashboard_visual_designer_subscriber_email_product_release",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Figma Sites launch announcement landed in the design-and-engineering subscriber inbox: the major-product launch ships the design-to-publish workflow directly from the Figma canvas surface, letting design teams move from the high-fidelity prototype canvas straight to the live web-published site without the prior frontend-engineering handoff bridge. The release bundles the auto-responsive-layouts engine that resolves the desktop-tablet-mobile breakpoint mapping from the auto-layout primitives already on the Figma frame surface, the custom-domain attachment surface for the marketing-and-portfolio-publishing use case with the DNS-verification flow and the SSL-certificate provisioning bundled together, and the lightweight built-in analytics dashboard for the published-site traffic visibility with the per-page and per-component-interaction event tracking on the published surface. The migration-runway documentation guide covers the prior Figma-Plugin-to-CMS workaround pattern transition path with the manual-component-mapping conversion checklist, and the launch-event keynote recording threads the live design-to-published-site walkthrough through three reference-site builds across the marketing-page, the portfolio-site, and the landing-page archetype surfaces. The companion design-system-integration handbook covers the published-site component-token forwarding pattern for the published-surface design-token consistency on the engineering-side hand-off line.",
+      "surprise": 0.4278223211491904,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 340.0,
+      "event_id": "quarterly_espp_employee_stock_purchase_plan_enrollment_window_5pm_pacific_lookback_period_election_fifteen_percent_discount_payroll_contribution_election_qualifying_disposition_irs_25k_cap",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Equity-administration system notification from the corporate-equity Carta-adjacent platform: the quarterly employee stock purchase plan enrollment window for the upcoming six-month offering period closes at five o'clock Pacific time today on the human-resources portal-only election surface. The plan's lookback-period mechanic prices the share-purchase at the fifteen-percent discount off the lower-of-the-period-start-or-the-period-end fair-market value on the public-trading reference price, and the enrollment election sets the payroll-contribution percentage between one and fifteen percent of the gross-paycheck base on each pay-cycle through the offering period up to the IRS twenty-five-thousand-dollar calendar-year contribution cap on the qualified ESPP plan. Missing the enrollment window means the participant has to wait for the next-quarter offering period to enroll, and the lookback-discount mechanic across the period-start price floor cannot be retroactively captured for the current cycle. The tax-treatment-side qualifying-disposition timing requires holding the purchased shares both two years from the period-start grant date and one year from the period-end purchase date to receive the lower long-term-capital-gains rate on the discount-and-appreciation spread rather than the higher ordinary-income treatment on a disqualifying-disposition sale before the holding thresholds. The portal-side enrollment surface needs the contribution-percentage choice plus the bank-routing change election plus the period-end-disposition-target election plus the multi-factor reauthentication-on-file step to land the election before the cutoff.",
+      "surprise": 0.4463727139678215,
+      "z": -0.8750466657228377,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 410.0,
+      "event_id": "pagerduty_sev_one_postgres_primary_replica_streaming_replication_wal_lag_thirty_gigabyte_threshold_pg_stat_replication_read_replica_routing_fallback_wal_archive_replay_or_base_backup_rebuild",
+      "prediction": "The household must prepare for an emergency medical response as their son overdoses on opioids.",
+      "observation": "PagerDuty SEV-one fired on the platform-database on-call rotation: the production postgres-prod-master-east-01 primary-database streaming-replication pipeline to the four-replica postgres-prod-replica-east-{01,02,03,04} read-replica fleet pushed past the thirty-gigabyte write-ahead-log replication-slot lag threshold on the pg_stat_replication monitoring view roughly eleven minutes ago and the replica-side recovery position has been falling further behind through the rolling-window sampling cadence. The async-streaming-replication mode is masking the lag at the primary-side write path so the application-side read-replica routing has switched into the primary-only fallback band, doubling the read-query connection-pool pressure on the postgres-prod-master and pushing the connection-pool saturation indicator into the red on the platform-database observability dashboard. The runbook decision-branch on the playbook page splits between the WAL-archive-replay path on the falling-behind replicas with continuous-archiving from the S3-bucket WAL-segment archive or the rebuild-from-base-backup path with the pg_basebackup snapshot restore and the catch-up streaming replay window. The customer-facing exposure surfaces a checkout-side query-latency p99 climb past the SLO-bound band and a partner-API read-side response time degradation on the rolling-five-minute window with the storefront timeout-budget burning past the operational threshold. The runbook timer crossed the seventy-five-minute escalation step with the database-platform staff engineer paged into the bridge call, the application-platform staff engineer cross-paged for the read-replica routing rollback option, and the storage-infra on-call cross-paged for the disk-IO-saturation root-cause line on the master-side WAL-write throughput chart.",
+      "surprise": 0.5486982208176832,
+      "z": 0.7563546682455692,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 480.0,
+      "event_id": "bluesky_weekly_social_graph_digest_new_follower_summary_suggested_follow_seed_reply_engagement_rollup_custom_feed_subscription_activity_at_mention_thread_recap_personal_subscriber",
+      "prediction": "PagerDuty SEV-one alert escalates to database platform staff engineer as replication lag triggers read-replica fallback and application latency issues.",
+      "observation": "Bluesky weekly social-graph rollup hit the personal inbox folder summarizing the trailing seven-day window of activity on the federated social-network surface: seventeen new followers landed on the personal-handle profile across the rolling week with the per-bio cluster-tag overlap rollup pre-grouped on the followers-list view, the suggested-follow seed-engine surfaced eleven candidate-handle suggestions pre-filtered against the personal-feed engagement fingerprint with the cross-cluster handle-discovery lift on the secondary-graph sidebar, and the reply-and-engagement rollup tracks the trailing-week post-interaction surface on the conversation-thread depth metric across the personal-handle posting cadence. The custom-feed subscription activity widget on the digest sidebar tracks the rolling-week post-volume on the three subscribed custom-feeds the personal handle threads into the timeline composition, the at-mention thread-recap surface bundles the trailing-week mention-thread conversation summary into the per-thread short-summary card layout for the missed-window catch-up convenience, and the federated-cross-PDS handle-discovery surface threads the partner-PDS instance follow-suggestion seeds into the discovery sidebar widget on the trailing-week graph-growth chart.",
+      "surprise": 0.4384000985605506,
+      "z": -1.0159332268434036,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 540.0,
+      "event_id": "va_veterans_service_officer_voicemail_service_connected_ptsd_rating_elevation_fifty_to_one_hundred_percent_total_permanent_retro_backpay_calculation_tdiu_champva_dependents_higher_level_review_window",
+      "prediction": "PagerDuty SEV-one alert escalates to database platform staff engineer for postgres-prod-master-east-01 replication lag issue.",
+      "observation": "Voicemail from Sergeant-First-Class (retired) Marcus Holloway, the accredited veterans service officer at the county VA service-officer office on the regional veterans-affairs partner network, on the household callback line: the rating-decision letter from the VA regional office on the pending claim for the service-connected post-traumatic-stress-disorder evaluation went through this morning's adjudications-board pass and the rating elevated from the prior fifty-percent rating to the full one-hundred-percent total-and-permanent rating on the disability-compensation schedule. The effective-date on the rating-decision rolls back fourteen months to the original claim-filing date on the paperwork in the file, which triggers a retroactive-backpay calculation of approximately thirty-one-thousand dollars on the differential compensation between the prior fifty-percent monthly rate and the one-hundred-percent monthly rate over the effective-date back-window. The total-and-permanent designation unlocks the total-disability-individual-unemployability auxiliary pathway with the dependent-and-spouse CHAMPVA medical-coverage program enrollment surface, the chapter-thirty-five dependent-education-assistance program entitlement for the household's college-age daughter, and the state-side property-tax-exemption documentation pickup. The voicemail flags the sixty-day higher-level-review appeal window on the rating-decision letter if the household wants to push for a separate-and-additional secondary-condition rating on the related-and-secondary depression-or-anxiety claim still on file. Callback to the county VA service-officer office before five tonight to confirm receipt of the rating-decision letter, schedule the paperwork-pickup appointment at the office front-counter, and walk the next-step intake-form check on the unlocked-benefits-pathway side.",
+      "surprise": 0.42647893760772715,
+      "z": -1.0606802550308378,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    },
+    {
+      "sim_time": 660.0,
+      "event_id": "nws_bismarck_blizzard_warning_north_dakota_cass_county_clay_county_minnesota_twenty_two_inch_snowfall_sixty_mph_wind_minus_twenty_five_windchill_whiteout_interstate_corridor_closure_thirty_six_hour",
+      "prediction": "Sergeant-First-Class Holloway's voicemail from the VA regional office regarding the service-connected PTSD rating-decision and associated benefits rollout.",
+      "observation": "The National Weather Service Bismarck forecast office has issued a blizzard warning for the eastern North Dakota and northwestern Minnesota corridor covering Cass County, Traill County, Richland County on the North-Dakota side and Clay County and Wilkin County on the Minnesota side from late tonight through the following day-and-a-half window. The system carries twenty-two-inch storm-total snowfall accumulations on the heaviest-band centerline, sustained west-northwest winds at thirty-five to forty-five miles per hour with sixty-mile-per-hour peak gusts on the open-prairie exposure surface, and a sub-zero wind-chill band running into the minus-twenty-five Fahrenheit guidance through the overnight-into-morning duration. The whiteout-condition forecast on the Interstate twenty-nine, Interstate ninety-four, and US-eighty-three corridor stretches will close the surface-travel windows under the no-travel-advised directive from the state department-of-transportation and the highway-patrol road-closure dispatch. The plow-fleet hibernation period kicks in once the gust band crosses the upper-tier threshold because the visibility safety-margin for the plow-operator cab drops past the operational floor, and the BNSF freight-rail mainline through Fargo runs the cold-soak speed-restriction protocol against the rail-fracture exposure on the minus-twenty-five-band steel temperatures. Sub-zero wind-chill frostbite exposure runs into the under-ten-minute exposed-skin guidance for the warning duration, with the livestock-loss exposure call on the open-range cattle operations and the power-grid wind-loading transformer-fault contingency on the rural-cooperative distribution feeders flagged for the cooperative-side emergency-operations response posture.",
+      "surprise": 0.40457542725900997,
+      "z": -1.2648624033884672,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    }
+  ]
+}

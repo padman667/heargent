@@ -1,0 +1,157 @@
+{
+  "hit_rate": 0.8,
+  "false_initiation_rate_per_hour": 0.0,
+  "median_time_to_notice_s": 0.0,
+  "total_notifications": 4,
+  "total_events": 5,
+  "total_distractors": 4,
+  "hits": [
+    {
+      "event_id": "spouse_postpartum_day_seven_secondary_hemorrhage_home_recovery_gush_bright_red_bleeding_911_dispatcher_obstetrics_attending_speakerphone_tranexamic_oxytocin_kit",
+      "notification_sim_time": 80.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "apartment_move_out_walkthrough_advanced_tomorrow_9am_landlord_pine_ridge_property_manager_security_deposit_release_prospective_renter_tour",
+      "notification_sim_time": 250.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "briarcliff_middle_school_vice_principal_voicemail_same_day_behavioral_incident_parent_conference_tomorrow_8am_suspension_hearing_disciplinary_committee_review",
+      "notification_sim_time": 510.0,
+      "time_to_notice_s": 0.0
+    },
+    {
+      "event_id": "noaa_swpc_g4_severe_geomagnetic_storm_warning_x_class_solar_flare_earth_directed_coronal_mass_ejection_grid_induced_current_polar_route_hf_radio_outage",
+      "notification_sim_time": 640.0,
+      "time_to_notice_s": 0.0
+    }
+  ],
+  "misses": [
+    "cdn_edge_cache_marketing_campaign_pipeline_misformatted_wildcard_tag_glob_global_purge_cascade_origin_shield_evacuated_storefront_5xx_blast_75min_runbook_warm_back"
+  ],
+  "agent_name": "heargent_za_content_surf-0.50_skip+1.00_w16",
+  "cost_usd": 0.013728,
+  "tick_dt_s": 5.0,
+  "trace_duration_s": 850.0,
+  "llm_stats": {
+    "calls": 9,
+    "prompt_tokens": 12582,
+    "completion_tokens": 155,
+    "total_duration_s": 41.40551029,
+    "arbiter_calls": 6,
+    "arbiter_yes_rate": 0.5,
+    "arbiter_input_tokens": 4456,
+    "arbiter_output_tokens": 24,
+    "arbiter_dispatched_model": "claude-sonnet-4-6"
+  },
+  "trace_name": "test_v34",
+  "intent_mode": null,
+  "with_briefing": false,
+  "arbiter_mode": "claude",
+  "arbiter_random_p": null,
+  "arbiter_random_seed": null,
+  "arbiter_system_prompt": "v4",
+  "arbiter_model": "sonnet",
+  "surprise_log": [
+    {
+      "sim_time": 40.0,
+      "event_id": "launchdarkly_monthly_feature_flag_account_health_digest_rollout_velocity_stale_flag_cleanup_kill_switch_audit_no_action_required",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "LaunchDarkly monthly account-health digest landed in the platform-engineering subscriber inbox covering the trailing thirty-day rollout cadence across the production environment: the rollout-velocity rollup tracked thirty-seven net-new feature-flag introductions and forty-one full-percentage-rollout completions across the four core service-domain projects, the stale-flag-cleanup queue surfaces eighty-three candidate flags older than ninety days at one-hundred-percent rollout state with the recommended-archive disposition pre-filtered on the cleanup-workspace board, and the integration-test segment-evaluation latency rollup tracked within the per-environment baseline band on the synthetic-traffic measurement surface. The kill-switch-readiness audit-trail rollup confirms the on-call rotation's kill-switch flag-set carries current runbook handoff documentation across all four service domains. The trailing-quarter aggregate experiment-throughput chart on the executive-summary tab shows the platform's controlled-rollout cadence holding steady against the rolling-thirteen-week baseline envelope, and the per-project flag-debt-burndown column tags two services as ahead of the quarterly cleanup target with the remaining two services tracking on-pace against the cycle plan.",
+      "surprise": 0.4571107448003132,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 80.0,
+      "event_id": "spouse_postpartum_day_seven_secondary_hemorrhage_home_recovery_gush_bright_red_bleeding_911_dispatcher_obstetrics_attending_speakerphone_tranexamic_oxytocin_kit",
+      "prediction": "No notable events expected in the next minute.",
+      "observation": "Emergency-protocol home situation in the bedroom: postpartum-day-seven secondary uterine hemorrhage in the spouse on the home-recovery rotation from the regional women's-health hospital after a sudden onset of bright-red gushing blood that saturated the under-pad within two minutes \u2014 the explicit threshold the obstetrics discharge instructions itemized for triggering the home-kit tranexamic-acid intravenous push plus the intramuscular oxytocin injection while keeping the ObGYN attending Dr. Maya Linde on the kitchen-speakerphone for the dose-check walk-through. The attending walked the firm-fundal-massage technique, the verbalized soft-call-out signs for the hypovolemic-shock escalation path (pulse rising over one-hundred-ten, mottled extremities, faint mentation), and the secondary-vital-sign cadence check before the 911 dispatcher patched into the same line and confirmed a six-minute paramedic estimated-arrival on the city emergency-medical-services schedule. The receiving labor-and-delivery triage at the regional women's-health hospital has been pre-alerted to the secondary-postpartum-hemorrhage workup with type-and-cross blood-bank preparation, and the ObGYN attending will be at the receiving bay on the arrival call. The household action plan posted on the refrigerator covers the newborn-handoff to the partner's mother who is already on-site, the change-of-clothes hospital bag staged at the bedroom-door grab line, and the after-arrival pediatric-nursing-coverage logistics through the in-laws' overnight slot.",
+      "surprise": 0.4322518983659779,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 140.0,
+      "event_id": "end_of_day_pre_bedtime_wind_down_briefing_household_evening_rollup_bedtime_routine_journal_carry_forward_smart_speaker_handoff",
+      "prediction": "Emergency-protocol home situation triggered by postpartum hemorrhage expected soon.",
+      "observation": "End-of-day pre-bedtime wind-down briefing for the household evening-rollup widget: the calendar review across the household-shared and personal-work calendars settles into the bedtime window with the standing morning routine carrying the early-school-drop-off block and the kids' lunch-pack prep on the kitchen-counter staging board. The household-task ledger reflects the dishwasher's late-evening cycle already mid-run, the laundry hand-off from the washer to the dryer as the trailing chore before lights-out, and the morning-routine widget on the front-hall display surfacing the local-forecast for the early-commute window holding inside the seasonal envelope. The journal carry-forward queue collects the day's tail-end notes into the morning review page; the smart-speaker bedtime-mode handoff includes the do-not-disturb cadence across the personal devices through the morning alarm window so the wind-down period stays uninterrupted by the standing notification volume.",
+      "surprise": 0.41915826474084883,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 250.0,
+      "event_id": "apartment_move_out_walkthrough_advanced_tomorrow_9am_landlord_pine_ridge_property_manager_security_deposit_release_prospective_renter_tour",
+      "prediction": "Emergency-protocol home situation triggered due to postpartum hemorrhage in spouse.",
+      "observation": "Email from Owen Castille, the property-manager at the Pine-Ridge apartment-complex management office: the move-out walkthrough on the third-floor unit originally calendared for next-Thursday at six in the evening has been bumped up to the nine-o'clock-tomorrow-morning slot since the leasing office already calendared a prospective-renter tour for the same unit at noon with two relocation-package waitlist applicants and the management-side cleaning-and-touch-up turnaround needs the walkthrough finished in the early-morning slot. The walkthrough is the trigger event for the security-deposit-release calculation under the lease-rider standard checklist \u2014 the paint-touchup line, the carpet-shampoo line, the appliance-cleaning line, the exterior-balcony deposit line \u2014 and the cleaning-vendor invoice deductions get tallied directly against the deposit ledger at the conclusion of the walkthrough on the property-manager tablet. The keys have to be handed back at the leasing-office front counter at the conclusion of the walkthrough with the secondary-mail-key fob and the after-hours common-area access card; the security deposit either lands in the registered move-out forwarding-address mailbox within fourteen calendar days as a paper-check disbursement or routes to the resident-portal ACH-link as the alternative transfer route under the lease-clause election. The property-manager direct line stays staffed through six tonight for last-minute schedule pushes or final-walkthrough question-and-answer ahead of the tomorrow-morning slot.",
+      "surprise": 0.48461078853707573,
+      "z": null,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 320.0,
+      "event_id": "storybook_9_0_launch_announcement_unified_testing_workflow_react_19_vite_6_compose_stories_addon_api_migration_codemod_developer_subscriber",
+      "prediction": "Emergency-protocol home situation in the bedroom triggered by postpartum hemorrhage.",
+      "observation": "Storybook nine-point-zero launch announcement landed in the developer-tools subscriber inbox: the major-version release ships the unified-testing workflow combining the long-standing component-isolation development surface with the new in-browser component-test runner replacing the prior Test-Runner addon-shell architecture. The release also brings the React-nineteen-and-Vite-six compatibility line into the stable framework-builders track, the compose-stories utility for re-using Storybook stories inside the project's Jest-and-Vitest unit-test suite without the prior boilerplate-mapping layer, and the rebuilt addon-API track on the cleaner plugin-author surface. The migration-codemod for the eight-point-five-to-nine upgrade ships in the auto-migrate CLI workflow with the project-local detection of the addon-stack composition and the framework-builder branch. A companion migration-guide handbook tracks the breaking-change list across the addon-ecosystem top-twenty list with author-coordination call-outs for the long-tail community-plugin maintainers; the early-adopter office-hours session runs through the Discord community channel at the cadence the Storybook maintainers post on the project's contributors page.",
+      "surprise": 0.5550890570375859,
+      "z": 4.269783453309904,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 400.0,
+      "event_id": "cdn_edge_cache_marketing_campaign_pipeline_misformatted_wildcard_tag_glob_global_purge_cascade_origin_shield_evacuated_storefront_5xx_blast_75min_runbook_warm_back",
+      "prediction": "Emergency medical services en route for secondary uterine hemorrhage in spouse after childbirth.",
+      "observation": "PagerDuty SEV-one fired on the platform-engineering on-call rotation: a wildcard cache-tag purge action submitted through the CDN management-API by an automated content-rotation script in the marketing-campaign pipeline at the top of the hour misformatted the tag-glob expression into a global-purge directive across the entire cache-key namespace on the Cloudflare zone fronting the storefront-cluster service-domain. The origin-shield cache fronting the storefront origin-server fleet has been fully evacuated in the cache-purge cascade with the cache-key-hit ratio collapsing from ninety-seven percent down under three percent inside ninety seconds; the storefront origin-server fleet has been absorbing the cache-miss request blast at roughly seven-times its steady-state QPS for the past eleven minutes and the connection-pool saturation has pushed the storefront-API into a five-hundred-status-code blast at thirty-eight percent error rate on the public-traffic exposure surface. The customer-impact rollup on the executive incident-bridge dashboard surfaces a checkout-abandonment-rate spike past the operational threshold and a partner-marketplace SLA-penalty exposure on the contracted nine-nines uptime band. The on-call runbook timer rolled past the seventy-five-minute escalation step with the platform-engineering staff engineer joined into the incident-bridge call; the subsequent playbook step calls for a controlled warm-back of the origin-shield cache via the targeted top-revenue cache-key warm-list script while the marketing-campaign pre-purge automation is paused at the API-token revocation step on the secrets-vault rotation.",
+      "surprise": 0.5639835835180945,
+      "z": 1.9561785916197114,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": false
+    },
+    {
+      "sim_time": 510.0,
+      "event_id": "briarcliff_middle_school_vice_principal_voicemail_same_day_behavioral_incident_parent_conference_tomorrow_8am_suspension_hearing_disciplinary_committee_review",
+      "prediction": "Emergency-protocol home situation requiring immediate medical attention in the bedroom.",
+      "observation": "Voicemail from Vice-Principal Aisha Mbeki at the Briarcliff Middle School front office on the school district's main-line callback chain: a same-day behavioral incident involving the seventh-grader during the after-lunch homeroom block triggered the school disciplinary-conduct policy's mandatory parent-conference clause, and the principal-and-counselor in-person conference has been calendared for tomorrow morning at eight in the front-office conference room ahead of the disciplinary-committee suspension-hearing review later in the week. The committee outcome lands on the spectrum between an in-school detention block, a three-day out-of-school suspension, and the elevated-track behavioral-improvement-plan registration that follows the student through the rest of the academic term and surfaces on the eighth-grade-promotion transcript review. The voicemail asks for a callback to the school front office before five tonight to confirm the morning conference slot, with the after-hours main line rolling to the district-office shift-supervisor through seven if the working-parent schedule needs the after-six confirm window. The seventh-grader's classroom-side documentation packet, the homeroom-teacher incident-report narrative, and the two-table-classmate witness-statement summaries will be available at the front-counter pickup before the morning conference for review and the counselor will sit in for the restorative-conversation framing portion of the agenda.",
+      "surprise": 0.47619242385676686,
+      "z": -0.16284841285204732,
+      "arbiter_call": true,
+      "arbiter_decision": true,
+      "surfaced": true
+    },
+    {
+      "sim_time": 580.0,
+      "event_id": "goodreads_friend_reading_activity_weekly_digest_currently_reading_shelves_book_club_overlap_reading_challenge_progress_librarian_recommendation_seed",
+      "prediction": "Emergency-protocol home situation expected as spouse undergoes urgent medical intervention for severe postpartum bleeding.",
+      "observation": "Goodreads weekly friend reading-activity digest arrived in the personal mailbox covering the past seven-day window across the connected friend graph: three friends finished books on the trailing week with star-ratings and short-review tags landing on the recent-reviews stream, two friends added titles to their currently-reading shelves from genres adjacent to the personal what-to-read-next queue (a literary-fiction selection and a translated-Korean-novel pickup), and the friend-graph book-club overlap rollup surfaces one shared title across two of the followed friend reading-circles on the activity surface. The digest sidebar tracks the trailing-quarter reading-challenge progress for each followed friend on the per-shelf rollup card, includes a librarian-curated recommendation seed pre-baked from the personal reading-history fingerprint into a sampler-pack at the lower-fold, and threads the daily-reading-streak counter status against the current calendar position into a small sidebar widget for the routine cadence.",
+      "surprise": 0.5220210349289061,
+      "z": 0.7264527811462719,
+      "arbiter_call": true,
+      "arbiter_decision": false,
+      "surfaced": false
+    },
+    {
+      "sim_time": 640.0,
+      "event_id": "noaa_swpc_g4_severe_geomagnetic_storm_warning_x_class_solar_flare_earth_directed_coronal_mass_ejection_grid_induced_current_polar_route_hf_radio_outage",
+      "prediction": "Emergency-protocol home situation in the bedroom due to postpartum hemorrhage expected within minutes.",
+      "observation": "The NOAA Space Weather Prediction Center has issued a G4 severe-geomagnetic-storm warning for the next seventy-two hours after an X-class solar flare on the visible-disk active-region overnight launched a fast halo coronal-mass-ejection on an earth-directed trajectory with the leading-shock estimated to arrive within the next eight to twelve hours per the WSA-ENLIL solar-wind propagation model run on the latest ACE solar-wind monitor frame. The geomagnetic-storm warning carries a power-grid exposure call for the upper-Midwest and Northeast continental-power-grid operators on the geomagnetically-induced-current substation-transformer load risk, an HF-radio communications-outage call across the polar-route auroral-zone flight corridors, and a low-latitude aurora-visibility forecast on the southern-tier states off the usual Kp-index latitude band. The notice also flags a satellite-navigation single-frequency GPS-positioning degradation through the storm window, the ISS extra-vehicular-activity standdown protocol on the crew-safety side, and the airline-dispatch polar-route reroute advisory through the Canadian airspace controllers. Updates land on the SWPC alert cadence as the IMF Bz southward turning is confirmed at the L1 solar-wind monitor, with the substorm-onset escalation track toward G5 extreme posted as a conditional pre-positioned advisory if the geomagnetic-Kp index crosses the upper-tier threshold on the next twenty-seven-day recurrent-pattern revisit window.",
+      "surprise": 0.44702490928443706,
+      "z": -0.8277440113055049,
+      "arbiter_call": false,
+      "arbiter_decision": null,
+      "surfaced": true
+    }
+  ]
+}
