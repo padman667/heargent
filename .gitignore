@@ -19,3 +19,9 @@ wheels/
 .env
 .env.*
 *.key
+
+# Local repo copies / backups — these contain old Claude session transcripts
+# with plaintext API keys; never commit them.
+heargent_otherlaptop/
+heargent_old/
+*.jsonl
