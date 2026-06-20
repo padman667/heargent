@@ -25,3 +25,13 @@ wheels/
 heargent_otherlaptop/
 heargent_old/
 *.jsonl
+
+# Paper sources, reviews, and internal project files
+paper/*.tex
+paper/*.md
+paper/Archive.zip
+paper/figures/
+papers/
+Endorsement.md
+PROJECT.md
+heargent-plan.md
